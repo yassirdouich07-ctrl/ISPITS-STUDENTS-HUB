@@ -533,6 +533,11 @@ button:focus-visible,input:focus-visible{
 .choice-code{font-family:'Outfit',sans-serif;font-size:24px;font-weight:800;color:var(--navy);letter-spacing:-.5px}
 .choice-sub{font-size:11px;color:var(--muted)}
 
+.bottom-footer::after{
+  content:"© 2026 Yassir Douich · Tous droits réservés";
+  display:block;margin-top:6px;font-weight:700;color:#8492a3;
+}
+
 /* RECHERCHE / MODULES */
 .search-box{
   display:flex;align-items:center;gap:10px;background:white;
@@ -682,12 +687,13 @@ a.list-row{text-decoration:none}
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="hub-logo" viewBox="0 0 100 100">
     <rect x="4" y="4" width="92" height="92" rx="25" fill="#159c94"/>
-    <path d="M22 26 Q36 19 49 29 L49 75 Q36 65 22 73 Z"
-          fill="none" stroke="white" stroke-width="5" stroke-linejoin="round"/>
-    <path d="M78 26 Q64 19 51 29 L51 75 Q64 65 78 73 Z"
-          fill="none" stroke="white" stroke-width="5" stroke-linejoin="round"/>
-    <path d="M66 35 V53 M57 44 H75" stroke="white" stroke-width="6" stroke-linecap="round"/>
-    <path d="M18 80 Q50 91 82 80" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"/>
+    <g fill="none" stroke="white" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 40 V71"/>
+      <path d="M53 47 C53 42 48 40 42 40 C36 40 31 43 31 48 C31 53 36 55 42 56 C48 57 53 59 53 64 C53 69 48 71 42 71 C36 71 31 69 31 64"/>
+      <path d="M64 40 V71 M82 40 V71 M64 55.5 H82"/>
+    </g>
+    <path d="M42 15 V29 M35 22 H49" stroke="#bff3ec" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <path d="M20 83 Q50 92 80 83" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round" opacity=".85"/>
   </symbol>
 </svg>
 
@@ -719,7 +725,7 @@ a.list-row{text-decoration:none}
       </div>
     </div>
 
-    <div class="visual-footer">ISPITS STUDENTS HUB · MAROC · 2026</div>
+    <div class="visual-footer">ISPITS STUDENTS HUB · MAROC · © 2026 Yassir Douich</div>
   </section>
 
   <section class="auth-side">
@@ -772,7 +778,7 @@ a.list-row{text-decoration:none}
 
       <div class="auth-note">
         Espace pédagogique réservé aux étudiants.<br>
-        ISPITS STUDENTS HUB © 2026
+        ISPITS STUDENTS HUB<br>© 2026 Yassir Douich · Tous droits réservés
       </div>
     </div>
   </section>
@@ -844,7 +850,7 @@ a.list-row{text-decoration:none}
           <div class="welcome-row">
             <div>
               <div class="welcome-small">VOTRE ESPACE DE FORMATION</div>
-              <h1>Bonjour, <span id="welcomeName">Étudiant</span> 👋</h1>
+              <h1><span id="greeting">Bonjour</span>, <span id="welcomeName">Étudiant</span> 👋</h1>
               <p>Heureux de vous retrouver. Que souhaitez-vous consulter aujourd'hui ?</p>
             </div>
             <div class="date-card" id="todayDate"></div>
@@ -1058,6 +1064,7 @@ function showDashboard(user) {
     displayName.trim().charAt(0).toUpperCase();
 
   updateProfileUI(user);
+  setGreeting();
 
   document.getElementById("todayDate").textContent =
     new Intl.DateTimeFormat("fr-FR", {
@@ -1065,6 +1072,16 @@ function showDashboard(user) {
     }).format(new Date());
 
   showHome();
+}
+
+// Salutation adaptée à l'heure : Bonjour (jour) / Bonsoir (soir), avec parfois Salam ou Ahlan
+function setGreeting() {
+  const h = new Date().getHours();
+  const byTime = (h >= 5 && h < 18) ? "Bonjour" : "Bonsoir";
+  const r = Math.random();
+  const text = r < 0.6 ? byTime : (r < 0.8 ? "Salam" : "Ahlan");
+  const el = document.getElementById("greeting");
+  if (el) el.textContent = text;
 }
 
 function showAuth() {
