@@ -2,248 +2,414 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#101d35">
-<title>ISPITS HUB | Espace étudiant</title>
-<style>
-:root {
-  --navy:#101d35;
-  --blue:#2864dc;
-  --bg:#f4f6fb;
-  --text:#17243b;
-  --muted:#7b879b;
-  --white:#fff;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;font-family:Arial,sans-serif;
-  background:var(--bg);color:var(--text);
-}
-button,input{font:inherit}
-button{cursor:pointer}
-.layout{display:flex;min-height:100vh}
-.sidebar{
-  width:245px;background:var(--navy);color:white;
-  padding:26px 18px;position:fixed;inset:0 auto 0 0;
-  display:flex;flex-direction:column;z-index:5;
-}
-.brand{font-size:23px;font-weight:800;letter-spacing:1px}
-.brand span{color:#75a7ff}
-.tagline{font-size:11px;color:#aab8ce;margin:8px 0 35px}
-.nav-label{font-size:10px;color:#8293af;margin:15px 10px 10px;letter-spacing:1.5px}
-.nav a{
-  display:flex;align-items:center;gap:12px;padding:13px 12px;
-  color:#c5d0e1;text-decoration:none;border-radius:10px;
-  font-size:13px;margin:3px 0;
-}
-.nav a:hover,.nav a.active{background:#263c60;color:white}
-.nav a.active{border-left:3px solid #75a7ff}
-.side-bottom{margin-top:auto;color:#8fa1bb;font-size:11px;line-height:1.7}
-main{margin-left:245px;width:calc(100% - 245px);padding:28px 4% 50px}
-.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}
-.breadcrumb{font-size:12px;color:var(--muted)}
-.profile{display:flex;align-items:center;gap:10px}
-.avatar{
-  width:39px;height:39px;border-radius:50%;background:#dce8ff;
-  color:#2458b6;display:grid;place-items:center;font-weight:bold
-}
-.profile small{display:block;color:var(--muted);font-size:10px;margin-top:4px}
-.hero{
-  background:linear-gradient(115deg,#142b50,#2864b9);
-  color:white;border-radius:20px;padding:32px;
-  position:relative;overflow:hidden;
-}
-.hero:after{
-  content:"";position:absolute;width:220px;height:220px;
-  border:35px solid #ffffff12;border-radius:50%;
-  right:-45px;top:-75px;
-}
-.eyebrow{font-size:10px;letter-spacing:2px;color:#c5dcff}
-.hero h1{font-size:30px;margin:14px 0 10px;max-width:500px}
-.hero p{font-size:13px;color:#d7e5ff;line-height:1.7;max-width:490px}
-.hero button{
-  margin-top:12px;border:0;border-radius:9px;
-  padding:12px 17px;background:white;color:#1b4d9e;font-weight:bold
-}
-.section-head{
-  display:flex;justify-content:space-between;align-items:center;
-  margin:30px 0 15px
-}
-.section-head h2{font-size:17px;margin:0}
-.section-head span{font-size:11px;color:var(--muted)}
-.grid{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px
-}
-.card{
-  background:white;border:1px solid #e9edf4;border-radius:15px;
-  padding:19px;min-width:0;transition:.2s
-}
-.card:hover{transform:translateY(-3px);box-shadow:0 8px 25px #17243b0c}
-.card-icon{
-  width:43px;height:43px;border-radius:12px;
-  display:grid;place-items:center;font-size:21px;margin-bottom:15px
-}
-.blue{background:#e8f0ff}.green{background:#e5f7ef}
-.orange{background:#fff1e3}.purple{background:#f0eaff}
-.red{background:#ffeded}.cyan{background:#e4f7fa}
-.card h3{font-size:14px;margin:0 0 8px}
-.card p{font-size:11px;color:var(--muted);line-height:1.6;min-height:34px}
-.card button{
-  border:0;background:#f0f4fb;color:#2857a0;
-  border-radius:7px;padding:9px 11px;font-size:11px;font-weight:bold
-}
-.quick{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:13px
-}
-.quick .card{display:flex;align-items:center;gap:12px;padding:15px}
-.quick .card-icon{margin:0;flex-shrink:0}
-.quick strong{font-size:12px}
-.quick small{display:block;color:var(--muted);font-size:10px;margin-top:5px}
-.search{
-  margin-top:24px;display:flex;gap:10px;background:white;
-  padding:10px 14px;border:1px solid #e7ebf3;border-radius:11px
-}
-.search input{border:0;outline:none;width:100%;font-size:12px}
-.footer{text-align:center;color:#9aa5b6;font-size:10px;margin-top:45px}
-.notice{font-size:11px;color:#64748b;margin-top:18px}
-.mobile-head{display:none}
-@media(max-width:850px){
- .sidebar{width:205px}
- main{margin-left:205px;width:calc(100% - 205px);padding:22px}
- .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-@media(max-width:600px){
- .sidebar{display:none}
- main{margin:0;width:100%;padding:18px 15px 85px}
- .mobile-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
- .mobile-head .brand{color:var(--navy);font-size:20px}
- .topbar{display:none}
- .hero{padding:25px 20px}
- .hero h1{font-size:24px}
- .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
- .card{padding:14px}
- .card h3{font-size:12px}
- .card p{font-size:10px}
- .quick{grid-template-columns:1fr}
- .section-head{margin-top:25px}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#102a43">
+  <title>ISPITS Students Hub</title>
+  <meta name="description" content="La plateforme de partage et de révision des étudiants ISPITS.">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root {
+      --navy:#102a43; --blue:#1769aa; --cyan:#21a6a1;
+      --bg:#f3f6fb; --ink:#172b4d; --muted:#718096;
+      --line:#e4eaf2; --white:#fff;
+      --shadow:0 18px 50px rgba(16,42,67,.10);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+    button,input{font:inherit}
+    button{cursor:pointer}
+    .hidden{display:none!important}
+    .auth-wrap{min-height:100vh;display:grid;grid-template-columns:1.02fr .98fr;background:#fff}
+    .visual{padding:54px clamp(28px,6vw,90px);background:linear-gradient(145deg,#102a43,#164e76 58%,#168b91);color:white;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+    .visual:before,.visual:after{content:"";position:absolute;border:1px solid #ffffff20;border-radius:50%;width:440px;height:440px;right:-170px;top:15%}
+    .visual:after{width:600px;height:600px;right:-250px;top:5%}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px;position:relative;z-index:1}
+    .brand-mark{width:44px;height:44px;border-radius:14px;background:#ffffff26;display:grid;place-items:center;font-size:22px}
+    .visual-copy{max-width:560px;position:relative;z-index:1;margin:70px 0}
+    .visual-copy .eyebrow{color:#a9e8e3;text-transform:uppercase;font-size:12px;font-weight:800;letter-spacing:2px}
+    .visual-copy h1{font-size:clamp(38px,5vw,64px);line-height:1.05;margin:18px 0}
+    .visual-copy p{font-size:17px;line-height:1.8;color:#d8e8f2;max-width:480px}
+    .visual-foot{font-size:12px;color:#c4d8e6;position:relative;z-index:1}
+    .auth-side{display:flex;align-items:center;justify-content:center;padding:38px 24px}
+    .auth-card{width:min(100%,440px)}
+    .mobile-brand{display:none}
+    .auth-card h2{font-size:30px;margin:0 0 8px;color:var(--navy)}
+    .sub{color:var(--muted);margin:0 0 28px;line-height:1.6}
+    .tabs{display:grid;grid-template-columns:1fr 1fr;background:#eef3f8;border-radius:13px;padding:4px;margin-bottom:24px}
+    .tab{border:0;background:transparent;color:#66788a;padding:11px;border-radius:10px;font-weight:700}
+    .tab.active{background:white;color:var(--navy);box-shadow:0 2px 8px #102a4312}
+    .field{margin:15px 0}
+    .field label{display:block;font-size:13px;font-weight:700;margin-bottom:8px;color:#344b63}
+    .field input{width:100%;padding:14px 15px;border:1px solid var(--line);border-radius:12px;outline:none;background:#fbfcfe}
+    .field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #1769aa16;background:white}
+    .primary{width:100%;border:0;border-radius:12px;padding:15px;background:linear-gradient(100deg,var(--blue),var(--cyan));color:white;font-weight:800;margin-top:10px;box-shadow:0 8px 20px #1769aa2b}
+    .primary:disabled{opacity:.6;cursor:wait}
+    .minor-row{display:flex;justify-content:flex-end;margin:3px 0 14px}
+    .link-btn{border:0;background:none;color:var(--blue);font-weight:700;font-size:13px;padding:4px 0}
+    .message{padding:12px 14px;border-radius:11px;font-size:13px;line-height:1.5;margin:14px 0;display:none}
+    .message.show{display:block}
+    .message.error{background:#fff0f0;color:#a52a2a}
+    .message.success{background:#eaf8f3;color:#126747}
+    .message.info{background:#eef6ff;color:#245b91}
+    .terms{font-size:12px;color:#8a98a8;text-align:center;line-height:1.6;margin-top:20px}
+    .app{min-height:100vh}
+    .topbar{height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,5vw,70px);position:sticky;top:0;z-index:5}
+    .topbar .brand{color:var(--navy)}
+    .topbar .brand-mark{background:#e8f4f8;color:var(--blue)}
+    .user-area{display:flex;align-items:center;gap:13px}
+    .user-email{font-size:13px;color:var(--muted);max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .logout{border:1px solid var(--line);background:#fff;padding:9px 14px;border-radius:10px;color:var(--navy);font-weight:700}
+    .container{width:min(1120px,92%);margin:0 auto}
+    .welcome{padding:45px 0 30px}
+    .welcome .tag{display:inline-flex;background:#e4f5f3;color:#147b78;padding:7px 12px;border-radius:30px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+    .welcome h1{font-size:clamp(29px,4vw,42px);margin:14px 0 8px;color:var(--navy)}
+    .welcome p{margin:0;color:var(--muted);line-height:1.7}
+    .section-head{display:flex;justify-content:space-between;align-items:end;margin:22px 0 16px}
+    .section-head h2{font-size:19px;margin:0;color:var(--navy)}
+    .section-head span{font-size:12px;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;padding-bottom:45px}
+    .module{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;text-align:left;min-height:180px;transition:.2s;box-shadow:0 5px 18px #102a4308;color:inherit}
+    .module:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#cbdce9}
+    .module-icon{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:23px;margin-bottom:17px;background:#eaf4fb}
+    .module:nth-child(2) .module-icon{background:#e8f7f3}
+    .module:nth-child(3) .module-icon{background:#f1edff}
+    .module:nth-child(4) .module-icon{background:#fff4e7}
+    .module:nth-child(5) .module-icon{background:#eaf6ff}
+    .module:nth-child(6) .module-icon{background:#fff0f1}
+    .module h3{margin:0 0 7px;font-size:16px;color:var(--navy)}
+    .module p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+    .module .arrow{display:block;margin-top:15px;color:var(--blue);font-size:12px;font-weight:800}
+    .footer{text-align:center;color:#9aa8b7;font-size:12px;padding:18px 0 30px;border-top:1px solid var(--line)}
+    .modal-backdrop{position:fixed;inset:0;background:#0b2036a8;display:grid;place-items:center;padding:18px;z-index:10}
+    .modal{width:min(100%,440px);background:white;border-radius:20px;padding:27px;box-shadow:var(--shadow)}
+    .modal h3{margin:0 0 8px;color:var(--navy)}
+    .modal p{color:var(--muted);font-size:14px;line-height:1.65}
+    .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
+    .secondary{border:1px solid var(--line);background:white;padding:11px 15px;border-radius:10px;font-weight:700;color:var(--navy)}
+    @media(max-width:800px){
+      .auth-wrap{grid-template-columns:1fr}
+      .visual{display:none}
+      .mobile-brand{display:flex;margin-bottom:30px}
+      .auth-side{min-height:100vh;padding:32px 22px}
+      .grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:520px){
+      .grid{grid-template-columns:1fr;gap:12px}
+      .module{min-height:145px;padding:18px}
+      .topbar{height:66px;padding:0 16px}
+      .user-email{display:none}
+      .welcome{padding:32px 0 20px}
+      .section-head span{display:none}
+    }
+  </style>
 </head>
 <body>
-<div class="layout">
-<aside class="sidebar">
-  <div class="brand">ISPITS <span>HUB</span></div>
-  <div class="tagline">VOTRE ESPACE ACADÉMIQUE</div>
-  <div class="nav-label">MENU PRINCIPAL</div>
-  <nav class="nav">
-    <a href="#accueil" class="active">⌂ &nbsp; Tableau de bord</a>
-    <a href="#cours">▤ &nbsp; Mes cours</a>
-    <a href="#stages">✚ &nbsp; Espace stages</a>
-    <a href="#resumes">▧ &nbsp; Résumés</a>
-    <a href="#planning">▦ &nbsp; Emploi du temps</a>
-    <a href="#simulation">⚕ &nbsp; TP Simulation</a>
-    <a href="#examens">✎ &nbsp; Examens & QCM</a>
-  </nav>
-  <div class="nav-label">ESPACE PERSONNEL</div>
-  <nav class="nav">
-    <a href="#connexion">♙ &nbsp; Connexion</a>
-  </nav>
-  <div class="side-bottom">ISPITS HUB<br>Plateforme éducative indépendante<br>© 2026</div>
-</aside>
 
-<main id="accueil">
-  <div class="mobile-head">
-    <div class="brand">ISPITS <span style="color:#2864dc">HUB</span></div>
-    <div class="avatar">E</div>
-  </div>
-  <header class="topbar">
-    <div class="breadcrumb">Accueil / Tableau de bord</div>
-    <div class="profile">
-      <div><strong style="font-size:12px">Espace étudiant</strong><small>Bienvenue sur ISPITS HUB</small></div>
-      <div class="avatar">E</div>
+  <main id="authView" class="auth-wrap">
+    <section class="visual">
+      <div class="brand">
+        <div class="brand-mark">✚</div>
+        <span>ISPITS STUDENTS HUB</span>
+      </div>
+      <div class="visual-copy">
+        <div class="eyebrow">La communauté des étudiants ISPITS</div>
+        <h1>Apprendre.<br>Partager.<br>Réussir.</h1>
+        <p>Un espace organisé pour retrouver vos cours, résumés, stages et ressources de révision au même endroit.</p>
+      </div>
+      <div class="visual-foot">Une plateforme dédiée aux étudiants ISPITS · Maroc</div>
+    </section>
+
+    <section class="auth-side">
+      <div class="auth-card">
+        <div class="brand mobile-brand">
+          <div class="brand-mark">✚</div>
+          <span>ISPITS STUDENTS HUB</span>
+        </div>
+        <h2 id="formTitle">Bienvenue !</h2>
+        <p class="sub" id="formSubtitle">Connectez-vous pour accéder à votre espace étudiant.</p>
+
+        <div class="tabs">
+          <button class="tab active" id="loginTab" type="button">Connexion</button>
+          <button class="tab" id="signupTab" type="button">Créer un compte</button>
+        </div>
+
+        <form id="authForm">
+          <div class="field hidden" id="nameField">
+            <label for="fullName">Nom complet</label>
+            <input id="fullName" type="text" autocomplete="name" placeholder="Votre nom complet">
+          </div>
+          <div class="field">
+            <label for="email">Adresse e-mail</label>
+            <input id="email" type="email" autocomplete="email" placeholder="exemple@email.com" required>
+          </div>
+          <div class="field">
+            <label for="password">Mot de passe</label>
+            <input id="password" type="password" autocomplete="current-password" placeholder="Minimum 6 caractères" minlength="6" required>
+          </div>
+          <div class="minor-row" id="forgotRow">
+            <button class="link-btn" id="forgotBtn" type="button">Mot de passe oublié ?</button>
+          </div>
+          <button class="primary" id="submitBtn" type="submit">Se connecter</button>
+        </form>
+        <div id="authMessage" class="message" role="status" aria-live="polite"></div>
+        <p class="terms">En continuant, vous acceptez d’utiliser cette plateforme dans un cadre pédagogique et respectueux.</p>
+      </div>
+    </section>
+  </main>
+
+  <main id="appView" class="app hidden">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">✚</div>
+        <span>ISPITS STUDENTS HUB</span>
+      </div>
+      <div class="user-area">
+        <span class="user-email" id="userEmail"></span>
+        <button class="logout" id="logoutBtn" type="button">Déconnexion</button>
+      </div>
+    </header>
+    <div class="container">
+      <section class="welcome">
+        <span class="tag">Espace étudiant</span>
+        <h1>Bonjour <span id="userName">étudiant</span> 👋</h1>
+        <p>Bienvenue sur votre espace de ressources pédagogiques. Choisissez une rubrique pour commencer.</p>
+      </section>
+      <div class="section-head">
+        <h2>Votre espace de travail</h2>
+        <span>Ressources pédagogiques</span>
+      </div>
+      <section class="grid">
+        <button class="module" data-module="Cours" type="button">
+          <div class="module-icon">📚</div><h3>Cours</h3>
+          <p>Consultez les supports de cours et les documents des modules.</p>
+          <span class="arrow">Accéder à la rubrique →</span>
+        </button>
+        <button class="module" data-module="Stages" type="button">
+          <div class="module-icon">🏥</div><h3>Stages</h3>
+          <p>Retrouvez les fiches de stage, protocoles et documents pratiques.</p>
+          <span class="arrow">Accéder à la rubrique →</span>
+        </button>
+        <button class="module" data-module="Résumés" type="button">
+          <div class="module-icon">📝</div><h3>Résumés</h3>
+          <p>Des fiches synthétiques pour faciliter vos révisions.</p>
+          <span class="arrow">Accéder à la rubrique →</span>
+        </button>
+        <button class="module" data-module="Emploi du temps" type="button">
+          <div class="module-icon">🗓️</div><h3>Emploi du temps</h3>
+          <p>Consultez les plannings et les informations d’organisation.</p>
+          <span class="arrow">Accéder à la rubrique →</span>
+        </button>
+        <button class="module" data-module="TP Simulation" type="button">
+          <div class="module-icon">🩺</div><h3>TP Simulation</h3>
+          <p>Préparez les travaux pratiques et les gestes de soins.</p>
+          <span class="arrow">Accéder à la rubrique →</span>
+        </button>
+        <button class="module" data-module="Examens & QCM" type="button">
+          <div class="module-icon">🎓</div><h3>Examens & QCM</h3>
+          <p>Entraînez-vous avec les examens précédents et les QCM.</p>
+          <span class="arrow">Accéder à la rubrique →</span>
+        </button>
+      </section>
+      <div class="footer">© 2026 ISPITS Students Hub · Espace pédagogique des étudiants</div>
     </div>
-  </header>
+  </main>
 
-  <section class="hero">
-    <div class="eyebrow">PLATEFORME ACADÉMIQUE</div>
-    <h1>Bienvenue sur ISPITS HUB.</h1>
-    <p>Votre espace pour apprendre, organiser vos études, réussir vos stages et développer vos compétences infirmières.</p>
-    <button onclick="document.querySelector('#cours').scrollIntoView({behavior:'smooth'})">Explorer les ressources →</button>
-  </section>
-
-  <div class="section-head">
-    <h2>Votre espace académique</h2>
-    <span>Ressources & outils</span>
+  <div id="modalBackdrop" class="modal-backdrop hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h3 id="modalTitle">Rubrique</h3>
+      <p id="modalText">Le contenu de cette rubrique sera bientôt disponible.</p>
+      <div class="modal-actions">
+        <button class="secondary" id="closeModal" type="button">Fermer</button>
+      </div>
+    </div>
   </div>
 
-  <section class="grid">
-    <article class="card" id="cours">
-      <div class="card-icon blue">📚</div>
-      <h3>Cours</h3>
-      <p>Accédez aux cours organisés par semestre et par module.</p>
-      <button onclick="info('Cours')">Explorer →</button>
-    </article>
-    <article class="card" id="stages">
-      <div class="card-icon green">🏥</div>
-      <h3>Espace stages</h3>
-      <p>Fiches de stage, soins infirmiers et journal de bord.</p>
-      <button onclick="info('Stages')">Explorer →</button>
-    </article>
-    <article class="card" id="resumes">
-      <div class="card-icon purple">📄</div>
-      <h3>Résumés</h3>
-      <p>Retrouvez des fiches de révision et des synthèses PDF.</p>
-      <button onclick="info('Résumés')">Explorer →</button>
-    </article>
-    <article class="card" id="planning">
-      <div class="card-icon orange">📅</div>
-      <h3>Emploi du temps</h3>
-      <p>Consultez les horaires des cours, stages et examens.</p>
-      <button onclick="info('Emploi du temps')">Explorer →</button>
-    </article>
-    <article class="card" id="simulation">
-      <div class="card-icon cyan">🩺</div>
-      <h3>TP Simulation</h3>
-      <p>Entraînez-vous avec des situations cliniques interactives.</p>
-      <button onclick="info('TP Simulation')">Explorer →</button>
-    </article>
-    <article class="card" id="examens">
-      <div class="card-icon red">✍️</div>
-      <h3>Examens & QCM</h3>
-      <p>Préparez vos évaluations avec des exercices corrigés.</p>
-      <button onclick="info('Examens & QCM')">Explorer →</button>
-    </article>
-  </section>
+  <script>
+    // Configuration Supabase — déjà intégrée
+    const SUPABASE_URL = "https://xpfwezcpvoenthcnrkod.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_Mw8x91l1l9ir91jPsaSuaA_t824bp0B";
 
-  <div class="section-head">
-    <h2>Accès rapide</h2>
-    <span>Outils étudiants</span>
-  </div>
-  <section class="quick">
-    <div class="card"><div class="card-icon blue">🔍</div><div><strong>Recherche</strong><small>Trouvez une ressource</small></div></div>
-    <div class="card"><div class="card-icon green">📖</div><div><strong>Bibliothèque</strong><small>Documents pédagogiques</small></div></div>
-    <div class="card"><div class="card-icon orange">🎓</div><div><strong>Révisions</strong><small>Préparez vos examens</small></div></div>
-  </section>
+    const { createClient } = supabase;
+    const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  <div class="search">
-    <span>⌕</span>
-    <input id="searchInput" placeholder="Rechercher un espace..." oninput="searchCards()">
-  </div>
-  <div class="notice">Cette plateforme est en cours de développement. Les espaces seront progressivement activés.</div>
-  <footer class="footer">ISPITS HUB · Apprendre · Pratiquer · Réussir</footer>
-</main>
-</div>
-<script>
-function info(name){
- alert("L'espace « "+name+" » sera bientôt disponible. Merci de votre patience !");
-}
-function searchCards(){
- const q=document.getElementById('searchInput').value.toLowerCase();
- document.querySelectorAll('.grid .card').forEach(card=>{
-   card.style.display=card.innerText.toLowerCase().includes(q)?'':'none';
- });
-}
-</script>
+    const authView = document.getElementById("authView");
+    const appView = document.getElementById("appView");
+    const authForm = document.getElementById("authForm");
+    const authMessage = document.getElementById("authMessage");
+    const loginTab = document.getElementById("loginTab");
+    const signupTab = document.getElementById("signupTab");
+    const nameField = document.getElementById("nameField");
+    const forgotRow = document.getElementById("forgotRow");
+    const submitBtn = document.getElementById("submitBtn");
+    let currentMode = "login";
+
+    function showMessage(message, type = "info") {
+      authMessage.textContent = message;
+      authMessage.className = `message show ${type}`;
+    }
+
+    function clearMessage() {
+      authMessage.textContent = "";
+      authMessage.className = "message";
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+      clearMessage();
+      const signup = mode === "signup";
+      loginTab.classList.toggle("active", !signup);
+      signupTab.classList.toggle("active", signup);
+      nameField.classList.toggle("hidden", !signup);
+      forgotRow.classList.toggle("hidden", signup);
+      document.getElementById("formTitle").textContent =
+        signup ? "Créer votre compte" : "Bienvenue !";
+      document.getElementById("formSubtitle").textContent = signup
+        ? "Inscrivez-vous pour rejoindre votre espace étudiant."
+        : "Connectez-vous pour accéder à votre espace étudiant.";
+      submitBtn.textContent = signup ? "Créer mon compte" : "Se connecter";
+      document.getElementById("password").autocomplete =
+        signup ? "new-password" : "current-password";
+    }
+
+    function showDashboard(user) {
+      authView.classList.add("hidden");
+      appView.classList.remove("hidden");
+      document.getElementById("userEmail").textContent = user.email || "";
+      const displayName = user.user_metadata?.full_name ||
+        (user.email ? user.email.split("@")[0] : "étudiant");
+      document.getElementById("userName").textContent = displayName;
+    }
+
+    function showAuth() {
+      appView.classList.add("hidden");
+      authView.classList.remove("hidden");
+    }
+
+    loginTab.addEventListener("click", () => setMode("login"));
+    signupTab.addEventListener("click", () => setMode("signup"));
+
+    authForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      clearMessage();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const fullName = document.getElementById("fullName").value.trim();
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Veuillez patienter…";
+
+      try {
+        if (currentMode === "signup") {
+          if (!fullName) throw new Error("Veuillez saisir votre nom complet.");
+
+          const { data, error } = await db.auth.signUp({
+            email,
+            password,
+            options: {
+              data: { full_name: fullName },
+              emailRedirectTo: window.location.origin + window.location.pathname
+            }
+          });
+
+          if (error) throw error;
+
+          if (data.session) {
+            showDashboard(data.user);
+            showMessage("Votre compte a été créé avec succès.", "success");
+          } else {
+            showMessage(
+              "Inscription enregistrée ! Vérifiez votre boîte e-mail et cliquez sur le lien de confirmation pour activer votre compte.",
+              "success"
+            );
+          }
+        } else {
+          const { data, error } = await db.auth.signInWithPassword({
+            email,
+            password
+          });
+
+          if (error) throw error;
+          showDashboard(data.user);
+        }
+      } catch (error) {
+        showMessage(error.message || "Une erreur est survenue. Réessayez.", "error");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent =
+          currentMode === "signup" ? "Créer mon compte" : "Se connecter";
+      }
+    });
+
+    document.getElementById("forgotBtn").addEventListener("click", async () => {
+      clearMessage();
+      const email = document.getElementById("email").value.trim();
+
+      if (!email) {
+        showMessage(
+          "Saisissez votre adresse e-mail avant de demander la réinitialisation.",
+          "info"
+        );
+        document.getElementById("email").focus();
+        return;
+      }
+
+      try {
+        const { error } = await db.auth.resetPasswordForEmail(email, {
+          redirectTo: window.location.origin + window.location.pathname
+        });
+        if (error) throw error;
+
+        showMessage(
+          "Si cette adresse possède un compte, un e-mail de réinitialisation vient d’être envoyé.",
+          "success"
+        );
+      } catch (error) {
+        showMessage(error.message || "Impossible d’envoyer l’e-mail.", "error");
+      }
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      const { error } = await db.auth.signOut();
+      if (error) {
+        alert(error.message);
+        return;
+      }
+      showAuth();
+      setMode("login");
+    });
+
+    document.querySelectorAll(".module").forEach((button) => {
+      button.addEventListener("click", () => {
+        const moduleName = button.dataset.module;
+        document.getElementById("modalTitle").textContent = moduleName;
+        document.getElementById("modalText").textContent =
+          `La rubrique « ${moduleName} » est prête à être organisée. Les liens vers les dossiers et documents seront ajoutés dans cette section.`;
+        document.getElementById("modalBackdrop").classList.remove("hidden");
+      });
+    });
+
+    document.getElementById("closeModal").addEventListener("click", () => {
+      document.getElementById("modalBackdrop").classList.add("hidden");
+    });
+
+    document.getElementById("modalBackdrop").addEventListener("click", (event) => {
+      if (event.target.id === "modalBackdrop") {
+        event.currentTarget.classList.add("hidden");
+      }
+    });
+
+    // Restaurer la session de l'étudiant.
+    db.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) showDashboard(session.user);
+      else showAuth();
+    });
+
+    db.auth.getSession().then(({ data, error }) => {
+      if (error) console.error("Session:", error.message);
+      if (data.session?.user) showDashboard(data.session.user);
+    });
+  </script>
 </body>
 </html>
