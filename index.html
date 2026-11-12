@@ -533,6 +533,71 @@ button:focus-visible,input:focus-visible{
 .choice-code{font-family:'Outfit',sans-serif;font-size:24px;font-weight:800;color:var(--navy);letter-spacing:-.5px}
 .choice-sub{font-size:11px;color:var(--muted)}
 
+/* RECHERCHE / MODULES */
+.search-box{
+  display:flex;align-items:center;gap:10px;background:white;
+  border:1px solid var(--border);border-radius:12px;padding:0 14px;margin-bottom:18px;
+}
+.search-box:focus-within{border-color:var(--teal);box-shadow:0 0 0 3px #159c9415}
+.search-box input{
+  flex:1;min-width:0;height:46px;border:0;outline:0;background:transparent;
+  font-size:13px;color:var(--navy);
+}
+.list,.result-list{display:flex;flex-direction:column;gap:10px}
+.list-row{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  width:100%;padding:16px 18px;border:1px solid var(--border);border-radius:14px;
+  background:white;text-align:left;color:var(--text);transition:.2s;
+}
+.list-row:hover{transform:translateY(-2px);border-color:#cce5e2;box-shadow:var(--shadow)}
+.list-main{display:flex;flex-direction:column;gap:4px;min-width:0}
+.list-title{font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;color:var(--navy);overflow-wrap:anywhere}
+.list-sub{font-size:11px;color:var(--muted)}
+.list-arrow{color:var(--teal);font-size:22px;flex:none}
+.result-card{padding:16px 18px;border:1px solid var(--border);border-radius:14px;background:white}
+.result-title{font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;color:var(--navy);overflow-wrap:anywhere}
+.result-sub{font-size:11px;color:var(--muted);margin:4px 0 10px}
+.result-chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  border:1px solid var(--border);background:var(--teal-soft);color:#128b83;
+  border-radius:20px;padding:7px 13px;font-size:11px;font-weight:800;
+}
+.chip:hover{background:#d8f1ee}
+
+/* RECHERCHE GLOBALE / AIDE */
+a.list-row{text-decoration:none}
+.home-search{
+  display:flex;align-items:center;gap:10px;background:white;
+  border:1px solid var(--border);border-radius:12px;padding:0 6px 0 14px;margin-bottom:22px;
+}
+.home-search:focus-within{border-color:var(--teal);box-shadow:0 0 0 3px #159c9415}
+.home-search input{
+  flex:1;min-width:0;height:46px;border:0;outline:0;background:transparent;
+  font-size:13px;color:var(--navy);
+}
+.home-search button{
+  border:0;background:var(--navy);color:white;border-radius:9px;
+  padding:10px 14px;font-size:12px;font-weight:800;
+}
+.seg-label{font-size:11px;color:var(--muted);margin:0 0 8px}
+.seg{display:inline-grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:12px;background:#f1f4f7;margin-bottom:6px}
+.seg-btn{border:0;background:transparent;color:#8794a2;border-radius:9px;padding:9px 18px;font-size:12px;font-weight:700}
+.seg-btn.active{background:white;color:var(--navy);box-shadow:0 2px 8px #102b4610}
+.res-head{font-family:'Outfit',sans-serif;font-size:14px;color:var(--navy);margin:22px 0 10px}
+.search-hint{font-size:12px;color:var(--muted);padding:14px 4px}
+.help-item{background:white;border:1px solid var(--border);border-radius:14px;margin-bottom:12px;overflow:hidden}
+.help-item summary{
+  cursor:pointer;padding:16px 18px;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;color:var(--navy);
+}
+.help-item summary::-webkit-details-marker{display:none}
+.help-item summary::after{content:"+";color:var(--teal);font-size:22px;line-height:1}
+.help-item[open] summary::after{content:"–"}
+.help-body{padding:0 18px 16px;font-size:12px;line-height:1.9;color:var(--text)}
+.help-body ol,.help-body ul{padding-left:20px;margin:6px 0}
+.help-body li{margin-bottom:6px}
+
 /* AI CHAT */
 .ai-reset{
   margin-left:auto;border:1px solid var(--border);background:white;
@@ -755,6 +820,7 @@ button:focus-visible,input:focus-visible{
       <div class="side-label">MENU PRINCIPAL</div>
 
       <button class="nav-item active" data-page="Accueil" type="button"><span class="nav-icon">⌂</span>Accueil</button>
+      <button class="nav-item" data-page="Recherche" type="button"><span class="nav-icon">🔍</span>Recherche</button>
       <button class="nav-item" data-page="Cours" type="button"><span class="nav-icon">▤</span>Cours</button>
       <button class="nav-item" data-page="Stages" type="button"><span class="nav-icon">✚</span>Stages</button>
       <button class="nav-item" data-page="Résumés" type="button"><span class="nav-icon">▧</span>Résumés</button>
@@ -762,6 +828,7 @@ button:focus-visible,input:focus-visible{
       <button class="nav-item" data-page="TP Simulation" type="button"><span class="nav-icon">⚕</span>TP Simulation</button>
       <button class="nav-item" data-page="Examens & QCM" type="button"><span class="nav-icon">✎</span>Examens & QCM</button>
       <button class="nav-item" data-page="Assistant IA" type="button"><span class="nav-icon">✧</span>Assistant IA</button>
+      <button class="nav-item" data-page="Assistance" type="button"><span class="nav-icon">ⓘ</span>Assistance</button>
 
       <div class="side-bottom">
         <strong>Votre espace étudiant</strong>
@@ -782,6 +849,12 @@ button:focus-visible,input:focus-visible{
             </div>
             <div class="date-card" id="todayDate"></div>
           </div>
+
+          <form class="home-search" id="homeSearchForm">
+            <span>🔍</span>
+            <input id="homeSearchInput" type="search" placeholder="Rechercher un cours, un module, une rubrique..." autocomplete="off">
+            <button type="submit">Rechercher</button>
+          </form>
 
           <div class="hero-banner">
             <div class="hero-copy">
@@ -1131,7 +1204,7 @@ function setActiveNav(pageName) {
   });
 }
 
-function openPage(pageName) {
+function openPage(pageName, arg) {
   setActiveNav(pageName);
   document.getElementById("sidebar").classList.remove("open");
 
@@ -1154,6 +1227,18 @@ function openPage(pageName) {
 
   if (pageName === "Cours" || pageName === "Résumés") {
     renderBrowser(pageName);
+    return;
+  }
+
+  if (pageName === "Recherche") {
+    renderSearch(arg || "");
+    addBackButton(inner);
+    return;
+  }
+
+  if (pageName === "Assistance") {
+    renderHelp();
+    addBackButton(inner);
     return;
   }
 
@@ -1184,53 +1269,326 @@ function addBackButton(inner, label = "Retour au dashboard", handler = showHome)
   inner.prepend(btn);
 }
 
-// Cours / Résumés : filières → semestres → contenu
+// =====================================
+// COURS / RÉSUMÉS : filières → semestres → modules → sous-modules → documents
+// =====================================
 const FILIERES = ["IP", "ISM", "ISFSC", "INP", "LABO", "TRX", "SF", "AS", "IAR"];
 const SEMESTRES = ["S1", "S2", "S3", "S4", "S5", "S6"];
 
-function renderBrowser(section, filiere = null, semestre = null) {
+// Modules communs à IP, ISM, ISFSC, INP et IAR (S1). "subs" = sous-modules.
+const SHARED_S1 = [
+  { name: "Anatomie et physiologie" },
+  { name: "Sémiologie et terminologie médicale" },
+  { name: "Droit et déontologie" },
+  { name: "Psychologie et sociologie", subs: ["Psychologie", "Sociologie"] },
+  { name: "SIB1" },
+  { name: "Langue & communication et informatique", subs: ["Langue & communication", "Informatique"] },
+  { name: "Microbiologie, parasitologie et examen de laboratoire" }
+];
+// Pour ajouter un semestre : CURRICULUM.IP.S2 = [ { name: "..." }, ... ]
+const CURRICULUM = {};
+["IP", "ISM", "ISFSC", "INP", "IAR"].forEach(f => { CURRICULUM[f] = { S1: SHARED_S1 }; });
+
+// Documents (cours et résumés). Exemple d'une ligne à ajouter :
+// { type: "cours", f: ["IP","ISM","ISFSC","INP","IAR"], s: "S1", m: "Anatomie et physiologie", sub: "", t: "Titre du cours", url: "https://..." },
+// type : "cours" ou "resume" | f : filières | s : semestre | m : nom EXACT du module
+// sub : nom EXACT du sous-module ("" s'il n'y en a pas) | t : titre | url : lien du document
+const RESOURCES = [
+];
+
+const TYPE_LABEL = { cours: "Cours", resume: "Résumé" };
+const SITE_PAGES = [
+  { name: "Cours", words: "cours supports documents modules" },
+  { name: "Résumés", words: "resumes fiches revision syntheses" },
+  { name: "Stages", words: "stage protocoles fiches techniques situations cliniques" },
+  { name: "Emploi du temps", words: "planning emploi du temps horaires" },
+  { name: "TP Simulation", words: "tp simulation travaux pratiques gestes techniques soins" },
+  { name: "Examens & QCM", words: "examens qcm evaluations" },
+  { name: "Assistant IA", words: "assistant ia intelligence artificielle questions" },
+  { name: "Assistance", words: "aide assistance conditions utilisation mode emploi" }
+];
+
+const esc = t => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const norm = t => String(t).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+  .replace(/&/g, "et").replace(/\s+/g, " ").trim();
+const safeUrl = u => (/^https?:\/\//i.test(String(u)) ? String(u) : "#");
+
+function searchCurriculum(q, filiere) {
+  const nq = norm(q);
+  const found = new Map();
+  Object.keys(CURRICULUM).forEach(f => {
+    if (filiere && f !== filiere) return;
+    Object.entries(CURRICULUM[f]).forEach(([sem, mods]) => {
+      mods.forEach(m => {
+        [{ sub: null }, ...(m.subs || []).map(x => ({ sub: x }))].forEach(e => {
+          if (!norm(e.sub || m.name).includes(nq)) return;
+          const key = sem + "|" + m.name + "|" + (e.sub || "");
+          if (!found.has(key)) found.set(key, { semestre: sem, module: m.name, sub: e.sub, filieres: [] });
+          found.get(key).filieres.push(f);
+        });
+      });
+    });
+  });
+  return [...found.values()];
+}
+
+function searchDocs(q, type, filiere) {
+  const nq = norm(q);
+  return RESOURCES.filter(d =>
+    (!type || d.type === type) &&
+    (!filiere || d.f.includes(filiere)) &&
+    norm(d.t + " " + d.m + " " + (d.sub || "")).includes(nq));
+}
+
+function searchPages(q) {
+  const nq = norm(q);
+  return SITE_PAGES.filter(p => norm(p.name + " " + p.words).includes(nq));
+}
+
+function resultsHTML(list) {
+  return `<div class="result-list">${list.map((r, i) => `
+    <div class="result-card">
+      <div class="result-title">${esc(r.sub || r.module)}</div>
+      <div class="result-sub">${r.sub ? esc(r.module) + " · " : ""}${esc(r.semestre)}</div>
+      <div class="result-chips">${r.filieres.map(f =>
+        `<button class="chip" type="button" data-r="${i}" data-chipf="${f}">${f}</button>`).join("")}</div>
+    </div>`).join("")}</div>`;
+}
+
+function docRow(d, full) {
+  const info = full
+    ? `${TYPE_LABEL[d.type] || ""} · ${d.f.join(", ")} · ${d.s} · ${d.m}${d.sub ? " › " + d.sub : ""}`
+    : (TYPE_LABEL[d.type] || "");
+  return `<a class="list-row" href="${esc(safeUrl(d.url))}" target="_blank" rel="noopener noreferrer">
+    <span class="list-main"><span class="list-title">${esc(d.t)}</span><span class="list-sub">${esc(info)}</span></span>
+    <span class="list-arrow">↗</span></a>`;
+}
+const docsHTML = (docs, full = true) => `<div class="list">${docs.map(d => docRow(d, full)).join("")}</div>`;
+
+const emptyPanel = (icon, title, text) =>
+  `<div class="resource-panel"><div class="resource-empty"><div class="empty-icon">${icon}</div>
+   <h3>${esc(title)}</h3><p>${esc(text)}</p></div></div>`;
+const noResultsPanel = () => emptyPanel("🔍", "Aucun résultat", "Essayez un autre mot-clé.");
+
+function bindModuleResults(container, list, getSection) {
+  container.querySelectorAll("[data-r]").forEach(b => b.addEventListener("click", () => {
+    const r = list[+b.dataset.r];
+    const section = getSection();
+    setActiveNav(section);
+    renderBrowser(section, b.dataset.chipf, r.semestre, r.module, r.sub);
+  }));
+}
+
+function renderBrowser(section, filiere = null, semestre = null, module = null, sub = null) {
   const inner = document.getElementById("innerPage");
-  let title = section, sub = "", body = "", back;
+  const SEC = section.toUpperCase(), sec = section.toLowerCase();
+  const TYPE = section === "Cours" ? "cours" : "resume";
+  const mods = (CURRICULUM[filiere] || {})[semestre] || null;
+  const modObj = mods && module ? mods.find(m => m.name === module) : null;
+  const hasSubs = !!(modObj && modObj.subs);
+  let eyebrow = "ESPACE PÉDAGOGIQUE", title = section, subtitle = "", body = "", back, searchable = true;
 
   if (!filiere) {
-    sub = `Choisissez votre filière pour accéder aux ${section.toLowerCase()}.`;
+    subtitle = `Choisissez votre filière pour accéder aux ${sec}.`;
     body = `<div class="choice-grid">${FILIERES.map(f =>
-      `<button class="choice-card" type="button" data-f="${f}"><span class="choice-code">${f}</span><span class="choice-sub">6 semestres</span></button>`
+      `<button class="choice-card" type="button" data-fil="${f}"><span class="choice-code">${f}</span><span class="choice-sub">6 semestres</span></button>`
     ).join("")}</div>`;
     back = ["Retour au dashboard", showHome];
   } else if (!semestre) {
-    title = `${section} · ${filiere}`;
-    sub = "Choisissez un semestre.";
+    eyebrow = `${SEC} › ${filiere}`;
+    title = filiere;
+    subtitle = "Choisissez un semestre.";
     body = `<div class="choice-grid">${SEMESTRES.map((x, i) =>
-      `<button class="choice-card" type="button" data-s="${x}"><span class="choice-code">${x}</span><span class="choice-sub">Semestre ${i + 1}</span></button>`
+      `<button class="choice-card" type="button" data-sem="${x}"><span class="choice-code">${x}</span><span class="choice-sub">Semestre ${i + 1}</span></button>`
     ).join("")}</div>`;
     back = ["Retour aux filières", () => renderBrowser(section)];
-  } else {
-    title = `${section} · ${filiere} · ${semestre}`;
-    body = `<div class="resource-panel"><div class="resource-empty">
-      <div class="empty-icon">${moduleIcons[section] || "📁"}</div>
-      <h3>${filiere} · ${semestre}</h3>
-      <p>Les ${section.toLowerCase()} de cette filière et de ce semestre seront ajoutés prochainement.</p>
-    </div></div>`;
+  } else if (!module) {
+    eyebrow = `${SEC} › ${filiere}`;
+    title = `${filiere} · ${semestre}`;
+    if (mods) {
+      subtitle = "Choisissez un module.";
+      body = `<div class="list">${mods.map((m, i) =>
+        `<button class="list-row" type="button" data-mod="${i}"><span class="list-main"><span class="list-title">${esc(m.name)}</span>${m.subs ? `<span class="list-sub">${m.subs.length} sous-modules</span>` : ""}</span><span class="list-arrow">›</span></button>`
+      ).join("")}</div>`;
+    } else {
+      body = emptyPanel(moduleIcons[section] || "📁", `${filiere} · ${semestre}`, "Les modules de ce semestre seront ajoutés prochainement.");
+    }
     back = ["Retour aux semestres", () => renderBrowser(section, filiere)];
+  } else if (hasSubs && !sub) {
+    eyebrow = `${SEC} › ${filiere} › ${semestre}`;
+    title = module;
+    subtitle = "Choisissez un sous-module.";
+    body = `<div class="list">${modObj.subs.map((x, i) =>
+      `<button class="list-row" type="button" data-sub="${i}"><span class="list-main"><span class="list-title">${esc(x)}</span></span><span class="list-arrow">›</span></button>`
+    ).join("")}</div>`;
+    back = ["Retour aux modules", () => renderBrowser(section, filiere, semestre)];
+  } else {
+    eyebrow = `${SEC} › ${filiere} › ${semestre}` + (sub ? ` › ${module}` : "");
+    title = sub || module;
+    subtitle = `Les ${sec} de ce module.`;
+    searchable = false;
+    const docs = RESOURCES.filter(d =>
+      d.type === TYPE && d.f.includes(filiere) && d.s === semestre &&
+      d.m === module && (d.sub || "") === (sub || ""));
+    body = docs.length
+      ? docsHTML(docs, false)
+      : emptyPanel(moduleIcons[section] || "📁", sub || module, `Les ${sec} de ce module seront ajoutés prochainement.`);
+    back = sub
+      ? ["Retour aux sous-modules", () => renderBrowser(section, filiere, semestre, module)]
+      : ["Retour aux modules", () => renderBrowser(section, filiere, semestre)];
   }
 
   inner.innerHTML = `
     <div class="page-heading">
-      <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
-      <h1>${title}</h1>
-      <p>${sub}</p>
+      <div class="eyebrow">${esc(eyebrow)}</div>
+      <h1>${esc(title)}</h1>
+      <p>${esc(subtitle)}</p>
     </div>
-    ${body}
+    ${searchable ? `<div class="search-box"><span>🔍</span><input id="browseSearch" type="search" placeholder="Rechercher un module ou un ${TYPE === "cours" ? "cours" : "résumé"}..." autocomplete="off"></div><div id="searchResults" class="hidden"></div>` : ""}
+    <div id="browseBody">${body}</div>
     <div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>
   `;
   addBackButton(inner, back[0], back[1]);
-  inner.querySelectorAll("[data-f]").forEach(btn =>
-    btn.addEventListener("click", () => renderBrowser(section, btn.dataset.f)));
-  inner.querySelectorAll("[data-s]").forEach(btn =>
-    btn.addEventListener("click", () => renderBrowser(section, filiere, btn.dataset.s)));
+
+  inner.querySelectorAll("[data-fil]").forEach(b => b.addEventListener("click", () => renderBrowser(section, b.dataset.fil)));
+  inner.querySelectorAll("[data-sem]").forEach(b => b.addEventListener("click", () => renderBrowser(section, filiere, b.dataset.sem)));
+  inner.querySelectorAll("[data-mod]").forEach(b => b.addEventListener("click", () => renderBrowser(section, filiere, semestre, mods[+b.dataset.mod].name)));
+  inner.querySelectorAll("[data-sub]").forEach(b => b.addEventListener("click", () => renderBrowser(section, filiere, semestre, module, modObj.subs[+b.dataset.sub])));
+
+  const input = inner.querySelector("#browseSearch");
+  if (input) {
+    const results = inner.querySelector("#searchResults"), bodyEl = inner.querySelector("#browseBody");
+    input.addEventListener("input", () => {
+      const q = input.value.trim();
+      if (q.length < 2) { results.classList.add("hidden"); bodyEl.classList.remove("hidden"); return; }
+      const list = searchCurriculum(q, filiere);
+      const docs = searchDocs(q, TYPE, filiere);
+      results.innerHTML = (!list.length && !docs.length)
+        ? noResultsPanel()
+        : (list.length ? resultsHTML(list) : "") +
+          (docs.length ? `<h3 class="res-head">Documents</h3>` + docsHTML(docs) : "");
+      results.classList.remove("hidden");
+      bodyEl.classList.add("hidden");
+      bindModuleResults(results, list, () => section);
+    });
+  }
   window.scrollTo(0, 0);
 }
+
+// =====================================
+// RECHERCHE SUR TOUT LE SITE
+// =====================================
+let searchSection = "Cours";
+
+function renderSearch(initial = "") {
+  const inner = document.getElementById("innerPage");
+  inner.innerHTML = `
+    <div class="page-heading">
+      <div class="eyebrow">RECHERCHE</div>
+      <h1>Rechercher sur le site</h1>
+      <p>Trouvez un cours, un résumé, un module ou une rubrique.</p>
+    </div>
+    <div class="search-box"><span>🔍</span><input id="siteSearch" type="search" placeholder="Ex : anatomie, droit, SIB1..." autocomplete="off"></div>
+    <div class="seg-label">Ouvrir les modules trouvés dans :</div>
+    <div class="seg">
+      <button type="button" class="seg-btn" data-seg="Cours">Cours</button>
+      <button type="button" class="seg-btn" data-seg="Résumés">Résumés</button>
+    </div>
+    <div id="siteResults"></div>
+    <div class="bottom-footer">ISPITS STUDENTS HUB · Recherche</div>
+  `;
+  const input = inner.querySelector("#siteSearch");
+  const box = inner.querySelector("#siteResults");
+  const segs = inner.querySelectorAll("[data-seg]");
+  const paintSeg = () => segs.forEach(b => b.classList.toggle("active", b.dataset.seg === searchSection));
+
+  const run = () => {
+    const q = input.value.trim();
+    if (q.length < 2) {
+      box.innerHTML = `<div class="search-hint">Tapez au moins 2 lettres pour lancer la recherche.</div>`;
+      return;
+    }
+    const pages = searchPages(q), mods = searchCurriculum(q, null), docs = searchDocs(q, null, null);
+    if (!pages.length && !mods.length && !docs.length) { box.innerHTML = noResultsPanel(); return; }
+
+    let html = "";
+    if (pages.length) {
+      html += `<h3 class="res-head">Rubriques</h3><div class="list">${pages.map((p, i) =>
+        `<button class="list-row" type="button" data-pg="${i}"><span class="list-main"><span class="list-title">${esc(p.name)}</span></span><span class="list-arrow">›</span></button>`
+      ).join("")}</div>`;
+    }
+    if (mods.length) html += `<h3 class="res-head">Modules</h3>` + resultsHTML(mods);
+    if (docs.length) html += `<h3 class="res-head">Documents</h3>` + docsHTML(docs);
+    box.innerHTML = html;
+
+    box.querySelectorAll("[data-pg]").forEach(b =>
+      b.addEventListener("click", () => openPage(pages[+b.dataset.pg].name)));
+    bindModuleResults(box, mods, () => searchSection);
+  };
+
+  segs.forEach(b => b.addEventListener("click", () => { searchSection = b.dataset.seg; paintSeg(); }));
+  input.addEventListener("input", run);
+  paintSeg();
+  input.value = initial;
+  run();
+  if (!initial) input.focus();
+}
+
+// =====================================
+// ASSISTANCE : conditions + mode d'emploi
+// =====================================
+function renderHelp() {
+  const inner = document.getElementById("innerPage");
+  inner.innerHTML = `
+    <div class="page-heading">
+      <div class="eyebrow">ASSISTANCE</div>
+      <h1>Aide et informations</h1>
+      <p>Les conditions d'utilisation et le mode d'emploi de la plateforme.</p>
+    </div>
+
+    <details class="help-item" open>
+      <summary>Mode d'emploi</summary>
+      <div class="help-body">
+        <ol>
+          <li><strong>Compte :</strong> créez votre compte avec votre adresse e-mail, puis connectez-vous. En cas d'oubli, utilisez « Mot de passe oublié ? » sur la page de connexion.</li>
+          <li><strong>Cours :</strong> choisissez votre filière, puis le semestre, puis le module. Si le module contient des sous-modules, ouvrez celui qui vous intéresse pour voir ses cours.</li>
+          <li><strong>Résumés :</strong> ils ont leur propre rubrique et fonctionnent de la même façon que les cours.</li>
+          <li><strong>Recherche :</strong> utilisez la barre de recherche de l'accueil ou la rubrique « Recherche » pour trouver un cours, un résumé, un module ou une rubrique. Dans « Cours » et « Résumés », une barre de recherche est aussi disponible.</li>
+          <li><strong>Assistant IA :</strong> posez vos questions sur vos cours ou demandez un QCM. Le bouton « Nouvelle discussion » efface la conversation.</li>
+          <li><strong>Profil :</strong> cliquez sur votre photo en haut à droite pour modifier votre profil (photo, téléphone, filière, semestre...), changer votre mot de passe ou vous déconnecter.</li>
+          <li><strong>Navigation :</strong> sur téléphone, le bouton ☰ ouvre le menu. La flèche « Retour » en haut de chaque page vous ramène à l'étape précédente.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="help-item">
+      <summary>Conditions d'utilisation</summary>
+      <div class="help-body">
+        <ol>
+          <li><strong>Accès :</strong> la plateforme est réservée aux étudiants. Votre compte est personnel : ne partagez pas vos identifiants.</li>
+          <li><strong>Usage pédagogique :</strong> les contenus sont destinés à l'apprentissage et à la révision.</li>
+          <li><strong>Contenus :</strong> les cours et résumés peuvent contenir des erreurs. Ils ne remplacent ni les cours officiels, ni vos enseignants, ni les protocoles des services de stage.</li>
+          <li><strong>Droits d'auteur :</strong> respectez le travail des auteurs. Ne diffusez pas les documents en dehors de la plateforme sans autorisation.</li>
+          <li><strong>Assistant IA :</strong> ses réponses sont générées automatiquement et peuvent être inexactes. Vérifiez-les avec vos cours. Il ne remplace pas un avis médical. N'y saisissez jamais de données personnelles ni d'informations sur des patients.</li>
+          <li><strong>Données personnelles :</strong> votre nom, votre e-mail et les informations de votre profil servent uniquement au fonctionnement de la plateforme. Vous pouvez les modifier à tout moment depuis votre profil.</li>
+          <li><strong>Plateforme indépendante :</strong> ISPITS STUDENTS HUB est une plateforme pédagogique indépendante.</li>
+          <li><strong>Respect :</strong> tout usage abusif peut entraîner la suspension du compte.</li>
+        </ol>
+      </div>
+    </details>
+
+    <div class="bottom-footer">ISPITS STUDENTS HUB · Assistance</div>
+  `;
+}
+
+// Barre de recherche de l'accueil
+document.getElementById("homeSearchForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const input = document.getElementById("homeSearchInput");
+  const q = input.value.trim();
+  input.value = "";
+  openPage("Recherche", q);
+});
 
 let aiMessages = [];
 let aiBusy = false;
