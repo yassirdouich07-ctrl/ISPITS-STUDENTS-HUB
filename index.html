@@ -522,6 +522,25 @@ button:focus-visible,input:focus-visible{
   color:#926d2a;font-size:10px;line-height:1.7;
 }
 
+/* AI CHAT */
+.ai-reset{
+  margin-left:auto;border:1px solid var(--border);background:white;
+  color:#657487;border-radius:9px;padding:8px 11px;font-size:10px;font-weight:800;
+}
+.ai-reset:hover{background:#f5f8fa;color:var(--navy)}
+.ai-messages{
+  min-height:310px;max-height:460px;overflow-y:auto;padding:18px;
+  display:flex;flex-direction:column;gap:10px;
+}
+.ai-messages .ai-chat-body{margin:auto 0;padding:10px 0}
+.ai-msg{
+  max-width:85%;padding:10px 13px;border-radius:14px;
+  font-size:12px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere;
+}
+.ai-msg.user{align-self:flex-end;background:var(--navy);color:white;border-bottom-right-radius:4px}
+.ai-msg.assistant{align-self:flex-start;background:#f1f5f8;color:var(--text);border-bottom-left-radius:4px}
+.ai-msg.typing{color:var(--muted);font-style:italic}
+
 /* TOAST */
 .toast{
   position:fixed;z-index:100;bottom:22px;left:50%;
@@ -965,6 +984,7 @@ function showDashboard(user) {
 }
 
 function showAuth() {
+  aiMessages = [];
   closeProfileMenu();
   closeModal();
   currentUser = null;
@@ -1148,6 +1168,63 @@ function addBackButton(inner) {
   inner.prepend(btn);
 }
 
+let aiMessages = [];
+let aiBusy = false;
+
+function aiWelcomeHTML() {
+  return `<div class="ai-chat-body">
+    <div class="ai-welcome-icon">✧</div>
+    <h3>Comment puis-je vous aider ?</h3>
+    <p>Posez vos questions sur vos cours, demandez des explications, préparez vos examens ou entraînez-vous avec des QCM.</p>
+    <div class="ai-suggestions">
+      <button class="ai-suggestion" type="button" data-ai="Explique-moi simplement un cours de soins infirmiers. Demande-moi d'abord quel sujet.">Expliquer un cours</button>
+      <button class="ai-suggestion" type="button" data-ai="Prépare-moi un QCM de 5 questions avec correction. Demande-moi d'abord le thème.">Préparer un QCM</button>
+      <button class="ai-suggestion" type="button" data-ai="Aide-moi à réviser. Demande-moi d'abord le module et le temps dont je dispose.">Aide aux révisions</button>
+    </div>
+  </div>`;
+}
+
+function aiRender() {
+  const box = document.getElementById("aiMessages");
+  if (!box) return;
+  if (!aiMessages.length && !aiBusy) {
+    box.innerHTML = aiWelcomeHTML();
+    box.querySelectorAll("[data-ai]").forEach(btn =>
+      btn.addEventListener("click", () => aiSend(btn.dataset.ai)));
+    return;
+  }
+  box.innerHTML = "";
+  const add = (role, text, extra = "") => {
+    const d = document.createElement("div");
+    d.className = "ai-msg " + role + extra;
+    d.textContent = text;
+    box.appendChild(d);
+  };
+  aiMessages.forEach(m => add(m.role, m.content));
+  if (aiBusy) add("assistant", "Réflexion en cours…", " typing");
+  box.scrollTop = box.scrollHeight;
+}
+
+async function aiSend(text) {
+  text = (text || "").trim();
+  if (!text || aiBusy) return;
+  aiMessages.push({ role: "user", content: text });
+  aiBusy = true;
+  aiRender();
+  try {
+    const history = aiMessages.filter(m => !m.error).map(({ role, content }) => ({ role, content }));
+    const { data, error } = await db.functions.invoke("chat", { body: { messages: history } });
+    if (error) throw error;
+    if (data?.error) throw new Error(data.error);
+    aiMessages.push({ role: "assistant", content: data.reply || "…" });
+  } catch (err) {
+    console.error("AI error:", err);
+    aiMessages.push({ role: "assistant", error: true, content: "⚠️ Désolé, une erreur est survenue. Réessayez dans un instant." });
+  }
+  aiBusy = false;
+  aiRender();
+}
+
 function renderAssistant() {
   const inner = document.getElementById("innerPage");
 
@@ -1166,49 +1243,42 @@ function renderAssistant() {
             <strong>ISPITS AI Assistant</strong>
             <small>Assistant pédagogique de la plateforme</small>
           </div>
-          <span class="ai-status">Bientôt disponible</span>
+          <button class="ai-reset" id="aiReset" type="button">Nouvelle discussion</button>
         </div>
 
-        <div class="ai-chat-body">
-          <div class="ai-welcome-icon">✧</div>
-          <h3>Comment puis-je vous aider ?</h3>
-          <p>
-            Posez vos questions sur vos cours, demandez des explications,
-            préparez vos examens ou entraînez-vous avec des QCM.
-          </p>
-          <div class="ai-suggestions">
-            <button class="ai-suggestion" type="button" data-ai="Explique-moi un cours">Expliquer un cours</button>
-            <button class="ai-suggestion" type="button" data-ai="Prépare-moi un QCM">Préparer un QCM</button>
-            <button class="ai-suggestion" type="button" data-ai="Aide-moi à réviser">Aide aux révisions</button>
-          </div>
-        </div>
+        <div class="ai-messages" id="aiMessages"></div>
 
         <form class="ai-composer" id="aiForm">
-          <input id="aiInput" type="text" placeholder="Écrivez votre question..." disabled>
-          <button type="submit" disabled aria-label="Envoyer">➤</button>
+          <input id="aiInput" type="text" placeholder="Écrivez votre question..." autocomplete="off">
+          <button type="submit" aria-label="Envoyer">➤</button>
         </form>
       </div>
 
       <aside class="ai-side-info">
         <h3>Votre assistant étudiant</h3>
-        <p>Il sera conçu pour vous aider à comprendre les cours, préparer les examens et progresser dans votre formation.</p>
-        <p>Les réponses seront adaptées au contexte des études en soins infirmiers et aux ressources de la plateforme.</p>
-        <div class="ai-note">La connexion à l'intelligence artificielle sera activée dans une prochaine étape.</div>
+        <p>Il vous aide à comprendre les cours, préparer les examens et progresser dans votre formation.</p>
+        <p>Les réponses sont adaptées au contexte des études en soins infirmiers.</p>
+        <div class="ai-note">Les réponses sont générées par une IA et peuvent contenir des erreurs. Vérifiez toujours avec vos cours, vos protocoles et vos enseignants.</div>
       </aside>
     </div>
 
     <div class="bottom-footer">ISPITS STUDENTS HUB · Assistant pédagogique IA</div>
   `;
 
-  inner.querySelectorAll("[data-ai]").forEach(button => {
-    button.addEventListener("click", () => {
-      showToast("L'assistant IA sera activé après la connexion du service.");
-    });
-  });
+  aiRender();
 
   inner.querySelector("#aiForm").addEventListener("submit", event => {
     event.preventDefault();
-    showToast("L'assistant IA n'est pas encore connecté.");
+    const input = inner.querySelector("#aiInput");
+    const text = input.value;
+    input.value = "";
+    aiSend(text);
+  });
+
+  inner.querySelector("#aiReset").addEventListener("click", () => {
+    if (aiBusy) return;
+    aiMessages = [];
+    aiRender();
   });
 }
 
