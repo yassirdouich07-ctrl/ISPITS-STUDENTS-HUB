@@ -34,7 +34,7 @@ body{
   background:var(--bg);
   color:var(--text);
 }
-button,input{font:inherit}
+button,input,select{font:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
 button:focus-visible,input:focus-visible{
@@ -235,6 +235,33 @@ button:focus-visible,input:focus-visible{
   background:white;color:var(--navy);
   border-radius:9px;padding:8px 11px;font-size:18px;
 }
+
+.avatar,.avatar-preview{background-size:cover;background-position:center}
+.form-group select{
+  width:100%;height:50px;padding:0 12px;
+  border:1px solid #e2e8ef;border-radius:11px;
+  background:#fbfcfd;color:var(--navy);outline:none;transition:.2s;
+}
+.form-group select:focus{border-color:var(--teal);background:white;box-shadow:0 0 0 3px #159c9415}
+.avatar-edit{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.avatar-preview{
+  width:68px;height:68px;border-radius:20px;flex:none;
+  display:grid;place-items:center;
+  background:var(--teal-soft);color:var(--teal);font-weight:800;font-size:26px;
+}
+.avatar-actions{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.avatar-btn{
+  border:1px solid var(--border);background:white;color:var(--navy);
+  border-radius:9px;padding:9px 13px;font-size:12px;font-weight:700;
+}
+.avatar-remove{border:0;background:none;color:#b64b4b;font-size:11px;font-weight:700;padding:4px 0}
+.back-btn{
+  display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;
+  padding:9px 14px;border:1px solid var(--border);background:white;
+  color:var(--navy);border-radius:10px;font-size:12px;font-weight:800;transition:.2s;
+}
+.back-btn:hover{background:var(--teal-soft);color:#128b83;border-color:#cce5e2}
+.back-btn span{font-size:16px;line-height:1}
 
 /* PROFILE MENU */
 .profile-wrap{position:relative;flex:none}
@@ -675,7 +702,7 @@ button:focus-visible,input:focus-visible{
         <div class="avatar" id="userAvatar">E</div>
         <div class="profile-text">
           <div class="user-name" id="userName">Étudiant</div>
-          <div class="user-role">Étudiant ISPITS</div>
+          <div class="user-role" id="userRole">Étudiant ISPITS</div>
         </div>
         <span class="chev">▾</span>
       </button>
@@ -1090,6 +1117,7 @@ function openPage(pageName) {
 
   if (pageName === "Assistant IA") {
     renderAssistant();
+    addBackButton(inner);
     return;
   }
 
@@ -1108,6 +1136,16 @@ function openPage(pageName) {
     </div>
     <div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>
   `;
+  addBackButton(inner);
+}
+
+function addBackButton(inner) {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "back-btn";
+  btn.innerHTML = "<span>←</span> Retour au dashboard";
+  btn.addEventListener("click", () => { showHome(); window.scrollTo(0, 0); });
+  inner.prepend(btn);
 }
 
 function renderAssistant() {
@@ -1196,13 +1234,20 @@ const $ = id => document.getElementById(id);
 const profileWrap = $("profileWrap"), profileBtn = $("profileBtn"), profileMenu = $("profileMenu");
 const modalOverlay = $("modalOverlay"), modalBody = $("modalBody");
 
+function paintAvatar(el, url, letter) {
+  const ok = typeof url === "string" && url.startsWith("data:image/");
+  el.style.backgroundImage = ok ? `url("${url}")` : "";
+  el.textContent = ok ? "" : letter;
+}
 function updateProfileUI(user) {
-  const name = user.user_metadata?.full_name || user.email?.split("@")[0] || "Étudiant";
+  const m = user.user_metadata || {};
+  const name = m.full_name || user.email?.split("@")[0] || "Étudiant";
   $("userName").textContent = name;
   $("welcomeName").textContent = name;
   $("menuName").textContent = name;
   $("menuEmail").textContent = user.email || "";
-  $("userAvatar").textContent = name.trim().charAt(0).toUpperCase();
+  paintAvatar($("userAvatar"), m.avatar_url, name.trim().charAt(0).toUpperCase());
+  $("userRole").textContent = [m.filiere, m.semestre].filter(Boolean).join(" · ") || "Étudiant ISPITS";
 }
 function closeProfileMenu() {
   profileMenu.classList.add("hidden");
@@ -1234,17 +1279,23 @@ function modalMsg(text, type) {
   el.textContent = text;
   el.className = "message show " + type;
 }
+function fieldHTML(f) {
+  if (f.type === "custom") return f.html;
+  const control = f.type === "select"
+    ? `<select name="${f.name}">${f.options.map(o => `<option value="${o}">${o || "— Choisir —"}</option>`).join("")}</select>`
+    : `<input name="${f.name}" type="${f.type}" ${f.attrs || ""}>`;
+  return `<div class="form-group"><label>${f.label}</label>${control}</div>`;
+}
 function openForm(title, sub, fields, btnText, onSubmit) {
   modalBody.innerHTML = `<h3>${title}</h3><p class="modal-sub">${sub}</p>
-    <form id="mForm">${fields.map(f => `<div class="form-group"><label>${f.label}</label>
-    <input name="${f.name}" type="${f.type}" ${f.attrs || ""}></div>`).join("")}
+    <form id="mForm">${fields.map(fieldHTML).join("")}
     <button class="submit-btn" type="submit">${btnText}</button></form>
     <div id="modalMessage" class="message" role="status"></div>`;
   modalOverlay.classList.remove("hidden");
   const form = $("mForm");
   form.addEventListener("submit", async e => {
     e.preventDefault();
-    const btn = form.querySelector("button");
+    const btn = form.querySelector("button[type=submit]");
     btn.disabled = true;
     try { await onSubmit(Object.fromEntries(new FormData(form))); }
     catch (err) { modalMsg(err.message || "Une erreur est survenue.", "error"); }
@@ -1253,22 +1304,88 @@ function openForm(title, sub, fields, btnText, onSubmit) {
   return form;
 }
 
+let pendingAvatar;
+function resizeImage(file, size = 96) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      const c = document.createElement("canvas");
+      c.width = c.height = size;
+      const side = Math.min(img.width, img.height);
+      c.getContext("2d").drawImage(img, (img.width - side) / 2, (img.height - side) / 2, side, side, 0, 0, size, size);
+      URL.revokeObjectURL(url);
+      resolve(c.toDataURL("image/jpeg", 0.7));
+    };
+    img.onerror = () => reject(new Error("Image invalide."));
+    img.src = url;
+  });
+}
+
 function openProfileModal() {
-  const f = openForm("Modifier le profil", "Mettez à jour votre nom.", [
+  const m = currentUser?.user_metadata || {};
+  const letter = (m.full_name || currentUser?.email || "E").trim().charAt(0).toUpperCase();
+  pendingAvatar = undefined;
+
+  const f = openForm("Modifier le profil", "Complétez vos informations personnelles et académiques.", [
+    { type: "custom", html: `<div class="avatar-edit"><div class="avatar-preview" id="avPreview"></div>
+      <div class="avatar-actions">
+        <button type="button" class="avatar-btn" id="avPick">📷 Changer la photo</button>
+        <button type="button" class="avatar-remove" id="avRemove">Supprimer la photo</button>
+        <input type="file" id="avFile" accept="image/*" hidden>
+      </div></div>` },
     { label: "Nom complet", name: "fullName", type: "text", attrs: "required" },
+    { label: "Nom d'utilisateur", name: "username", type: "text", attrs: 'placeholder="ex : yassir_07" maxlength="20" autocomplete="username"' },
+    { label: "Numéro de téléphone", name: "phone", type: "tel", attrs: 'placeholder="06 00 00 00 00" autocomplete="tel"' },
+    { label: "Filière", name: "filiere", type: "text", attrs: 'placeholder="ex : Soins infirmiers"' },
+    { label: "Parcours / Option", name: "parcours", type: "text", attrs: 'placeholder="Votre parcours ou option"' },
+    { label: "Semestre", name: "semestre", type: "select", options: ["", "S1", "S2", "S3", "S4", "S5", "S6"] },
     { label: "Adresse e-mail", name: "email", type: "email", attrs: "disabled" }
   ], "Enregistrer", async v => {
-    const name = v.fullName.trim();
+    const name = v.fullName.trim(), username = v.username.trim(), phone = v.phone.trim();
     if (!name) throw new Error("Veuillez saisir votre nom complet.");
-    const { data, error } = await db.auth.updateUser({ data: { full_name: name } });
+    if (username && !/^[A-Za-z0-9_.]{3,20}$/.test(username))
+      throw new Error("Nom d'utilisateur : 3 à 20 caractères (lettres, chiffres, _ et .).");
+    if (phone && !/^\+?[0-9\s().-]{8,18}$/.test(phone))
+      throw new Error("Numéro de téléphone invalide.");
+
+    const meta = {
+      full_name: name, username, phone,
+      filiere: v.filiere.trim(), parcours: v.parcours.trim(), semestre: v.semestre
+    };
+    if (pendingAvatar !== undefined) meta.avatar_url = pendingAvatar;
+
+    const { data, error } = await db.auth.updateUser({ data: meta });
     if (error) throw error;
     currentUser = data.user;
     updateProfileUI(data.user);
     closeModal();
     showToast("Profil mis à jour.");
   });
-  f.elements.fullName.value = currentUser?.user_metadata?.full_name || "";
+
+  f.elements.fullName.value = m.full_name || "";
+  f.elements.username.value = m.username || "";
+  f.elements.phone.value = m.phone || "";
+  f.elements.filiere.value = m.filiere || "";
+  f.elements.parcours.value = m.parcours || "";
+  f.elements.semestre.value = m.semestre || "";
   f.elements.email.value = currentUser?.email || "";
+
+  const preview = $("avPreview"), file = $("avFile");
+  paintAvatar(preview, m.avatar_url, letter);
+  $("avPick").addEventListener("click", () => file.click());
+  file.addEventListener("change", async () => {
+    if (!file.files[0]) return;
+    try {
+      pendingAvatar = await resizeImage(file.files[0]);
+      paintAvatar(preview, pendingAvatar, letter);
+    } catch (err) { modalMsg(err.message, "error"); }
+    file.value = "";
+  });
+  $("avRemove").addEventListener("click", () => {
+    pendingAvatar = "";
+    paintAvatar(preview, "", letter);
+  });
 }
 
 function openSecurityModal() {
