@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -45,6 +44,7 @@ button:focus-visible,input:focus-visible{
 
 /* LOGO */
 .logo{display:flex;align-items:center;gap:11px;min-width:0}
+.logo>div{min-width:0}
 .logo-symbol{width:45px;height:45px;flex:none}
 .logo-title{
   font-family:'Outfit',sans-serif;
@@ -54,6 +54,8 @@ button:focus-visible,input:focus-visible{
   letter-spacing:-.4px;
   color:var(--navy);
   white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 .logo-sub{
   display:block;
@@ -186,6 +188,7 @@ button:focus-visible,input:focus-visible{
   border-color:var(--teal);background:white;
   box-shadow:0 0 0 3px #159c9415;
 }
+.form-group input:disabled{opacity:.65}
 .forgot-row{text-align:right;margin:-5px 0 17px}
 .text-btn{
   border:0;background:none;color:var(--teal);
@@ -214,31 +217,71 @@ button:focus-visible,input:focus-visible{
 /* DASHBOARD SHELL */
 .dashboard{min-height:100vh}
 .topbar{
-  height:72px;padding:0 30px;background:white;
+  height:72px;padding:0 30px;background:white;gap:12px;
   border-bottom:1px solid var(--border);
   display:flex;align-items:center;justify-content:space-between;
   position:sticky;top:0;z-index:30;
 }
-.topbar-right{display:flex;align-items:center;gap:17px}
-.user-info{display:flex;align-items:center;gap:10px;min-width:0}
+.topbar-left{display:flex;align-items:center;gap:10px;min-width:0}
 .avatar{
-  width:39px;height:39px;border-radius:12px;
+  width:39px;height:39px;border-radius:12px;flex:none;
   display:grid;place-items:center;
   background:var(--teal-soft);color:var(--teal);font-weight:800;
 }
 .user-name{font-size:12px;font-weight:800;color:var(--navy);max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .user-role{font-size:10px;color:var(--muted);margin-top:3px}
-.logout-btn{
-  border:1px solid var(--border);background:white;
-  color:#657487;border-radius:9px;padding:10px 13px;
-  font-size:11px;font-weight:800;
-}
-.logout-btn:hover{background:#fff4f4;color:#b64b4b}
 .mobile-menu-btn{
   display:none;border:1px solid var(--border);
   background:white;color:var(--navy);
   border-radius:9px;padding:8px 11px;font-size:18px;
 }
+
+/* PROFILE MENU */
+.profile-wrap{position:relative;flex:none}
+.profile-btn{
+  display:flex;align-items:center;gap:10px;
+  padding:5px 12px 5px 5px;border:1px solid var(--border);
+  background:white;border-radius:14px;
+}
+.profile-btn:hover{background:#f5f8fa}
+.profile-text{text-align:left;min-width:0}
+.chev{font-size:11px;color:var(--muted);transition:.2s}
+.profile-btn[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.profile-menu{
+  position:absolute;right:0;top:calc(100% + 10px);width:250px;
+  background:white;border:1px solid var(--border);border-radius:14px;
+  box-shadow:0 18px 45px rgba(16,43,70,.15);padding:8px;z-index:50;
+}
+.pm-head{padding:10px 12px 12px;border-bottom:1px solid var(--border);margin-bottom:6px}
+.pm-head strong{display:block;font-size:12px;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pm-head small{display:block;margin-top:4px;font-size:10px;color:var(--muted);overflow:hidden;text-overflow:ellipsis}
+.pm-item{
+  width:100%;display:flex;align-items:center;gap:10px;
+  padding:11px 12px;border:0;background:transparent;border-radius:9px;
+  color:#4a5b6e;font-size:12px;font-weight:700;text-align:left;
+}
+.pm-item:hover{background:#f5f8fa;color:var(--navy)}
+.pm-item.danger{color:#b64b4b}
+.pm-item.danger:hover{background:#fff4f4}
+.pm-sep{height:1px;background:var(--border);margin:6px 0}
+
+/* MODAL */
+.modal-overlay{
+  position:fixed;inset:0;z-index:90;background:rgba(16,43,70,.5);
+  display:flex;align-items:center;justify-content:center;padding:18px;
+}
+.modal{
+  position:relative;width:100%;max-width:420px;
+  max-height:calc(100vh - 36px);overflow:auto;
+  background:white;border-radius:18px;padding:26px;
+}
+.modal h3{font-family:'Outfit',sans-serif;color:var(--navy);font-size:20px;margin:0 0 6px}
+.modal-sub{font-size:12px;color:var(--muted);line-height:1.7;margin:0 0 20px}
+.modal-close{
+  position:absolute;top:14px;right:14px;width:32px;height:32px;
+  border:0;border-radius:9px;background:#f1f4f7;color:#657487;
+}
+
 .layout{display:flex;min-height:calc(100vh - 72px)}
 .sidebar{
   width:248px;flex:none;background:white;
@@ -474,12 +517,14 @@ button:focus-visible,input:focus-visible{
   .auth-visual{display:none}
   .auth-side{min-height:100vh;padding:28px 22px}
   .mobile-logo{display:flex}
-  .topbar{height:65px;padding:0 14px}
+  .topbar{height:65px;padding:0 12px;gap:8px}
+  .topbar-left{flex:1;gap:8px}
+  .topbar .logo{gap:8px}
   .topbar .logo-symbol{width:37px;height:37px}
-  .topbar .logo-title{font-size:13px}
-  .topbar .logo-sub{font-size:8px}
-  .topbar-right{gap:9px}
-  .user-name,.user-role{display:none}
+  .topbar .logo-title{font-size:12px}
+  .topbar .logo-sub{display:none}
+  .profile-text,.chev{display:none}
+  .profile-btn{padding:4px;border-radius:13px}
   .mobile-menu-btn{display:block}
   .layout{display:block;min-height:calc(100vh - 65px)}
   .sidebar{
@@ -505,7 +550,6 @@ button:focus-visible,input:focus-visible{
   .page-heading h1{font-size:24px}
   .resource-panel{padding:16px}
   .ai-chat-body{padding:22px 15px;min-height:280px}
-  .logout-btn{padding:9px 10px;font-size:10px}
 }
 </style>
 </head>
@@ -615,24 +659,37 @@ button:focus-visible,input:focus-visible{
 <!-- DASHBOARD -->
 <main id="appView" class="dashboard hidden">
   <header class="topbar">
-    <div class="logo">
-      <svg class="logo-symbol"><use href="#hub-logo"></use></svg>
-      <div>
-        <div class="logo-title">ISPITS STUDENTS HUB</div>
-        <span class="logo-sub">ESPACE ÉTUDIANT</span>
+    <div class="topbar-left">
+      <button class="mobile-menu-btn" id="menuBtn" type="button" aria-label="Ouvrir le menu">☰</button>
+      <div class="logo">
+        <svg class="logo-symbol"><use href="#hub-logo"></use></svg>
+        <div>
+          <div class="logo-title">ISPITS STUDENTS HUB</div>
+          <span class="logo-sub">ESPACE ÉTUDIANT</span>
+        </div>
       </div>
     </div>
 
-    <div class="topbar-right">
-      <button class="mobile-menu-btn" id="menuBtn" type="button" aria-label="Ouvrir le menu">☰</button>
-      <div class="user-info">
+    <div class="profile-wrap" id="profileWrap">
+      <button class="profile-btn" id="profileBtn" type="button" aria-haspopup="true" aria-expanded="false">
         <div class="avatar" id="userAvatar">E</div>
-        <div>
+        <div class="profile-text">
           <div class="user-name" id="userName">Étudiant</div>
           <div class="user-role">Étudiant ISPITS</div>
         </div>
+        <span class="chev">▾</span>
+      </button>
+
+      <div class="profile-menu hidden" id="profileMenu" role="menu">
+        <div class="pm-head">
+          <strong id="menuName">Étudiant</strong>
+          <small id="menuEmail"></small>
+        </div>
+        <button class="pm-item" data-action="profile" type="button">👤 Modifier le profil</button>
+        <button class="pm-item" data-action="security" type="button">🔒 Mot de passe et sécurité</button>
+        <div class="pm-sep"></div>
+        <button class="pm-item danger" id="logoutBtn" type="button">↪ Déconnexion</button>
       </div>
-      <button class="logout-btn" id="logoutBtn" type="button">↪ Déconnexion</button>
     </div>
   </header>
 
@@ -763,6 +820,14 @@ button:focus-visible,input:focus-visible{
   </div>
 </main>
 
+<!-- MODAL (profil / sécurité) -->
+<div id="modalOverlay" class="modal-overlay hidden">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="modal-close" id="modalClose" type="button" aria-label="Fermer">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -862,6 +927,8 @@ function showDashboard(user) {
   document.getElementById("userAvatar").textContent =
     displayName.trim().charAt(0).toUpperCase();
 
+  updateProfileUI(user);
+
   document.getElementById("todayDate").textContent =
     new Intl.DateTimeFormat("fr-FR", {
       weekday:"long", day:"numeric", month:"long", year:"numeric"
@@ -871,6 +938,8 @@ function showDashboard(user) {
 }
 
 function showAuth() {
+  closeProfileMenu();
+  closeModal();
   currentUser = null;
   appView.classList.add("hidden");
   authView.classList.remove("hidden");
@@ -1121,6 +1190,105 @@ document.getElementById("menuBtn").addEventListener("click", () => {
 });
 
 // =====================================
+// MENU PROFIL & SÉCURITÉ
+// =====================================
+const $ = id => document.getElementById(id);
+const profileWrap = $("profileWrap"), profileBtn = $("profileBtn"), profileMenu = $("profileMenu");
+const modalOverlay = $("modalOverlay"), modalBody = $("modalBody");
+
+function updateProfileUI(user) {
+  const name = user.user_metadata?.full_name || user.email?.split("@")[0] || "Étudiant";
+  $("userName").textContent = name;
+  $("welcomeName").textContent = name;
+  $("menuName").textContent = name;
+  $("menuEmail").textContent = user.email || "";
+  $("userAvatar").textContent = name.trim().charAt(0).toUpperCase();
+}
+function closeProfileMenu() {
+  profileMenu.classList.add("hidden");
+  profileBtn.setAttribute("aria-expanded", "false");
+}
+function closeModal() {
+  modalOverlay.classList.add("hidden");
+  modalBody.innerHTML = "";
+}
+profileBtn.addEventListener("click", () => {
+  const hidden = profileMenu.classList.toggle("hidden");
+  profileBtn.setAttribute("aria-expanded", String(!hidden));
+});
+document.addEventListener("click", e => {
+  if (!profileWrap.contains(e.target)) closeProfileMenu();
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") { closeProfileMenu(); closeModal(); }
+});
+modalOverlay.addEventListener("click", e => { if (e.target === modalOverlay) closeModal(); });
+$("modalClose").addEventListener("click", closeModal);
+profileMenu.querySelectorAll("[data-action]").forEach(b => b.addEventListener("click", () => {
+  closeProfileMenu();
+  b.dataset.action === "profile" ? openProfileModal() : openSecurityModal();
+}));
+
+function modalMsg(text, type) {
+  const el = $("modalMessage");
+  el.textContent = text;
+  el.className = "message show " + type;
+}
+function openForm(title, sub, fields, btnText, onSubmit) {
+  modalBody.innerHTML = `<h3>${title}</h3><p class="modal-sub">${sub}</p>
+    <form id="mForm">${fields.map(f => `<div class="form-group"><label>${f.label}</label>
+    <input name="${f.name}" type="${f.type}" ${f.attrs || ""}></div>`).join("")}
+    <button class="submit-btn" type="submit">${btnText}</button></form>
+    <div id="modalMessage" class="message" role="status"></div>`;
+  modalOverlay.classList.remove("hidden");
+  const form = $("mForm");
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const btn = form.querySelector("button");
+    btn.disabled = true;
+    try { await onSubmit(Object.fromEntries(new FormData(form))); }
+    catch (err) { modalMsg(err.message || "Une erreur est survenue.", "error"); }
+    btn.disabled = false;
+  });
+  return form;
+}
+
+function openProfileModal() {
+  const f = openForm("Modifier le profil", "Mettez à jour votre nom.", [
+    { label: "Nom complet", name: "fullName", type: "text", attrs: "required" },
+    { label: "Adresse e-mail", name: "email", type: "email", attrs: "disabled" }
+  ], "Enregistrer", async v => {
+    const name = v.fullName.trim();
+    if (!name) throw new Error("Veuillez saisir votre nom complet.");
+    const { data, error } = await db.auth.updateUser({ data: { full_name: name } });
+    if (error) throw error;
+    currentUser = data.user;
+    updateProfileUI(data.user);
+    closeModal();
+    showToast("Profil mis à jour.");
+  });
+  f.elements.fullName.value = currentUser?.user_metadata?.full_name || "";
+  f.elements.email.value = currentUser?.email || "";
+}
+
+function openSecurityModal() {
+  openForm("Mot de passe et sécurité", "Minimum 6 caractères.", [
+    { label: "Mot de passe actuel", name: "cur", type: "password", attrs: 'required autocomplete="current-password"' },
+    { label: "Nouveau mot de passe", name: "nw", type: "password", attrs: 'required minlength="6" autocomplete="new-password"' },
+    { label: "Confirmer le mot de passe", name: "cf", type: "password", attrs: 'required minlength="6" autocomplete="new-password"' }
+  ], "Changer le mot de passe", async v => {
+    if (v.nw.length < 6) throw new Error("Le mot de passe doit contenir au moins 6 caractères.");
+    if (v.nw !== v.cf) throw new Error("Les mots de passe ne correspondent pas.");
+    const { error: e1 } = await db.auth.signInWithPassword({ email: currentUser.email, password: v.cur });
+    if (e1) throw new Error("Mot de passe actuel incorrect.");
+    const { error } = await db.auth.updateUser({ password: v.nw });
+    if (error) throw error;
+    closeModal();
+    showToast("Mot de passe modifié avec succès.");
+  });
+}
+
+// =====================================
 // INITIAL AUTH STATE
 // =====================================
 async function initializeApp() {
@@ -1143,6 +1311,7 @@ async function initializeApp() {
 
 db.auth.onAuthStateChange((event, session) => {
   if (event === "SIGNED_IN" && session?.user) {
+    if (currentUser?.id === session.user.id) { currentUser = session.user; return; }
     showDashboard(session.user);
   }
 
