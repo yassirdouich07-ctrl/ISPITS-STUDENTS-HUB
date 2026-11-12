@@ -4,479 +4,783 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#102a43">
+<meta name="theme-color" content="#102b46">
 <title>ISPITS Students Hub</title>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-:root {
-  --navy:#102a43;
-  --blue:#1769aa;
-  --cyan:#21a6a1;
-  --bg:#f3f6fb;
-  --ink:#172b4d;
-  --muted:#718096;
-  --line:#e4eaf2;
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --navy:#102b46;
+  --navy2:#173d5c;
+  --teal:#159c94;
+  --teal-light:#e8f7f5;
+  --bg:#f5f7fa;
+  --white:#fff;
+  --text:#25364a;
+  --muted:#8492a3;
+  --border:#e9edf2;
+  --shadow:0 12px 35px rgba(16,43,70,.06);
+  --radius:18px;
 }
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family:Inter,system-ui,sans-serif;
+  font-family:'DM Sans',sans-serif;
+  color:var(--text);
   background:var(--bg);
-  color:var(--ink)
 }
 button,input{font:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
 
-/* AUTHENTIFICATION */
-.auth-wrap{
+/* LOGO */
+.logo{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+.logo-symbol{
+  width:46px;
+  height:46px;
+  flex-shrink:0;
+}
+.logo-title{
+  font-family:'Outfit',sans-serif;
+  font-size:17px;
+  font-weight:800;
+  letter-spacing:-.5px;
+  color:var(--navy);
+}
+.logo-sub{
+  display:block;
+  font-size:9px;
+  letter-spacing:2px;
+  color:var(--muted);
+  font-weight:700;
+  margin-top:2px;
+}
+
+/* AUTH PAGE */
+.auth-page{
   min-height:100vh;
   display:grid;
-  grid-template-columns:1.02fr .98fr;
-  background:white
+  grid-template-columns:1fr 1fr;
+  background:white;
 }
-.visual{
-  padding:54px clamp(28px,6vw,90px);
-  background:linear-gradient(145deg,#102a43,#164e76 58%,#168b91);
-  color:white;
+.auth-visual{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(145deg,#102b46 0%,#164766 65%,#117f80 100%);
+  padding:45px 8%;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
-  position:relative;
-  overflow:hidden
+  color:white;
 }
-.visual:before,.visual:after{
+.auth-visual:before{
   content:"";
   position:absolute;
-  border:1px solid #ffffff20;
+  width:520px;
+  height:520px;
+  border:1px solid #ffffff17;
   border-radius:50%;
-  width:440px;height:440px;
-  right:-170px;top:15%
+  right:-180px;
+  bottom:-160px;
 }
-.visual:after{
-  width:600px;height:600px;
-  right:-250px;top:5%
+.auth-visual:after{
+  content:"";
+  position:absolute;
+  width:390px;
+  height:390px;
+  border:1px solid #ffffff17;
+  border-radius:50%;
+  right:-110px;
+  bottom:-95px;
 }
-.brand{
+.visual-logo{
+  position:relative;
+  z-index:2;
+}
+.visual-logo .logo-title{color:white}
+.visual-logo .logo-sub{color:#a9c5d4}
+.visual-content{
+  position:relative;
+  z-index:2;
+  max-width:490px;
+  margin:65px 0;
+}
+.visual-badge{
+  display:inline-flex;
+  padding:8px 13px;
+  border-radius:30px;
+  background:#ffffff14;
+  border:1px solid #ffffff24;
+  color:#b5e8e3;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:1px;
+}
+.visual-content h1{
+  font-family:'Outfit',sans-serif;
+  font-size:clamp(42px,5vw,66px);
+  line-height:1.08;
+  letter-spacing:-2px;
+  margin:24px 0 18px;
+}
+.visual-content h1 span{color:#69d5c7}
+.visual-content p{
+  color:#c8dbe7;
+  font-size:15px;
+  line-height:1.9;
+  max-width:410px;
+}
+.visual-features{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  margin-top:35px;
+}
+.visual-feature{
   display:flex;
   align-items:center;
   gap:12px;
-  font-weight:800;
-  position:relative;
-  z-index:1
+  color:#e1edf3;
+  font-size:13px;
 }
-.brand-mark{
-  width:44px;height:44px;
-  border-radius:14px;
-  background:#ffffff26;
+.feature-check{
+  width:25px;
+  height:25px;
+  border-radius:8px;
   display:grid;
   place-items:center;
-  font-size:22px
+  background:#ffffff16;
+  color:#77e0d0;
 }
-.visual-copy{
-  max-width:560px;
+.visual-footer{
   position:relative;
-  z-index:1;
-  margin:70px 0
-}
-.eyebrow{
-  color:#a9e8e3;
-  text-transform:uppercase;
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:2px
-}
-.visual-copy h1{
-  font-size:clamp(38px,5vw,64px);
-  line-height:1.05;
-  margin:18px 0
-}
-.visual-copy p{
-  font-size:17px;
-  line-height:1.8;
-  color:#d8e8f2
-}
-.visual-foot{
-  font-size:12px;
-  color:#c4d8e6;
-  position:relative;
-  z-index:1
+  z-index:2;
+  font-size:11px;
+  color:#a9c2d2;
+  border-top:1px solid #ffffff20;
+  padding-top:20px;
 }
 .auth-side{
   display:flex;
-  align-items:center;
   justify-content:center;
-  padding:38px 24px
+  align-items:center;
+  padding:45px 25px;
 }
-.auth-card{width:min(100%,440px)}
-.mobile-brand{display:none}
-.auth-card h2{
-  font-size:30px;
-  margin:0 0 8px;
-  color:var(--navy)
+.auth-box{width:100%;max-width:420px}
+.mobile-logo{display:none;margin-bottom:40px}
+.auth-heading h2{
+  font-family:'Outfit',sans-serif;
+  color:var(--navy);
+  font-size:32px;
+  letter-spacing:-1px;
+  margin:0 0 9px;
 }
-.sub{
+.auth-heading p{
   color:var(--muted);
-  margin:0 0 28px;
-  line-height:1.6
+  font-size:14px;
+  line-height:1.7;
+  margin:0 0 30px;
 }
-.tabs{
+.auth-tabs{
   display:grid;
   grid-template-columns:1fr 1fr;
-  background:#eef3f8;
-  border-radius:13px;
-  padding:4px;
-  margin-bottom:24px
+  background:#f1f4f7;
+  padding:5px;
+  border-radius:12px;
+  margin-bottom:27px;
 }
-.tab{
+.auth-tab{
   border:0;
   background:transparent;
-  color:#66788a;
-  padding:11px;
-  border-radius:10px;
-  font-weight:700
+  color:#8794a2;
+  padding:12px;
+  border-radius:9px;
+  font-weight:700;
+  font-size:13px;
 }
-.tab.active{
+.auth-tab.active{
   background:white;
   color:var(--navy);
-  box-shadow:0 2px 8px #102a4312
+  box-shadow:0 2px 8px #102b4610;
 }
-.field{margin:15px 0}
-.field label{
+.form-group{margin-bottom:19px}
+.form-group label{
   display:block;
-  font-size:13px;
+  font-size:12px;
   font-weight:700;
-  margin-bottom:8px;
-  color:#344b63
+  color:#45566a;
+  margin-bottom:9px;
 }
-.field input{
+.form-group input{
   width:100%;
-  padding:14px 15px;
-  border:1px solid var(--line);
-  border-radius:12px;
+  height:51px;
+  border:1px solid #e3e9ef;
+  border-radius:11px;
+  background:#fbfcfd;
+  padding:0 15px;
   outline:none;
-  background:#fbfcfe
+  color:var(--navy);
+  transition:.2s;
 }
-.field input:focus{
-  border-color:var(--blue);
-  box-shadow:0 0 0 3px #1769aa16;
-  background:white
+.form-group input:focus{
+  border-color:var(--teal);
+  background:white;
+  box-shadow:0 0 0 3px #159c9415;
 }
-.primary{
-  width:100%;
-  border:0;
-  border-radius:12px;
-  padding:15px;
-  background:linear-gradient(100deg,var(--blue),var(--cyan));
-  color:white;
-  font-weight:800;
-  margin-top:10px
+.forgot-row{
+  text-align:right;
+  margin:-7px 0 18px;
 }
-.primary:disabled{opacity:.6;cursor:wait}
-.minor-row{
-  display:flex;
-  justify-content:flex-end;
-  margin:3px 0 14px
-}
-.link-btn{
+.text-btn{
   border:0;
   background:none;
-  color:var(--blue);
+  color:var(--teal);
+  font-size:12px;
   font-weight:700;
-  font-size:13px
+}
+.submit-btn{
+  width:100%;
+  height:52px;
+  border:0;
+  border-radius:11px;
+  background:var(--navy);
+  color:white;
+  font-weight:700;
+  font-size:14px;
+  transition:.2s;
+}
+.submit-btn:hover{
+  background:#1b496b;
+  transform:translateY(-1px);
+}
+.submit-btn:disabled{opacity:.6;cursor:wait}
+.auth-note{
+  text-align:center;
+  font-size:11px;
+  color:#a0aab6;
+  line-height:1.8;
+  margin-top:27px;
 }
 .message{
-  padding:12px 14px;
-  border-radius:11px;
-  font-size:13px;
-  line-height:1.5;
-  margin:14px 0;
-  display:none
+  display:none;
+  padding:13px;
+  border-radius:10px;
+  font-size:12px;
+  line-height:1.6;
+  margin:15px 0;
 }
 .message.show{display:block}
-.message.error{background:#fff0f0;color:#a52a2a}
-.message.success{background:#eaf8f3;color:#126747}
-.message.info{background:#eef6ff;color:#245b91}
-.terms{
-  font-size:12px;
-  color:#8a98a8;
-  text-align:center;
-  line-height:1.6;
-  margin-top:20px
-}
+.message.error{background:#fff0f0;color:#a83232}
+.message.success{background:#eaf8f1;color:#18734d}
+.message.info{background:#eef5fc;color:#275e89}
 
 /* DASHBOARD */
-.app{min-height:100vh}
+.dashboard{min-height:100vh}
 .topbar{
   height:76px;
+  padding:0 35px;
   background:white;
-  border-bottom:1px solid var(--line);
+  border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 clamp(18px,5vw,70px);
   position:sticky;
   top:0;
-  z-index:5
+  z-index:20;
 }
-.topbar .brand{color:var(--navy)}
-.topbar .brand-mark{
-  background:#e8f4f8;
-  color:var(--blue)
-}
-.user-area{
+.topbar-right{
   display:flex;
   align-items:center;
-  gap:13px
+  gap:18px;
 }
-.user-email{
-  font-size:13px;
-  color:var(--muted);
-  max-width:220px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap
+.user-info{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
-.logout{
-  border:1px solid var(--line);
-  background:white;
-  padding:9px 14px;
-  border-radius:10px;
-  color:var(--navy);
-  font-weight:700
-}
-.container{
-  width:min(1120px,92%);
-  margin:0 auto
-}
-.welcome{padding:45px 0 30px}
-.tag{
-  display:inline-flex;
-  background:#e4f5f3;
-  color:#147b78;
-  padding:7px 12px;
-  border-radius:30px;
-  font-size:11px;
+.avatar{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  background:var(--teal-light);
+  color:var(--teal);
+  display:grid;
+  place-items:center;
   font-weight:800;
-  letter-spacing:1px;
-  text-transform:uppercase
 }
-.welcome h1{
-  font-size:clamp(29px,4vw,42px);
-  margin:14px 0 8px;
-  color:var(--navy)
+.user-name{
+  font-size:12px;
+  font-weight:700;
+  color:var(--navy);
 }
-.welcome p{
-  margin:0;
+.user-role{
+  font-size:10px;
   color:var(--muted);
-  line-height:1.7
+  margin-top:3px;
 }
-.section-head{
+.logout-btn{
+  border:1px solid var(--border);
+  background:white;
+  color:#657487;
+  border-radius:9px;
+  padding:10px 13px;
+  font-size:12px;
+  font-weight:700;
+}
+.layout{
+  display:flex;
+  min-height:calc(100vh - 76px);
+}
+.sidebar{
+  width:245px;
+  flex-shrink:0;
+  background:white;
+  border-right:1px solid var(--border);
+  padding:27px 17px;
+}
+.side-label{
+  font-size:10px;
+  font-weight:800;
+  color:#a2adba;
+  letter-spacing:1.4px;
+  padding:0 12px;
+  margin:8px 0 13px;
+}
+.nav-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  padding:13px 12px;
+  border:0;
+  background:transparent;
+  color:#728195;
+  border-radius:10px;
+  text-align:left;
+  font-size:12px;
+  font-weight:600;
+  margin-bottom:5px;
+  transition:.2s;
+}
+.nav-item:hover{
+  background:#f5f8fa;
+  color:var(--navy);
+}
+.nav-item.active{
+  background:#eaf6f5;
+  color:#168b83;
+  font-weight:800;
+}
+.nav-icon{
+  width:20px;
+  text-align:center;
+  font-size:17px;
+}
+.side-bottom{
+  margin-top:50px;
+  padding:16px;
+  border-radius:13px;
+  background:#f4f8fa;
+}
+.side-bottom strong{
+  font-size:12px;
+  color:var(--navy);
+}
+.side-bottom p{
+  font-size:10px;
+  color:var(--muted);
+  line-height:1.6;
+  margin-bottom:0;
+}
+.main-content{
+  flex:1;
+  min-width:0;
+  padding:35px clamp(18px,4vw,55px);
+}
+.content-inner{max-width:1150px;margin:auto}
+.welcome-row{
   display:flex;
   justify-content:space-between;
-  align-items:end;
-  margin:22px 0 16px
+  align-items:center;
+  gap:20px;
+  margin-bottom:27px;
 }
-.section-head h2{
-  font-size:19px;
-  margin:0;
-  color:var(--navy)
+.welcome-small{
+  color:var(--teal);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
 }
-.section-head span{
-  font-size:12px;
-  color:var(--muted)
+.welcome-row h1{
+  font-family:'Outfit',sans-serif;
+  color:var(--navy);
+  font-size:30px;
+  letter-spacing:-1px;
+  margin:8px 0 5px;
 }
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:17px;
-  padding-bottom:45px
-}
-.module{
-  background:white;
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:22px;
-  text-align:left;
-  min-height:180px;
-  transition:.2s;
-  color:inherit
-}
-.module:hover{
-  transform:translateY(-4px);
-  box-shadow:0 18px 50px #102a431a
-}
-.module-icon{
-  width:48px;height:48px;
-  border-radius:15px;
-  display:grid;
-  place-items:center;
-  font-size:23px;
-  margin-bottom:17px;
-  background:#eaf4fb
-}
-.module:nth-child(2) .module-icon{background:#e8f7f3}
-.module:nth-child(3) .module-icon{background:#f1edff}
-.module:nth-child(4) .module-icon{background:#fff4e7}
-.module:nth-child(5) .module-icon{background:#eaf6ff}
-.module:nth-child(6) .module-icon{background:#fff0f1}
-.module h3{
-  margin:0 0 7px;
-  font-size:16px;
-  color:var(--navy)
-}
-.module p{
-  margin:0;
+.welcome-row p{
   color:var(--muted);
   font-size:13px;
-  line-height:1.55
+  margin:0;
 }
-.module .arrow{
-  display:block;
-  margin-top:15px;
-  color:var(--blue);
+.date-card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:13px 17px;
+  color:var(--muted);
+  font-size:11px;
+  white-space:nowrap;
+}
+.hero-banner{
+  background:linear-gradient(110deg,#102b46,#18536a 75%,#167d7b);
+  border-radius:17px;
+  padding:27px 30px;
+  color:white;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+  margin-bottom:28px;
+}
+.hero-banner:after{
+  content:"✚";
+  position:absolute;
+  right:8%;
+  font-size:130px;
+  color:#ffffff0c;
+}
+.hero-banner h2{
+  font-family:'Outfit',sans-serif;
+  font-size:21px;
+  margin:0 0 8px;
+}
+.hero-banner p{
   font-size:12px;
-  font-weight:800
+  color:#d1e5ed;
+  line-height:1.7;
+  margin:0;
+  max-width:530px;
 }
-.footer{
-  text-align:center;
-  color:#9aa8b7;
-  font-size:12px;
-  padding:18px 0 30px;
-  border-top:1px solid var(--line)
+.hero-tag{
+  position:relative;
+  z-index:1;
+  background:#ffffff17;
+  border:1px solid #ffffff25;
+  padding:10px 14px;
+  border-radius:9px;
+  font-size:11px;
+  white-space:nowrap;
 }
-.modal-backdrop{
-  position:fixed;
-  inset:0;
-  background:#0b2036a8;
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:25px 0 15px;
+}
+.section-title h2{
+  font-family:'Outfit',sans-serif;
+  font-size:18px;
+  color:var(--navy);
+  margin:0;
+}
+.section-title span{
+  font-size:11px;
+  color:var(--muted);
+}
+.modules-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
+.module-card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:20px;
+  text-align:left;
+  min-height:175px;
+  color:var(--text);
+  transition:.22s;
+  position:relative;
+}
+.module-card:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow);
+  border-color:#d0e5e3;
+}
+.module-card:focus-visible{
+  outline:3px solid #159c9455;
+}
+.module-icon{
+  width:43px;
+  height:43px;
+  border-radius:12px;
   display:grid;
   place-items:center;
-  padding:18px;
-  z-index:10
+  font-size:20px;
+  background:#edf4fa;
+  margin-bottom:15px;
 }
-.modal{
-  width:min(100%,440px);
-  background:white;
-  border-radius:20px;
-  padding:27px
+.module-card:nth-child(2) .module-icon{background:#e8f7f3}
+.module-card:nth-child(3) .module-icon{background:#f2edff}
+.module-card:nth-child(4) .module-icon{background:#fff4e6}
+.module-card:nth-child(5) .module-icon{background:#eaf5ff}
+.module-card:nth-child(6) .module-icon{background:#fff0f1}
+.module-card h3{
+  font-family:'Outfit',sans-serif;
+  font-size:14px;
+  color:var(--navy);
+  margin:0 0 7px;
 }
-.modal h3{margin:0 0 8px;color:var(--navy)}
-.modal p{color:var(--muted);font-size:14px;line-height:1.65}
-.modal-actions{
-  display:flex;
-  justify-content:flex-end;
-  margin-top:20px
+.module-card p{
+  font-size:11px;
+  line-height:1.7;
+  color:var(--muted);
+  margin:0;
 }
-.secondary{
-  border:1px solid var(--line);
-  background:white;
-  padding:11px 15px;
-  border-radius:10px;
-  font-weight:700;
-  color:var(--navy)
+.module-arrow{
+  position:absolute;
+  right:18px;
+  bottom:18px;
+  color:var(--teal);
+  font-size:17px;
+}
+.bottom-footer{
+  text-align:center;
+  border-top:1px solid var(--border);
+  margin-top:40px;
+  padding:20px 0;
+  font-size:10px;
+  color:#9aa6b4;
 }
 
-@media(max-width:800px){
-  .auth-wrap{grid-template-columns:1fr}
-  .visual{display:none}
-  .mobile-brand{display:flex;margin-bottom:30px}
-  .auth-side{min-height:100vh;padding:32px 22px}
-  .grid{grid-template-columns:repeat(2,1fr)}
+/* MODAL */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  z-index:50;
+  background:#102b4680;
+  display:grid;
+  place-items:center;
+  padding:20px;
 }
-@media(max-width:520px){
-  .grid{grid-template-columns:1fr;gap:12px}
-  .module{min-height:145px;padding:18px}
-  .topbar{height:66px;padding:0 16px}
-  .user-email{display:none}
-  .welcome{padding:32px 0 20px}
-  .section-head span{display:none}
+.modal{
+  width:min(100%,420px);
+  background:white;
+  border-radius:18px;
+  padding:27px;
+  box-shadow:var(--shadow);
+}
+.modal h3{color:var(--navy);margin:0 0 10px}
+.modal p{color:var(--muted);font-size:13px;line-height:1.8}
+.modal-close{
+  border:0;
+  background:var(--navy);
+  color:white;
+  border-radius:9px;
+  padding:10px 18px;
+  font-size:12px;
+  font-weight:700;
+  float:right;
+}
+
+/* MOBILE */
+.mobile-menu-btn{
+  display:none;
+  border:1px solid var(--border);
+  background:white;
+  border-radius:9px;
+  padding:8px 12px;
+  color:var(--navy);
+}
+@media(max-width:950px){
+  .sidebar{width:210px}
+  .modules-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:700px){
+  .auth-page{grid-template-columns:1fr}
+  .auth-visual{display:none}
+  .auth-side{min-height:100vh;padding:30px 22px}
+  .mobile-logo{display:flex}
+  .topbar{height:67px;padding:0 15px}
+  .logo-title{font-size:14px}
+  .logo-symbol{width:39px;height:39px}
+  .user-name,.user-role{display:none}
+  .layout{display:block}
+  .sidebar{
+    display:none;
+    width:100%;
+    border-right:0;
+    border-bottom:1px solid var(--border);
+    padding:12px 15px;
+  }
+  .sidebar.open{display:block}
+  .side-bottom{display:none}
+  .mobile-menu-btn{display:block}
+  .topbar-right{gap:9px}
+  .main-content{padding:25px 16px}
+  .welcome-row h1{font-size:25px}
+  .date-card{display:none}
+  .hero-banner{padding:22px 19px}
+  .hero-tag{display:none}
+}
+@media(max-width:460px){
+  .modules-grid{grid-template-columns:1fr}
+  .module-card{min-height:145px}
+  .welcome-row h1{font-size:23px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- PAGE CONNEXION -->
-<main id="authView" class="auth-wrap">
+<!-- SVG LOGO -->
+<svg style="display:none" aria-hidden="true">
+  <symbol id="hub-logo" viewBox="0 0 100 100">
+    <rect x="4" y="4" width="92" height="92" rx="25" fill="#159c94"/>
+    <path d="M22 26 Q36 19 49 29 L49 75 Q36 65 22 73 Z"
+          fill="none" stroke="white" stroke-width="5"
+          stroke-linejoin="round"/>
+    <path d="M78 26 Q64 19 51 29 L51 75 Q64 65 78 73 Z"
+          fill="none" stroke="white" stroke-width="5"
+          stroke-linejoin="round"/>
+    <path d="M66 35 V53 M57 44 H75"
+          stroke="white" stroke-width="6"
+          stroke-linecap="round"/>
+    <path d="M18 80 Q50 91 82 80"
+          fill="none" stroke="white" stroke-width="4"
+          stroke-linecap="round"/>
+  </symbol>
+</svg>
 
-  <section class="visual">
-    <div class="brand">
-      <div class="brand-mark">✚</div>
-      <span>ISPITS STUDENTS HUB</span>
+<!-- AUTHENTIFICATION -->
+<main id="authView" class="auth-page">
+
+  <section class="auth-visual">
+
+    <div class="visual-logo">
+      <div class="logo">
+        <svg class="logo-symbol"><use href="#hub-logo"/></svg>
+        <div>
+          <div class="logo-title">ISPITS STUDENTS HUB</div>
+          <span class="logo-sub">LEARNING COMMUNITY</span>
+        </div>
+      </div>
     </div>
 
-    <div class="visual-copy">
-      <div class="eyebrow">La communauté des étudiants ISPITS</div>
-      <h1>Apprendre.<br>Partager.<br>Réussir.</h1>
+    <div class="visual-content">
+
+      <span class="visual-badge">
+        ✦ PLATEFORME ÉDUCATIVE
+      </span>
+
+      <h1>Votre réussite<br>commence <span>ici.</span></h1>
+
       <p>
-        Un espace organisé pour retrouver vos cours,
-        résumés, stages et ressources de révision
-        au même endroit.
+        Un espace numérique pensé pour les étudiants ISPITS.
+        Retrouvez vos ressources pédagogiques, organisez
+        vos révisions et développez vos compétences.
       </p>
+
+      <div class="visual-features">
+
+        <div class="visual-feature">
+          <span class="feature-check">✓</span>
+          Des ressources pédagogiques centralisées
+        </div>
+
+        <div class="visual-feature">
+          <span class="feature-check">✓</span>
+          Des outils pour faciliter vos révisions
+        </div>
+
+        <div class="visual-feature">
+          <span class="feature-check">✓</span>
+          Un espace dédié à votre formation
+        </div>
+
+      </div>
+
     </div>
 
-    <div class="visual-foot">
-      Une plateforme dédiée aux étudiants ISPITS · Maroc
+    <div class="visual-footer">
+      ISPITS STUDENTS HUB · MAROC · 2026
     </div>
+
   </section>
 
   <section class="auth-side">
-    <div class="auth-card">
 
-      <div class="brand mobile-brand">
-        <div class="brand-mark">✚</div>
-        <span>ISPITS STUDENTS HUB</span>
+    <div class="auth-box">
+
+      <div class="mobile-logo">
+        <div class="logo">
+          <svg class="logo-symbol"><use href="#hub-logo"/></svg>
+          <div>
+            <div class="logo-title">ISPITS STUDENTS HUB</div>
+            <span class="logo-sub">LEARNING COMMUNITY</span>
+          </div>
+        </div>
       </div>
 
-      <h2 id="formTitle">Bienvenue !</h2>
-      <p class="sub" id="formSubtitle">
-        Connectez-vous pour accéder à votre espace étudiant.
-      </p>
+      <div class="auth-heading">
+        <h2 id="formTitle">Bienvenue !</h2>
+        <p id="formSubtitle">
+          Connectez-vous à votre espace étudiant
+          pour accéder à vos ressources.
+        </p>
+      </div>
 
-      <div class="tabs">
-        <button class="tab active" id="loginTab" type="button">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="loginTab" type="button">
           Connexion
         </button>
-        <button class="tab" id="signupTab" type="button">
-          Créer un compte
+        <button class="auth-tab" id="signupTab" type="button">
+          Inscription
         </button>
       </div>
 
       <form id="authForm">
 
-        <div class="field hidden" id="nameField">
+        <div class="form-group hidden" id="nameGroup">
           <label for="fullName">Nom complet</label>
           <input id="fullName" type="text"
-                 autocomplete="name"
-                 placeholder="Votre nom complet">
+                 placeholder="Votre nom complet"
+                 autocomplete="name">
         </div>
 
-        <div class="field">
+        <div class="form-group">
           <label for="email">Adresse e-mail</label>
           <input id="email" type="email"
-                 autocomplete="email"
                  placeholder="exemple@email.com"
-                 required>
+                 autocomplete="email" required>
         </div>
 
-        <div class="field">
+        <div class="form-group">
           <label for="password">Mot de passe</label>
           <input id="password" type="password"
-                 autocomplete="current-password"
                  placeholder="Minimum 6 caractères"
-                 minlength="6" required>
+                 minlength="6"
+                 autocomplete="current-password" required>
         </div>
 
-        <div class="minor-row" id="forgotRow">
-          <button class="link-btn" id="forgotBtn" type="button">
+        <div class="forgot-row" id="forgotRow">
+          <button class="text-btn" type="button" id="forgotBtn">
             Mot de passe oublié ?
           </button>
         </div>
 
-        <button class="primary" id="submitBtn" type="submit">
-          Se connecter
+        <button class="submit-btn" id="submitBtn" type="submit">
+          Se connecter →
         </button>
 
       </form>
@@ -484,118 +788,252 @@ button{cursor:pointer}
       <div id="authMessage" class="message"
            role="status" aria-live="polite"></div>
 
-      <p class="terms">
-        En continuant, vous acceptez d’utiliser cette plateforme
-        dans un cadre pédagogique et respectueux.
-      </p>
+      <div class="auth-note">
+        Espace pédagogique réservé aux étudiants.<br>
+        ISPITS STUDENTS HUB © 2026
+      </div>
 
     </div>
+
   </section>
+
 </main>
 
 
 <!-- DASHBOARD -->
-<main id="appView" class="app hidden">
+<main id="appView" class="dashboard hidden">
 
   <header class="topbar">
 
-    <div class="brand">
-      <div class="brand-mark">✚</div>
-      <span>ISPITS STUDENTS HUB</span>
+    <div class="logo">
+      <svg class="logo-symbol"><use href="#hub-logo"/></svg>
+      <div>
+        <div class="logo-title">ISPITS STUDENTS HUB</div>
+        <span class="logo-sub">ESPACE ÉTUDIANT</span>
+      </div>
     </div>
 
-    <div class="user-area">
-      <span class="user-email" id="userEmail"></span>
-      <button class="logout" id="logoutBtn" type="button">
-        Déconnexion
+    <div class="topbar-right">
+
+      <button class="mobile-menu-btn" id="menuBtn">
+        ☰
       </button>
+
+      <div class="user-info">
+        <div class="avatar" id="userAvatar">E</div>
+        <div>
+          <div class="user-name" id="userName">Étudiant</div>
+          <div class="user-role">Étudiant ISPITS</div>
+        </div>
+      </div>
+
+      <button class="logout-btn" id="logoutBtn">
+        ↪ Déconnexion
+      </button>
+
     </div>
 
   </header>
 
-  <div class="container">
 
-    <section class="welcome">
-      <span class="tag">Espace étudiant</span>
-      <h1>Bonjour <span id="userName">étudiant</span> 👋</h1>
-      <p>
-        Bienvenue sur votre espace de ressources pédagogiques.
-        Choisissez une rubrique pour commencer.
-      </p>
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+      <div class="side-label">MENU PRINCIPAL</div>
+
+      <button class="nav-item active" data-module="Accueil">
+        <span class="nav-icon">⌂</span>
+        Accueil
+      </button>
+
+      <button class="nav-item" data-module="Cours">
+        <span class="nav-icon">▤</span>
+        Cours
+      </button>
+
+      <button class="nav-item" data-module="Stages">
+        <span class="nav-icon">✚</span>
+        Stages
+      </button>
+
+      <button class="nav-item" data-module="Résumés">
+        <span class="nav-icon">▧</span>
+        Résumés
+      </button>
+
+      <button class="nav-item" data-module="Emploi du temps">
+        <span class="nav-icon">▦</span>
+        Emploi du temps
+      </button>
+
+      <button class="nav-item" data-module="TP Simulation">
+        <span class="nav-icon">⚕</span>
+        TP Simulation
+      </button>
+
+      <button class="nav-item" data-module="Examens & QCM">
+        <span class="nav-icon">✎</span>
+        Examens & QCM
+      </button>
+
+      <div class="side-bottom">
+        <strong>Votre espace étudiant</strong>
+        <p>
+          Apprenez, partagez et progressez
+          tout au long de votre formation.
+        </p>
+      </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <section class="main-content">
+
+      <div class="content-inner">
+
+        <div class="welcome-row">
+
+          <div>
+            <div class="welcome-small">
+              VOTRE ESPACE DE FORMATION
+            </div>
+
+            <h1>Bonjour, <span id="welcomeName">Étudiant</span> 👋</h1>
+
+            <p>
+              Heureux de vous retrouver.
+              Que souhaitez-vous consulter aujourd'hui ?
+            </p>
+          </div>
+
+          <div class="date-card" id="todayDate"></div>
+
+        </div>
+
+
+        <div class="hero-banner">
+
+          <div>
+            <h2>Bienvenue sur votre plateforme !</h2>
+            <p>
+              Toutes vos ressources pédagogiques réunies
+              dans un seul espace pour accompagner votre
+              parcours de formation.
+            </p>
+          </div>
+
+          <div class="hero-tag">
+            ✦ Learning space
+          </div>
+
+        </div>
+
+
+        <div class="section-title">
+          <h2>Explorer les ressources</h2>
+          <span>6 rubriques disponibles</span>
+        </div>
+
+
+        <div class="modules-grid">
+
+          <button class="module-card" data-module="Cours">
+            <div class="module-icon">📚</div>
+            <h3>Cours</h3>
+            <p>
+              Supports de cours, documents pédagogiques
+              et ressources des différents modules.
+            </p>
+            <span class="module-arrow">↗</span>
+          </button>
+
+          <button class="module-card" data-module="Stages">
+            <div class="module-icon">🏥</div>
+            <h3>Stages</h3>
+            <p>
+              Documents de stage, protocoles,
+              fiches techniques et situations cliniques.
+            </p>
+            <span class="module-arrow">↗</span>
+          </button>
+
+          <button class="module-card" data-module="Résumés">
+            <div class="module-icon">📝</div>
+            <h3>Résumés</h3>
+            <p>
+              Fiches de révision et synthèses
+              pour mieux préparer vos examens.
+            </p>
+            <span class="module-arrow">↗</span>
+          </button>
+
+          <button class="module-card" data-module="Emploi du temps">
+            <div class="module-icon">🗓️</div>
+            <h3>Emploi du temps</h3>
+            <p>
+              Plannings, organisation des cours
+              et informations académiques.
+            </p>
+            <span class="module-arrow">↗</span>
+          </button>
+
+          <button class="module-card" data-module="TP Simulation">
+            <div class="module-icon">🩺</div>
+            <h3>TP Simulation</h3>
+            <p>
+              Préparation des travaux pratiques,
+              gestes techniques et soins infirmiers.
+            </p>
+            <span class="module-arrow">↗</span>
+          </button>
+
+          <button class="module-card" data-module="Examens & QCM">
+            <div class="module-icon">🎓</div>
+            <h3>Examens & QCM</h3>
+            <p>
+              Examens des années précédentes,
+              QCM et évaluations d'entraînement.
+            </p>
+            <span class="module-arrow">↗</span>
+          </button>
+
+        </div>
+
+
+        <div class="bottom-footer">
+          ISPITS STUDENTS HUB · Plateforme pédagogique indépendante
+          · 2026
+        </div>
+
+      </div>
+
     </section>
-
-    <div class="section-head">
-      <h2>Votre espace de travail</h2>
-      <span>Ressources pédagogiques</span>
-    </div>
-
-    <section class="grid">
-
-      <button class="module" data-module="Cours" type="button">
-        <div class="module-icon">📚</div>
-        <h3>Cours</h3>
-        <p>Consultez les supports de cours et les documents des modules.</p>
-        <span class="arrow">Accéder à la rubrique →</span>
-      </button>
-
-      <button class="module" data-module="Stages" type="button">
-        <div class="module-icon">🏥</div>
-        <h3>Stages</h3>
-        <p>Retrouvez les fiches de stage, protocoles et documents pratiques.</p>
-        <span class="arrow">Accéder à la rubrique →</span>
-      </button>
-
-      <button class="module" data-module="Résumés" type="button">
-        <div class="module-icon">📝</div>
-        <h3>Résumés</h3>
-        <p>Des fiches synthétiques pour faciliter vos révisions.</p>
-        <span class="arrow">Accéder à la rubrique →</span>
-      </button>
-
-      <button class="module" data-module="Emploi du temps" type="button">
-        <div class="module-icon">🗓️</div>
-        <h3>Emploi du temps</h3>
-        <p>Consultez les plannings et les informations d’organisation.</p>
-        <span class="arrow">Accéder à la rubrique →</span>
-      </button>
-
-      <button class="module" data-module="TP Simulation" type="button">
-        <div class="module-icon">🩺</div>
-        <h3>TP Simulation</h3>
-        <p>Préparez les travaux pratiques et les gestes de soins.</p>
-        <span class="arrow">Accéder à la rubrique →</span>
-      </button>
-
-      <button class="module" data-module="Examens & QCM" type="button">
-        <div class="module-icon">🎓</div>
-        <h3>Examens & QCM</h3>
-        <p>Entraînez-vous avec les examens précédents et les QCM.</p>
-        <span class="arrow">Accéder à la rubrique →</span>
-      </button>
-
-    </section>
-
-    <div class="footer">
-      © 2026 ISPITS Students Hub · Espace pédagogique des étudiants
-    </div>
 
   </div>
+
 </main>
 
 
 <!-- MODAL -->
-<div id="modalBackdrop" class="modal-backdrop hidden">
+<div id="modalOverlay" class="modal-overlay hidden">
 
-  <div class="modal" role="dialog" aria-modal="true">
+  <div class="modal">
+
     <h3 id="modalTitle">Rubrique</h3>
+
     <p id="modalText">
       Le contenu de cette rubrique sera bientôt disponible.
     </p>
-    <div class="modal-actions">
-      <button class="secondary" id="closeModal" type="button">
-        Fermer
-      </button>
-    </div>
+
+    <button class="modal-close" id="modalClose">
+      Fermer
+    </button>
+
+    <div style="clear:both"></div>
+
   </div>
 
 </div>
@@ -603,9 +1041,9 @@ button{cursor:pointer}
 
 <script>
 
-// ======================================
+// =======================================
 // 1. CONFIGURATION SUPABASE
-// ======================================
+// =======================================
 
 const SUPABASE_URL =
 "https://xpfwezcpvoenthcnrkod.supabase.co";
@@ -613,53 +1051,52 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_Mw8x91l1l9ir91jPsaSuaA_t824bp0B";
 
-const { createClient } = supabase;
-
-// IMPORTANT : ne pas conserver la session après fermeture
-const db = createClient(
+const db = supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY,
   {
-    auth: {
-      persistSession: false,
-      autoRefreshToken: false,
-      detectSessionInUrl: true
+    auth:{
+      persistSession:false,
+      autoRefreshToken:false,
+      detectSessionInUrl:true
     }
   }
 );
 
 
-// ======================================
-// 2. ELEMENTS HTML
-// ======================================
+// =======================================
+// 2. ELEMENTS
+// =======================================
 
 const authView = document.getElementById("authView");
 const appView = document.getElementById("appView");
+
 const authForm = document.getElementById("authForm");
 const authMessage = document.getElementById("authMessage");
 
 const loginTab = document.getElementById("loginTab");
 const signupTab = document.getElementById("signupTab");
 
-const nameField = document.getElementById("nameField");
+const nameGroup = document.getElementById("nameGroup");
 const forgotRow = document.getElementById("forgotRow");
 const submitBtn = document.getElementById("submitBtn");
 
 let currentMode = "login";
+let currentUser = null;
 
 
-// ======================================
+// =======================================
 // 3. MESSAGES
-// ======================================
+// =======================================
 
-function showMessage(message, type = "info") {
+function showMessage(message,type="info"){
 
   authMessage.textContent = message;
-  authMessage.className = `message show ${type}`;
+  authMessage.className = "message show " + type;
 
 }
 
-function clearMessage() {
+function clearMessage(){
 
   authMessage.textContent = "";
   authMessage.className = "message";
@@ -667,70 +1104,85 @@ function clearMessage() {
 }
 
 
-// ======================================
-// 4. AFFICHAGE CONNEXION / INSCRIPTION
-// ======================================
+// =======================================
+// 4. CHANGEMENT DE MODE
+// =======================================
 
-function setMode(mode) {
+function setMode(mode){
 
   currentMode = mode;
   clearMessage();
 
   const signup = mode === "signup";
 
-  loginTab.classList.toggle("active", !signup);
-  signupTab.classList.toggle("active", signup);
+  loginTab.classList.toggle("active",!signup);
+  signupTab.classList.toggle("active",signup);
 
-  nameField.classList.toggle("hidden", !signup);
-  forgotRow.classList.toggle("hidden", signup);
+  nameGroup.classList.toggle("hidden",!signup);
+  forgotRow.classList.toggle("hidden",signup);
 
   document.getElementById("formTitle").textContent =
     signup ? "Créer votre compte" : "Bienvenue !";
 
   document.getElementById("formSubtitle").textContent =
     signup
-    ? "Inscrivez-vous pour rejoindre votre espace étudiant."
-    : "Connectez-vous pour accéder à votre espace étudiant.";
+    ? "Rejoignez votre communauté étudiante."
+    : "Connectez-vous à votre espace étudiant pour accéder à vos ressources.";
 
   submitBtn.textContent =
-    signup ? "Créer mon compte" : "Se connecter";
+    signup ? "Créer mon compte →" : "Se connecter →";
 
   document.getElementById("password").autocomplete =
     signup ? "new-password" : "current-password";
 
 }
 
-loginTab.addEventListener("click", () => setMode("login"));
-signupTab.addEventListener("click", () => setMode("signup"));
+loginTab.addEventListener("click",()=>setMode("login"));
+signupTab.addEventListener("click",()=>setMode("signup"));
 
 
-// ======================================
-// 5. AFFICHAGE DU DASHBOARD
-// ======================================
+// =======================================
+// 5. DASHBOARD
+// =======================================
 
-function showDashboard(user) {
+function showDashboard(user){
+
+  if(!user) return;
+
+  currentUser = user;
 
   authView.classList.add("hidden");
   appView.classList.remove("hidden");
 
-  document.getElementById("userEmail").textContent =
-    user.email || "";
-
-  const displayName =
+  const name =
     user.user_metadata?.full_name ||
-    (user.email ? user.email.split("@")[0] : "étudiant");
+    user.email?.split("@")[0] ||
+    "Étudiant";
 
-  document.getElementById("userName").textContent =
-    displayName;
+  document.getElementById("userName").textContent = name;
+  document.getElementById("welcomeName").textContent = name;
+
+  document.getElementById("userAvatar").textContent =
+    name.charAt(0).toUpperCase();
+
+  document.getElementById("todayDate").textContent =
+    new Intl.DateTimeFormat("fr-FR",{
+      weekday:"long",
+      day:"numeric",
+      month:"long",
+      year:"numeric"
+    }).format(new Date());
 
 }
 
 
-// ======================================
-// 6. AFFICHAGE DE CONNEXION
-// ======================================
+// =======================================
+// 6. PAGE CONNEXION
+// =======================================
 
-function showAuth() {
+function showAuth(){
+
+  currentUser = null;
 
   appView.classList.add("hidden");
   authView.classList.remove("hidden");
@@ -738,13 +1190,14 @@ function showAuth() {
 }
 
 
-// ======================================
-// 7. CONNEXION ET INSCRIPTION
-// ======================================
+// =======================================
+// 7. INSCRIPTION / CONNEXION
+// =======================================
 
-authForm.addEventListener("submit", async (event) => {
+authForm.addEventListener("submit",async(event)=>{
 
   event.preventDefault();
+
   clearMessage();
 
   const email =
@@ -757,24 +1210,24 @@ authForm.addEventListener("submit", async (event) => {
     document.getElementById("fullName").value.trim();
 
   submitBtn.disabled = true;
-  submitBtn.textContent = "Veuillez patienter…";
+  submitBtn.textContent = "Chargement...";
 
-  try {
+  try{
 
-    if (currentMode === "signup") {
+    if(currentMode === "signup"){
 
-      if (!fullName) {
+      if(!fullName){
         throw new Error("Veuillez saisir votre nom complet.");
       }
 
-      const { data, error } = await db.auth.signUp({
+      const {data,error} = await db.auth.signUp({
 
-        email: email,
-        password: password,
+        email,
+        password,
 
-        options: {
-          data: {
-            full_name: fullName
+        options:{
+          data:{
+            full_name:fullName
           },
 
           emailRedirectTo:
@@ -783,9 +1236,9 @@ authForm.addEventListener("submit", async (event) => {
 
       });
 
-      if (error) throw error;
+      if(error) throw error;
 
-      if (data.session && data.user) {
+      if(data.session && data.user){
 
         showDashboard(data.user);
 
@@ -794,115 +1247,109 @@ authForm.addEventListener("submit", async (event) => {
           "success"
         );
 
-      } else {
+      }else{
 
         showMessage(
-          "Inscription enregistrée ! Vérifiez votre boîte e-mail et cliquez sur le lien de confirmation pour activer votre compte.",
+          "Inscription réussie ! Consultez votre boîte e-mail pour confirmer votre compte.",
           "success"
         );
 
       }
 
-    } else {
+    }else{
 
-      const { data, error } =
+      const {data,error} =
         await db.auth.signInWithPassword({
-          email: email,
-          password: password
+          email,
+          password
         });
 
-      if (error) throw error;
+      if(error) throw error;
 
-      if (data.user) {
-        showDashboard(data.user);
-      }
+      showDashboard(data.user);
 
     }
 
-  } catch (error) {
+  }catch(error){
 
     showMessage(
-      error.message || "Une erreur est survenue. Réessayez.",
+      error.message || "Une erreur est survenue.",
       "error"
     );
 
-  } finally {
+  }finally{
 
     submitBtn.disabled = false;
 
     submitBtn.textContent =
       currentMode === "signup"
-      ? "Créer mon compte"
-      : "Se connecter";
+      ? "Créer mon compte →"
+      : "Se connecter →";
 
   }
 
 });
 
 
-// ======================================
+// =======================================
 // 8. MOT DE PASSE OUBLIE
-// ======================================
+// =======================================
 
 document.getElementById("forgotBtn")
-.addEventListener("click", async () => {
+.addEventListener("click",async()=>{
 
   clearMessage();
 
   const email =
     document.getElementById("email").value.trim();
 
-  if (!email) {
+  if(!email){
 
     showMessage(
-      "Saisissez votre adresse e-mail avant de demander la réinitialisation.",
+      "Veuillez saisir votre adresse e-mail.",
       "info"
     );
 
     document.getElementById("email").focus();
+
     return;
 
   }
 
-  try {
+  try{
 
-    const { error } =
-      await db.auth.resetPasswordForEmail(email, {
-
+    const {error} =
+      await db.auth.resetPasswordForEmail(email,{
         redirectTo:
           window.location.origin + window.location.pathname
-
       });
 
-    if (error) throw error;
+    if(error) throw error;
 
     showMessage(
-      "Si cette adresse possède un compte, un e-mail de réinitialisation vient d’être envoyé.",
+      "Si cette adresse possède un compte, un e-mail de réinitialisation a été envoyé.",
       "success"
     );
 
-  } catch (error) {
+  }catch(error){
 
-    showMessage(
-      error.message || "Impossible d’envoyer l’e-mail.",
-      "error"
-    );
+    showMessage(error.message,"error");
 
   }
 
 });
 
 
-// ======================================
+// =======================================
 // 9. DECONNEXION
-// ======================================
+// =======================================
 
 document.getElementById("logoutBtn")
-.addEventListener("click", async () => {
+.addEventListener("click",async()=>{
 
-  const { error } = await db.auth.signOut();
+  const {error} = await db.auth.signOut();
 
-  if (error) {
+  if(error){
 
     alert(error.message);
     return;
@@ -915,65 +1362,118 @@ document.getElementById("logoutBtn")
 });
 
 
-// ======================================
-// 10. GESTION DES RUBRIQUES
-// ======================================
+// =======================================
+// 10. NAVIGATION
+// =======================================
 
-document.querySelectorAll(".module")
-.forEach((button) => {
+function openModule(moduleName){
 
-  button.addEventListener("click", () => {
+  if(moduleName === "Accueil"){
+
+    document.querySelectorAll(".nav-item")
+      .forEach(item=>item.classList.remove("active"));
+
+    document.querySelector('[data-module="Accueil"]')
+      ?.classList.add("active");
+
+    document.getElementById("sidebar")
+      .classList.remove("open");
+
+    return;
+
+  }
+
+  document.getElementById("modalTitle").textContent =
+    moduleName;
+
+  document.getElementById("modalText").textContent =
+    "La rubrique " + moduleName +
+    " est prête à être organisée. Les ressources et documents correspondants seront intégrés dans cette section.";
+
+  document.getElementById("modalOverlay")
+    .classList.remove("hidden");
+
+  document.getElementById("sidebar")
+    .classList.remove("open");
+
+}
+
+document.querySelectorAll("[data-module]")
+.forEach(button=>{
+
+  button.addEventListener("click",()=>{
 
     const moduleName = button.dataset.module;
 
-    document.getElementById("modalTitle").textContent =
-      moduleName;
+    document.querySelectorAll(".nav-item")
+      .forEach(item=>item.classList.remove("active"));
 
-    document.getElementById("modalText").textContent =
-      `La rubrique « ${moduleName} » est prête à être organisée. Les liens vers les dossiers et documents seront ajoutés dans cette section.`;
+    document.querySelectorAll(
+      `.nav-item[data-module="${moduleName}"]`
+    ).forEach(item=>item.classList.add("active"));
 
-    document.getElementById("modalBackdrop")
-      .classList.remove("hidden");
+    openModule(moduleName);
 
   });
 
 });
 
-document.getElementById("closeModal")
-.addEventListener("click", () => {
 
-  document.getElementById("modalBackdrop")
+// =======================================
+// 11. MOBILE MENU
+// =======================================
+
+document.getElementById("menuBtn")
+.addEventListener("click",()=>{
+
+  document.getElementById("sidebar")
+    .classList.toggle("open");
+
+});
+
+
+// =======================================
+// 12. FERMETURE MODAL
+// =======================================
+
+document.getElementById("modalClose")
+.addEventListener("click",()=>{
+
+  document.getElementById("modalOverlay")
     .classList.add("hidden");
 
 });
 
-document.getElementById("modalBackdrop")
-.addEventListener("click", (event) => {
+document.getElementById("modalOverlay")
+.addEventListener("click",(event)=>{
 
-  if (event.target.id === "modalBackdrop") {
+  if(event.target.id === "modalOverlay"){
+
     event.currentTarget.classList.add("hidden");
+
   }
 
 });
 
 
-// ======================================
-// 11. GESTION DE LA SESSION
-// ======================================
+// =======================================
+// 13. INITIALISATION
+// =======================================
 
-// Au chargement, afficher toujours la connexion.
+// Toujours afficher la page de connexion au démarrage.
+// Aucun ancien Dashboard ne doit être affiché automatiquement.
+
 showAuth();
 
-// Le Dashboard apparaît uniquement après une connexion réussie.
-db.auth.onAuthStateChange((event, session) => {
+db.auth.onAuthStateChange((event,session)=>{
 
-  if (event === "SIGNED_IN" && session?.user) {
+  if(event === "SIGNED_IN" && session?.user){
 
     showDashboard(session.user);
 
   }
 
-  if (event === "SIGNED_OUT") {
+  if(event === "SIGNED_OUT"){
 
     showAuth();
 
