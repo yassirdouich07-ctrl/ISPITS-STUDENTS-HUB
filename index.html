@@ -522,6 +522,17 @@ button:focus-visible,input:focus-visible{
   color:#926d2a;font-size:10px;line-height:1.7;
 }
 
+/* FILIÈRES / SEMESTRES */
+.choice-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px}
+.choice-card{
+  display:flex;flex-direction:column;align-items:flex-start;gap:6px;
+  padding:20px 18px;border:1px solid var(--border);border-radius:14px;
+  background:white;text-align:left;color:var(--text);transition:.2s;
+}
+.choice-card:hover{transform:translateY(-3px);border-color:#cce5e2;box-shadow:var(--shadow)}
+.choice-code{font-family:'Outfit',sans-serif;font-size:24px;font-weight:800;color:var(--navy);letter-spacing:-.5px}
+.choice-sub{font-size:11px;color:var(--muted)}
+
 /* AI CHAT */
 .ai-reset{
   margin-left:auto;border:1px solid var(--border);background:white;
@@ -1141,6 +1152,11 @@ function openPage(pageName) {
     return;
   }
 
+  if (pageName === "Cours" || pageName === "Résumés") {
+    renderBrowser(pageName);
+    return;
+  }
+
   inner.innerHTML = `
     <div class="page-heading">
       <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
@@ -1159,13 +1175,61 @@ function openPage(pageName) {
   addBackButton(inner);
 }
 
-function addBackButton(inner) {
+function addBackButton(inner, label = "Retour au dashboard", handler = showHome) {
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "back-btn";
-  btn.innerHTML = "<span>←</span> Retour au dashboard";
-  btn.addEventListener("click", () => { showHome(); window.scrollTo(0, 0); });
+  btn.innerHTML = "<span>←</span> " + label;
+  btn.addEventListener("click", () => { handler(); window.scrollTo(0, 0); });
   inner.prepend(btn);
+}
+
+// Cours / Résumés : filières → semestres → contenu
+const FILIERES = ["IP", "ISM", "ISFSC", "INP", "LABO", "TRX", "SF", "AS", "IAR"];
+const SEMESTRES = ["S1", "S2", "S3", "S4", "S5", "S6"];
+
+function renderBrowser(section, filiere = null, semestre = null) {
+  const inner = document.getElementById("innerPage");
+  let title = section, sub = "", body = "", back;
+
+  if (!filiere) {
+    sub = `Choisissez votre filière pour accéder aux ${section.toLowerCase()}.`;
+    body = `<div class="choice-grid">${FILIERES.map(f =>
+      `<button class="choice-card" type="button" data-f="${f}"><span class="choice-code">${f}</span><span class="choice-sub">6 semestres</span></button>`
+    ).join("")}</div>`;
+    back = ["Retour au dashboard", showHome];
+  } else if (!semestre) {
+    title = `${section} · ${filiere}`;
+    sub = "Choisissez un semestre.";
+    body = `<div class="choice-grid">${SEMESTRES.map((x, i) =>
+      `<button class="choice-card" type="button" data-s="${x}"><span class="choice-code">${x}</span><span class="choice-sub">Semestre ${i + 1}</span></button>`
+    ).join("")}</div>`;
+    back = ["Retour aux filières", () => renderBrowser(section)];
+  } else {
+    title = `${section} · ${filiere} · ${semestre}`;
+    body = `<div class="resource-panel"><div class="resource-empty">
+      <div class="empty-icon">${moduleIcons[section] || "📁"}</div>
+      <h3>${filiere} · ${semestre}</h3>
+      <p>Les ${section.toLowerCase()} de cette filière et de ce semestre seront ajoutés prochainement.</p>
+    </div></div>`;
+    back = ["Retour aux semestres", () => renderBrowser(section, filiere)];
+  }
+
+  inner.innerHTML = `
+    <div class="page-heading">
+      <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
+      <h1>${title}</h1>
+      <p>${sub}</p>
+    </div>
+    ${body}
+    <div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>
+  `;
+  addBackButton(inner, back[0], back[1]);
+  inner.querySelectorAll("[data-f]").forEach(btn =>
+    btn.addEventListener("click", () => renderBrowser(section, btn.dataset.f)));
+  inner.querySelectorAll("[data-s]").forEach(btn =>
+    btn.addEventListener("click", () => renderBrowser(section, filiere, btn.dataset.s)));
+  window.scrollTo(0, 0);
 }
 
 let aiMessages = [];
