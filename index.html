@@ -2,414 +2,986 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#102a43">
-  <title>ISPITS Students Hub</title>
-  <meta name="description" content="La plateforme de partage et de révision des étudiants ISPITS.">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <style>
-    :root {
-      --navy:#102a43; --blue:#1769aa; --cyan:#21a6a1;
-      --bg:#f3f6fb; --ink:#172b4d; --muted:#718096;
-      --line:#e4eaf2; --white:#fff;
-      --shadow:0 18px 50px rgba(16,42,67,.10);
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink)}
-    button,input{font:inherit}
-    button{cursor:pointer}
-    .hidden{display:none!important}
-    .auth-wrap{min-height:100vh;display:grid;grid-template-columns:1.02fr .98fr;background:#fff}
-    .visual{padding:54px clamp(28px,6vw,90px);background:linear-gradient(145deg,#102a43,#164e76 58%,#168b91);color:white;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
-    .visual:before,.visual:after{content:"";position:absolute;border:1px solid #ffffff20;border-radius:50%;width:440px;height:440px;right:-170px;top:15%}
-    .visual:after{width:600px;height:600px;right:-250px;top:5%}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px;position:relative;z-index:1}
-    .brand-mark{width:44px;height:44px;border-radius:14px;background:#ffffff26;display:grid;place-items:center;font-size:22px}
-    .visual-copy{max-width:560px;position:relative;z-index:1;margin:70px 0}
-    .visual-copy .eyebrow{color:#a9e8e3;text-transform:uppercase;font-size:12px;font-weight:800;letter-spacing:2px}
-    .visual-copy h1{font-size:clamp(38px,5vw,64px);line-height:1.05;margin:18px 0}
-    .visual-copy p{font-size:17px;line-height:1.8;color:#d8e8f2;max-width:480px}
-    .visual-foot{font-size:12px;color:#c4d8e6;position:relative;z-index:1}
-    .auth-side{display:flex;align-items:center;justify-content:center;padding:38px 24px}
-    .auth-card{width:min(100%,440px)}
-    .mobile-brand{display:none}
-    .auth-card h2{font-size:30px;margin:0 0 8px;color:var(--navy)}
-    .sub{color:var(--muted);margin:0 0 28px;line-height:1.6}
-    .tabs{display:grid;grid-template-columns:1fr 1fr;background:#eef3f8;border-radius:13px;padding:4px;margin-bottom:24px}
-    .tab{border:0;background:transparent;color:#66788a;padding:11px;border-radius:10px;font-weight:700}
-    .tab.active{background:white;color:var(--navy);box-shadow:0 2px 8px #102a4312}
-    .field{margin:15px 0}
-    .field label{display:block;font-size:13px;font-weight:700;margin-bottom:8px;color:#344b63}
-    .field input{width:100%;padding:14px 15px;border:1px solid var(--line);border-radius:12px;outline:none;background:#fbfcfe}
-    .field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #1769aa16;background:white}
-    .primary{width:100%;border:0;border-radius:12px;padding:15px;background:linear-gradient(100deg,var(--blue),var(--cyan));color:white;font-weight:800;margin-top:10px;box-shadow:0 8px 20px #1769aa2b}
-    .primary:disabled{opacity:.6;cursor:wait}
-    .minor-row{display:flex;justify-content:flex-end;margin:3px 0 14px}
-    .link-btn{border:0;background:none;color:var(--blue);font-weight:700;font-size:13px;padding:4px 0}
-    .message{padding:12px 14px;border-radius:11px;font-size:13px;line-height:1.5;margin:14px 0;display:none}
-    .message.show{display:block}
-    .message.error{background:#fff0f0;color:#a52a2a}
-    .message.success{background:#eaf8f3;color:#126747}
-    .message.info{background:#eef6ff;color:#245b91}
-    .terms{font-size:12px;color:#8a98a8;text-align:center;line-height:1.6;margin-top:20px}
-    .app{min-height:100vh}
-    .topbar{height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,5vw,70px);position:sticky;top:0;z-index:5}
-    .topbar .brand{color:var(--navy)}
-    .topbar .brand-mark{background:#e8f4f8;color:var(--blue)}
-    .user-area{display:flex;align-items:center;gap:13px}
-    .user-email{font-size:13px;color:var(--muted);max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .logout{border:1px solid var(--line);background:#fff;padding:9px 14px;border-radius:10px;color:var(--navy);font-weight:700}
-    .container{width:min(1120px,92%);margin:0 auto}
-    .welcome{padding:45px 0 30px}
-    .welcome .tag{display:inline-flex;background:#e4f5f3;color:#147b78;padding:7px 12px;border-radius:30px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase}
-    .welcome h1{font-size:clamp(29px,4vw,42px);margin:14px 0 8px;color:var(--navy)}
-    .welcome p{margin:0;color:var(--muted);line-height:1.7}
-    .section-head{display:flex;justify-content:space-between;align-items:end;margin:22px 0 16px}
-    .section-head h2{font-size:19px;margin:0;color:var(--navy)}
-    .section-head span{font-size:12px;color:var(--muted)}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;padding-bottom:45px}
-    .module{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;text-align:left;min-height:180px;transition:.2s;box-shadow:0 5px 18px #102a4308;color:inherit}
-    .module:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#cbdce9}
-    .module-icon{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:23px;margin-bottom:17px;background:#eaf4fb}
-    .module:nth-child(2) .module-icon{background:#e8f7f3}
-    .module:nth-child(3) .module-icon{background:#f1edff}
-    .module:nth-child(4) .module-icon{background:#fff4e7}
-    .module:nth-child(5) .module-icon{background:#eaf6ff}
-    .module:nth-child(6) .module-icon{background:#fff0f1}
-    .module h3{margin:0 0 7px;font-size:16px;color:var(--navy)}
-    .module p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
-    .module .arrow{display:block;margin-top:15px;color:var(--blue);font-size:12px;font-weight:800}
-    .footer{text-align:center;color:#9aa8b7;font-size:12px;padding:18px 0 30px;border-top:1px solid var(--line)}
-    .modal-backdrop{position:fixed;inset:0;background:#0b2036a8;display:grid;place-items:center;padding:18px;z-index:10}
-    .modal{width:min(100%,440px);background:white;border-radius:20px;padding:27px;box-shadow:var(--shadow)}
-    .modal h3{margin:0 0 8px;color:var(--navy)}
-    .modal p{color:var(--muted);font-size:14px;line-height:1.65}
-    .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
-    .secondary{border:1px solid var(--line);background:white;padding:11px 15px;border-radius:10px;font-weight:700;color:var(--navy)}
-    @media(max-width:800px){
-      .auth-wrap{grid-template-columns:1fr}
-      .visual{display:none}
-      .mobile-brand{display:flex;margin-bottom:30px}
-      .auth-side{min-height:100vh;padding:32px 22px}
-      .grid{grid-template-columns:repeat(2,1fr)}
-    }
-    @media(max-width:520px){
-      .grid{grid-template-columns:1fr;gap:12px}
-      .module{min-height:145px;padding:18px}
-      .topbar{height:66px;padding:0 16px}
-      .user-email{display:none}
-      .welcome{padding:32px 0 20px}
-      .section-head span{display:none}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#102a43">
+<title>ISPITS Students Hub</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root {
+  --navy:#102a43;
+  --blue:#1769aa;
+  --cyan:#21a6a1;
+  --bg:#f3f6fb;
+  --ink:#172b4d;
+  --muted:#718096;
+  --line:#e4eaf2;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--ink)
+}
+button,input{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+/* AUTHENTIFICATION */
+.auth-wrap{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1.02fr .98fr;
+  background:white
+}
+.visual{
+  padding:54px clamp(28px,6vw,90px);
+  background:linear-gradient(145deg,#102a43,#164e76 58%,#168b91);
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  position:relative;
+  overflow:hidden
+}
+.visual:before,.visual:after{
+  content:"";
+  position:absolute;
+  border:1px solid #ffffff20;
+  border-radius:50%;
+  width:440px;height:440px;
+  right:-170px;top:15%
+}
+.visual:after{
+  width:600px;height:600px;
+  right:-250px;top:5%
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:800;
+  position:relative;
+  z-index:1
+}
+.brand-mark{
+  width:44px;height:44px;
+  border-radius:14px;
+  background:#ffffff26;
+  display:grid;
+  place-items:center;
+  font-size:22px
+}
+.visual-copy{
+  max-width:560px;
+  position:relative;
+  z-index:1;
+  margin:70px 0
+}
+.eyebrow{
+  color:#a9e8e3;
+  text-transform:uppercase;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:2px
+}
+.visual-copy h1{
+  font-size:clamp(38px,5vw,64px);
+  line-height:1.05;
+  margin:18px 0
+}
+.visual-copy p{
+  font-size:17px;
+  line-height:1.8;
+  color:#d8e8f2
+}
+.visual-foot{
+  font-size:12px;
+  color:#c4d8e6;
+  position:relative;
+  z-index:1
+}
+.auth-side{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:38px 24px
+}
+.auth-card{width:min(100%,440px)}
+.mobile-brand{display:none}
+.auth-card h2{
+  font-size:30px;
+  margin:0 0 8px;
+  color:var(--navy)
+}
+.sub{
+  color:var(--muted);
+  margin:0 0 28px;
+  line-height:1.6
+}
+.tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  background:#eef3f8;
+  border-radius:13px;
+  padding:4px;
+  margin-bottom:24px
+}
+.tab{
+  border:0;
+  background:transparent;
+  color:#66788a;
+  padding:11px;
+  border-radius:10px;
+  font-weight:700
+}
+.tab.active{
+  background:white;
+  color:var(--navy);
+  box-shadow:0 2px 8px #102a4312
+}
+.field{margin:15px 0}
+.field label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:8px;
+  color:#344b63
+}
+.field input{
+  width:100%;
+  padding:14px 15px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  outline:none;
+  background:#fbfcfe
+}
+.field input:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px #1769aa16;
+  background:white
+}
+.primary{
+  width:100%;
+  border:0;
+  border-radius:12px;
+  padding:15px;
+  background:linear-gradient(100deg,var(--blue),var(--cyan));
+  color:white;
+  font-weight:800;
+  margin-top:10px
+}
+.primary:disabled{opacity:.6;cursor:wait}
+.minor-row{
+  display:flex;
+  justify-content:flex-end;
+  margin:3px 0 14px
+}
+.link-btn{
+  border:0;
+  background:none;
+  color:var(--blue);
+  font-weight:700;
+  font-size:13px
+}
+.message{
+  padding:12px 14px;
+  border-radius:11px;
+  font-size:13px;
+  line-height:1.5;
+  margin:14px 0;
+  display:none
+}
+.message.show{display:block}
+.message.error{background:#fff0f0;color:#a52a2a}
+.message.success{background:#eaf8f3;color:#126747}
+.message.info{background:#eef6ff;color:#245b91}
+.terms{
+  font-size:12px;
+  color:#8a98a8;
+  text-align:center;
+  line-height:1.6;
+  margin-top:20px
+}
+
+/* DASHBOARD */
+.app{min-height:100vh}
+.topbar{
+  height:76px;
+  background:white;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 clamp(18px,5vw,70px);
+  position:sticky;
+  top:0;
+  z-index:5
+}
+.topbar .brand{color:var(--navy)}
+.topbar .brand-mark{
+  background:#e8f4f8;
+  color:var(--blue)
+}
+.user-area{
+  display:flex;
+  align-items:center;
+  gap:13px
+}
+.user-email{
+  font-size:13px;
+  color:var(--muted);
+  max-width:220px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap
+}
+.logout{
+  border:1px solid var(--line);
+  background:white;
+  padding:9px 14px;
+  border-radius:10px;
+  color:var(--navy);
+  font-weight:700
+}
+.container{
+  width:min(1120px,92%);
+  margin:0 auto
+}
+.welcome{padding:45px 0 30px}
+.tag{
+  display:inline-flex;
+  background:#e4f5f3;
+  color:#147b78;
+  padding:7px 12px;
+  border-radius:30px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1px;
+  text-transform:uppercase
+}
+.welcome h1{
+  font-size:clamp(29px,4vw,42px);
+  margin:14px 0 8px;
+  color:var(--navy)
+}
+.welcome p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.7
+}
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin:22px 0 16px
+}
+.section-head h2{
+  font-size:19px;
+  margin:0;
+  color:var(--navy)
+}
+.section-head span{
+  font-size:12px;
+  color:var(--muted)
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:17px;
+  padding-bottom:45px
+}
+.module{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:22px;
+  text-align:left;
+  min-height:180px;
+  transition:.2s;
+  color:inherit
+}
+.module:hover{
+  transform:translateY(-4px);
+  box-shadow:0 18px 50px #102a431a
+}
+.module-icon{
+  width:48px;height:48px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  font-size:23px;
+  margin-bottom:17px;
+  background:#eaf4fb
+}
+.module:nth-child(2) .module-icon{background:#e8f7f3}
+.module:nth-child(3) .module-icon{background:#f1edff}
+.module:nth-child(4) .module-icon{background:#fff4e7}
+.module:nth-child(5) .module-icon{background:#eaf6ff}
+.module:nth-child(6) .module-icon{background:#fff0f1}
+.module h3{
+  margin:0 0 7px;
+  font-size:16px;
+  color:var(--navy)
+}
+.module p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.55
+}
+.module .arrow{
+  display:block;
+  margin-top:15px;
+  color:var(--blue);
+  font-size:12px;
+  font-weight:800
+}
+.footer{
+  text-align:center;
+  color:#9aa8b7;
+  font-size:12px;
+  padding:18px 0 30px;
+  border-top:1px solid var(--line)
+}
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  background:#0b2036a8;
+  display:grid;
+  place-items:center;
+  padding:18px;
+  z-index:10
+}
+.modal{
+  width:min(100%,440px);
+  background:white;
+  border-radius:20px;
+  padding:27px
+}
+.modal h3{margin:0 0 8px;color:var(--navy)}
+.modal p{color:var(--muted);font-size:14px;line-height:1.65}
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:20px
+}
+.secondary{
+  border:1px solid var(--line);
+  background:white;
+  padding:11px 15px;
+  border-radius:10px;
+  font-weight:700;
+  color:var(--navy)
+}
+
+@media(max-width:800px){
+  .auth-wrap{grid-template-columns:1fr}
+  .visual{display:none}
+  .mobile-brand{display:flex;margin-bottom:30px}
+  .auth-side{min-height:100vh;padding:32px 22px}
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:520px){
+  .grid{grid-template-columns:1fr;gap:12px}
+  .module{min-height:145px;padding:18px}
+  .topbar{height:66px;padding:0 16px}
+  .user-email{display:none}
+  .welcome{padding:32px 0 20px}
+  .section-head span{display:none}
+}
+</style>
 </head>
+
 <body>
 
-  <main id="authView" class="auth-wrap">
-    <section class="visual">
-      <div class="brand">
-        <div class="brand-mark">✚</div>
-        <span>ISPITS STUDENTS HUB</span>
-      </div>
-      <div class="visual-copy">
-        <div class="eyebrow">La communauté des étudiants ISPITS</div>
-        <h1>Apprendre.<br>Partager.<br>Réussir.</h1>
-        <p>Un espace organisé pour retrouver vos cours, résumés, stages et ressources de révision au même endroit.</p>
-      </div>
-      <div class="visual-foot">Une plateforme dédiée aux étudiants ISPITS · Maroc</div>
-    </section>
+<!-- PAGE CONNEXION -->
+<main id="authView" class="auth-wrap">
 
-    <section class="auth-side">
-      <div class="auth-card">
-        <div class="brand mobile-brand">
-          <div class="brand-mark">✚</div>
-          <span>ISPITS STUDENTS HUB</span>
-        </div>
-        <h2 id="formTitle">Bienvenue !</h2>
-        <p class="sub" id="formSubtitle">Connectez-vous pour accéder à votre espace étudiant.</p>
-
-        <div class="tabs">
-          <button class="tab active" id="loginTab" type="button">Connexion</button>
-          <button class="tab" id="signupTab" type="button">Créer un compte</button>
-        </div>
-
-        <form id="authForm">
-          <div class="field hidden" id="nameField">
-            <label for="fullName">Nom complet</label>
-            <input id="fullName" type="text" autocomplete="name" placeholder="Votre nom complet">
-          </div>
-          <div class="field">
-            <label for="email">Adresse e-mail</label>
-            <input id="email" type="email" autocomplete="email" placeholder="exemple@email.com" required>
-          </div>
-          <div class="field">
-            <label for="password">Mot de passe</label>
-            <input id="password" type="password" autocomplete="current-password" placeholder="Minimum 6 caractères" minlength="6" required>
-          </div>
-          <div class="minor-row" id="forgotRow">
-            <button class="link-btn" id="forgotBtn" type="button">Mot de passe oublié ?</button>
-          </div>
-          <button class="primary" id="submitBtn" type="submit">Se connecter</button>
-        </form>
-        <div id="authMessage" class="message" role="status" aria-live="polite"></div>
-        <p class="terms">En continuant, vous acceptez d’utiliser cette plateforme dans un cadre pédagogique et respectueux.</p>
-      </div>
-    </section>
-  </main>
-
-  <main id="appView" class="app hidden">
-    <header class="topbar">
-      <div class="brand">
-        <div class="brand-mark">✚</div>
-        <span>ISPITS STUDENTS HUB</span>
-      </div>
-      <div class="user-area">
-        <span class="user-email" id="userEmail"></span>
-        <button class="logout" id="logoutBtn" type="button">Déconnexion</button>
-      </div>
-    </header>
-    <div class="container">
-      <section class="welcome">
-        <span class="tag">Espace étudiant</span>
-        <h1>Bonjour <span id="userName">étudiant</span> 👋</h1>
-        <p>Bienvenue sur votre espace de ressources pédagogiques. Choisissez une rubrique pour commencer.</p>
-      </section>
-      <div class="section-head">
-        <h2>Votre espace de travail</h2>
-        <span>Ressources pédagogiques</span>
-      </div>
-      <section class="grid">
-        <button class="module" data-module="Cours" type="button">
-          <div class="module-icon">📚</div><h3>Cours</h3>
-          <p>Consultez les supports de cours et les documents des modules.</p>
-          <span class="arrow">Accéder à la rubrique →</span>
-        </button>
-        <button class="module" data-module="Stages" type="button">
-          <div class="module-icon">🏥</div><h3>Stages</h3>
-          <p>Retrouvez les fiches de stage, protocoles et documents pratiques.</p>
-          <span class="arrow">Accéder à la rubrique →</span>
-        </button>
-        <button class="module" data-module="Résumés" type="button">
-          <div class="module-icon">📝</div><h3>Résumés</h3>
-          <p>Des fiches synthétiques pour faciliter vos révisions.</p>
-          <span class="arrow">Accéder à la rubrique →</span>
-        </button>
-        <button class="module" data-module="Emploi du temps" type="button">
-          <div class="module-icon">🗓️</div><h3>Emploi du temps</h3>
-          <p>Consultez les plannings et les informations d’organisation.</p>
-          <span class="arrow">Accéder à la rubrique →</span>
-        </button>
-        <button class="module" data-module="TP Simulation" type="button">
-          <div class="module-icon">🩺</div><h3>TP Simulation</h3>
-          <p>Préparez les travaux pratiques et les gestes de soins.</p>
-          <span class="arrow">Accéder à la rubrique →</span>
-        </button>
-        <button class="module" data-module="Examens & QCM" type="button">
-          <div class="module-icon">🎓</div><h3>Examens & QCM</h3>
-          <p>Entraînez-vous avec les examens précédents et les QCM.</p>
-          <span class="arrow">Accéder à la rubrique →</span>
-        </button>
-      </section>
-      <div class="footer">© 2026 ISPITS Students Hub · Espace pédagogique des étudiants</div>
+  <section class="visual">
+    <div class="brand">
+      <div class="brand-mark">✚</div>
+      <span>ISPITS STUDENTS HUB</span>
     </div>
-  </main>
 
-  <div id="modalBackdrop" class="modal-backdrop hidden">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <h3 id="modalTitle">Rubrique</h3>
-      <p id="modalText">Le contenu de cette rubrique sera bientôt disponible.</p>
-      <div class="modal-actions">
-        <button class="secondary" id="closeModal" type="button">Fermer</button>
+    <div class="visual-copy">
+      <div class="eyebrow">La communauté des étudiants ISPITS</div>
+      <h1>Apprendre.<br>Partager.<br>Réussir.</h1>
+      <p>
+        Un espace organisé pour retrouver vos cours,
+        résumés, stages et ressources de révision
+        au même endroit.
+      </p>
+    </div>
+
+    <div class="visual-foot">
+      Une plateforme dédiée aux étudiants ISPITS · Maroc
+    </div>
+  </section>
+
+  <section class="auth-side">
+    <div class="auth-card">
+
+      <div class="brand mobile-brand">
+        <div class="brand-mark">✚</div>
+        <span>ISPITS STUDENTS HUB</span>
       </div>
+
+      <h2 id="formTitle">Bienvenue !</h2>
+      <p class="sub" id="formSubtitle">
+        Connectez-vous pour accéder à votre espace étudiant.
+      </p>
+
+      <div class="tabs">
+        <button class="tab active" id="loginTab" type="button">
+          Connexion
+        </button>
+        <button class="tab" id="signupTab" type="button">
+          Créer un compte
+        </button>
+      </div>
+
+      <form id="authForm">
+
+        <div class="field hidden" id="nameField">
+          <label for="fullName">Nom complet</label>
+          <input id="fullName" type="text"
+                 autocomplete="name"
+                 placeholder="Votre nom complet">
+        </div>
+
+        <div class="field">
+          <label for="email">Adresse e-mail</label>
+          <input id="email" type="email"
+                 autocomplete="email"
+                 placeholder="exemple@email.com"
+                 required>
+        </div>
+
+        <div class="field">
+          <label for="password">Mot de passe</label>
+          <input id="password" type="password"
+                 autocomplete="current-password"
+                 placeholder="Minimum 6 caractères"
+                 minlength="6" required>
+        </div>
+
+        <div class="minor-row" id="forgotRow">
+          <button class="link-btn" id="forgotBtn" type="button">
+            Mot de passe oublié ?
+          </button>
+        </div>
+
+        <button class="primary" id="submitBtn" type="submit">
+          Se connecter
+        </button>
+
+      </form>
+
+      <div id="authMessage" class="message"
+           role="status" aria-live="polite"></div>
+
+      <p class="terms">
+        En continuant, vous acceptez d’utiliser cette plateforme
+        dans un cadre pédagogique et respectueux.
+      </p>
+
+    </div>
+  </section>
+</main>
+
+
+<!-- DASHBOARD -->
+<main id="appView" class="app hidden">
+
+  <header class="topbar">
+
+    <div class="brand">
+      <div class="brand-mark">✚</div>
+      <span>ISPITS STUDENTS HUB</span>
+    </div>
+
+    <div class="user-area">
+      <span class="user-email" id="userEmail"></span>
+      <button class="logout" id="logoutBtn" type="button">
+        Déconnexion
+      </button>
+    </div>
+
+  </header>
+
+  <div class="container">
+
+    <section class="welcome">
+      <span class="tag">Espace étudiant</span>
+      <h1>Bonjour <span id="userName">étudiant</span> 👋</h1>
+      <p>
+        Bienvenue sur votre espace de ressources pédagogiques.
+        Choisissez une rubrique pour commencer.
+      </p>
+    </section>
+
+    <div class="section-head">
+      <h2>Votre espace de travail</h2>
+      <span>Ressources pédagogiques</span>
+    </div>
+
+    <section class="grid">
+
+      <button class="module" data-module="Cours" type="button">
+        <div class="module-icon">📚</div>
+        <h3>Cours</h3>
+        <p>Consultez les supports de cours et les documents des modules.</p>
+        <span class="arrow">Accéder à la rubrique →</span>
+      </button>
+
+      <button class="module" data-module="Stages" type="button">
+        <div class="module-icon">🏥</div>
+        <h3>Stages</h3>
+        <p>Retrouvez les fiches de stage, protocoles et documents pratiques.</p>
+        <span class="arrow">Accéder à la rubrique →</span>
+      </button>
+
+      <button class="module" data-module="Résumés" type="button">
+        <div class="module-icon">📝</div>
+        <h3>Résumés</h3>
+        <p>Des fiches synthétiques pour faciliter vos révisions.</p>
+        <span class="arrow">Accéder à la rubrique →</span>
+      </button>
+
+      <button class="module" data-module="Emploi du temps" type="button">
+        <div class="module-icon">🗓️</div>
+        <h3>Emploi du temps</h3>
+        <p>Consultez les plannings et les informations d’organisation.</p>
+        <span class="arrow">Accéder à la rubrique →</span>
+      </button>
+
+      <button class="module" data-module="TP Simulation" type="button">
+        <div class="module-icon">🩺</div>
+        <h3>TP Simulation</h3>
+        <p>Préparez les travaux pratiques et les gestes de soins.</p>
+        <span class="arrow">Accéder à la rubrique →</span>
+      </button>
+
+      <button class="module" data-module="Examens & QCM" type="button">
+        <div class="module-icon">🎓</div>
+        <h3>Examens & QCM</h3>
+        <p>Entraînez-vous avec les examens précédents et les QCM.</p>
+        <span class="arrow">Accéder à la rubrique →</span>
+      </button>
+
+    </section>
+
+    <div class="footer">
+      © 2026 ISPITS Students Hub · Espace pédagogique des étudiants
+    </div>
+
+  </div>
+</main>
+
+
+<!-- MODAL -->
+<div id="modalBackdrop" class="modal-backdrop hidden">
+
+  <div class="modal" role="dialog" aria-modal="true">
+    <h3 id="modalTitle">Rubrique</h3>
+    <p id="modalText">
+      Le contenu de cette rubrique sera bientôt disponible.
+    </p>
+    <div class="modal-actions">
+      <button class="secondary" id="closeModal" type="button">
+        Fermer
+      </button>
     </div>
   </div>
 
-  <script>
-    // Configuration Supabase — déjà intégrée
-    const SUPABASE_URL = "https://xpfwezcpvoenthcnrkod.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_Mw8x91l1l9ir91jPsaSuaA_t824bp0B";
+</div>
 
-    const { createClient } = supabase;
-    const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    const authView = document.getElementById("authView");
-    const appView = document.getElementById("appView");
-    const authForm = document.getElementById("authForm");
-    const authMessage = document.getElementById("authMessage");
-    const loginTab = document.getElementById("loginTab");
-    const signupTab = document.getElementById("signupTab");
-    const nameField = document.getElementById("nameField");
-    const forgotRow = document.getElementById("forgotRow");
-    const submitBtn = document.getElementById("submitBtn");
-    let currentMode = "login";
+<script>
 
-    function showMessage(message, type = "info") {
-      authMessage.textContent = message;
-      authMessage.className = `message show ${type}`;
+// ======================================
+// 1. CONFIGURATION SUPABASE
+// ======================================
+
+const SUPABASE_URL =
+"https://xpfwezcpvoenthcnrkod.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_Mw8x91l1l9ir91jPsaSuaA_t824bp0B";
+
+const { createClient } = supabase;
+
+// IMPORTANT : ne pas conserver la session après fermeture
+const db = createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY,
+  {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+      detectSessionInUrl: true
     }
+  }
+);
 
-    function clearMessage() {
-      authMessage.textContent = "";
-      authMessage.className = "message";
-    }
 
-    function setMode(mode) {
-      currentMode = mode;
-      clearMessage();
-      const signup = mode === "signup";
-      loginTab.classList.toggle("active", !signup);
-      signupTab.classList.toggle("active", signup);
-      nameField.classList.toggle("hidden", !signup);
-      forgotRow.classList.toggle("hidden", signup);
-      document.getElementById("formTitle").textContent =
-        signup ? "Créer votre compte" : "Bienvenue !";
-      document.getElementById("formSubtitle").textContent = signup
-        ? "Inscrivez-vous pour rejoindre votre espace étudiant."
-        : "Connectez-vous pour accéder à votre espace étudiant.";
-      submitBtn.textContent = signup ? "Créer mon compte" : "Se connecter";
-      document.getElementById("password").autocomplete =
-        signup ? "new-password" : "current-password";
-    }
+// ======================================
+// 2. ELEMENTS HTML
+// ======================================
 
-    function showDashboard(user) {
-      authView.classList.add("hidden");
-      appView.classList.remove("hidden");
-      document.getElementById("userEmail").textContent = user.email || "";
-      const displayName = user.user_metadata?.full_name ||
-        (user.email ? user.email.split("@")[0] : "étudiant");
-      document.getElementById("userName").textContent = displayName;
-    }
+const authView = document.getElementById("authView");
+const appView = document.getElementById("appView");
+const authForm = document.getElementById("authForm");
+const authMessage = document.getElementById("authMessage");
 
-    function showAuth() {
-      appView.classList.add("hidden");
-      authView.classList.remove("hidden");
-    }
+const loginTab = document.getElementById("loginTab");
+const signupTab = document.getElementById("signupTab");
 
-    loginTab.addEventListener("click", () => setMode("login"));
-    signupTab.addEventListener("click", () => setMode("signup"));
+const nameField = document.getElementById("nameField");
+const forgotRow = document.getElementById("forgotRow");
+const submitBtn = document.getElementById("submitBtn");
 
-    authForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      clearMessage();
+let currentMode = "login";
 
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
-      const fullName = document.getElementById("fullName").value.trim();
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Veuillez patienter…";
+// ======================================
+// 3. MESSAGES
+// ======================================
 
-      try {
-        if (currentMode === "signup") {
-          if (!fullName) throw new Error("Veuillez saisir votre nom complet.");
+function showMessage(message, type = "info") {
 
-          const { data, error } = await db.auth.signUp({
-            email,
-            password,
-            options: {
-              data: { full_name: fullName },
-              emailRedirectTo: window.location.origin + window.location.pathname
-            }
-          });
+  authMessage.textContent = message;
+  authMessage.className = `message show ${type}`;
 
-          if (error) throw error;
+}
 
-          if (data.session) {
-            showDashboard(data.user);
-            showMessage("Votre compte a été créé avec succès.", "success");
-          } else {
-            showMessage(
-              "Inscription enregistrée ! Vérifiez votre boîte e-mail et cliquez sur le lien de confirmation pour activer votre compte.",
-              "success"
-            );
-          }
-        } else {
-          const { data, error } = await db.auth.signInWithPassword({
-            email,
-            password
-          });
+function clearMessage() {
 
-          if (error) throw error;
-          showDashboard(data.user);
+  authMessage.textContent = "";
+  authMessage.className = "message";
+
+}
+
+
+// ======================================
+// 4. AFFICHAGE CONNEXION / INSCRIPTION
+// ======================================
+
+function setMode(mode) {
+
+  currentMode = mode;
+  clearMessage();
+
+  const signup = mode === "signup";
+
+  loginTab.classList.toggle("active", !signup);
+  signupTab.classList.toggle("active", signup);
+
+  nameField.classList.toggle("hidden", !signup);
+  forgotRow.classList.toggle("hidden", signup);
+
+  document.getElementById("formTitle").textContent =
+    signup ? "Créer votre compte" : "Bienvenue !";
+
+  document.getElementById("formSubtitle").textContent =
+    signup
+    ? "Inscrivez-vous pour rejoindre votre espace étudiant."
+    : "Connectez-vous pour accéder à votre espace étudiant.";
+
+  submitBtn.textContent =
+    signup ? "Créer mon compte" : "Se connecter";
+
+  document.getElementById("password").autocomplete =
+    signup ? "new-password" : "current-password";
+
+}
+
+loginTab.addEventListener("click", () => setMode("login"));
+signupTab.addEventListener("click", () => setMode("signup"));
+
+
+// ======================================
+// 5. AFFICHAGE DU DASHBOARD
+// ======================================
+
+function showDashboard(user) {
+
+  authView.classList.add("hidden");
+  appView.classList.remove("hidden");
+
+  document.getElementById("userEmail").textContent =
+    user.email || "";
+
+  const displayName =
+    user.user_metadata?.full_name ||
+    (user.email ? user.email.split("@")[0] : "étudiant");
+
+  document.getElementById("userName").textContent =
+    displayName;
+
+}
+
+
+// ======================================
+// 6. AFFICHAGE DE CONNEXION
+// ======================================
+
+function showAuth() {
+
+  appView.classList.add("hidden");
+  authView.classList.remove("hidden");
+
+}
+
+
+// ======================================
+// 7. CONNEXION ET INSCRIPTION
+// ======================================
+
+authForm.addEventListener("submit", async (event) => {
+
+  event.preventDefault();
+  clearMessage();
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const fullName =
+    document.getElementById("fullName").value.trim();
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Veuillez patienter…";
+
+  try {
+
+    if (currentMode === "signup") {
+
+      if (!fullName) {
+        throw new Error("Veuillez saisir votre nom complet.");
+      }
+
+      const { data, error } = await db.auth.signUp({
+
+        email: email,
+        password: password,
+
+        options: {
+          data: {
+            full_name: fullName
+          },
+
+          emailRedirectTo:
+            window.location.origin + window.location.pathname
         }
-      } catch (error) {
-        showMessage(error.message || "Une erreur est survenue. Réessayez.", "error");
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent =
-          currentMode === "signup" ? "Créer mon compte" : "Se connecter";
-      }
-    });
 
-    document.getElementById("forgotBtn").addEventListener("click", async () => {
-      clearMessage();
-      const email = document.getElementById("email").value.trim();
+      });
 
-      if (!email) {
-        showMessage(
-          "Saisissez votre adresse e-mail avant de demander la réinitialisation.",
-          "info"
-        );
-        document.getElementById("email").focus();
-        return;
-      }
+      if (error) throw error;
 
-      try {
-        const { error } = await db.auth.resetPasswordForEmail(email, {
-          redirectTo: window.location.origin + window.location.pathname
-        });
-        if (error) throw error;
+      if (data.session && data.user) {
+
+        showDashboard(data.user);
 
         showMessage(
-          "Si cette adresse possède un compte, un e-mail de réinitialisation vient d’être envoyé.",
+          "Votre compte a été créé avec succès.",
           "success"
         );
-      } catch (error) {
-        showMessage(error.message || "Impossible d’envoyer l’e-mail.", "error");
-      }
-    });
 
-    document.getElementById("logoutBtn").addEventListener("click", async () => {
-      const { error } = await db.auth.signOut();
-      if (error) {
-        alert(error.message);
-        return;
-      }
-      showAuth();
-      setMode("login");
-    });
+      } else {
 
-    document.querySelectorAll(".module").forEach((button) => {
-      button.addEventListener("click", () => {
-        const moduleName = button.dataset.module;
-        document.getElementById("modalTitle").textContent = moduleName;
-        document.getElementById("modalText").textContent =
-          `La rubrique « ${moduleName} » est prête à être organisée. Les liens vers les dossiers et documents seront ajoutés dans cette section.`;
-        document.getElementById("modalBackdrop").classList.remove("hidden");
+        showMessage(
+          "Inscription enregistrée ! Vérifiez votre boîte e-mail et cliquez sur le lien de confirmation pour activer votre compte.",
+          "success"
+        );
+
+      }
+
+    } else {
+
+      const { data, error } =
+        await db.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
+
+      if (error) throw error;
+
+      if (data.user) {
+        showDashboard(data.user);
+      }
+
+    }
+
+  } catch (error) {
+
+    showMessage(
+      error.message || "Une erreur est survenue. Réessayez.",
+      "error"
+    );
+
+  } finally {
+
+    submitBtn.disabled = false;
+
+    submitBtn.textContent =
+      currentMode === "signup"
+      ? "Créer mon compte"
+      : "Se connecter";
+
+  }
+
+});
+
+
+// ======================================
+// 8. MOT DE PASSE OUBLIE
+// ======================================
+
+document.getElementById("forgotBtn")
+.addEventListener("click", async () => {
+
+  clearMessage();
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  if (!email) {
+
+    showMessage(
+      "Saisissez votre adresse e-mail avant de demander la réinitialisation.",
+      "info"
+    );
+
+    document.getElementById("email").focus();
+    return;
+
+  }
+
+  try {
+
+    const { error } =
+      await db.auth.resetPasswordForEmail(email, {
+
+        redirectTo:
+          window.location.origin + window.location.pathname
+
       });
-    });
 
-    document.getElementById("closeModal").addEventListener("click", () => {
-      document.getElementById("modalBackdrop").classList.add("hidden");
-    });
+    if (error) throw error;
 
-    document.getElementById("modalBackdrop").addEventListener("click", (event) => {
-      if (event.target.id === "modalBackdrop") {
-        event.currentTarget.classList.add("hidden");
-      }
-    });
+    showMessage(
+      "Si cette adresse possède un compte, un e-mail de réinitialisation vient d’être envoyé.",
+      "success"
+    );
 
-    // Restaurer la session de l'étudiant.
-    db.auth.onAuthStateChange((_event, session) => {
-      if (session?.user) showDashboard(session.user);
-      else showAuth();
-    });
+  } catch (error) {
 
-    db.auth.getSession().then(({ data, error }) => {
-      if (error) console.error("Session:", error.message);
-      if (data.session?.user) showDashboard(data.session.user);
-    });
-  </script>
+    showMessage(
+      error.message || "Impossible d’envoyer l’e-mail.",
+      "error"
+    );
+
+  }
+
+});
+
+
+// ======================================
+// 9. DECONNEXION
+// ======================================
+
+document.getElementById("logoutBtn")
+.addEventListener("click", async () => {
+
+  const { error } = await db.auth.signOut();
+
+  if (error) {
+
+    alert(error.message);
+    return;
+
+  }
+
+  showAuth();
+  setMode("login");
+
+});
+
+
+// ======================================
+// 10. GESTION DES RUBRIQUES
+// ======================================
+
+document.querySelectorAll(".module")
+.forEach((button) => {
+
+  button.addEventListener("click", () => {
+
+    const moduleName = button.dataset.module;
+
+    document.getElementById("modalTitle").textContent =
+      moduleName;
+
+    document.getElementById("modalText").textContent =
+      `La rubrique « ${moduleName} » est prête à être organisée. Les liens vers les dossiers et documents seront ajoutés dans cette section.`;
+
+    document.getElementById("modalBackdrop")
+      .classList.remove("hidden");
+
+  });
+
+});
+
+document.getElementById("closeModal")
+.addEventListener("click", () => {
+
+  document.getElementById("modalBackdrop")
+    .classList.add("hidden");
+
+});
+
+document.getElementById("modalBackdrop")
+.addEventListener("click", (event) => {
+
+  if (event.target.id === "modalBackdrop") {
+    event.currentTarget.classList.add("hidden");
+  }
+
+});
+
+
+// ======================================
+// 11. GESTION DE LA SESSION
+// ======================================
+
+// Au chargement, afficher toujours la connexion.
+showAuth();
+
+// Le Dashboard apparaît uniquement après une connexion réussie.
+db.auth.onAuthStateChange((event, session) => {
+
+  if (event === "SIGNED_IN" && session?.user) {
+
+    showDashboard(session.user);
+
+  }
+
+  if (event === "SIGNED_OUT") {
+
+    showAuth();
+
+  }
+
+});
+
+</script>
+
 </body>
 </html>
