@@ -940,10 +940,10 @@ body{font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
           <input id="firstName" type="text" placeholder="Votre prénom" autocomplete="given-name" required>
         </div>
 
-        <div class="form-group">
-          <label for="email">Identifiant étudiant proposé</label>
-          <input id="email" type="text" value="nom.prenom@ispitshub.gmail.com" readonly aria-readonly="true">
-          <small class="field-hint">Cet identifiant sera créé automatiquement à partir de votre nom et prénom.</small>
+        <div class="form-group" id="emailGroup">
+          <label for="email" id="emailLabel">Adresse e-mail personnelle</label>
+          <input id="email" type="email" placeholder="exemple@gmail.com" autocomplete="email" required>
+          <small class="field-hint" id="emailHint">Utilisez une adresse e-mail personnelle valide. Un lien de confirmation vous sera envoyé.</small>
         </div>
 
         <div class="form-group hidden" id="academicGroup">
@@ -1239,8 +1239,15 @@ function setMode(mode) {
   const isSignup = mode === "signup";
   loginTab.classList.toggle("active", !isSignup);
   signupTab.classList.toggle("active", isSignup);
-  nameGroup.classList.remove("hidden");
-  firstNameGroup.classList.remove("hidden");
+  nameGroup.classList.toggle("hidden", !isSignup);
+  firstNameGroup.classList.toggle("hidden", !isSignup);
+  document.getElementById("lastName").required = isSignup;
+  document.getElementById("firstName").required = isSignup;
+  document.getElementById("emailLabel").textContent = isSignup ? "Adresse e-mail personnelle" : "Adresse e-mail";
+  document.getElementById("emailHint").textContent = isSignup
+    ? "Utilisez une adresse e-mail personnelle valide. Un lien de confirmation vous sera envoyé."
+    : "Saisissez l'adresse e-mail utilisée lors de votre inscription.";
+  document.getElementById("email").value = "";
   academicGroup.classList.toggle("hidden", !isSignup);
   confirmPasswordGroup.classList.toggle("hidden", !isSignup);
   document.getElementById("confirmPassword").required = isSignup;
@@ -1253,8 +1260,8 @@ function setMode(mode) {
 
   document.getElementById("formSubtitle").textContent =
     isSignup
-      ? "Saisissez vos informations, puis choisissez votre option et votre semestre."
-      : "Saisissez votre nom, votre prénom et votre mot de passe.";
+      ? "Saisissez vos informations, votre e-mail personnel, puis choisissez votre option et votre semestre."
+      : "Saisissez votre adresse e-mail et votre mot de passe.";
 
   submitBtn.textContent = isSignup ? "Créer mon compte →" : "Se connecter →";
   document.getElementById("password").autocomplete =
@@ -1323,36 +1330,13 @@ function showAuth() {
 // =====================================
 // SIGN UP / SIGN IN
 // =====================================
-function makeStudentEmail(lastName, firstName) {
-  const clean = value => String(value || "")
-    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase().trim().replace(/[^a-z0-9]+/g, "")
-    .replace(/^[^a-z0-9]+|[^a-z0-9]+$/g, "");
-  const nom = clean(lastName), prenom = clean(firstName);
-  if (!nom || !prenom) return "";
-  return `${nom}.${prenom}@ispitshub.gmail.com`;
-}
-
-function refreshStudentEmail() {
-  const email = makeStudentEmail(
-    document.getElementById("lastName").value,
-    document.getElementById("firstName").value
-  );
-  document.getElementById("email").value = email;
-}
-document.getElementById("lastName").addEventListener("input", refreshStudentEmail);
-document.getElementById("firstName").addEventListener("input", refreshStudentEmail);
-
-// =====================================
-// SIGN UP / SIGN IN
-// =====================================
 authForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   clearMessage();
 
   const lastName = document.getElementById("lastName").value.trim();
   const firstName = document.getElementById("firstName").value.trim();
-  const email = makeStudentEmail(lastName, firstName);
+  const email = document.getElementById("email").value.trim().toLowerCase();
   const password = document.getElementById("password").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
   const option = document.getElementById("option").value;
@@ -1363,9 +1347,11 @@ authForm.addEventListener("submit", async (event) => {
   submitBtn.textContent = "Chargement...";
 
   try {
-    if (!lastName || !firstName || !email)
-      throw new Error("Veuillez saisir votre nom et votre prénom.");
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+      throw new Error("Veuillez saisir une adresse e-mail valide.");
     if (currentMode === "signup") {
+      if (!lastName || !firstName)
+        throw new Error("Veuillez saisir votre nom et votre prénom.");
       if (!option || !semester) throw new Error("Veuillez choisir votre option et votre semestre.");
       if (password.length < 6) throw new Error("Le mot de passe doit contenir au moins 6 caractères.");
       if (password !== confirmPassword) throw new Error("Les deux mots de passe ne correspondent pas.");
@@ -1390,9 +1376,11 @@ authForm.addEventListener("submit", async (event) => {
         showToast("Votre compte étudiant a été créé avec succès.");
       } else {
         showMessage(
-          "Le compte a été créé, mais l'authentification attend une confirmation e-mail. L'administrateur doit désactiver la confirmation des e-mails dans Supabase, car cet identifiant est interne et ne reçoit pas de messages.",
-          "error"
+          "Votre compte a été créé. Consultez votre boîte e-mail et cliquez sur le lien de confirmation envoyé par Supabase. Après confirmation, revenez ici pour vous connecter avec cette adresse e-mail et votre mot de passe.",
+          "success"
         );
+        authForm.reset();
+        setMode("login");
       }
     } else {
       const { data, error } = await db.auth.signInWithPassword({ email, password });
@@ -1402,7 +1390,7 @@ authForm.addEventListener("submit", async (event) => {
   } catch (error) {
     let message = error.message || "Une erreur est survenue.";
     if (/already registered|already been registered|user already/i.test(message))
-      message = "Un compte existe déjà avec ce nom et ce prénom. Vérifiez l'orthographe ou contactez l'administrateur.";
+      message = "Un compte existe déjà avec cette adresse e-mail. Essayez de vous connecter ou utilisez une autre adresse.";
     showMessage(message, "error");
   } finally {
     submitBtn.disabled = false;
@@ -1413,11 +1401,27 @@ authForm.addEventListener("submit", async (event) => {
 // =====================================
 // PASSWORD RESET
 // =====================================
-document.getElementById("forgotBtn").addEventListener("click", () => {
-  showMessage(
-    "L'identifiant ISPITS HUB est interne et ne reçoit pas d'e-mails. Pour réinitialiser un mot de passe oublié, contactez l'administrateur de la plateforme.",
-    "info"
-  );
+document.getElementById("forgotBtn").addEventListener("click", async () => {
+  clearMessage();
+  const email = document.getElementById("email").value.trim().toLowerCase();
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showMessage("Saisissez d'abord votre adresse e-mail dans le champ prévu, puis réessayez.", "error");
+    document.getElementById("email").focus();
+    return;
+  }
+  const button = document.getElementById("forgotBtn");
+  button.disabled = true;
+  try {
+    const { error } = await db.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin
+    });
+    if (error) throw error;
+    showMessage("Si cette adresse correspond à un compte, un e-mail de réinitialisation vient d'être envoyé. Vérifiez aussi vos courriers indésirables.", "success");
+  } catch (error) {
+    showMessage(error.message || "Impossible d'envoyer l'e-mail de réinitialisation.", "error");
+  } finally {
+    button.disabled = false;
+  }
 });
 
 // =====================================
@@ -1829,7 +1833,7 @@ function renderHelp() {
       <summary>Mode d'emploi</summary>
       <div class="help-body">
         <ol>
-          <li><strong>Compte :</strong> créez votre compte avec votre nom, votre prénom, votre option et votre semestre. Un identifiant étudiant est généré automatiquement sous la forme nom.prenom@ispitshub.gmail.com. Utilisez toujours cet identifiant et votre mot de passe pour vous connecter.</li>
+          <li><strong>Compte :</strong> créez votre compte avec votre nom, votre prénom, votre adresse e-mail personnelle, votre option et votre semestre. Confirmez votre adresse en cliquant sur le lien reçu par e-mail. Utilisez ensuite cette même adresse et votre mot de passe pour vous connecter.</li>
           <li><strong>Cours :</strong> choisissez votre filière, puis le semestre, puis le module. Si le module contient des sous-modules, ouvrez celui qui vous intéresse pour voir ses cours.</li>
           <li><strong>Résumés :</strong> ils ont leur propre rubrique et fonctionnent de la même façon que les cours.</li>
           <li><strong>Recherche :</strong> utilisez la barre de recherche de l'accueil ou la rubrique « Recherche » pour trouver un cours, un résumé, un module ou une rubrique. Dans « Cours » et « Résumés », une barre de recherche est aussi disponible.</li>
