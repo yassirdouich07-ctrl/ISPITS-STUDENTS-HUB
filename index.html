@@ -821,6 +821,10 @@ body{font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
   .hero-banner{padding:24px 20px}
 }
 @media(max-width:480px){.stat-number{font-size:22px}}
+.field-hint{display:block;margin-top:6px;color:var(--muted);font-size:11px;line-height:1.5}
+.form-group select{width:100%;padding:13px 14px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--text);outline:none}
+.form-group input[readonly]{background:#f3f6f8;color:var(--teal-dark);font-weight:600}
+
 </style>
 </head>
 
@@ -926,20 +930,50 @@ body{font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
       </div>
 
       <form id="authForm">
-        <div class="form-group hidden" id="nameGroup">
-          <label for="fullName">Nom complet</label>
-          <input id="fullName" type="text" placeholder="Votre nom complet" autocomplete="name">
+        <div class="form-group" id="nameGroup">
+          <label for="lastName">Nom</label>
+          <input id="lastName" type="text" placeholder="Votre nom" autocomplete="family-name" required>
+        </div>
+
+        <div class="form-group" id="firstNameGroup">
+          <label for="firstName">Prénom</label>
+          <input id="firstName" type="text" placeholder="Votre prénom" autocomplete="given-name" required>
         </div>
 
         <div class="form-group">
-          <label for="email">Adresse e-mail</label>
-          <input id="email" type="email" placeholder="exemple@email.com" autocomplete="email" required>
+          <label for="email">Identifiant étudiant proposé</label>
+          <input id="email" type="text" value="nom.prenom@ispitshub.gmail.com" readonly aria-readonly="true">
+          <small class="field-hint">Cet identifiant sera créé automatiquement à partir de votre nom et prénom.</small>
+        </div>
+
+        <div class="form-group hidden" id="academicGroup">
+          <label for="option">Option / Filière</label>
+          <select id="option" required>
+            <option value="">Choisissez votre option</option>
+            <option value="IP">IP</option><option value="ISM">ISM</option>
+            <option value="ISFSC">ISFSC</option><option value="IAR">IAR</option>
+            <option value="AS">AS</option><option value="TRX">TRX</option>
+            <option value="SEV">SEV</option><option value="INP">INP</option>
+          </select>
+          <label for="semester" style="margin-top:12px">Semestre</label>
+          <select id="semester" required>
+            <option value="">Choisissez votre semestre</option>
+            <option value="S1">S1</option><option value="S2">S2</option>
+            <option value="S3">S3</option><option value="S4">S4</option>
+            <option value="S5">S5</option><option value="S6">S6</option>
+          </select>
         </div>
 
         <div class="form-group">
           <label for="password">Mot de passe</label>
           <input id="password" type="password" placeholder="Minimum 6 caractères"
                  minlength="6" autocomplete="current-password" required>
+        </div>
+
+        <div class="form-group hidden" id="confirmPasswordGroup">
+          <label for="confirmPassword">Confirmer le mot de passe</label>
+          <input id="confirmPassword" type="password" placeholder="Retapez votre mot de passe"
+                 minlength="6" autocomplete="new-password">
         </div>
 
         <div class="forgot-row" id="forgotRow">
@@ -1166,6 +1200,9 @@ const authMessage = document.getElementById("authMessage");
 const loginTab = document.getElementById("loginTab");
 const signupTab = document.getElementById("signupTab");
 const nameGroup = document.getElementById("nameGroup");
+const firstNameGroup = document.getElementById("firstNameGroup");
+const academicGroup = document.getElementById("academicGroup");
+const confirmPasswordGroup = document.getElementById("confirmPasswordGroup");
 const forgotRow = document.getElementById("forgotRow");
 const submitBtn = document.getElementById("submitBtn");
 
@@ -1202,7 +1239,13 @@ function setMode(mode) {
   const isSignup = mode === "signup";
   loginTab.classList.toggle("active", !isSignup);
   signupTab.classList.toggle("active", isSignup);
-  nameGroup.classList.toggle("hidden", !isSignup);
+  nameGroup.classList.remove("hidden");
+  firstNameGroup.classList.remove("hidden");
+  academicGroup.classList.toggle("hidden", !isSignup);
+  confirmPasswordGroup.classList.toggle("hidden", !isSignup);
+  document.getElementById("confirmPassword").required = isSignup;
+  document.getElementById("option").required = isSignup;
+  document.getElementById("semester").required = isSignup;
   forgotRow.classList.toggle("hidden", isSignup);
 
   document.getElementById("formTitle").textContent =
@@ -1210,8 +1253,8 @@ function setMode(mode) {
 
   document.getElementById("formSubtitle").textContent =
     isSignup
-      ? "Rejoignez votre communauté étudiante."
-      : "Connectez-vous à votre espace étudiant pour accéder à vos ressources.";
+      ? "Saisissez vos informations, puis choisissez votre option et votre semestre."
+      : "Saisissez votre nom, votre prénom et votre mot de passe.";
 
   submitBtn.textContent = isSignup ? "Créer mon compte →" : "Se connecter →";
   document.getElementById("password").autocomplete =
@@ -1280,40 +1323,75 @@ function showAuth() {
 // =====================================
 // SIGN UP / SIGN IN
 // =====================================
+function makeStudentEmail(lastName, firstName) {
+  const clean = value => String(value || "")
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase().trim().replace(/[^a-z0-9]+/g, "")
+    .replace(/^[^a-z0-9]+|[^a-z0-9]+$/g, "");
+  const nom = clean(lastName), prenom = clean(firstName);
+  if (!nom || !prenom) return "";
+  return `${nom}.${prenom}@ispitshub.gmail.com`;
+}
+
+function refreshStudentEmail() {
+  const email = makeStudentEmail(
+    document.getElementById("lastName").value,
+    document.getElementById("firstName").value
+  );
+  document.getElementById("email").value = email;
+}
+document.getElementById("lastName").addEventListener("input", refreshStudentEmail);
+document.getElementById("firstName").addEventListener("input", refreshStudentEmail);
+
+// =====================================
+// SIGN UP / SIGN IN
+// =====================================
 authForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   clearMessage();
 
-  const email = document.getElementById("email").value.trim();
+  const lastName = document.getElementById("lastName").value.trim();
+  const firstName = document.getElementById("firstName").value.trim();
+  const email = makeStudentEmail(lastName, firstName);
   const password = document.getElementById("password").value;
-  const fullName = document.getElementById("fullName").value.trim();
+  const confirmPassword = document.getElementById("confirmPassword").value;
+  const option = document.getElementById("option").value;
+  const semester = document.getElementById("semester").value;
+  const fullName = `${firstName} ${lastName}`.trim();
 
   submitBtn.disabled = true;
   submitBtn.textContent = "Chargement...";
 
   try {
+    if (!lastName || !firstName || !email)
+      throw new Error("Veuillez saisir votre nom et votre prénom.");
     if (currentMode === "signup") {
-      if (!fullName) throw new Error("Veuillez saisir votre nom complet.");
+      if (!option || !semester) throw new Error("Veuillez choisir votre option et votre semestre.");
       if (password.length < 6) throw new Error("Le mot de passe doit contenir au moins 6 caractères.");
+      if (password !== confirmPassword) throw new Error("Les deux mots de passe ne correspondent pas.");
 
       const { data, error } = await db.auth.signUp({
         email,
         password,
         options: {
-          data: { full_name: fullName },
-          emailRedirectTo: window.location.origin + window.location.pathname
+          data: {
+            full_name: fullName,
+            first_name: firstName,
+            last_name: lastName,
+            filiere: option,
+            semestre: semester
+          }
         }
       });
 
       if (error) throw error;
-
       if (data.session && data.user) {
         showDashboard(data.user);
-        showToast("Votre compte a été créé avec succès.");
+        showToast("Votre compte étudiant a été créé avec succès.");
       } else {
         showMessage(
-          "Inscription réussie ! Consultez votre boîte e-mail pour confirmer votre compte.",
-          "success"
+          "Le compte a été créé, mais l'authentification attend une confirmation e-mail. L'administrateur doit désactiver la confirmation des e-mails dans Supabase, car cet identifiant est interne et ne reçoit pas de messages.",
+          "error"
         );
       }
     } else {
@@ -1322,40 +1400,24 @@ authForm.addEventListener("submit", async (event) => {
       showDashboard(data.user);
     }
   } catch (error) {
-    showMessage(error.message || "Une erreur est survenue.", "error");
+    let message = error.message || "Une erreur est survenue.";
+    if (/already registered|already been registered|user already/i.test(message))
+      message = "Un compte existe déjà avec ce nom et ce prénom. Vérifiez l'orthographe ou contactez l'administrateur.";
+    showMessage(message, "error");
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent =
-      currentMode === "signup" ? "Créer mon compte →" : "Se connecter →";
+    submitBtn.textContent = currentMode === "signup" ? "Créer mon compte →" : "Se connecter →";
   }
 });
 
 // =====================================
 // PASSWORD RESET
 // =====================================
-document.getElementById("forgotBtn").addEventListener("click", async () => {
-  clearMessage();
-  const email = document.getElementById("email").value.trim();
-
-  if (!email) {
-    showMessage("Veuillez saisir votre adresse e-mail.", "info");
-    document.getElementById("email").focus();
-    return;
-  }
-
-  try {
-    const { error } = await db.auth.resetPasswordForEmail(email, {
-      redirectTo: window.location.origin + window.location.pathname
-    });
-    if (error) throw error;
-
-    showMessage(
-      "Si cette adresse possède un compte, un e-mail de réinitialisation a été envoyé.",
-      "success"
-    );
-  } catch (error) {
-    showMessage(error.message || "Impossible d'envoyer l'e-mail.", "error");
-  }
+document.getElementById("forgotBtn").addEventListener("click", () => {
+  showMessage(
+    "L'identifiant ISPITS HUB est interne et ne reçoit pas d'e-mails. Pour réinitialiser un mot de passe oublié, contactez l'administrateur de la plateforme.",
+    "info"
+  );
 });
 
 // =====================================
@@ -1478,7 +1540,7 @@ function addBackButton(inner, label = "Retour au dashboard", handler = showHome)
 // =====================================
 // COURS / RÉSUMÉS : filières → semestres → modules → sous-modules → documents
 // =====================================
-const FILIERES = ["IP", "ISM", "ISFSC", "INP", "LABO", "TRX", "SF", "AS", "IAR"];
+const FILIERES = ["IP", "ISM", "ISFSC", "IAR", "AS", "TRX", "SEV", "INP"];
 const SEMESTRES = ["S1", "S2", "S3", "S4", "S5", "S6"];
 
 // Modules communs à IP, ISM, ISFSC, INP et IAR (S1). "subs" = sous-modules.
@@ -1586,6 +1648,10 @@ function bindModuleResults(container, list, getSection) {
 }
 
 function renderBrowser(section, filiere = null, semestre = null, module = null, sub = null) {
+  // Chaque étudiant arrive directement sur son option et son semestre enregistrés.
+  const academicProfile = currentUser?.user_metadata || {};
+  if (!filiere && academicProfile.filiere) filiere = academicProfile.filiere;
+  if (!semestre && academicProfile.semestre) semestre = academicProfile.semestre;
   const inner = document.getElementById("innerPage");
   const SEC = section.toUpperCase(), sec = section.toLowerCase();
   const TYPE = section === "Cours" ? "cours" : "resume";
@@ -1763,12 +1829,12 @@ function renderHelp() {
       <summary>Mode d'emploi</summary>
       <div class="help-body">
         <ol>
-          <li><strong>Compte :</strong> créez votre compte avec votre adresse e-mail, puis connectez-vous. En cas d'oubli, utilisez « Mot de passe oublié ? » sur la page de connexion.</li>
+          <li><strong>Compte :</strong> créez votre compte avec votre nom, votre prénom, votre option et votre semestre. Un identifiant étudiant est généré automatiquement sous la forme nom.prenom@ispitshub.gmail.com. Utilisez toujours cet identifiant et votre mot de passe pour vous connecter.</li>
           <li><strong>Cours :</strong> choisissez votre filière, puis le semestre, puis le module. Si le module contient des sous-modules, ouvrez celui qui vous intéresse pour voir ses cours.</li>
           <li><strong>Résumés :</strong> ils ont leur propre rubrique et fonctionnent de la même façon que les cours.</li>
           <li><strong>Recherche :</strong> utilisez la barre de recherche de l'accueil ou la rubrique « Recherche » pour trouver un cours, un résumé, un module ou une rubrique. Dans « Cours » et « Résumés », une barre de recherche est aussi disponible.</li>
           <li><strong>Assistant IA :</strong> posez vos questions sur vos cours ou demandez un QCM. Le bouton « Nouvelle discussion » efface la conversation.</li>
-          <li><strong>Profil :</strong> cliquez sur votre photo en haut à droite pour modifier votre profil (photo, téléphone, filière, semestre...), changer votre mot de passe ou vous déconnecter.</li>
+          <li><strong>Profil :</strong> cliquez sur votre photo en haut à droite pour modifier votre photo, votre téléphone, votre option et votre semestre, changer votre mot de passe ou vous déconnecter.</li>
           <li><strong>Navigation :</strong> sur téléphone, le bouton ☰ ouvre le menu. La flèche « Retour » en haut de chaque page vous ramène à l'étape précédente.</li>
         </ol>
       </div>
@@ -3127,8 +3193,7 @@ function openProfileModal() {
     { label: "Nom complet", name: "fullName", type: "text", attrs: "required" },
     { label: "Nom d'utilisateur", name: "username", type: "text", attrs: 'placeholder="ex : yassir_07" maxlength="20" autocomplete="username"' },
     { label: "Numéro de téléphone", name: "phone", type: "tel", attrs: 'placeholder="06 00 00 00 00" autocomplete="tel"' },
-    { label: "Filière", name: "filiere", type: "text", attrs: 'placeholder="ex : Soins infirmiers"' },
-    { label: "Parcours / Option", name: "parcours", type: "text", attrs: 'placeholder="Votre parcours ou option"' },
+    { label: "Option / Filière", name: "filiere", type: "select", options: ["", "IP", "ISM", "ISFSC", "IAR", "AS", "TRX", "SEV", "INP"] },
     { label: "Semestre", name: "semestre", type: "select", options: ["", "S1", "S2", "S3", "S4", "S5", "S6"] },
     { label: "Adresse e-mail", name: "email", type: "email", attrs: "disabled" }
   ], "Enregistrer", async v => {
@@ -3141,7 +3206,7 @@ function openProfileModal() {
 
     const meta = {
       full_name: name, username, phone,
-      filiere: v.filiere.trim(), parcours: v.parcours.trim(), semestre: v.semestre
+      filiere: v.filiere, semestre: v.semestre
     };
     if (pendingAvatar !== undefined) meta.avatar_url = pendingAvatar;
 
@@ -3157,7 +3222,6 @@ function openProfileModal() {
   f.elements.username.value = m.username || "";
   f.elements.phone.value = m.phone || "";
   f.elements.filiere.value = m.filiere || "";
-  f.elements.parcours.value = m.parcours || "";
   f.elements.semestre.value = m.semestre || "";
   f.elements.email.value = currentUser?.email || "";
 
