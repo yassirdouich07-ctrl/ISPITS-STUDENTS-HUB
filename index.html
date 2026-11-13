@@ -603,6 +603,43 @@ a.list-row{text-decoration:none}
 .help-body ol,.help-body ul{padding-left:20px;margin:6px 0}
 .help-body li{margin-bottom:6px}
 
+/* STAGES : FICHES TECHNIQUES */
+.fig{margin:14px 0;background:#fbfcfd;border:1px solid var(--border);border-radius:12px;padding:10px;text-align:center}
+.fig-svg{width:100%;max-width:440px;height:auto}
+.fig img{max-width:100%;border-radius:10px}
+.fig figcaption{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.7;text-align:left}
+.fiche-meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:20px;background:var(--teal-soft);color:#128b83;font-size:11px;font-weight:800}
+.badge.gray{background:#f1f4f7;color:#657487}
+.note,.warn{border-radius:10px;padding:11px 13px;font-size:12px;line-height:1.8;margin:12px 0}
+.note{background:#eef5fc;color:#275e89}
+.warn{background:#fff8e9;color:#926d2a}
+.primary-btn{width:100%;height:50px;border:0;border-radius:12px;background:var(--navy);color:white;font-size:14px;font-weight:800;margin:6px 0 18px;transition:.2s}
+.primary-btn:hover{background:#1b496b}
+.primary-btn:disabled{opacity:.45;cursor:not-allowed}
+.ghost-btn{width:100%;height:46px;border:1px solid var(--border);background:white;color:var(--navy);border-radius:12px;font-size:13px;font-weight:800;margin-bottom:12px}
+.help-body h4{font-family:'Outfit',sans-serif;font-size:13px;color:var(--navy);margin:14px 0 6px}
+.spec-row{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--border);font-size:12px}
+.spec-row:last-child{border-bottom:0}
+.spec-row span{color:var(--muted);flex:none}
+.spec-row strong{color:var(--navy);text-align:right}
+.fiche-num{width:34px;height:34px;border-radius:10px;background:var(--teal-soft);color:#128b83;display:grid;place-items:center;font-family:'Outfit',sans-serif;font-weight:800;flex:none}
+.list-row .list-main{flex:1}
+.quiz-progress{height:8px;background:#eef2f6;border-radius:6px;overflow:hidden;margin:0 0 20px}
+.quiz-progress span{display:block;height:100%;background:var(--teal);transition:.3s}
+.quiz-q{font-family:'Outfit',sans-serif;font-size:17px;font-weight:700;color:var(--navy);line-height:1.55;margin:0 0 16px}
+.opt{display:block;width:100%;text-align:left;padding:14px 16px;margin-bottom:10px;border:1.5px solid var(--border);border-radius:12px;background:white;color:var(--text);font-size:13px;line-height:1.6;transition:.15s}
+.opt.sel{border-color:var(--teal);background:var(--teal-soft);color:#0e6f69;font-weight:700}
+.score-wrap{display:flex;flex-direction:column;align-items:center;text-align:center;padding:6px 0 18px}
+.score-line{font-size:13px;font-weight:800;color:var(--navy);margin-top:8px}
+.score-msg{font-size:12px;color:var(--muted);max-width:340px;line-height:1.8;margin:6px 0 0}
+.err-card{border:1px solid var(--border);border-left:4px solid #d9534f;border-radius:12px;background:white;padding:14px 16px;margin-bottom:12px}
+.err-q{font-weight:700;color:var(--navy);font-size:13px;line-height:1.6;margin-bottom:8px}
+.err-a{font-size:12px;line-height:1.7;margin-bottom:4px}
+.err-a.bad{color:#b3392f}
+.err-a.good{color:#18734d}
+.err-e{font-size:11px;color:var(--muted);line-height:1.8;margin-top:6px}
+
 /* AI CHAT */
 .ai-reset{
   margin-left:auto;border:1px solid var(--border);background:white;
@@ -1259,6 +1296,11 @@ function openPage(pageName, arg) {
     return;
   }
 
+  if (pageName === "Stages") {
+    renderStages();
+    return;
+  }
+
   inner.innerHTML = `
     <div class="page-heading">
       <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
@@ -1525,13 +1567,18 @@ function renderSearch(initial = "") {
       box.innerHTML = `<div class="search-hint">Tapez au moins 2 lettres pour lancer la recherche.</div>`;
       return;
     }
-    const pages = searchPages(q), mods = searchCurriculum(q, null), docs = searchDocs(q, null, null);
-    if (!pages.length && !mods.length && !docs.length) { box.innerHTML = noResultsPanel(); return; }
+    const pages = searchPages(q), mods = searchCurriculum(q, null), docs = searchDocs(q, null, null), fiches = searchFiches(q);
+    if (!pages.length && !mods.length && !docs.length && !fiches.length) { box.innerHTML = noResultsPanel(); return; }
 
     let html = "";
     if (pages.length) {
       html += `<h3 class="res-head">Rubriques</h3><div class="list">${pages.map((p, i) =>
         `<button class="list-row" type="button" data-pg="${i}"><span class="list-main"><span class="list-title">${esc(p.name)}</span></span><span class="list-arrow">›</span></button>`
+      ).join("")}</div>`;
+    }
+    if (fiches.length) {
+      html += `<h3 class="res-head">Fiches techniques</h3><div class="list">${fiches.map(f =>
+        `<button class="list-row" type="button" data-fi="${f.id}"><span class="list-main"><span class="list-title">${esc(f.title)}</span><span class="list-sub">Stages</span></span><span class="list-arrow">›</span></button>`
       ).join("")}</div>`;
     }
     if (mods.length) html += `<h3 class="res-head">Modules</h3>` + resultsHTML(mods);
@@ -1540,6 +1587,8 @@ function renderSearch(initial = "") {
 
     box.querySelectorAll("[data-pg]").forEach(b =>
       b.addEventListener("click", () => openPage(pages[+b.dataset.pg].name)));
+    box.querySelectorAll("[data-fi]").forEach(b =>
+      b.addEventListener("click", () => { setActiveNav("Stages"); renderStages(b.dataset.fi); }));
     bindModuleResults(box, mods, () => searchSection);
   };
 
@@ -1598,356 +1647,374 @@ function renderHelp() {
   `;
 }
 
-// Barre de recherche de l'accueil
-document.getElementById("homeSearchForm").addEventListener("submit", e => {
-  e.preventDefault();
-  const input = document.getElementById("homeSearchInput");
-  const q = input.value.trim();
-  input.value = "";
-  openPage("Recherche", q);
-});
+// ===== STAGES : DEBUT =====
+const T = (x, y, s, a = "start", sz = 11, f = "#26384b", w = 400) =>
+  `<text x="${x}" y="${y}" text-anchor="${a}" font-size="${sz}" fill="${f}" font-weight="${w}" font-family="DM Sans,Arial,sans-serif">${s}</text>`;
+const LN = (x1, y1, x2, y2, c = "#6b7a8a", w = 1, d = "") =>
+  `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="${w}"${d ? ` stroke-dasharray="${d}"` : ""}/>`;
+const SVG = (vb, inner, label) =>
+  `<svg class="fig-svg" viewBox="${vb}" role="img" aria-label="${label}" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+const FIGURE = (svg, cap) => `<figure class="fig">${svg}<figcaption>${cap}</figcaption></figure>`;
+const photo = (src, cap) => FIGURE(`<img src="${esc(safeUrl(src))}" alt="${esc(cap)}" loading="lazy">`, esc(cap));
 
-let aiMessages = [];
-let aiBusy = false;
+const para = x => `<p>${x}</p>`;
+const ul = a => `<ul>${a.map(x => `<li>${x}</li>`).join("")}</ul>`;
+const ol = a => `<ol>${a.map(x => `<li>${x}</li>`).join("")}</ol>`;
+const note = x => `<div class="note">${x}</div>`;
+const warn = x => `<div class="warn">${x}</div>`;
+const specs = a => `<div class="spec">${a.map(([k, v]) => `<div class="spec-row"><span>${k}</span><strong>${v}</strong></div>`).join("")}</div>`;
 
-function aiWelcomeHTML() {
-  return `<div class="ai-chat-body">
-    <div class="ai-welcome-icon">✧</div>
-    <h3>Comment puis-je vous aider ?</h3>
-    <p>Posez vos questions sur vos cours, demandez des explications, préparez vos examens ou entraînez-vous avec des QCM.</p>
-    <div class="ai-suggestions">
-      <button class="ai-suggestion" type="button" data-ai="Explique-moi simplement un cours de soins infirmiers. Demande-moi d'abord quel sujet.">Expliquer un cours</button>
-      <button class="ai-suggestion" type="button" data-ai="Prépare-moi un QCM de 5 questions avec correction. Demande-moi d'abord le thème.">Préparer un QCM</button>
-      <button class="ai-suggestion" type="button" data-ai="Aide-moi à réviser. Demande-moi d'abord le module et le temps dont je dispose.">Aide aux révisions</button>
-    </div>
-  </div>`;
+// ---------- Figures ----------
+function figSyringe() {
+  const grad = [112, 126, 140, 154, 168, 182, 196, 210].map((x, i) => LN(x, 44, x, i % 2 ? 51 : 56, "#159c94", 1)).join("");
+  return SVG("0 0 360 120", `
+    <rect x="8" y="48" width="8" height="26" rx="2" fill="#6b7a8a"/>
+    <rect x="16" y="58" width="70" height="6" fill="#9aa7b5"/>
+    <rect x="84" y="44" width="140" height="34" rx="3" fill="#eaf6f5" stroke="#159c94" stroke-width="1.5"/>
+    <rect x="80" y="38" width="6" height="46" rx="2" fill="#9aa7b5"/>
+    <rect x="86" y="47" width="16" height="28" fill="#2c3e50"/>
+    ${grad}
+    <polygon points="224,52 240,57 240,65 224,70" fill="#8fb8d8"/>
+    <rect x="240" y="54" width="16" height="14" rx="2" fill="#7fb2e5"/>
+    <polygon points="256,59.5 322,59.5 340,63 256,63" fill="#44525f"/>
+    ${T(40, 30, "Piston", "middle")}${LN(40, 34, 50, 57)}
+    ${T(150, 28, "Corps gradué", "middle")}${LN(150, 32, 150, 44)}
+    ${T(244, 28, "Pavillon", "middle")}${LN(246, 32, 248, 54)}
+    ${T(306, 28, "Canule (tige)", "middle")}${LN(306, 32, 300, 59)}
+    ${T(226, 100, "Embout", "middle")}${LN(226, 88, 226, 70)}
+    ${T(334, 100, "Biseau", "middle")}${LN(334, 88, 334, 64)}
+    ${T(86, 108, "Collerette", "middle")}${LN(86, 96, 83, 84)}`,
+    "Schéma d'une seringue et d'une aiguille");
 }
 
-function aiRender() {
-  const box = document.getElementById("aiMessages");
-  if (!box) return;
-  if (!aiMessages.length && !aiBusy) {
-    box.innerHTML = aiWelcomeHTML();
-    box.querySelectorAll("[data-ai]").forEach(btn =>
-      btn.addEventListener("click", () => aiSend(btn.dataset.ai)));
-    return;
-  }
-  box.innerHTML = "";
-  const add = (role, text, extra = "") => {
-    const d = document.createElement("div");
-    d.className = "ai-msg " + role + extra;
-    d.textContent = text;
-    box.appendChild(d);
-  };
-  aiMessages.forEach(m => add(m.role, m.content));
-  if (aiBusy) add("assistant", "Réflexion en cours…", " typing");
-  box.scrollTop = box.scrollHeight;
-}
-
-async function aiSend(text) {
-  text = (text || "").trim();
-  if (!text || aiBusy) return;
-  aiMessages.push({ role: "user", content: text });
-  aiBusy = true;
-  aiRender();
-  try {
-    const history = aiMessages.filter(m => !m.error).map(({ role, content }) => ({ role, content }));
-    const { data, error } = await db.functions.invoke("chat", { body: { messages: history } });
-    if (error) throw error;
-    if (data?.error) throw new Error(data.error);
-    aiMessages.push({ role: "assistant", content: data.reply || "…" });
-  } catch (err) {
-    console.error("AI error:", err);
-    aiMessages.push({ role: "assistant", error: true, content: "⚠️ Désolé, une erreur est survenue. Réessayez dans un instant." });
-  }
-  aiBusy = false;
-  aiRender();
-}
-
-function renderAssistant() {
-  const inner = document.getElementById("innerPage");
-
-  inner.innerHTML = `
-    <div class="page-heading">
-      <div class="eyebrow">VOTRE ASSISTANT PÉDAGOGIQUE</div>
-      <h1>Assistant IA ✧</h1>
-      <p>Un espace intelligent pour accompagner votre apprentissage et vos révisions.</p>
-    </div>
-
-    <div class="ai-layout">
-      <div class="ai-chat">
-        <div class="ai-chat-header">
-          <div class="ai-avatar">✧</div>
-          <div>
-            <strong>ISPITS AI Assistant</strong>
-            <small>Assistant pédagogique de la plateforme</small>
-          </div>
-          <button class="ai-reset" id="aiReset" type="button">Nouvelle discussion</button>
-        </div>
-
-        <div class="ai-messages" id="aiMessages"></div>
-
-        <form class="ai-composer" id="aiForm">
-          <input id="aiInput" type="text" placeholder="Écrivez votre question..." autocomplete="off">
-          <button type="submit" aria-label="Envoyer">➤</button>
-        </form>
-      </div>
-
-      <aside class="ai-side-info">
-        <h3>Votre assistant étudiant</h3>
-        <p>Il vous aide à comprendre les cours, préparer les examens et progresser dans votre formation.</p>
-        <p>Les réponses sont adaptées au contexte des études en soins infirmiers.</p>
-        <div class="ai-note">Les réponses sont générées par une IA et peuvent contenir des erreurs. Vérifiez toujours avec vos cours, vos protocoles et vos enseignants.</div>
-      </aside>
-    </div>
-
-    <div class="bottom-footer">ISPITS STUDENTS HUB · Assistant pédagogique IA</div>
-  `;
-
-  aiRender();
-
-  inner.querySelector("#aiForm").addEventListener("submit", event => {
-    event.preventDefault();
-    const input = inner.querySelector("#aiInput");
-    const text = input.value;
-    input.value = "";
-    aiSend(text);
+function figAngles(items, extra = "") {
+  let g = `<rect x="10" y="110" width="290" height="6" fill="#e8c9a0"/>
+    <rect x="10" y="116" width="290" height="30" fill="#f2b7a6"/>
+    <rect x="10" y="146" width="290" height="50" fill="#fbe39a"/>
+    <rect x="10" y="196" width="290" height="54" fill="#d9757a"/>
+    ${LN(10, 110, 300, 110, "#8a6d4b", 1)}
+    ${T(306, 115, "Épiderme")}${T(306, 135, "Derme")}${T(306, 170, "Hypoderme")}${T(306, 183, "(sous-cutané)", "start", 10, "#6b7a8a")}${T(306, 226, "Muscle")}
+    ${extra}`;
+  items.forEach(n => {
+    const rad = n.angle * Math.PI / 180, L = n.L, r = 30;
+    const ex = n.tx - (n.ty - 110) * Math.cos(rad) / Math.sin(rad);
+    g += `<g transform="translate(${n.tx} ${n.ty}) rotate(${n.angle})">
+      <rect x="${-L - 60}" y="-7" width="48" height="14" rx="2" fill="#eaf6f5" stroke="#159c94"/>
+      <rect x="${-L - 12}" y="-4" width="12" height="8" fill="#7fb2e5"/>
+      <polygon points="${-L},-1.5 -9,-1.5 0,1.5 ${-L},1.5" fill="#44525f"/>
+    </g>
+    <path d="M${(ex + r).toFixed(1)} 110 A${r} ${r} 0 0 1 ${(ex + r * Math.cos(rad)).toFixed(1)} ${(110 + r * Math.sin(rad)).toFixed(1)}" fill="none" stroke="#102b46" stroke-width="1.5"/>
+    ${T((ex + 36).toFixed(1), 104, n.label, "start", 12, "#102b46", 700)}`;
   });
+  return SVG("0 0 400 262", g, "Coupe de la peau et trajet de l'aiguille");
+}
+const VEIN = `<circle cx="260" cy="160" r="15" fill="#6f86d6" stroke="#3f55a8" stroke-width="1.5"/><circle cx="260" cy="160" r="8" fill="#9db0f0"/>${T(260, 191, "Veine", "middle", 11, "#26384b", 700)}`;
 
-  inner.querySelector("#aiReset").addEventListener("click", () => {
-    if (aiBusy) return;
-    aiMessages = [];
-    aiRender();
-  });
+function figDeltoid() {
+  return SVG("0 0 240 200", `
+    <path d="M20 62 Q20 36 60 36 Q100 36 100 62 L92 190 L28 190 Z" fill="#f3cfae" stroke="#c99a73" stroke-width="1.5"/>
+    <polygon points="32,56 88,56 60,108" fill="rgba(21,156,148,.15)" stroke="#159c94" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <circle cx="82" cy="42" r="4.5" fill="#6b7a8a"/>
+    <circle cx="60" cy="76" r="5.5" fill="#159c94"/>
+    ${T(122, 40, "Acromion")}${LN(118, 38, 87, 41)}
+    ${T(122, 64, "2–3 travers de doigt")}${T(122, 77, "sous l'acromion")}
+    ${T(122, 102, "Point d'injection", "start", 11, "#0e6f69", 700)}${LN(120, 99, 66, 78, "#159c94")}`,
+    "Site d'injection dans le muscle deltoïde");
+}
+function figThigh() {
+  return SVG("0 0 240 220", `
+    <path d="M44 24 Q34 110 52 190 L104 190 Q118 110 100 24 Z" fill="#f3cfae" stroke="#c99a73" stroke-width="1.5"/>
+    <ellipse cx="78" cy="200" rx="30" ry="12" fill="#efc29a" stroke="#c99a73"/>
+    <rect x="46" y="62" width="58" height="88" fill="rgba(21,156,148,.2)"/>
+    ${LN(36, 62, 112, 62, "#159c94", 1.5, "4 3")}${LN(36, 150, 112, 150, "#159c94", 1.5, "4 3")}
+    <circle cx="46" cy="30" r="5.5" fill="#6b7a8a"/>
+    <circle cx="76" cy="106" r="5.5" fill="#159c94"/>
+    ${T(124, 34, "Grand trochanter")}${LN(120, 31, 53, 30)}
+    ${T(124, 58, "1 main sous le")}${T(124, 70, "trochanter")}
+    ${T(124, 100, "Tiers moyen :", "start", 11, "#0e6f69", 700)}${T(124, 113, "point d'injection", "start", 11, "#0e6f69", 700)}${LN(122, 106, 82, 106, "#159c94")}
+    ${T(124, 146, "1 main au-dessus")}${T(124, 158, "du genou")}
+    ${T(124, 204, "Genou")}`,
+    "Site d'injection dans le muscle vaste latéral de la cuisse");
+}
+function figVentro() {
+  return SVG("0 0 240 220", `
+    <path d="M40 52 Q18 128 66 204 L176 204 Q226 128 202 64 Z" fill="#fbefe2" stroke="#e1c7ad" stroke-width="1.5"/>
+    <path d="M60 62 Q120 18 190 72" fill="none" stroke="#6b7a8a" stroke-width="4" stroke-linecap="round"/>
+    <polygon points="118,170 60,62 176,66" fill="rgba(21,156,148,.14)" stroke="#159c94" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <circle cx="60" cy="62" r="5.5" fill="#102b46"/><circle cx="118" cy="170" r="6" fill="#102b46"/>
+    <circle cx="118" cy="100" r="5.5" fill="#159c94"/>
+    ${T(52, 48, "EIAS", "end")}${T(150, 28, "Crête iliaque")}
+    ${T(128, 186, "Grand trochanter")}
+    ${T(128, 100, "Point d'injection", "start", 11, "#0e6f69", 700)}${T(128, 113, "(centre du V)", "start", 11, "#0e6f69", 700)}`,
+    "Site d'injection ventro-glutéal");
+}
+function figBody() {
+  const nb = (x, y, n) => `<g transform="translate(${x} ${y})"><circle r="8" fill="#102b46"/>${T(0, 4, n, "middle", 11, "#ffffff", 700)}</g>`;
+  return SVG("0 0 260 310", `
+    <g fill="#f3cfae" stroke="#c99a73" stroke-width="1.5">
+      <circle cx="130" cy="30" r="20"/>
+      <rect x="88" y="56" width="84" height="108" rx="22"/>
+      <rect x="58" y="62" width="24" height="108" rx="12"/>
+      <rect x="178" y="62" width="24" height="108" rx="12"/>
+      <rect x="94" y="156" width="34" height="140" rx="16"/>
+      <rect x="132" y="156" width="34" height="140" rx="16"/>
+    </g>
+    <circle cx="130" cy="118" r="34" fill="rgba(21,156,148,.3)"/>
+    <circle cx="130" cy="118" r="13" fill="#ffffff" fill-opacity=".85" stroke="#d9534f" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <circle cx="130" cy="118" r="2.5" fill="#6b7a8a"/>
+    <ellipse cx="70" cy="104" rx="10" ry="26" fill="rgba(21,156,148,.45)"/>
+    <ellipse cx="190" cy="104" rx="10" ry="26" fill="rgba(21,156,148,.45)"/>
+    <ellipse cx="111" cy="230" rx="14" ry="38" fill="rgba(21,156,148,.45)"/>
+    <ellipse cx="149" cy="230" rx="14" ry="38" fill="rgba(21,156,148,.45)"/>
+    ${nb(130, 82, "1")}${nb(70, 70, "2")}${nb(111, 190, "3")}`,
+    "Zones d'injection sous-cutanée sur le corps");
+}
+function figForearm() {
+  return SVG("0 0 360 146", `
+    <path d="M18 38 Q8 76 18 114 L250 100 Q300 96 334 92 L334 60 Q300 54 250 52 Z" fill="#f3cfae" stroke="#c99a73" stroke-width="1.5"/>
+    <path d="M44 40 Q54 76 44 112" fill="none" stroke="#c99a73" stroke-width="1.5"/>
+    <path d="M70 66 Q150 58 250 70" fill="none" stroke="#6f86d6" stroke-width="2"/>
+    <path d="M70 92 Q150 88 250 86" fill="none" stroke="#6f86d6" stroke-width="2"/>
+    <ellipse cx="150" cy="78" rx="28" ry="9" fill="rgba(21,156,148,.35)" stroke="#159c94" stroke-width="1.5"/>
+    ${T(44, 26, "Pli du coude", "middle")}${T(300, 44, "Poignet", "middle")}
+    ${T(150, 136, "Zone d'injection", "middle", 11, "#0e6f69", 700)}${LN(150, 122, 150, 88, "#159c94")}
+    ${T(262, 136, "Veines à éviter", "middle")}${LN(262, 124, 228, 82, "#6f86d6")}`,
+    "Site d'injection intradermique sur la face antérieure de l'avant-bras");
+}
+function figArmIV() {
+  return SVG("0 0 300 250", `
+    <path d="M96 16 L184 16 L176 120 L168 232 L132 232 L124 120 Z" fill="#f3cfae" stroke="#c99a73" stroke-width="1.5"/>
+    <rect x="94" y="56" width="92" height="12" rx="3" fill="#e07b39" stroke="#b85a1c"/>
+    <path d="M124 122 Q144 128 176 122" fill="none" stroke="#c99a73" stroke-width="1.5"/>
+    <g fill="none" stroke="#6f86d6" stroke-width="3" stroke-linecap="round">
+      <path d="M136 230 Q132 170 128 134 Q126 100 128 74"/>
+      <path d="M162 230 Q160 170 160 136 Q160 100 166 74"/>
+      <path d="M128 134 L160 114"/>
+      <path d="M148 230 Q146 190 146 146 L146 124"/>
+    </g>
+    ${T(14, 104, "Céphalique")}${LN(74, 100, 127, 100)}
+    ${T(192, 104, "Basilique")}${LN(190, 101, 162, 100)}
+    ${T(192, 130, "Médiane du coude")}${LN(190, 127, 150, 119)}
+    ${T(192, 164, "Médiane de")}${T(192, 176, "l'avant-bras")}${LN(190, 170, 148, 176)}
+    ${T(192, 62, "Garrot (≈ 10 cm")}${T(192, 74, "au-dessus du site)")}`,
+    "Veines du pli du coude et de l'avant-bras");
+}
+function figPapule() {
+  const dots = [[100, 58], [112, 52], [122, 64], [104, 74], [116, 78], [96, 66], [126, 56], [110, 66]]
+    .map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.2" fill="#d9b48f"/>`).join("");
+  return SVG("0 0 220 130", `
+    <rect x="10" y="10" width="200" height="110" rx="14" fill="#f3cfae" stroke="#c99a73" stroke-width="1.5"/>
+    <circle cx="110" cy="65" r="22" fill="#fff6ee" stroke="#e7c3a1"/>${dots}
+    ${LN(88, 98, 132, 98, "#102b46", 1.2)}${LN(88, 94, 88, 102, "#102b46", 1.2)}${LN(132, 94, 132, 102, "#102b46", 1.2)}
+    ${T(110, 114, "6 à 10 mm", "middle", 11, "#102b46", 700)}
+    ${T(110, 28, "Papule « peau d'orange »", "middle")}`,
+    "Papule visible après une injection intradermique réussie");
 }
 
-// Sidebar navigation
-document.querySelectorAll(".nav-item").forEach(button => {
-  button.addEventListener("click", () => openPage(button.dataset.page));
-});
+// ---------- Contenus communs ----------
+const COMMON_PREP = ol([
+  "<strong>Lire la prescription</strong> : médicament, dose, voie, heure, durée. En cas de doute, demandez à l'infirmier ou au médecin avant de continuer.",
+  "<strong>Vérifier les 5 B</strong> : bon patient, bon médicament, bonne dose, bonne voie, bon moment. Vérifier aussi les allergies.",
+  "<strong>Hygiène des mains</strong> (friction hydro-alcoolique ou lavage).",
+  "<strong>Préparer le matériel</strong> sur un plateau propre et désinfecté, à portée de main.",
+  "<strong>Contrôler le produit</strong> : nom, dosage, date de péremption, aspect (limpide, sans particules), emballage intact.",
+  "<strong>Préparer la dose en asepsie</strong> : désinfecter l'ampoule ou le bouchon du flacon, prélever, purger l'air si nécessaire (voir les particularités de chaque technique).",
+  "<strong>Identifier le patient</strong> (nom, prénom, date de naissance, bracelet), expliquer le soin et obtenir son accord.",
+  "<strong>Installer le patient</strong> confortablement, en préservant son intimité.",
+  "<strong>Mettre des gants</strong> non stériles à usage unique."
+]);
+const COMMON_END = ol([
+  "<strong>Éliminer l'aiguille</strong> immédiatement dans le collecteur à objets piquants et tranchants, sans la recapuchonner.",
+  "Jeter les autres déchets dans le sac prévu (déchets d'activités de soins à risque infectieux).",
+  "Retirer les gants, puis <strong>hygiène des mains</strong>.",
+  "<strong>Surveiller le patient</strong> (douleur, réaction allergique, malaise) et le point d'injection.",
+  "<strong>Tracer</strong> : date, heure, médicament, dose, voie, site, réactions éventuelles, nom de l'exécutant.",
+  "Signaler à l'encadrant toute anomalie."
+]);
+const DISCLAIMER = "Support d'apprentissage : en stage, suivez toujours le protocole du service et les consignes de votre encadrant. Un geste se réalise sous supervision tant qu'il n'est pas validé.";
 
-// Dashboard cards
-document.querySelectorAll("[data-open]").forEach(button => {
-  button.addEventListener("click", () => openPage(button.dataset.open));
-});
-
-// Mobile menu
-document.getElementById("menuBtn").addEventListener("click", () => {
-  document.getElementById("sidebar").classList.toggle("open");
-});
-
-// =====================================
-// MENU PROFIL & SÉCURITÉ
-// =====================================
-const $ = id => document.getElementById(id);
-const profileWrap = $("profileWrap"), profileBtn = $("profileBtn"), profileMenu = $("profileMenu");
-const modalOverlay = $("modalOverlay"), modalBody = $("modalBody");
-
-function paintAvatar(el, url, letter) {
-  const ok = typeof url === "string" && url.startsWith("data:image/");
-  el.style.backgroundImage = ok ? `url("${url}")` : "";
-  el.textContent = ok ? "" : letter;
-}
-function updateProfileUI(user) {
-  const m = user.user_metadata || {};
-  const name = m.full_name || user.email?.split("@")[0] || "Étudiant";
-  $("userName").textContent = name;
-  $("welcomeName").textContent = name;
-  $("menuName").textContent = name;
-  $("menuEmail").textContent = user.email || "";
-  paintAvatar($("userAvatar"), m.avatar_url, name.trim().charAt(0).toUpperCase());
-  $("userRole").textContent = [m.filiere, m.semestre].filter(Boolean).join(" · ") || "Étudiant ISPITS";
-}
-function closeProfileMenu() {
-  profileMenu.classList.add("hidden");
-  profileBtn.setAttribute("aria-expanded", "false");
-}
-function closeModal() {
-  modalOverlay.classList.add("hidden");
-  modalBody.innerHTML = "";
-}
-profileBtn.addEventListener("click", () => {
-  const hidden = profileMenu.classList.toggle("hidden");
-  profileBtn.setAttribute("aria-expanded", String(!hidden));
-});
-document.addEventListener("click", e => {
-  if (!profileWrap.contains(e.target)) closeProfileMenu();
-});
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape") { closeProfileMenu(); closeModal(); }
-});
-modalOverlay.addEventListener("click", e => { if (e.target === modalOverlay) closeModal(); });
-$("modalClose").addEventListener("click", closeModal);
-profileMenu.querySelectorAll("[data-action]").forEach(b => b.addEventListener("click", () => {
-  closeProfileMenu();
-  b.dataset.action === "profile" ? openProfileModal() : openSecurityModal();
-}));
-
-function modalMsg(text, type) {
-  const el = $("modalMessage");
-  el.textContent = text;
-  el.className = "message show " + type;
-}
-function fieldHTML(f) {
-  if (f.type === "custom") return f.html;
-  const control = f.type === "select"
-    ? `<select name="${f.name}">${f.options.map(o => `<option value="${o}">${o || "— Choisir —"}</option>`).join("")}</select>`
-    : `<input name="${f.name}" type="${f.type}" ${f.attrs || ""}>`;
-  return `<div class="form-group"><label>${f.label}</label>${control}</div>`;
-}
-function openForm(title, sub, fields, btnText, onSubmit) {
-  modalBody.innerHTML = `<h3>${title}</h3><p class="modal-sub">${sub}</p>
-    <form id="mForm">${fields.map(fieldHTML).join("")}
-    <button class="submit-btn" type="submit">${btnText}</button></form>
-    <div id="modalMessage" class="message" role="status"></div>`;
-  modalOverlay.classList.remove("hidden");
-  const form = $("mForm");
-  form.addEventListener("submit", async e => {
-    e.preventDefault();
-    const btn = form.querySelector("button[type=submit]");
-    btn.disabled = true;
-    try { await onSubmit(Object.fromEntries(new FormData(form))); }
-    catch (err) { modalMsg(err.message || "Une erreur est survenue.", "error"); }
-    btn.disabled = false;
-  });
-  return form;
-}
-
-let pendingAvatar;
-function resizeImage(file, size = 96) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    const url = URL.createObjectURL(file);
-    img.onload = () => {
-      const c = document.createElement("canvas");
-      c.width = c.height = size;
-      const side = Math.min(img.width, img.height);
-      c.getContext("2d").drawImage(img, (img.width - side) / 2, (img.height - side) / 2, side, side, 0, 0, size, size);
-      URL.revokeObjectURL(url);
-      resolve(c.toDataURL("image/jpeg", 0.7));
-    };
-    img.onerror = () => reject(new Error("Image invalide."));
-    img.src = url;
-  });
-}
-
-function openProfileModal() {
-  const m = currentUser?.user_metadata || {};
-  const letter = (m.full_name || currentUser?.email || "E").trim().charAt(0).toUpperCase();
-  pendingAvatar = undefined;
-
-  const f = openForm("Modifier le profil", "Complétez vos informations personnelles et académiques.", [
-    { type: "custom", html: `<div class="avatar-edit"><div class="avatar-preview" id="avPreview"></div>
-      <div class="avatar-actions">
-        <button type="button" class="avatar-btn" id="avPick">📷 Changer la photo</button>
-        <button type="button" class="avatar-remove" id="avRemove">Supprimer la photo</button>
-        <input type="file" id="avFile" accept="image/*" hidden>
-      </div></div>` },
-    { label: "Nom complet", name: "fullName", type: "text", attrs: "required" },
-    { label: "Nom d'utilisateur", name: "username", type: "text", attrs: 'placeholder="ex : yassir_07" maxlength="20" autocomplete="username"' },
-    { label: "Numéro de téléphone", name: "phone", type: "tel", attrs: 'placeholder="06 00 00 00 00" autocomplete="tel"' },
-    { label: "Filière", name: "filiere", type: "text", attrs: 'placeholder="ex : Soins infirmiers"' },
-    { label: "Parcours / Option", name: "parcours", type: "text", attrs: 'placeholder="Votre parcours ou option"' },
-    { label: "Semestre", name: "semestre", type: "select", options: ["", "S1", "S2", "S3", "S4", "S5", "S6"] },
-    { label: "Adresse e-mail", name: "email", type: "email", attrs: "disabled" }
-  ], "Enregistrer", async v => {
-    const name = v.fullName.trim(), username = v.username.trim(), phone = v.phone.trim();
-    if (!name) throw new Error("Veuillez saisir votre nom complet.");
-    if (username && !/^[A-Za-z0-9_.]{3,20}$/.test(username))
-      throw new Error("Nom d'utilisateur : 3 à 20 caractères (lettres, chiffres, _ et .).");
-    if (phone && !/^\+?[0-9\s().-]{8,18}$/.test(phone))
-      throw new Error("Numéro de téléphone invalide.");
-
-    const meta = {
-      full_name: name, username, phone,
-      filiere: v.filiere.trim(), parcours: v.parcours.trim(), semestre: v.semestre
-    };
-    if (pendingAvatar !== undefined) meta.avatar_url = pendingAvatar;
-
-    const { data, error } = await db.auth.updateUser({ data: meta });
-    if (error) throw error;
-    currentUser = data.user;
-    updateProfileUI(data.user);
-    closeModal();
-    showToast("Profil mis à jour.");
-  });
-
-  f.elements.fullName.value = m.full_name || "";
-  f.elements.username.value = m.username || "";
-  f.elements.phone.value = m.phone || "";
-  f.elements.filiere.value = m.filiere || "";
-  f.elements.parcours.value = m.parcours || "";
-  f.elements.semestre.value = m.semestre || "";
-  f.elements.email.value = currentUser?.email || "";
-
-  const preview = $("avPreview"), file = $("avFile");
-  paintAvatar(preview, m.avatar_url, letter);
-  $("avPick").addEventListener("click", () => file.click());
-  file.addEventListener("change", async () => {
-    if (!file.files[0]) return;
-    try {
-      pendingAvatar = await resizeImage(file.files[0]);
-      paintAvatar(preview, pendingAvatar, letter);
-    } catch (err) { modalMsg(err.message, "error"); }
-    file.value = "";
-  });
-  $("avRemove").addEventListener("click", () => {
-    pendingAvatar = "";
-    paintAvatar(preview, "", letter);
-  });
-}
-
-function openSecurityModal() {
-  openForm("Mot de passe et sécurité", "Minimum 6 caractères.", [
-    { label: "Mot de passe actuel", name: "cur", type: "password", attrs: 'required autocomplete="current-password"' },
-    { label: "Nouveau mot de passe", name: "nw", type: "password", attrs: 'required minlength="6" autocomplete="new-password"' },
-    { label: "Confirmer le mot de passe", name: "cf", type: "password", attrs: 'required minlength="6" autocomplete="new-password"' }
-  ], "Changer le mot de passe", async v => {
-    if (v.nw.length < 6) throw new Error("Le mot de passe doit contenir au moins 6 caractères.");
-    if (v.nw !== v.cf) throw new Error("Les mots de passe ne correspondent pas.");
-    const { error: e1 } = await db.auth.signInWithPassword({ email: currentUser.email, password: v.cur });
-    if (e1) throw new Error("Mot de passe actuel incorrect.");
-    const { error } = await db.auth.updateUser({ password: v.nw });
-    if (error) throw error;
-    closeModal();
-    showToast("Mot de passe modifié avec succès.");
-  });
-}
-
-// =====================================
-// INITIAL AUTH STATE
-// =====================================
-async function initializeApp() {
-  showAuth();
-
-  const { data, error } = await db.auth.getSession();
-
-  if (error) {
-    console.error("Session error:", error.message);
-    showAuth();
-    return;
-  }
-
-  if (data.session?.user) {
-    showDashboard(data.session.user);
-  } else {
-    showAuth();
-  }
-}
-
-db.auth.onAuthStateChange((event, session) => {
-  if (event === "SIGNED_IN" && session?.user) {
-    if (currentUser?.id === session.user.id) { currentUser = session.user; return; }
-    showDashboard(session.user);
-  }
-
-  if (event === "SIGNED_OUT") {
-    showAuth();
-  }
-});
-
-initializeApp();
-</script>
-
-</body>
-</html>
+// ---------- Fiches ----------
+const FICHES = [
+  {
+    id: "id", short: "ID", title: "Injection intradermique (ID)", duree: "7 min",
+    keywords: "intradermique id idr mantoux tuberculine bcg papule test allergique injection",
+    resume: "Injection d'une très petite quantité de produit dans le derme, utilisée pour l'IDR à la tuberculine et les tests allergiques.",
+    sections: [
+      { t: "Fiche rapide", html: specs([
+          ["Couche visée", "Derme superficiel"],
+          ["Angle", "5 à 15° (presque à plat)"],
+          ["Aiguille", "25–27 G, courte (≈ 10 mm), biseau vers le haut"],
+          ["Seringue", "1 mL graduée au centième"],
+          ["Volume", "0,01 à 0,1 mL"],
+          ["Site", "Face antérieure de l'avant-bras"],
+          ["Signe de réussite", "Papule blanche de 6 à 10 mm"],
+          ["Massage", "Jamais"]
+        ]) + warn("L'absorption est très lente : on cherche une réaction locale visible, pas un effet général.") },
+      { t: "Définition et indications", html:
+          para("L'injection intradermique dépose le produit entre l'épiderme et l'hypoderme, dans le derme. Le produit reste sur place : la réaction est locale et visible.") +
+          "<h4>Indications</h4>" + ul(["IDR à la tuberculine (test de Mantoux)", "Tests allergiques", "Vaccin BCG (selon protocole)", "Petite anesthésie locale avant certains gestes"]) +
+          "<h4>Précautions</h4>" + ul(["Peau lésée, infectée, eczémateuse, tatouée ou cicatricielle sur le site : choisir un autre site", "Allergie connue au produit : prévenir l'encadrant avant le geste"]) },
+      { t: "Matériel", html:
+          ul(["Seringue de 1 mL (seringue à tuberculine) et aiguille 25–27 G courte", "Aiguille de prélèvement", "Produit prescrit (ex. tuberculine)", "Antiseptique et compresses", "Gants non stériles", "Collecteur pour objets piquants et tranchants"]) +
+          FIGURE(figSyringe(), "Les parties de la seringue et de l'aiguille. Le biseau est la pointe taillée en biais.") },
+      { t: "Avant tout geste (étapes communes)", html: COMMON_PREP },
+      { t: "Choisir le site", html:
+          FIGURE(figForearm(), "Site habituel : face antérieure de l'avant-bras, en évitant les veines apparentes.") +
+          ul(["Face antérieure de l'avant-bras, à environ 10 cm sous le pli du coude", "Peau saine, sans veine apparente, sans cicatrice, sans tatouage, peu de poils", "Noter le bras et le site utilisés", "BCG : face externe du bras (deltoïde), selon protocole"]) },
+      { t: "Angle et profondeur", html:
+          FIGURE(figAngles([{ tx: 150, ty: 122, angle: 15, L: 60, label: "5–15°" }]), "L'aiguille est presque parallèle à la peau : seul le biseau pénètre, juste sous l'épiderme.") +
+          para("Si l'angle est trop grand, le produit part dans l'hypoderme : la papule ne se forme pas et le test n'est pas fiable.") },
+      { t: "Technique pas à pas", html: ol([
+          "Appliquer les <strong>étapes communes</strong> « Avant tout geste ».",
+          "Installer l'avant-bras en appui, paume vers le haut, bras détendu.",
+          "Désinfecter la peau et <strong>laisser sécher complètement</strong>.",
+          "Tendre la peau avec la main non dominante (pouce sous le site).",
+          "Tenir la seringue presque à plat (5 à 15°), <strong>biseau vers le haut</strong>.",
+          "Faire pénétrer <strong>uniquement le biseau</strong>, juste sous l'épiderme : on voit l'aiguille par transparence.",
+          "Injecter lentement : on sent une résistance et une <strong>papule blanche</strong> apparaît.",
+          "Retirer l'aiguille. <strong>Ne pas masser</strong>, ne pas comprimer, pas de pansement compressif.",
+          "Noter l'heure, le produit, la dose et le site.",
+          "Appliquer les <strong>étapes communes</strong> « Après le geste »."
+        ]) + FIGURE(figPapule(), "Une papule blanche de 6 à 10 mm confirme que le produit est bien dans le derme.") },
+      { t: "Lecture du test (IDR à la tuberculine)", html: ul([
+          "Lecture classique <strong>48 à 72 heures</strong> après l'injection.",
+          "On mesure l'<strong>induration</strong> (zone dure en relief), dans le sens transversal de l'avant-bras, et non la rougeur.",
+          "L'interprétation du résultat revient à l'infirmier ou au médecin, selon le protocole."
+        ]) },
+      { t: "Après le geste (étapes communes)", html: COMMON_END },
+      { t: "Complications et conduite à tenir", html: ul([
+          "<strong>Pas de papule</strong> : produit déposé trop profond, test non fiable. Prévenir l'encadrant ; le test se refait selon le protocole, à distance du premier site ou sur l'autre bras.",
+          "<strong>Réaction locale importante</strong> (rougeur étendue, ulcération, démangeaisons) : alerter.",
+          "<strong>Réaction allergique générale</strong> (malaise, urticaire, gêne respiratoire) : arrêter, alerter immédiatement, appliquer le protocole d'urgence."
+        ]) },
+      { t: "Erreurs fréquentes", html: ul([
+          "Angle trop grand (le produit passe sous la peau)", "Biseau vers le bas", "Masser ou frotter le site", "Piquer sur un antiseptique encore humide",
+          "Piquer sur une veine ou une peau lésée", "Ne pas noter l'heure de l'injection (lecture impossible)"
+        ]) + note("À retenir : petit angle, biseau en haut, papule, aucun massage.") }
+    ],
+    quiz: [
+      { q: "Quel est l'angle d'insertion de l'aiguille pour une injection intradermique ?", o: ["90°", "45°", "5 à 15°", "30 à 45°"], a: 2, e: "L'aiguille est presque parallèle à la peau pour rester dans le derme." },
+      { q: "Comment faut-il orienter le biseau de l'aiguille ?", o: ["Vers le haut", "Vers le bas", "Sur le côté", "Peu importe"], a: 0, e: "Biseau vers le haut : le produit est déposé dans le derme et l'aiguille reste visible sous l'épiderme." },
+      { q: "Quel signe confirme que l'injection est bien intradermique ?", o: ["Une rougeur étendue", "Une papule blanche de 6 à 10 mm", "Un saignement au point de ponction", "Aucun signe visible"], a: 1, e: "La papule « peau d'orange » montre que le produit est dans le derme." },
+      { q: "Quel volume injecte-t-on au maximum ?", o: ["0,1 mL", "1 mL", "2 mL", "5 mL"], a: 0, e: "On injecte 0,01 à 0,1 mL." },
+      { q: "Que fait-on du site après avoir retiré l'aiguille ?", o: ["On masse pour répartir le produit", "On applique un pansement compressif", "On ne masse pas et on ne comprime pas", "On applique de la chaleur"], a: 2, e: "Masser disperserait le produit et fausserait le résultat du test." },
+      { q: "Quel est le site habituel pour l'IDR à la tuberculine ?", o: ["Face antérieure de l'avant-bras", "Abdomen", "Face externe de la cuisse", "Fesse"], a: 0, e: "L'avant-bras permet de bien voir et mesurer la réaction." },
+      { q: "Quand lit-on classiquement une IDR à la tuberculine ?", o: ["Immédiatement", "Après 15 minutes", "48 à 72 heures après", "Après 7 jours"], a: 2, e: "On mesure l'induration (et non la rougeur) 48 à 72 heures après l'injection." },
+      { q: "Aucune papule ne se forme pendant l'injection. Que faire ?", o: ["Masser doucement", "Considérer que tout va bien", "Prévenir l'encadrant : produit trop profond, test non fiable", "Injecter une dose supplémentaire au même endroit"], a: 2, e: "Sans papule, le produit n'est pas dans le derme. Le test se refait selon le protocole." }
+    ]
+  },
+  {
+    id: "sc", short: "SC", title: "Injection sous-cutanée (SC)", duree: "9 min",
+    keywords: "sous cutanee sous-cutanée sc insuline heparine hbpm lovenox pli cutane abdomen",
+    resume: "Injection dans le tissu sous-cutané : insuline, héparine de bas poids moléculaire (HBPM), certains vaccins.",
+    sections: [
+      { t: "Fiche rapide", html: specs([
+          ["Couche visée", "Hypoderme (tissu sous-cutané)"],
+          ["Angle", "45° ou 90° selon l'aiguille et le patient"],
+          ["Aiguille", "25–30 G, environ 4 à 16 mm"],
+          ["Volume", "Jusqu'à 1 mL (2 mL maximum)"],
+          ["Sites", "Abdomen, bras, cuisse, haut de la fesse"],
+          ["Pli cutané", "Souvent, selon l'aiguille et le patient"],
+          ["Absorption", "Lente et régulière"]
+        ]) },
+      { t: "Définition et indications", html:
+          para("L'injection sous-cutanée dépose le produit dans le tissu adipeux situé sous la peau. L'absorption est plus lente qu'en intramusculaire, ce qui donne un effet régulier.") +
+          "<h4>Indications</h4>" + ul(["Insuline", "Héparine de bas poids moléculaire (HBPM) : prévention des thromboses", "Certains vaccins et médicaments prescrits en SC"]) +
+          "<h4>Précautions</h4>" + ul(["Éviter les zones lésées, infectées, œdématiées, indurées ou avec hématome", "Éviter les zones de lipodystrophie (bosses ou creux liés aux injections répétées)"]) },
+      { t: "Matériel", html:
+          ul(["Seringue de 1 mL, stylo ou seringue préremplie", "Aiguille sous-cutanée (selon matériel : 4 à 16 mm)", "Produit prescrit", "Antiseptique et compresses", "Gants non stériles", "Collecteur pour objets piquants et tranchants"]) +
+          FIGURE(figSyringe(), "Les parties de la seringue et de l'aiguille.") },
+      { t: "Avant tout geste (étapes communes)", html: COMMON_PREP },
+      { t: "Choisir le site", html:
+          FIGURE(figBody(), "1 : abdomen · 2 : face externe du bras · 3 : face antéro-externe de la cuisse. Le cercle rouge entoure le nombril, zone à éviter.") +
+          ul(["<strong>1. Abdomen</strong> : à au moins 5 cm du nombril, en évitant les cicatrices", "<strong>2. Bras</strong> : face externe", "<strong>3. Cuisse</strong> : face antéro-externe", "Haut de la fesse (région dorsale)", "<strong>Alterner les sites</strong> et espacer chaque injection d'au moins 2 cm de la précédente"]) },
+      { t: "Angle et profondeur", html:
+          FIGURE(figAngles([{ tx: 150, ty: 172, angle: 45, L: 100, label: "45°" }, { tx: 250, ty: 172, angle: 90, L: 100, label: "90°" }]), "Deux options selon l'aiguille : 45° avec un pli cutané, ou 90° avec une aiguille courte.") +
+          ul(["<strong>90°</strong> : aiguille courte (4 à 8 mm) et tissu adipeux suffisant", "<strong>45°</strong> avec pli cutané : patient maigre ou aiguille plus longue, pour éviter d'atteindre le muscle", "Le pli se fait avec le pouce et l'index : on pince la peau et la graisse, <strong>pas le muscle</strong>"]) },
+      { t: "Technique pas à pas", html: ol([
+          "Appliquer les <strong>étapes communes</strong> « Avant tout geste ».",
+          "Choisir le site, désinfecter et <strong>laisser sécher</strong>.",
+          "Former un pli cutané doux entre le pouce et l'index (si nécessaire).",
+          "Tenir la seringue comme un stylo et piquer d'un geste rapide, à 45° ou 90°.",
+          "Injecter <strong>lentement</strong> (environ 10 secondes par mL).",
+          "Maintenir le pli pendant toute l'injection. Avec un stylo à insuline, garder l'aiguille environ 10 secondes avant de la retirer.",
+          "Retirer l'aiguille d'un geste net, puis relâcher le pli.",
+          "Comprimer légèrement avec une compresse, <strong>sans masser</strong>.",
+          "Appliquer les <strong>étapes communes</strong> « Après le geste »."
+        ]) },
+      { t: "Particularités : HBPM et insuline", html:
+          "<h4>HBPM (seringue préremplie)</h4>" + ul(["<strong>Ne pas purger la bulle d'air</strong> : elle ferme le produit après l'injection", "Injecter dans un pli cutané maintenu, à 90°", "Ne pas masser après l'injection (risque d'hématome)", "Alterner le côté droit et le côté gauche de l'abdomen"]) +
+          "<h4>Insuline</h4>" + ul(["Vérifier le type d'insuline et la dose (double contrôle si le protocole l'exige)", "Stylo : purger quelques unités avant l'injection", "Changer l'aiguille du stylo à chaque injection", "Alterner les sites pour éviter les lipodystrophies"]) },
+      { t: "Après le geste (étapes communes)", html: COMMON_END },
+      { t: "Complications et conduite à tenir", html: ul([
+          "<strong>Hématome ou saignement</strong> (surtout avec les HBPM) : comprimer, surveiller, signaler.",
+          "<strong>Douleur, rougeur, chaleur, nodule</strong> : possible infection ou réaction locale, alerter.",
+          "<strong>Lipodystrophie</strong> : liée aux injections répétées au même endroit, alterner les sites.",
+          "<strong>Insuline : hypoglycémie</strong> (sueurs, tremblements, faim, confusion) : alerter immédiatement et suivre le protocole (glycémie capillaire)."
+        ]) },
+      { t: "Erreurs fréquentes", html: ul([
+          "Injecter dans le muscle (aiguille trop longue, patient maigre, pas de pli)", "Toujours piquer au même endroit", "Masser le site après une HBPM", "Purger la bulle d'air d'une seringue d'HBPM préremplie",
+          "Piquer sur un antiseptique encore humide", "Réutiliser une aiguille de stylo"
+        ]) + note("À retenir : bon site, bon angle, pli si nécessaire, rotation des sites.") }
+    ],
+    quiz: [
+      { q: "Dans quelle couche dépose-t-on le produit lors d'une injection sous-cutanée ?", o: ["L'épiderme", "Le derme", "L'hypoderme (tissu sous-cutané)", "Le muscle"], a: 2, e: "Le produit est déposé dans le tissu adipeux situé sous la peau." },
+      { q: "Patient très maigre, aiguille de 12 mm : quelle technique est la plus sûre ?", o: ["Pli cutané et angle de 45°", "90° sans pli cutané", "5° sans pli cutané", "Injection dans le muscle"], a: 0, e: "Le pli et l'angle de 45° évitent d'atteindre le muscle." },
+      { q: "Quelle zone de l'abdomen est recommandée ?", o: ["Juste autour du nombril", "À au moins 5 cm du nombril", "Uniquement sur la ligne médiane", "Sous les côtes, sur l'os"], a: 1, e: "On s'éloigne du nombril d'au moins 5 cm." },
+      { q: "Seringue préremplie d'HBPM : que fait-on de la bulle d'air ?", o: ["On la purge entièrement", "On la garde dans la seringue", "On l'aspire avec le piston", "On secoue la seringue pour la faire disparaître"], a: 1, e: "La bulle d'air ferme le produit après l'injection : on ne la purge pas." },
+      { q: "Après une injection d'HBPM, que faut-il faire ?", o: ["Masser le site pendant une minute", "Ne pas masser (risque d'hématome)", "Appliquer de la chaleur", "Plier fortement le bras"], a: 1, e: "Le massage augmente le risque d'hématome avec les anticoagulants." },
+      { q: "Pourquoi faut-il alterner les sites d'injection ?", o: ["Pour gagner du temps", "Pour éviter les lipodystrophies et les indurations", "Pour mieux voir les veines", "Ce n'est pas nécessaire"], a: 1, e: "Les injections répétées au même endroit abîment le tissu sous-cutané." },
+      { q: "Quel est le volume maximal habituel en sous-cutané ?", o: ["Environ 1 à 2 mL", "5 mL", "10 mL", "20 mL"], a: 0, e: "Au-delà, le produit est mal absorbé et l'injection devient douloureuse." },
+      { q: "Comment doit être le pli cutané ?", o: ["Pincé fortement avec le muscle", "Maintenu pendant toute l'injection", "Relâché dès l'insertion de l'aiguille", "Toujours inutile"], a: 1, e: "On pince la peau et la graisse (pas le muscle) et on maintient le pli pendant l'injection." }
+    ]
+  },
+  {
+    id: "im", short: "IM", title: "Injection intramusculaire (IM)", duree: "11 min",
+    keywords: "intramusculaire im muscle fessier ventro-gluteal deltoide vaste lateral technique en z injection",
+    resume: "Injection dans un muscle : absorption rapide et volumes plus importants qu'en sous-cutané (antibiotiques, antalgiques, vaccins).",
+    sections: [
+      { t: "Fiche rapide", html: specs([
+          ["Couche visée", "Muscle"],
+          ["Angle", "90° (perpendiculaire)"],
+          ["Aiguille", "21–23 G, 25 à 40 mm selon le site et la corpulence"],
+          ["Volume", "Deltoïde : 1 à 2 mL · Autres sites : jusqu'à 3 mL (5 mL maximum chez l'adulte, selon protocole)"],
+          ["Sites", "Ventro-glutéal (préféré), vaste latéral, deltoïde"],
+          ["Après l'injection", "Attendre environ 10 secondes avant de retirer l'aiguille"]
+        ]) },
+      { t: "Définition et indications", html:
+          para("L'injection intramusculaire dépose le médicament dans un muscle, riche en vaisseaux sanguins. L'absorption est plus rapide qu'en sous-cutané et permet des volumes plus importants.") +
+          "<h4>Indications</h4>" + ul(["Médicaments prescrits en IM (antibiotiques, antalgiques, antiémétiques...)", "Vaccins", "Médicaments retard (selon prescription)"]) +
+          "<h4>Contre-indications et précautions</h4>" + ul(["Peau lésée, infectée, œdème, hématome ou induration sur le site", "Troubles de la coagulation ou traitement anticoagulant : risque d'hématome, demander l'avis de l'encadrant", "Muscle atrophié, membre paralysé", "Mauvaise circulation (choc) : absorption imprévisible"]) },
+      { t: "Matériel", html:
+          ul(["Seringue de 2 à 5 mL selon le volume", "Aiguille IM : 21–23 G (verte, noire ou bleue), 25 à 40 mm", "Aiguille de prélèvement", "Produit prescrit", "Antiseptique et compresses", "Gants non stériles, pansement", "Collecteur pour objets piquants et tranchants"]) +
+          FIGURE(figSyringe(), "Les parties de la seringue et de l'aiguille.") },
+      { t: "Avant tout geste (étapes communes)", html: COMMON_PREP },
+      { t: "Choisir le site", html:
+          "<h4>Ventro-glutéal (site préféré chez l'adulte)</h4>" +
+          FIGURE(figVentro(), "Poser la paume sur le grand trochanter, l'index vers l'EIAS (épine iliaque antéro-supérieure), le majeur vers la crête iliaque : le point d'injection est au centre du V.") +
+          ul(["Pas de gros nerf ni gros vaisseau, couche de graisse fine", "Patient sur le côté (genou fléchi) ou sur le dos"]) +
+          "<h4>Vaste latéral (cuisse)</h4>" +
+          FIGURE(figThigh(), "Tiers moyen de la face antéro-externe de la cuisse : entre une main sous le trochanter et une main au-dessus du genou.") +
+          "<h4>Deltoïde (épaule)</h4>" +
+          FIGURE(figDeltoid(), "À 2 ou 3 travers de doigt sous l'acromion, au centre du muscle. Petit volume uniquement.") +
+          ul(["Volume maximal : 1 à 2 mL", "Adapté aux vaccins et aux petits volumes"]) +
+          warn("Le quadrant supéro-externe de la fesse (site dorso-glutéal) est de moins en moins recommandé : risque de lésion du nerf sciatique. Suivez les consignes de votre formateur et le protocole du service.") },
+      { t: "Angle et profondeur", html:
+          FIGURE(figAngles([{ tx: 200, ty: 216, angle: 90, L: 110, label: "90°" }]), "L'aiguille traverse l'épiderme, le derme et l'hypoderme pour atteindre le muscle.") +
+          ul(["Piquer <strong>perpendiculairement</strong> à la peau", "Patient corpulent : aiguille plus longue pour atteindre le muscle", "Patient maigre : aiguille plus courte", "Ne pas enfoncer l'aiguille jusqu'au pavillon (risque de rupture)"]) },
+      { t: "Technique pas à pas", html: ol([
+          "Appliquer les <strong>étapes communes</strong> « Avant tout geste ».",
+          "Installer le patient, <strong>muscle relâché</strong>.",
+          "Repérer le site avec les repères anatomiques.",
+          "Désinfecter en cercles du centre vers l'extérieur et <strong>laisser sécher</strong>.",
+          "Tendre la peau avec la main non dominante (ou pincer le muscle chez un patient maigre).",
+          "Tenir la seringue comme un dard et <strong>piquer d'un geste net à 90°</strong>.",
+          "Injecter <strong>lentement</strong> (environ 10 secondes par mL) en surveillant le visage du patient.",
+          "<strong>Attendre environ 10 secondes</strong> avant de retirer l'aiguille.",
+          "Retirer l'aiguille d'un geste rapide, dans le même axe.",
+          "Comprimer doucement avec une compresse sèche, poser un pansement.",
+          "Appliquer les <strong>étapes communes</strong> « Après le geste »."
+        ]) + note("Aspiration : certaines écoles enseignent encore de vérifier l'absence de sang avant d'injecter. Suivez la consigne de votre formateur et le protocole du service.") },
+      { t: "Technique en Z", html:
+          para("Utilisée pour les médicaments irritants ou colorants, selon prescription ou protocole. Elle évite que le produit remonte dans le tissu sous-cutané.") +
+          
