@@ -720,6 +720,20 @@ a.list-row{text-decoration:none}
 
 <body>
 
+<!-- Affiche à l'écran toute erreur JavaScript (utile pour le diagnostic) -->
+<script>
+(function () {
+  function show(msg) {
+    var d = document.createElement("div");
+    d.style.cssText = "position:fixed;z-index:9999;left:0;right:0;bottom:0;background:#b3392f;color:#fff;padding:10px 14px;font:12px/1.5 sans-serif";
+    d.textContent = "Erreur : " + msg;
+    document.body.appendChild(d);
+  }
+  window.addEventListener("error", function (e) { show(e.message + (e.lineno ? " (ligne " + e.lineno + ")" : "")); });
+  window.addEventListener("unhandledrejection", function (e) { show(String((e.reason && e.reason.message) || e.reason)); });
+})();
+</script>
+
 <!-- LOGO SYMBOL -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="hub-logo" viewBox="0 0 100 100">
@@ -2017,4 +2031,615 @@ const FICHES = [
         ]) + note("Aspiration : certaines écoles enseignent encore de vérifier l'absence de sang avant d'injecter. Suivez la consigne de votre formateur et le protocole du service.") },
       { t: "Technique en Z", html:
           para("Utilisée pour les médicaments irritants ou colorants, selon prescription ou protocole. Elle évite que le produit remonte dans le tissu sous-cutané.") +
-          
+          ol(["Avec la main non dominante, tirer la peau et le tissu sous-cutané sur le côté (environ 2,5 cm).", "Piquer à 90° en gardant la peau tirée.", "Injecter lentement, attendre environ 10 secondes.", "Retirer l'aiguille, <strong>puis relâcher la peau</strong> : le trajet de l'aiguille se décale et se referme.", "Ne pas masser le site."]) },
+      { t: "Après le geste (étapes communes)", html: COMMON_END },
+      { t: "Complications et conduite à tenir", html: ul([
+          "<strong>Douleur vive, fourmillements, engourdissement</strong> (lésion nerveuse possible) : arrêter, retirer l'aiguille, alerter.",
+          "<strong>Hématome</strong> : comprimer, surveiller, signaler.",
+          "<strong>Abcès</strong> (rougeur, chaleur, douleur persistante, fièvre) : alerter.",
+          "<strong>Réaction allergique</strong> (urticaire, gêne respiratoire, malaise) : arrêter, alerter immédiatement, protocole d'urgence."
+        ]) },
+      { t: "Erreurs fréquentes", html: ul([
+          "Piquer sur un antiseptique humide", "Mauvais repérage du site", "Patient contracté (muscle non relâché)", "Aiguille trop courte chez un patient corpulent (injection dans la graisse)",
+          "Injecter trop vite", "Recapuchonner l'aiguille", "Toujours utiliser le même site"
+        ]) + note("À retenir : bon site, 90°, injection lente, attente de 10 secondes, aucun recapuchonnage.") }
+    ],
+    quiz: [
+      { q: "Quel est l'angle d'insertion de l'aiguille pour une injection intramusculaire ?", o: ["15°", "45°", "90°", "5 à 15°"], a: 2, e: "L'aiguille est perpendiculaire à la peau pour atteindre le muscle." },
+      { q: "Quel site IM présente le moins de risque de lésion du nerf sciatique chez l'adulte ?", o: ["Quadrant supéro-externe de la fesse (dorso-glutéal)", "Ventro-glutéal", "Face interne de la cuisse", "Haut de la fesse, près du sillon"], a: 1, e: "Le site ventro-glutéal est éloigné des gros nerfs et vaisseaux." },
+      { q: "Quel est le volume maximal conseillé dans le deltoïde ?", o: ["1 à 2 mL", "5 mL", "10 mL", "0,1 mL"], a: 0, e: "Le deltoïde est un petit muscle : seulement 1 à 2 mL." },
+      { q: "Où se trouve le point d'injection dans le deltoïde ?", o: ["2 à 3 travers de doigt sous l'acromion", "Directement sur l'acromion", "Au pli du coude", "À 15 cm sous l'acromion"], a: 0, e: "Au centre du muscle, à 2 ou 3 travers de doigt sous l'acromion." },
+      { q: "Après la désinfection de la peau, que faut-il faire ?", o: ["Piquer immédiatement", "Laisser l'antiseptique sécher", "Essuyer avec une compresse humide", "Souffler sur la peau"], a: 1, e: "L'antiseptique agit en séchant. Piquer sur une peau humide est une erreur fréquente." },
+      { q: "Que fait-on de l'aiguille après l'injection ?", o: ["On la recapuchonne avec les deux mains", "On la jette dans le collecteur, sans recapuchonner", "On la jette dans la poubelle ordinaire", "On la garde pour l'injection suivante"], a: 1, e: "Jamais de recapuchonnage : risque d'accident d'exposition au sang." },
+      { q: "À quoi sert la technique en Z ?", o: ["À piquer sans douleur", "À empêcher un produit irritant de remonter dans le tissu sous-cutané", "À injecter plus vite", "À éviter de désinfecter la peau"], a: 1, e: "Le trajet de l'aiguille se décale et se referme quand on relâche la peau." },
+      { q: "Combien de temps attend-on avant de retirer l'aiguille après l'injection ?", o: ["Aucun, on la retire tout de suite", "Environ 10 secondes", "2 minutes", "5 minutes"], a: 1, e: "L'attente permet au produit de diffuser dans le muscle et limite les fuites." }
+    ]
+  },
+  {
+    id: "iv", short: "IV", title: "Injection intraveineuse directe (IV)", duree: "12 min",
+    keywords: "intraveineuse intraveineux iv ivd veine garrot ponction veineuse injection directe",
+    resume: "Administration d'un médicament directement dans une veine périphérique : effet immédiat, geste à risque réalisé sous supervision.",
+    sections: [
+      { t: "Fiche rapide", html: specs([
+          ["Voie", "Veine périphérique (injection directe)"],
+          ["Angle", "15 à 30°, biseau vers le haut"],
+          ["Aiguille", "21–23 G (ou cathéter adapté à la veine)"],
+          ["Garrot", "Environ 10 cm au-dessus du site, 1 à 2 minutes au plus"],
+          ["Veines", "Pli du coude, avant-bras, dos de la main"],
+          ["Confirmation", "Reflux de sang dans la seringue"],
+          ["Vitesse", "Lentement, au débit prescrit"],
+          ["Effet", "Immédiat"]
+        ]) + warn("L'effet est immédiat et difficile à rattraper : vérifiez deux fois le produit, la dose et l'identité du patient.") },
+      { t: "Définition et indications", html:
+          para("L'injection intraveineuse directe dépose le médicament dans une veine. Il n'y a pas de phase d'absorption : l'effet est immédiat.") +
+          "<h4>Indications</h4>" + ul(["Médicaments prescrits en IV direct", "Situations où un effet rapide est nécessaire"]) +
+          "<h4>Contre-indications et précautions</h4>" + ul(["Membre avec fistule artério-veineuse, ou du côté d'un curage axillaire ou d'une mastectomie", "Membre paralysé ou œdématié", "Zone infectée, brûlée ou avec hématome", "Veine dure, thrombosée ou fragile", "Produit non prévu pour la voie IV : ne jamais injecter"]) },
+      { t: "Matériel", html:
+          ul(["Seringue(s) avec produit prescrit", "Aiguille 21–23 G", "Garrot", "Antiseptique et compresses stériles", "Gants non stériles, pansement", "Protection du lit ou du bras", "Collecteur pour objets piquants et tranchants"]) +
+          FIGURE(figSyringe(), "Les parties de la seringue et de l'aiguille.") },
+      { t: "Avant tout geste (étapes communes)", html: COMMON_PREP + note("En IV, <strong>purger complètement l'air</strong> de la seringue avant d'injecter.") },
+      { t: "Choisir la veine", html:
+          FIGURE(figArmIV(), "Veines du pli du coude et de l'avant-bras. Le garrot se place environ 10 cm au-dessus du site de ponction.") +
+          ul(["Veine <strong>souple, rebondie, rectiligne, non pulsatile</strong> (une veine qui bat est une artère)", "Palper avec la pulpe de l'index, jamais avec le pouce", "Éviter les articulations, les zones lésées et les veines dures", "Commencer par les veines du bas (distales) pour préserver les sites du haut"]) },
+      { t: "Angle et profondeur", html:
+          FIGURE(figAngles([{ tx: 260, ty: 160, angle: 20, L: 165, label: "15–30°" }], VEIN), "L'aiguille, biseau vers le haut, traverse la peau puis entre dans la veine.") +
+          ul(["Piquer dans l'axe de la veine, <strong>biseau vers le haut</strong>", "On sent une perte de résistance quand l'aiguille entre dans la veine", "Après le reflux de sang, baisser l'angle et avancer de quelques millimètres"]) },
+      { t: "Technique pas à pas", html: ol([
+          "Appliquer les <strong>étapes communes</strong> « Avant tout geste ».",
+          "Installer le bras en extension, bien appuyé, paume vers le haut.",
+          "Poser le <strong>garrot à environ 10 cm</strong> au-dessus du site (le pouls radial doit rester perceptible). Demander au patient de serrer le poing.",
+          "Repérer la veine, désinfecter, <strong>laisser sécher</strong> et ne plus toucher la zone.",
+          "Immobiliser la veine en tirant la peau vers le bas avec le pouce, 3 à 4 cm sous le site.",
+          "Piquer, <strong>biseau vers le haut</strong>, à 15–30°, dans l'axe de la veine.",
+          "Vérifier le <strong>reflux de sang</strong> dans la seringue.",
+          "<strong>Desserrer le garrot</strong> et demander au patient d'ouvrir le poing.",
+          "Injecter <strong>lentement</strong>, au débit prescrit, en observant le point de ponction et le patient (douleur, gonflement, pâleur).",
+          "Retirer l'aiguille d'un geste net, puis comprimer avec une compresse sèche environ 2 minutes, <strong>sans plier le coude</strong>.",
+          "Poser un pansement, puis appliquer les <strong>étapes communes</strong> « Après le geste »."
+        ]) },
+      { t: "Après le geste (étapes communes)", html: COMMON_END },
+      { t: "Complications et conduite à tenir", html: ul([
+          "<strong>Infiltration ou extravasation</strong> (douleur, brûlure, gonflement au point de ponction) : <strong>arrêter immédiatement</strong> et alerter.",
+          "<strong>Injection intra-artérielle</strong> (douleur vive qui irradie, pâleur, main froide) : arrêter et alerter immédiatement.",
+          "<strong>Hématome</strong> : retirer l'aiguille, comprimer.",
+          "<strong>Phlébite</strong> (veine rouge, dure, douloureuse) : alerter.",
+          "<strong>Embolie gazeuse</strong> : prévention par la purge de l'air.",
+          "<strong>Réaction allergique ou malaise</strong> : arrêter, alerter immédiatement, protocole d'urgence."
+        ]) },
+      { t: "Erreurs fréquentes", html: ul([
+          "Garrot trop serré ou laissé trop longtemps", "Ne pas vérifier le reflux de sang", "Injecter trop vite", "Piquer une artère (veine qui bat)",
+          "Oublier de desserrer le garrot", "Plier le coude après le retrait (hématome)", "Toucher la zone après la désinfection", "Laisser de l'air dans la seringue", "Recapuchonner l'aiguille"
+        ]) + note("À retenir : veine souple, garrot à 10 cm, reflux de sang, garrot desserré, injection lente.") }
+    ],
+    quiz: [
+      { q: "À quelle distance du site de ponction place-t-on le garrot ?", o: ["Environ 2 cm", "Environ 10 cm", "Environ 30 cm", "Directement sur le site"], a: 1, e: "Le garrot se place environ 10 cm au-dessus du site pour gonfler les veines." },
+      { q: "Quel est l'angle d'insertion en injection intraveineuse directe ?", o: ["90°", "60°", "15 à 30°, biseau vers le haut", "0°, aiguille à plat"], a: 2, e: "On pique dans l'axe de la veine avec un angle faible, biseau vers le haut." },
+      { q: "Quel signe confirme que l'aiguille est dans la veine ?", o: ["Une douleur vive", "Un reflux de sang dans la seringue", "Un gonflement de la peau", "Une résistance au piston"], a: 1, e: "Le reflux de sang prouve que l'aiguille est dans la lumière de la veine." },
+      { q: "Quand desserre-t-on le garrot ?", o: ["Après l'injection complète", "Dès que le reflux est confirmé, avant d'injecter", "Avant de piquer", "Après avoir posé le pansement"], a: 1, e: "Un garrot laissé en place pendant l'injection risque de provoquer une rupture de la veine ou un hématome." },
+      { q: "Comment injecte-t-on le produit ?", o: ["Le plus vite possible", "Lentement, au débit prescrit, en surveillant le patient", "En une seconde", "Sans regarder le point de ponction"], a: 1, e: "L'effet est immédiat : on surveille le patient et le point de ponction." },
+      { q: "Pendant l'injection, le patient ressent une douleur vive et le point de ponction gonfle. Que faire ?", o: ["Continuer plus lentement", "Arrêter immédiatement et alerter", "Masser la zone", "Injecter plus fort"], a: 1, e: "C'est le signe d'une infiltration : le produit part hors de la veine." },
+      { q: "Quelle veine faut-il privilégier ?", o: ["Souple, rebondie et non pulsatile", "Dure et en cordon", "Qui bat sous le doigt", "Située sur un hématome"], a: 0, e: "Une veine qui bat est une artère : à éviter absolument." },
+      { q: "Que fait-on après le retrait de l'aiguille ?", o: ["Comprimer avec une compresse sèche, sans plier le coude", "Plier fortement le coude pendant 10 minutes", "Masser énergiquement", "Laisser saigner"], a: 0, e: "Plier le coude favorise l'hématome. On comprime environ 2 minutes." }
+    ]
+  }
+];
+
+// ---------- Recherche ----------
+function searchFiches(q) {
+  const nq = norm(q);
+  return FICHES.filter(f => norm(f.title + " " + f.keywords).includes(nq));
+}
+
+// ---------- Scores ----------
+const bestKey = id => `ish_best_${(typeof currentUser !== "undefined" && currentUser && currentUser.id) || "anon"}_${id}`;
+function getBest(id) {
+  try { const v = localStorage.getItem(bestKey(id)); return v === null ? null : +v; } catch (e) { return null; }
+}
+function setBest(id, pct) {
+  try { const b = getBest(id); if (b === null || pct > b) localStorage.setItem(bestKey(id), String(pct)); } catch (e) { /* ignoré */ }
+}
+function shuffle(a) {
+  const b = a.slice();
+  for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; }
+  return b;
+}
+
+// ---------- Pages ----------
+let stageCtx = null;
+
+function renderStages(ficheId = null) {
+  const inner = document.getElementById("innerPage");
+  const fiche = ficheId ? FICHES.find(f => f.id === ficheId) : null;
+  const footer = `<div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>`;
+
+  if (!fiche) {
+    inner.innerHTML = `
+      <div class="page-heading">
+        <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
+        <h1>Stages</h1>
+        <p>Fiches techniques des soins, de la plus simple à la plus complexe.</p>
+      </div>
+      ${note(esc(DISCLAIMER))}
+      <h3 class="res-head">Niveau 1 · Techniques simples : les injections</h3>
+      <div class="list">${FICHES.map((f, i) => {
+        const b = getBest(f.id);
+        return `<button class="list-row" type="button" data-fi="${f.id}">
+          <span class="fiche-num">${i + 1}</span>
+          <span class="list-main"><span class="list-title">${esc(f.title)}</span>
+          <span class="list-sub">${esc(f.duree)} de lecture · Test de ${f.quiz.length} questions${b !== null ? " · Meilleur score : " + b + "%" : ""}</span></span>
+          <span class="list-arrow">›</span></button>`;
+      }).join("")}</div>
+      <p class="search-hint">D'autres fiches seront ajoutées prochainement.</p>
+      ${footer}`;
+    addBackButton(inner);
+    inner.querySelectorAll("[data-fi]").forEach(b => b.addEventListener("click", () => renderStages(b.dataset.fi)));
+    window.scrollTo(0, 0);
+    return;
+  }
+
+  const best = getBest(fiche.id);
+  inner.innerHTML = `
+    <div class="page-heading">
+      <div class="eyebrow">STAGES › FICHE TECHNIQUE</div>
+      <h1>${esc(fiche.title)}</h1>
+      <p>${esc(fiche.resume)}</p>
+    </div>
+    <div class="fiche-meta">
+      <span class="badge">Niveau 1</span>
+      <span class="badge gray">⏱ ${esc(fiche.duree)}</span>
+      <span class="badge gray">✎ Test : ${fiche.quiz.length} questions</span>
+      ${best !== null ? `<span class="badge">★ Meilleur score : ${best}%</span>` : ""}
+    </div>
+    ${note(esc(DISCLAIMER))}
+    <button class="primary-btn" type="button" data-quiz="1">Passer le test</button>
+    ${fiche.sections.map((s, i) => `<details class="help-item"${i === 0 ? " open" : ""}><summary>${esc(s.t)}</summary><div class="help-body">${s.html}</div></details>`).join("")}
+    <button class="primary-btn" type="button" data-quiz="1">Passer le test</button>
+    ${footer}`;
+  addBackButton(inner, "Retour aux fiches", () => renderStages());
+  inner.querySelectorAll("[data-quiz]").forEach(b => b.addEventListener("click", () => startQuiz(fiche)));
+  window.scrollTo(0, 0);
+}
+
+function startQuiz(fiche) {
+  const qs = shuffle(fiche.quiz).map(q => {
+    const order = shuffle(q.o.map((_, i) => i));
+    return { q: q.q, e: q.e, opts: order.map(i => q.o[i]), correct: order.indexOf(q.a) };
+  });
+  stageCtx = { fiche, qs, idx: 0, answers: [] };
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const { fiche, qs, idx } = stageCtx;
+  const q = qs[idx];
+  const inner = document.getElementById("innerPage");
+  let sel = stageCtx.answers[idx] === undefined ? null : stageCtx.answers[idx];
+  inner.innerHTML = `
+    <div class="page-heading">
+      <div class="eyebrow">TEST · ${esc(fiche.short)}</div>
+      <h1>Question ${idx + 1} / ${qs.length}</h1>
+    </div>
+    <div class="quiz-progress"><span style="width:${Math.round(idx / qs.length * 100)}%"></span></div>
+    <h2 class="quiz-q">${esc(q.q)}</h2>
+    <div>${q.opts.map((o, i) => `<button class="opt" type="button" data-o="${i}">${esc(o)}</button>`).join("")}</div>
+    <button class="primary-btn" type="button" id="nextQ" disabled>${idx === qs.length - 1 ? "Terminer" : "Suivant"}</button>
+    ${idx > 0 ? `<button class="ghost-btn" type="button" id="prevQ">← Question précédente</button>` : ""}`;
+  addBackButton(inner, "Quitter le test", () => renderStages(fiche.id));
+  const next = inner.querySelector("#nextQ");
+  const opts = inner.querySelectorAll("[data-o]");
+  const paint = () => {
+    opts.forEach(b => b.classList.toggle("sel", +b.dataset.o === sel));
+    next.disabled = sel === null;
+  };
+  opts.forEach(b => b.addEventListener("click", () => { sel = +b.dataset.o; paint(); }));
+  next.addEventListener("click", () => {
+    stageCtx.answers[idx] = sel;
+    if (idx < qs.length - 1) { stageCtx.idx++; renderQuestion(); } else { renderResult(); }
+  });
+  const prev = inner.querySelector("#prevQ");
+  if (prev) prev.addEventListener("click", () => {
+    if (sel !== null) stageCtx.answers[idx] = sel;
+    stageCtx.idx--;
+    renderQuestion();
+  });
+  paint();
+  window.scrollTo(0, 0);
+}
+
+function renderResult() {
+  const { fiche, qs, answers } = stageCtx;
+  const inner = document.getElementById("innerPage");
+  const wrong = qs.map((q, i) => ({ q, i, a: answers[i] })).filter(x => x.a !== x.q.correct);
+  const good = qs.length - wrong.length;
+  const pct = Math.round(good / qs.length * 100);
+  setBest(fiche.id, pct);
+  const color = pct >= 80 ? "#18a36b" : pct >= 50 ? "#e0a020" : "#d9534f";
+  const msg = pct >= 80 ? "Excellent ! Vous maîtrisez bien cette technique."
+    : pct >= 50 ? "Bien, mais relisez les points ci-dessous avant de passer au geste."
+    : "À revoir : relisez la fiche, puis refaites le test.";
+  const C = 2 * Math.PI * 52;
+  inner.innerHTML = `
+    <div class="page-heading">
+      <div class="eyebrow">RÉSULTAT · ${esc(fiche.short)}</div>
+      <h1>Votre résultat</h1>
+    </div>
+    <div class="score-wrap">
+      <svg width="150" height="150" viewBox="0 0 130 130" role="img" aria-label="Score ${pct} pour cent">
+        <circle cx="65" cy="65" r="52" fill="none" stroke="#eef2f6" stroke-width="12"/>
+        <circle cx="65" cy="65" r="52" fill="none" stroke="${color}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${(pct / 100 * C).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 65 65)"/>
+        <text x="65" y="73" text-anchor="middle" font-size="26" font-weight="800" fill="${color}" font-family="Outfit,sans-serif">${pct}%</text>
+      </svg>
+      <div class="score-line">${good} bonne${good > 1 ? "s" : ""} réponse${good > 1 ? "s" : ""} sur ${qs.length}</div>
+      <p class="score-msg">${msg}</p>
+    </div>
+    ${wrong.length
+      ? `<h3 class="res-head">Vos erreurs (${wrong.length})</h3>` + wrong.map(x => `
+        <div class="err-card">
+          <div class="err-q">Question ${x.i + 1} : ${esc(x.q.q)}</div>
+          <div class="err-a bad">Votre réponse : ${esc(x.q.opts[x.a])}</div>
+          <div class="err-a good">Bonne réponse : ${esc(x.q.opts[x.q.correct])}</div>
+          <div class="err-e">${esc(x.q.e)}</div>
+        </div>`).join("")
+      : `${note("Aucune erreur. Bravo !")}`}
+    <button class="primary-btn" type="button" id="retry">Refaire le test</button>
+    <button class="ghost-btn" type="button" id="toFiche">Retour à la fiche</button>`;
+  addBackButton(inner, "Retour à la fiche", () => renderStages(fiche.id));
+  inner.querySelector("#retry").addEventListener("click", () => startQuiz(fiche));
+  inner.querySelector("#toFiche").addEventListener("click", () => renderStages(fiche.id));
+  window.scrollTo(0, 0);
+}
+// ===== STAGES : FIN =====
+
+// Barre de recherche de l'accueil
+document.getElementById("homeSearchForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const input = document.getElementById("homeSearchInput");
+  const q = input.value.trim();
+  input.value = "";
+  openPage("Recherche", q);
+});
+
+let aiMessages = [];
+let aiBusy = false;
+
+function aiWelcomeHTML() {
+  return `<div class="ai-chat-body">
+    <div class="ai-welcome-icon">✧</div>
+    <h3>Comment puis-je vous aider ?</h3>
+    <p>Posez vos questions sur vos cours, demandez des explications, préparez vos examens ou entraînez-vous avec des QCM.</p>
+    <div class="ai-suggestions">
+      <button class="ai-suggestion" type="button" data-ai="Explique-moi simplement un cours de soins infirmiers. Demande-moi d'abord quel sujet.">Expliquer un cours</button>
+      <button class="ai-suggestion" type="button" data-ai="Prépare-moi un QCM de 5 questions avec correction. Demande-moi d'abord le thème.">Préparer un QCM</button>
+      <button class="ai-suggestion" type="button" data-ai="Aide-moi à réviser. Demande-moi d'abord le module et le temps dont je dispose.">Aide aux révisions</button>
+    </div>
+  </div>`;
+}
+
+function aiRender() {
+  const box = document.getElementById("aiMessages");
+  if (!box) return;
+  if (!aiMessages.length && !aiBusy) {
+    box.innerHTML = aiWelcomeHTML();
+    box.querySelectorAll("[data-ai]").forEach(btn =>
+      btn.addEventListener("click", () => aiSend(btn.dataset.ai)));
+    return;
+  }
+  box.innerHTML = "";
+  const add = (role, text, extra = "") => {
+    const d = document.createElement("div");
+    d.className = "ai-msg " + role + extra;
+    d.textContent = text;
+    box.appendChild(d);
+  };
+  aiMessages.forEach(m => add(m.role, m.content));
+  if (aiBusy) add("assistant", "Réflexion en cours…", " typing");
+  box.scrollTop = box.scrollHeight;
+}
+
+async function aiSend(text) {
+  text = (text || "").trim();
+  if (!text || aiBusy) return;
+  aiMessages.push({ role: "user", content: text });
+  aiBusy = true;
+  aiRender();
+  try {
+    const history = aiMessages.filter(m => !m.error).map(({ role, content }) => ({ role, content }));
+    const { data, error } = await db.functions.invoke("chat", { body: { messages: history } });
+    if (error) throw error;
+    if (data?.error) throw new Error(data.error);
+    aiMessages.push({ role: "assistant", content: data.reply || "…" });
+  } catch (err) {
+    console.error("AI error:", err);
+    aiMessages.push({ role: "assistant", error: true, content: "⚠️ Désolé, une erreur est survenue. Réessayez dans un instant." });
+  }
+  aiBusy = false;
+  aiRender();
+}
+
+function renderAssistant() {
+  const inner = document.getElementById("innerPage");
+
+  inner.innerHTML = `
+    <div class="page-heading">
+      <div class="eyebrow">VOTRE ASSISTANT PÉDAGOGIQUE</div>
+      <h1>Assistant IA ✧</h1>
+      <p>Un espace intelligent pour accompagner votre apprentissage et vos révisions.</p>
+    </div>
+
+    <div class="ai-layout">
+      <div class="ai-chat">
+        <div class="ai-chat-header">
+          <div class="ai-avatar">✧</div>
+          <div>
+            <strong>ISPITS AI Assistant</strong>
+            <small>Assistant pédagogique de la plateforme</small>
+          </div>
+          <button class="ai-reset" id="aiReset" type="button">Nouvelle discussion</button>
+        </div>
+
+        <div class="ai-messages" id="aiMessages"></div>
+
+        <form class="ai-composer" id="aiForm">
+          <input id="aiInput" type="text" placeholder="Écrivez votre question..." autocomplete="off">
+          <button type="submit" aria-label="Envoyer">➤</button>
+        </form>
+      </div>
+
+      <aside class="ai-side-info">
+        <h3>Votre assistant étudiant</h3>
+        <p>Il vous aide à comprendre les cours, préparer les examens et progresser dans votre formation.</p>
+        <p>Les réponses sont adaptées au contexte des études en soins infirmiers.</p>
+        <div class="ai-note">Les réponses sont générées par une IA et peuvent contenir des erreurs. Vérifiez toujours avec vos cours, vos protocoles et vos enseignants.</div>
+      </aside>
+    </div>
+
+    <div class="bottom-footer">ISPITS STUDENTS HUB · Assistant pédagogique IA</div>
+  `;
+
+  aiRender();
+
+  inner.querySelector("#aiForm").addEventListener("submit", event => {
+    event.preventDefault();
+    const input = inner.querySelector("#aiInput");
+    const text = input.value;
+    input.value = "";
+    aiSend(text);
+  });
+
+  inner.querySelector("#aiReset").addEventListener("click", () => {
+    if (aiBusy) return;
+    aiMessages = [];
+    aiRender();
+  });
+}
+
+// Sidebar navigation
+document.querySelectorAll(".nav-item").forEach(button => {
+  button.addEventListener("click", () => openPage(button.dataset.page));
+});
+
+// Dashboard cards
+document.querySelectorAll("[data-open]").forEach(button => {
+  button.addEventListener("click", () => openPage(button.dataset.open));
+});
+
+// Mobile menu
+document.getElementById("menuBtn").addEventListener("click", () => {
+  document.getElementById("sidebar").classList.toggle("open");
+});
+
+// =====================================
+// MENU PROFIL & SÉCURITÉ
+// =====================================
+const $ = id => document.getElementById(id);
+const profileWrap = $("profileWrap"), profileBtn = $("profileBtn"), profileMenu = $("profileMenu");
+const modalOverlay = $("modalOverlay"), modalBody = $("modalBody");
+
+function paintAvatar(el, url, letter) {
+  const ok = typeof url === "string" && url.startsWith("data:image/");
+  el.style.backgroundImage = ok ? `url("${url}")` : "";
+  el.textContent = ok ? "" : letter;
+}
+function updateProfileUI(user) {
+  const m = user.user_metadata || {};
+  const name = m.full_name || user.email?.split("@")[0] || "Étudiant";
+  $("userName").textContent = name;
+  $("welcomeName").textContent = name;
+  $("menuName").textContent = name;
+  $("menuEmail").textContent = user.email || "";
+  paintAvatar($("userAvatar"), m.avatar_url, name.trim().charAt(0).toUpperCase());
+  $("userRole").textContent = [m.filiere, m.semestre].filter(Boolean).join(" · ") || "Étudiant ISPITS";
+}
+function closeProfileMenu() {
+  profileMenu.classList.add("hidden");
+  profileBtn.setAttribute("aria-expanded", "false");
+}
+function closeModal() {
+  modalOverlay.classList.add("hidden");
+  modalBody.innerHTML = "";
+}
+profileBtn.addEventListener("click", () => {
+  const hidden = profileMenu.classList.toggle("hidden");
+  profileBtn.setAttribute("aria-expanded", String(!hidden));
+});
+document.addEventListener("click", e => {
+  if (!profileWrap.contains(e.target)) closeProfileMenu();
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") { closeProfileMenu(); closeModal(); }
+});
+modalOverlay.addEventListener("click", e => { if (e.target === modalOverlay) closeModal(); });
+$("modalClose").addEventListener("click", closeModal);
+profileMenu.querySelectorAll("[data-action]").forEach(b => b.addEventListener("click", () => {
+  closeProfileMenu();
+  b.dataset.action === "profile" ? openProfileModal() : openSecurityModal();
+}));
+
+function modalMsg(text, type) {
+  const el = $("modalMessage");
+  el.textContent = text;
+  el.className = "message show " + type;
+}
+function fieldHTML(f) {
+  if (f.type === "custom") return f.html;
+  const control = f.type === "select"
+    ? `<select name="${f.name}">${f.options.map(o => `<option value="${o}">${o || "— Choisir —"}</option>`).join("")}</select>`
+    : `<input name="${f.name}" type="${f.type}" ${f.attrs || ""}>`;
+  return `<div class="form-group"><label>${f.label}</label>${control}</div>`;
+}
+function openForm(title, sub, fields, btnText, onSubmit) {
+  modalBody.innerHTML = `<h3>${title}</h3><p class="modal-sub">${sub}</p>
+    <form id="mForm">${fields.map(fieldHTML).join("")}
+    <button class="submit-btn" type="submit">${btnText}</button></form>
+    <div id="modalMessage" class="message" role="status"></div>`;
+  modalOverlay.classList.remove("hidden");
+  const form = $("mForm");
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const btn = form.querySelector("button[type=submit]");
+    btn.disabled = true;
+    try { await onSubmit(Object.fromEntries(new FormData(form))); }
+    catch (err) { modalMsg(err.message || "Une erreur est survenue.", "error"); }
+    btn.disabled = false;
+  });
+  return form;
+}
+
+let pendingAvatar;
+function resizeImage(file, size = 96) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      const c = document.createElement("canvas");
+      c.width = c.height = size;
+      const side = Math.min(img.width, img.height);
+      c.getContext("2d").drawImage(img, (img.width - side) / 2, (img.height - side) / 2, side, side, 0, 0, size, size);
+      URL.revokeObjectURL(url);
+      resolve(c.toDataURL("image/jpeg", 0.7));
+    };
+    img.onerror = () => reject(new Error("Image invalide."));
+    img.src = url;
+  });
+}
+
+function openProfileModal() {
+  const m = currentUser?.user_metadata || {};
+  const letter = (m.full_name || currentUser?.email || "E").trim().charAt(0).toUpperCase();
+  pendingAvatar = undefined;
+
+  const f = openForm("Modifier le profil", "Complétez vos informations personnelles et académiques.", [
+    { type: "custom", html: `<div class="avatar-edit"><div class="avatar-preview" id="avPreview"></div>
+      <div class="avatar-actions">
+        <button type="button" class="avatar-btn" id="avPick">📷 Changer la photo</button>
+        <button type="button" class="avatar-remove" id="avRemove">Supprimer la photo</button>
+        <input type="file" id="avFile" accept="image/*" hidden>
+      </div></div>` },
+    { label: "Nom complet", name: "fullName", type: "text", attrs: "required" },
+    { label: "Nom d'utilisateur", name: "username", type: "text", attrs: 'placeholder="ex : yassir_07" maxlength="20" autocomplete="username"' },
+    { label: "Numéro de téléphone", name: "phone", type: "tel", attrs: 'placeholder="06 00 00 00 00" autocomplete="tel"' },
+    { label: "Filière", name: "filiere", type: "text", attrs: 'placeholder="ex : Soins infirmiers"' },
+    { label: "Parcours / Option", name: "parcours", type: "text", attrs: 'placeholder="Votre parcours ou option"' },
+    { label: "Semestre", name: "semestre", type: "select", options: ["", "S1", "S2", "S3", "S4", "S5", "S6"] },
+    { label: "Adresse e-mail", name: "email", type: "email", attrs: "disabled" }
+  ], "Enregistrer", async v => {
+    const name = v.fullName.trim(), username = v.username.trim(), phone = v.phone.trim();
+    if (!name) throw new Error("Veuillez saisir votre nom complet.");
+    if (username && !/^[A-Za-z0-9_.]{3,20}$/.test(username))
+      throw new Error("Nom d'utilisateur : 3 à 20 caractères (lettres, chiffres, _ et .).");
+    if (phone && !/^\+?[0-9\s().-]{8,18}$/.test(phone))
+      throw new Error("Numéro de téléphone invalide.");
+
+    const meta = {
+      full_name: name, username, phone,
+      filiere: v.filiere.trim(), parcours: v.parcours.trim(), semestre: v.semestre
+    };
+    if (pendingAvatar !== undefined) meta.avatar_url = pendingAvatar;
+
+    const { data, error } = await db.auth.updateUser({ data: meta });
+    if (error) throw error;
+    currentUser = data.user;
+    updateProfileUI(data.user);
+    closeModal();
+    showToast("Profil mis à jour.");
+  });
+
+  f.elements.fullName.value = m.full_name || "";
+  f.elements.username.value = m.username || "";
+  f.elements.phone.value = m.phone || "";
+  f.elements.filiere.value = m.filiere || "";
+  f.elements.parcours.value = m.parcours || "";
+  f.elements.semestre.value = m.semestre || "";
+  f.elements.email.value = currentUser?.email || "";
+
+  const preview = $("avPreview"), file = $("avFile");
+  paintAvatar(preview, m.avatar_url, letter);
+  $("avPick").addEventListener("click", () => file.click());
+  file.addEventListener("change", async () => {
+    if (!file.files[0]) return;
+    try {
+      pendingAvatar = await resizeImage(file.files[0]);
+      paintAvatar(preview, pendingAvatar, letter);
+    } catch (err) { modalMsg(err.message, "error"); }
+    file.value = "";
+  });
+  $("avRemove").addEventListener("click", () => {
+    pendingAvatar = "";
+    paintAvatar(preview, "", letter);
+  });
+}
+
+function openSecurityModal() {
+  openForm("Mot de passe et sécurité", "Minimum 6 caractères.", [
+    { label: "Mot de passe actuel", name: "cur", type: "password", attrs: 'required autocomplete="current-password"' },
+    { label: "Nouveau mot de passe", name: "nw", type: "password", attrs: 'required minlength="6" autocomplete="new-password"' },
+    { label: "Confirmer le mot de passe", name: "cf", type: "password", attrs: 'required minlength="6" autocomplete="new-password"' }
+  ], "Changer le mot de passe", async v => {
+    if (v.nw.length < 6) throw new Error("Le mot de passe doit contenir au moins 6 caractères.");
+    if (v.nw !== v.cf) throw new Error("Les mots de passe ne correspondent pas.");
+    const { error: e1 } = await db.auth.signInWithPassword({ email: currentUser.email, password: v.cur });
+    if (e1) throw new Error("Mot de passe actuel incorrect.");
+    const { error } = await db.auth.updateUser({ password: v.nw });
+    if (error) throw error;
+    closeModal();
+    showToast("Mot de passe modifié avec succès.");
+  });
+}
+
+// =====================================
+// INITIAL AUTH STATE
+// =====================================
+async function initializeApp() {
+  showAuth();
+
+  const { data, error } = await db.auth.getSession();
+
+  if (error) {
+    console.error("Session error:", error.message);
+    showAuth();
+    return;
+  }
+
+  if (data.session?.user) {
+    showDashboard(data.session.user);
+  } else {
+    showAuth();
+  }
+}
+
+db.auth.onAuthStateChange((event, session) => {
+  if (event === "SIGNED_IN" && session?.user) {
+    if (currentUser?.id === session.user.id) { currentUser = session.user; return; }
+    showDashboard(session.user);
+  }
+
+  if (event === "SIGNED_OUT") {
+    showAuth();
+  }
+});
+
+initializeApp();
+</script>
+
+</body>
+</html>
