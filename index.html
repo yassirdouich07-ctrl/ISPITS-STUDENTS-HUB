@@ -854,6 +854,15 @@ body{font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
 .cm-react.on{background:#e6f6f4;border-color:var(--teal)}.cm-react:disabled{opacity:.6}
 .cm-link{background:none;border:0;color:var(--teal);font-size:13px;cursor:pointer;padding:0 4px}
 .cm-badge{background:var(--teal);color:#fff;border-radius:6px;font-size:11px;font-weight:700;padding:1px 6px;margin-left:4px}
+.tt-chips{display:flex;gap:8px;margin:0 0 14px;flex-wrap:wrap}.tt-chip{border:1px solid #dbe3ea;background:#fff;border-radius:999px;padding:8px 16px;font:inherit;font-weight:600;color:var(--navy);cursor:pointer}
+.tt-chip.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.tt-info{background:#f4f8fb;border-radius:14px;padding:12px 14px;margin:0 0 14px;display:flex;flex-direction:column;gap:4px;color:var(--navy)}.tt-info span{font-size:13px;color:#64748b}
+.tt-day{border:1px solid #e6edf3;border-radius:14px;padding:12px;margin:0 0 12px;background:#fff}.tt-day.today{border-color:var(--teal);box-shadow:0 0 0 2px #e6f6f4}
+.tt-dayhead{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 8px;color:var(--navy)}.tt-dayhead span{font-size:13px;color:#64748b}
+.tt-slot{display:flex;gap:12px;border-left:4px solid var(--teal);background:#f6fbfa;border-radius:10px;padding:10px 12px;margin:6px 0}
+.tt-slot.stage{border-left-color:#e08a1e;background:#fff7ec}.tt-slot.ferie{border-left-color:#94a3b8;background:#f1f5f9}
+.tt-time{font-size:13px;font-weight:700;color:var(--navy);min-width:96px}.tt-title{font-weight:700;color:var(--navy)}.tt-prof{font-size:13px;color:#64748b;margin-top:2px}
+.tt-empty{font-size:13px;color:#94a3b8;padding:6px 2px}
 </style>
 </head>
 
@@ -1489,6 +1498,11 @@ function openPage(pageName, arg) {
     return;
   }
 
+  if (pageName === "Emploi du temps") {
+    renderTimetable();
+    return;
+  }
+
   inner.innerHTML = `
     <div class="page-heading">
       <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
@@ -1505,6 +1519,72 @@ function openPage(pageName, arg) {
     <div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>
   `;
   addBackButton(inner);
+}
+
+// =====================================
+// EMPLOI DU TEMPS (semaine par semaine, par semestre)
+// =====================================
+// Pour ajouter une semaine : copier un bloc de TIMETABLES, changer "start" (lundi, AAAA-MM-JJ) et les créneaux.
+// kind : "cours" | "stage" | "ferie" | h : horaire | t : intitulé | p : enseignant (facultatif)
+const TT_DAYS = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+const TIMETABLES = [
+  { f: "IP", s: "S1", start: "2026-11-16", annee: "2026-2027", filiere: "Soins Infirmiers", option: "Infirmier polyvalent", room: "Amphi",
+    days: {
+      Lundi: [{ kind: "cours", h: "08H00 – 12H00", t: "Sémiologie et Terminologie médicale", p: "Mme EL HASSOUNI" }],
+      Mardi: [{ kind: "cours", h: "08H00 – 12H00", t: "SIB 1", p: "M. EL MAJDOUBI" }],
+      Mercredi: [{ kind: "ferie", h: "Toute la journée", t: "Jour férié" }],
+      Jeudi: [{ kind: "cours", h: "08H00 – 12H00", t: "SIB 1", p: "M. EL MAJDOUBI" }],
+      Vendredi: [{ kind: "cours", h: "08H00 – 12H00", t: "Sémiologie et Terminologie médicale", p: "Mme EL HASSOUNI" }],
+      Samedi: []
+    } },
+  { f: "IP", s: "S3", start: "2026-11-16", annee: "2026-2027", filiere: "Soins Infirmiers", option: "Infirmier polyvalent", room: "Amphi",
+    days: {
+      Lundi: [{ kind: "stage", h: "08H30 – 12H30", t: "Stage discontinu" }, { kind: "cours", h: "14H00 – 18H00", t: "PAS 1", p: "Mme LGHAZI" }],
+      Mardi: [{ kind: "stage", h: "08H30 – 12H30", t: "Stage discontinu" }, { kind: "cours", h: "14H00 – 16H00", t: "Soins en médecine", p: "M. ARBANI" }, { kind: "cours", h: "16H00 – 18H00", t: "Soins en chirurgie", p: "Mme MAGOURI" }],
+      Mercredi: [{ kind: "ferie", h: "Toute la journée", t: "Jour férié" }],
+      Jeudi: [{ kind: "stage", h: "08H30 – 12H30", t: "Stage discontinu" }, { kind: "cours", h: "14H00 – 16H00", t: "PAS 1", p: "Mme LGHAZI" }, { kind: "cours", h: "16H00 – 18H00", t: "Soins en chirurgie", p: "Mme MAGOURI" }],
+      Vendredi: [{ kind: "stage", h: "08H30 – 16H30", t: "Stage continu" }],
+      Samedi: []
+    } }
+];
+let ttSel = "S1";
+const ttDate = (iso, add = 0) => { const [y, m, d] = iso.split("-").map(Number); return new Date(y, m - 1, d + add); };
+const ttIso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+
+function renderTimetable() {
+  const inner = document.getElementById("innerPage");
+  const list = TIMETABLES.filter(x => x.f === "IP");
+  const tt = list.find(x => x.s === ttSel) || list[0];
+  ttSel = tt.s;
+  const fmt = (d, o) => d.toLocaleDateString("fr-FR", o);
+  const from = ttDate(tt.start), to = ttDate(tt.start, 5);
+  const today = ttIso(new Date());
+  inner.innerHTML = `
+    <div class="page-heading">
+      <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
+      <h1>Emploi du temps</h1>
+      <p>${esc(moduleDescriptions["Emploi du temps"] || "")}</p>
+    </div>
+    <div class="tt-chips">${list.map(x => `<button type="button" class="tt-chip${x.s === tt.s ? " on" : ""}" data-s="${esc(x.s)}">Semestre ${esc(x.s.slice(1))}</button>`).join("")}</div>
+    <div class="tt-info">
+      <strong>Semaine du ${esc(fmt(from, { day: "numeric", month: "long" }))} au ${esc(fmt(to, { day: "numeric", month: "long", year: "numeric" }))}</strong>
+      <span>Année académique ${esc(tt.annee)} · ${esc(tt.filiere)} · ${esc(tt.option)} · Salle : ${esc(tt.room)}</span>
+    </div>
+    ${TT_DAYS.map((day, i) => {
+      const d = ttDate(tt.start, i), slots = tt.days[day] || [], isToday = ttIso(d) === today;
+      return `<div class="tt-day${isToday ? " today" : ""}">
+        <div class="tt-dayhead"><strong>${esc(day)}</strong><span>${esc(fmt(d, { day: "numeric", month: "short" }))}${isToday ? " · Aujourd'hui" : ""}</span></div>
+        ${slots.length ? slots.map(c => `<div class="tt-slot ${esc(c.kind)}">
+          <div class="tt-time">${esc(c.h)}</div>
+          <div class="tt-main"><div class="tt-title">${esc(c.t)}</div>${c.p ? `<div class="tt-prof">${esc(c.p)}</div>` : ""}</div>
+        </div>`).join("") : `<div class="tt-empty">Pas de cours</div>`}
+      </div>`;
+    }).join("")}
+    <p class="search-hint">Emploi du temps de l'ISPITS Errachidia. En cas de modification, référez-vous à l'affichage de l'institut.</p>
+    <div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>`;
+  inner.querySelectorAll("[data-s]").forEach(b => b.addEventListener("click", () => { ttSel = b.dataset.s; renderTimetable(); }));
+  addBackButton(inner);
+  window.scrollTo(0, 0);
 }
 
 function addBackButton(inner, label = "Retour au dashboard", handler = showHome) {
