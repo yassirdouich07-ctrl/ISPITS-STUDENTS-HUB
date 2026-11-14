@@ -3419,31 +3419,11 @@ const SIM_TEXT = {
     verdict: p => p >= 90 ? "Mzyan bzzaf. Ghadi ndirou sondage 7a9i9i m3ak." : p >= 70 ? "Wakha, walakin khasek tkoun adwa. 3awed 9ra la fiche." : p >= 50 ? "Ma kafich. Ghadi twsskh l champ bzzaf mrat. 3awed 9ra w 3awed." : "Khatir 3la l mrid. N3awdou men lwl."
   }
 };
-// ===== SIMULATION : SONS (ambiance d'hôpital + voix de l'encadrant) =====
-// Darija écrit en arabe, uniquement pour la synthèse vocale (le texte affiché ne change pas).
-const SIM_AR = {
-  "Salam. Had l mrida khasha sondage. Khassek tlbes les gants stériles, w ana ghadi nchoufek. Werrini bli kat3ref.": "سلام. هاد المريضة خاصها سوندا. خاصك تلبس لقوانتي ستيريل، وأنا غادي نشوفك. وريني بلي كاتعرف.",
-  "Mzyan.": "مزيان.", "Hakka, kemmel.": "هاكا، كمّل.", "Safi, wakha.": "صافي، واخا.", "Hadchi mzyan, zid.": "هادشي مزيان، زيد.",
-  "La la la ! Fakker 9bel ma tdir !": "لا لا لا! فكّر قبل ما تدير!", "Ach 3lemouk f l'école ?!": "أش علموك فالمدرسة؟!",
-  "Ghadi twsskh kolchi b hadchi !": "غادي توسّخ كولشي بهادشي!", "Hadchi machi hakka !": "هادشي ماشي هاكا!",
-  "Yallah, ma 3ndnach l wa9t.": "يالاه، ما عندناش الوقت.", "L mrid kaytsenna, tsre3 chwiya.": "المريض كايتسنّا، تسرّع شوية.",
-  "Ana kanchoufek, rkez.": "أنا كانشوفك، ركّز.", "Ach kat'tsenna ?": "أش كاتسنّا؟",
-  "Les gants dyalek ma b9awch stériles. Zwj jdid, n3awdou men fte7 l'emballage.": "لقوانتي ديالك ما بقاوش ستيريل. زوج جديد، نعاودو من فتح الأمبلاج.",
-  "3awed.": "عاود.", "Nfekkrek f had l khtwa :": "نفكرك فهاد الخطوة:",
-  "Mzyan bzzaf. Ghadi ndirou sondage 7a9i9i m3ak.": "مزيان بزاف. غادي نديرو سوندا حقيقي معاك.",
-  "Wakha, walakin khasek tkoun adwa. 3awed 9ra la fiche.": "واخا، ولكن خاصك تكون أكثر دقة. عاود قرا لافيش.",
-  "Ma kafich. Ghadi twsskh l champ bzzaf mrat. 3awed 9ra w 3awed.": "ما كافيش. غادي توسّخ الحقل بزاف ديال المرات. عاود قرا وعاود.",
-  "Khatir 3la l mrid. N3awdou men lwl.": "خطير على المريض. نعاودو من الأول."
-};
+// ===== SIMULATION : SONS (scope, ambiance d'hôpital, bruitages des gestes) =====
 const SND = (() => {
-  const synth = window.speechSynthesis || null;
-  const AR_KEYS = Object.keys(SIM_AR);
   let ctx = null, master = null, amb = null, far = null, noise = null;
   let on = true, live = false, room = null, beatTimer = null, oddTimer = null;
-  let gen = 0, pending = 0, waiters = [], voices = [];
   try { on = localStorage.getItem("ish_snd") !== "0"; } catch (e) { /* ignoré */ }
-  const loadVoices = () => { if (synth) voices = synth.getVoices() || []; };
-  if (synth) { loadVoices(); if (synth.addEventListener) synth.addEventListener("voiceschanged", loadVoices); }
 
   function ensure() {
     if (ctx) { if (ctx.state === "suspended") ctx.resume(); return ctx; }
@@ -3528,63 +3508,6 @@ const SND = (() => {
     if (room) { room.forEach(n => { try { n.stop(); } catch (e) { /* ignoré */ } }); room = null; }
   }
 
-  // --- Voix de l'encadrant ---
-  const MOODS = { calm: { r: 0.97, p: 0.8 }, happy: { r: 1, p: 0.92 }, impatient: { r: 1.1, p: 0.82 }, angry: { r: 1.2, p: 0.72 } };
-  function pickVoice(l) {
-    const norm = v => (v.lang || "").toLowerCase().replace("_", "-");
-    const list = voices.filter(v => norm(v).startsWith(l));
-    if (!list.length) return null;
-    const rank = v => { const L = norm(v); let s = 0;
-      if (L === "ar-ma" || L === "fr-ma") s += 5; if (L === "fr-fr") s += 3;
-      if (/natural|neural|google|online/i.test(v.name)) s += 2;
-      if (/thomas|henri|paul|claude|antoine|nicolas|maged|hamed|naayf|male/i.test(v.name)) s += 1;
-      if (/hortense|julie|denise|eloise|amelie|audrey|marie|zira|salma|hoda|laila|mariam|female/i.test(v.name)) s -= 1;
-      return s; };
-    return list.sort((a, b) => rank(b) - rank(a))[0];
-  }
-  function segs(text, style) {
-    if (style !== "dj") return [{ t: text, l: "fr" }];
-    const out = []; let rest = text;
-    while (rest) {
-      let best = null, bi = 1e9;
-      for (const k of AR_KEYS) { const i = rest.indexOf(k); if (i >= 0 && (i < bi || (i === bi && k.length > best.length))) { best = k; bi = i; } }
-      if (!best) { out.push({ t: rest, l: "fr" }); break; }
-      if (bi > 0) out.push({ t: rest.slice(0, bi), l: "fr" });
-      out.push({ t: SIM_AR[best], alt: best, l: "ar" });
-      rest = rest.slice(bi + best.length);
-    }
-    return out.filter(s => s.t.trim());
-  }
-  const duck = d => { if (ctx && amb) amb.gain.setTargetAtTime(d ? 0.4 : 1, T(), 0.15); };
-  function flush() { const w = waiters; waiters = []; w.forEach(f => f()); }
-  function cancelVoice() {
-    gen++; pending = 0;
-    if (synth) { try { synth.cancel(); } catch (e) { /* ignoré */ } }
-    duck(false); flush();
-  }
-  function speak(text, style, mood) {
-    if (!on || !synth || !text) return;
-    cancelVoice();
-    const my = gen, m = MOODS[mood] || MOODS.calm, arV = pickVoice("ar"), frV = pickVoice("fr");
-    let started = false;
-    segs(text, style).forEach(p => {
-      let t = p.t, v = frV, lang = "fr-FR";
-      if (p.l === "ar") { if (arV) { v = arV; lang = arV.lang; } else t = p.alt; }
-      const u = new SpeechSynthesisUtterance(t);
-      u.lang = lang; if (v) u.voice = v; u.rate = m.r; u.pitch = m.p; u.volume = 1;
-      pending++;
-      u.onstart = () => { started = true; duck(true); };
-      const fin = () => { if (gen !== my) return; pending = Math.max(0, pending - 1); if (!pending) { duck(false); flush(); } };
-      u.onend = fin; u.onerror = fin;
-      synth.speak(u);
-    });
-    setTimeout(() => { if (gen === my && pending && !started) { pending = 0; flush(); } }, 1800);
-  }
-  function done(maxMs) {
-    if (!pending) return Promise.resolve();
-    return new Promise(res => { const to = setTimeout(res, maxMs || 9000); waiters.push(() => { clearTimeout(to); res(); }); });
-  }
-
   // --- Actions du geste -> bruitages ---
   function act(name) {
     if (!on || !ensure()) return;
@@ -3605,21 +3528,19 @@ const SND = (() => {
 
   return {
     start() { live = true; if (on && ensure()) startAmbient(); },
-    stop() { live = false; stopAmbient(); cancelVoice(); },
+    stop() { live = false; stopAmbient(); },
     toggle() {
       on = !on;
       try { localStorage.setItem("ish_snd", on ? "1" : "0"); } catch (e) { /* ignoré */ }
-      if (!on) { stopAmbient(); cancelVoice(); } else if (live && ensure()) startAmbient();
+      if (!on) { stopAmbient(); } else if (live && ensure()) startAmbient();
       return on;
     },
     isOn: () => on,
-    speak, done, act,
+    act,
     ok: () => play("ok"), bad: () => play("bad"), alarm: () => play("alarm"),
     fanfare: good => { if (on && ensure()) sfx.fanfare(good); }
   };
 })();
-document.addEventListener("visibilitychange", () => { try { if (document.hidden) speechSynthesis.cancel(); } catch (e) { /* ignoré */ } });
-
 let simStyle = "fr", sim = null, simSeq = 0;
 const SIM_PEN = { normal: 8, critical: 15 };
 const byId = id => document.getElementById(id);
@@ -3728,8 +3649,7 @@ function startSim() {
   SND.start();
   simSay("Encadrant", sim.L.intro, "calm");
   sim.busy = true;
-  const introSim = sim;
-  setTimeout(async () => { await SND.done(); if (sim === introSim && sim.alive) { sim.busy = false; simShowStep(); } }, Math.min(sim.L.intro.length * 22, 3600) + 900);
+  setTimeout(() => { if (sim && sim.alive) { sim.busy = false; simShowStep(); } }, Math.min(sim.L.intro.length * 22, 3600) + 900);
   window.scrollTo(0, 0);
 }
 
@@ -3741,7 +3661,6 @@ function simSay(who, text, mood) {
   let i = 0;
   if (who === "Encadrant") sim.stage.talk(Math.min(text.length * 22, 4200));
   if (mood) sim.stage.mood(mood);
-  if (who === "Encadrant") SND.speak(text, sim.style, mood);
   sim.tw = setInterval(() => { i += 2; sEl.textContent = text.slice(0, i); if (i >= text.length) clearInterval(sim.tw); }, 22);
 }
 const simFlash = () => { const f = byId("simFlash"); if (f) { f.classList.add("on"); setTimeout(() => f.classList.remove("on"), 450); } };
@@ -3769,7 +3688,6 @@ async function simChoose(i, btn) {
     simSay("Encadrant", pick(L.praise) + " " + st.ok, "happy");
     const d = sim.stage.act(st.act || "none");
     await sleep(Math.max(d, 1000) + 900);
-    await SND.done();
     if (sim !== my || !my.alive) return;
     sim.idx++;
     sim.busy = false;
@@ -3786,7 +3704,6 @@ async function simChoose(i, btn) {
   simSay("Encadrant", pick(L.scold) + (crit ? " " + L.contam : " " + L.retry), "angry");
   if (Math.random() < 0.6) setTimeout(() => { if (sim === my && my.alive && !byId("simWho").dataset.lock) { /* ambiance */ } }, 100);
   await sleep(crit ? 3400 : 2200);
-  await SND.done();
   if (sim !== my || !my.alive) return;
   if (o.wrongAct) sim.stage.act("inspect");
   if (crit) {
@@ -3859,7 +3776,6 @@ function simFinish() {
     <button class="ghost-btn" type="button" id="simBack">Retour aux simulations</button>`;
   addBackButton(inner, "Retour aux simulations", renderSimLanding);
   SND.fanfare(pct >= 70);
-  SND.speak(L.verdict(pct), s.style, pct >= 70 ? "happy" : "angry");
   byId("simRetry").addEventListener("click", renderSimBrief);
   byId("simFiche").addEventListener("click", () => { setActiveNav("Stages"); renderStages("gants"); });
   byId("simBack").addEventListener("click", renderSimLanding);
