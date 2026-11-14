@@ -848,6 +848,11 @@ body{font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
 .cm-err{color:#b42318;font-size:13px;margin:6px 0 0;min-height:1em}.cm-item{border-top:1px solid #eef2f6;padding:12px 0}
 .cm-head{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:#64748b}.cm-body{margin:6px 0 0;white-space:pre-wrap;word-break:break-word;color:var(--navy);line-height:1.55}
 .cm-del{background:none;border:0;color:#b42318;font-size:13px;cursor:pointer;padding:0}
+.cm-reply{margin-left:18px;padding-left:12px;border-left:3px solid #e2e8f0;border-top:0}.cm-replybox{margin-left:18px}
+.cm-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.cm-react{border:1px solid #dbe3ea;background:#fff;border-radius:999px;padding:4px 10px;font-size:14px;cursor:pointer}
+.cm-react.on{background:#e6f6f4;border-color:var(--teal)}.cm-react:disabled{opacity:.6}
+.cm-link{background:none;border:0;color:var(--teal);font-size:13px;cursor:pointer;padding:0 4px}
 </style>
 </head>
 
@@ -2938,49 +2943,113 @@ function renderStages(ficheId = null) {
   loadComments(fiche.id);
 }
 
-// ===== COMMENTAIRES SOUS LES FICHES =====
+// ===== COMMENTAIRES SOUS LES FICHES (réponses + réactions) =====
+const CM_REACT = [["like", "👍", "J'aime"], ["haha", "😂", "Haha"], ["dislike", "👎", "Je n'aime pas"]];
 async function loadComments(ficheId) {
   const box = document.getElementById("ficheComments");
   if (!box || box.dataset.f !== ficheId) return;
-  box.innerHTML = `<h2 class="cm-title">Questions et commentaires</h2><p class="search-hint">Chargement…</p>`;
-  const { data, error } = await db.from("fiche_comments").select("id,user_id,author_name,body,created_at")
-    .eq("fiche_id", ficheId).order("created_at", { ascending: false }).limit(50);
+  const title = n => `<h2 class="cm-title">Questions et commentaires${n === null ? "" : " (" + n + ")"}</h2>`;
+  box.innerHTML = title(null) + `<p class="search-hint">Chargement…</p>`;
+  const { data, error } = await db.from("fiche_comments").select("id,user_id,author_name,body,created_at,parent_id")
+    .eq("fiche_id", ficheId).order("created_at", { ascending: true }).limit(300);
   if (!box.isConnected || box.dataset.f !== ficheId) return;
   if (error) {
     console.error("Commentaires :", error);
-    box.innerHTML = `<h2 class="cm-title">Questions et commentaires</h2><p class="search-hint">Les commentaires ne sont pas encore activés.</p>`;
+    box.innerHTML = title(null) + `<p class="search-hint">Les commentaires ne sont pas encore activés.</p>`;
     return;
   }
   const rows = data || [];
-  box.innerHTML = `
-    <h2 class="cm-title">Questions et commentaires (${rows.length})</h2>
-    ${warn("Ne partagez jamais d'information sur un patient (nom, photo, dossier). Restez respectueux.")}
-    <div class="cm-box">
-      <textarea id="cmText" maxlength="1000" placeholder="Posez une question ou partagez un conseil sur cette fiche…"></textarea>
-      <button class="primary-btn" type="button" id="cmSend">Publier</button>
-      <p class="cm-err" id="cmErr"></p>
-    </div>
-    ${rows.length ? rows.map(c => `
-      <div class="cm-item">
-        <div class="cm-head"><span><strong>${esc(c.author_name || "Étudiant")}</strong> · ${esc(new Date(c.created_at).toLocaleString("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))}</span>
-        ${currentUser && c.user_id === currentUser.id ? `<button class="cm-del" type="button" data-del="${esc(c.id)}">Supprimer</button>` : ""}</div>
-        <p class="cm-body">${esc(c.body)}</p>
-      </div>`).join("") : `<p class="search-hint">Aucun commentaire pour l'instant. Soyez le premier à poser une question.</p>`}`;
-  const send = box.querySelector("#cmSend"), txt = box.querySelector("#cmText"), err = box.querySelector("#cmErr");
-  send.addEventListener("click", async () => {
-    const body = txt.value.trim();
-    if (!body) { err.textContent = "Écris un message avant de publier."; return; }
-    send.disabled = true; err.textContent = "";
-    const { error: e } = await db.from("fiche_comments").insert({ fiche_id: ficheId, body });
-    if (e) { console.error("Publication :", e); err.textContent = "Impossible de publier pour le moment."; send.disabled = false; return; }
-    loadComments(ficheId);
-  });
-  box.querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", async () => {
-    if (!confirm("Supprimer ce commentaire ?")) return;
-    const { error: e } = await db.from("fiche_comments").delete().eq("id", b.dataset.del);
-    if (e) { console.error("Suppression :", e); return; }
-    loadComments(ficheId);
-  }));
+  let reacts = [];
+  if (rows.length) {
+    const r = await db.from("comment_reactions").select("comment_id,user_id,kind").in("comment_id", rows.map(c => c.id));
+    if (r.error) console.error("Réactions :", r.error); else reacts = r.data || [];
+    if (!box.isConnected || box.dataset.f !== ficheId) return;
+  }
+  const me = currentUser ? currentUser.id : null;
+  const fmt = d => new Date(d).toLocaleString("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+  const bar = c => {
+    const mine = reacts.find(x => x.comment_id === c.id && x.user_id === me);
+    return CM_REACT.map(([k, e, l]) => {
+      const n = reacts.filter(x => x.comment_id === c.id && x.kind === k).length;
+      return `<button type="button" class="cm-react${mine && mine.kind === k ? " on" : ""}" data-r="${k}" data-c="${esc(c.id)}" title="${esc(l)}">${e}${n ? " " + n : ""}</button>`;
+    }).join("");
+  };
+  const item = (c, isReply) => `
+    <div class="cm-item${isReply ? " cm-reply" : ""}">
+      <div class="cm-head"><span><strong>${esc(c.author_name || "Étudiant")}</strong> · ${esc(fmt(c.created_at))}</span>
+        ${me && c.user_id === me ? `<button class="cm-del" type="button" data-del="${esc(c.id)}">Supprimer</button>` : ""}</div>
+      <p class="cm-body">${esc(c.body)}</p>
+      <div class="cm-actions">${bar(c)}<button type="button" class="cm-link" data-reply="${esc(isReply ? c.parent_id : c.id)}" data-to="${esc(c.author_name || "")}">Répondre</button></div>
+    </div>`;
+  const tops = rows.filter(c => !c.parent_id).reverse();
+  const repsOf = id => rows.filter(c => c.parent_id === id);
+
+  const draw = () => {
+    const old = box.querySelector("#cmText");
+    const keep = old ? old.value : "";
+    box.innerHTML = `
+      ${title(rows.length)}
+      ${warn("Ne partagez jamais d'information sur un patient (nom, photo, dossier). Restez respectueux.")}
+      <div class="cm-box">
+        <textarea id="cmText" maxlength="1000" placeholder="Posez une question ou partagez un conseil sur cette fiche…"></textarea>
+        <button class="primary-btn" type="button" id="cmSend">Publier</button>
+        <p class="cm-err" id="cmErr"></p>
+      </div>
+      ${tops.length ? tops.map(c => item(c, false) + repsOf(c.id).map(r => item(r, true)).join("") + `<div class="cm-replybox" data-rb="${esc(c.id)}"></div>`).join("")
+        : `<p class="search-hint">Aucun commentaire pour l'instant. Soyez le premier à poser une question.</p>`}`;
+    box.querySelector("#cmText").value = keep;
+
+    const publish = async (body, parentId, btn, err) => {
+      if (!body) { err.textContent = "Écris un message avant de publier."; return; }
+      btn.disabled = true; err.textContent = "";
+      const row = { fiche_id: ficheId, body };
+      if (parentId) row.parent_id = parentId;
+      const { error: e } = await db.from("fiche_comments").insert(row);
+      if (e) { console.error("Publication :", e); err.textContent = "Impossible de publier pour le moment."; btn.disabled = false; return; }
+      loadComments(ficheId);
+    };
+    const send = box.querySelector("#cmSend"), txt = box.querySelector("#cmText"), err = box.querySelector("#cmErr");
+    send.addEventListener("click", () => publish(txt.value.trim(), null, send, err));
+
+    box.querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", async () => {
+      if (!confirm("Supprimer ce commentaire ? Les réponses seront supprimées aussi.")) return;
+      const { error: e } = await db.from("fiche_comments").delete().eq("id", b.dataset.del);
+      if (e) { console.error("Suppression :", e); return; }
+      loadComments(ficheId);
+    }));
+
+    box.querySelectorAll("[data-r]").forEach(b => b.addEventListener("click", async () => {
+      if (!me) return;
+      const cid = b.dataset.c, kind = b.dataset.r;
+      const mine = reacts.find(x => x.comment_id === cid && x.user_id === me);
+      b.disabled = true;
+      if (mine && mine.kind === kind) {
+        const { error: e } = await db.from("comment_reactions").delete().eq("comment_id", cid).eq("user_id", me);
+        if (e) { console.error("Réaction :", e); b.disabled = false; return; }
+        reacts = reacts.filter(x => x !== mine);
+      } else {
+        const { error: e } = await db.from("comment_reactions").upsert({ comment_id: cid, user_id: me, kind }, { onConflict: "comment_id,user_id" });
+        if (e) { console.error("Réaction :", e); b.disabled = false; return; }
+        reacts = reacts.filter(x => x !== mine); reacts.push({ comment_id: cid, user_id: me, kind });
+      }
+      draw();
+    }));
+
+    box.querySelectorAll("[data-reply]").forEach(b => b.addEventListener("click", () => {
+      const pid = b.dataset.reply, rb = box.querySelector(`[data-rb="${pid}"]`);
+      if (!rb) return;
+      rb.innerHTML = `<div class="cm-box">
+        <textarea maxlength="1000" placeholder="Répondre à ${esc(b.dataset.to)}…"></textarea>
+        <button class="primary-btn" type="button" data-go="1">Envoyer la réponse</button>
+        <button class="cm-link" type="button" data-cancel="1">Annuler</button>
+        <p class="cm-err"></p></div>`;
+      const ta = rb.querySelector("textarea"), go = rb.querySelector("[data-go]"), er = rb.querySelector(".cm-err");
+      ta.focus();
+      go.addEventListener("click", () => publish(ta.value.trim(), pid, go, er));
+      rb.querySelector("[data-cancel]").addEventListener("click", () => { rb.innerHTML = ""; });
+    }));
+  };
+  draw();
 }
 
 function startQuiz(fiche) {
