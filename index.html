@@ -3290,7 +3290,8 @@ function createStage(container) {
   const views = {
     main: [[0, 1.55, 2.3], [0, 1.0, -0.4]], hands: [[0, 1.5, 1.75], [0, 1.0, -0.2]],
     table: [[0, 1.42, 1.25], [0, 0.95, -0.1]], enc: [[0.3, 1.55, 1.9], [0.9, 1.45, 0.2]],
-    bin: [[0.8, 1.5, 1.8], [1.6, 0.8, -0.8]]
+    bin: [[0.8, 1.5, 1.8], [1.6, 0.8, -0.8]],
+    arm: [[-1.95, 1.45, -1.75], [-2.2, 0.86, -2.62]], bed: [[-0.9, 1.75, -0.3], [-2.4, 0.85, -2.6]]
   };
   let camP = views.main[0].slice(), camL = views.main[1].slice(), camTP = camP.slice(), camTL = camL.slice();
   let moodT = "calm", talking = 0, shakeV = 0, rubbing = false, alive = true, last = 0, ecgT = 0;
@@ -3322,6 +3323,38 @@ function createStage(container) {
     remove: () => { hp(hR, [0.05, -0.15, -0.55], [0.6, 0, 0]); at(700, () => { setGlove(hL, false); hp(hL, [-0.05, -0.22, -0.55], [0.5, 0, 0]); }); at(1400, () => { setGlove(hR, false); REST(); binLid.pos[1] = 0.7; }); at(2000, () => { binLid.pos[1] = 0.62; }); return 2300; },
     reset: () => { setGlove(hR, false); setGlove(hL, false); rubbing = false; gloveR.vis = true; gloveL.vis = true; paper.vis = false; pack.vis = true; packT.p = TABLE.slice(); packT.r = [0, 0, 0]; pack.pos = packT.p.slice(); pack.rot = [0, 0, 0]; REST(); return 600; }
   };
+
+  // ----- Patient du pansement : avant-bras sur le lit, plaie suturée, ancien pansement, compresses, pansement neuf -----
+  const arm = Ngrp(); attach(world, arm); place(arm, -2.2, 0.8, -2.78); arm.vis = false;
+  cy(arm, 0.05, 0.05, 0.24, 0x7fcfc6, 0, 0, -0.26, { rot: [PI / 2, 0, 0] });
+  cy(arm, 0.042, 0.034, 0.36, 0xe0ac84, 0, 0, 0, { rot: [PI / 2, 0, 0] });
+  sp(arm, 0.04, 0xe0ac84, 0, -0.005, 0.23, { scl: [1, 0.6, 1.3] });
+  const DIRTY = 0xb2483a, CLEAN = 0xd2665a;
+  const wound = bx(arm, 0.06, 0.005, 0.1, DIRTY, 0, 0.041, 0.02);
+  for (let i = 0; i < 5; i++) bx(arm, 0.07, 0.002, 0.004, 0x3a2a2a, 0, 0.045, -0.02 + i * 0.02);
+  const exud = bx(arm, 0.035, 0.003, 0.045, 0xe8c85a, 0.005, 0.047, 0.03);
+  const oldD = Ngrp(); attach(arm, oldD); place(oldD, 0, 0.05, 0.02);
+  bx(oldD, 0.11, 0.012, 0.14, 0xf2efe8, 0, 0, 0); bx(oldD, 0.05, 0.004, 0.06, 0xd9c48a, 0.005, 0.008, 0.01);
+  bx(oldD, 0.12, 0.004, 0.02, 0xe7dcc3, 0, 0.007, -0.07); bx(oldD, 0.12, 0.004, 0.02, 0xe7dcc3, 0, 0.007, 0.07);
+  const newD = Ngrp(); attach(arm, newD); place(newD, 0, 0.05, 0.02); newD.vis = false;
+  bx(newD, 0.12, 0.006, 0.15, 0xe9f1f5, 0, -0.002, 0); bx(newD, 0.09, 0.012, 0.12, 0xffffff, 0, 0.003, 0);
+  const cmp = bx(arm, 0.06, 0.012, 0.06, 0xffffff, 0, 0.052, 0.02); cmp.vis = false;
+  const tape1 = bx(arm, 0.13, 0.004, 0.025, 0xe7dcc3, 0, 0.062, -0.075), tape2 = bx(arm, 0.13, 0.004, 0.025, 0xe7dcc3, 0, 0.062, 0.115);
+  tape1.vis = tape2.vis = false;
+  const padsG = Ngrp(); attach(paper, padsG); padsG.vis = false;
+  [-0.12, -0.04, 0.04].forEach(x => bx(padsG, 0.07, 0.012, 0.07, 0xffffff, x, 0.008, -0.1));
+  cy(padsG, 0.03, 0.03, 0.04, 0xe3f2fb, 0.13, 0.02, -0.1, { alpha: 0.9 });
+  let pansOn = false;
+  const pansWound = () => { newD.vis = cmp.vis = tape1.vis = tape2.vis = false; exud.vis = true; wound.col = hexRGB(DIRTY); };
+  function setPans(on) { pansOn = on; arm.vis = on; padsG.vis = on; oldD.vis = on; pansWound(); }
+  acts.peel = () => { REACH(); at(700, () => { oldD.vis = false; }); at(1300, UP); return 1500; };
+  acts.clean = () => { REACH(); rubbing = true; at(300, () => { cmp.vis = true; }); at(1500, () => { cmp.vis = false; exud.vis = false; wound.col = hexRGB(CLEAN); rubbing = false; UP(); }); return 1900; };
+  acts.dab = () => { REACH(); at(300, () => { cmp.vis = true; }); at(900, () => { cmp.vis = false; }); at(1200, UP); return 1400; };
+  acts.apply = () => { REACH(); at(500, () => { newD.vis = true; }); at(1000, UP); return 1300; };
+  acts.tape = () => { REACH(); at(400, () => { tape1.vis = true; }); at(800, () => { tape2.vis = true; }); at(1200, UP); return 1500; };
+  acts.donBoth = () => { acts.don1(); at(1400, () => acts.don2()); return 2800; };
+  const baseReset = acts.reset;
+  acts.reset = () => { if (pansOn) pansWound(); return baseReset(); };
 
   const mood = { calm: [0, 0], happy: [0.25, -0.5], impatient: [-0.22, 0], angry: [-0.5, 0] };
   const resize = () => {
@@ -3359,7 +3392,7 @@ function createStage(container) {
   return {
     cam(name) { const v = views[name] || views.main; camTP = v[0].slice(); camTL = v[1].slice(); },
     act(name) { return (acts[name] || acts.none)(); },
-    mood(m) { moodT = m; }, talk(ms) { talking = ms; }, shake() { shakeV = 0.14; },
+    mode(on) { setPans(on); }, mood(m) { moodT = m; }, talk(ms) { talking = ms; }, shake() { shakeV = 0.14; },
     stop() { alive = false; timers.forEach(clearTimeout); cancelAnimationFrame(raf); const ext = gl.getExtension("WEBGL_lose_context"); if (ext) ext.loseContext(); if (canvas.parentNode) canvas.parentNode.removeChild(canvas); }
   };
 }
@@ -3580,6 +3613,7 @@ const SND = (() => {
       case "grab1": case "grab2": sfx.crinkle(0.25, 0.3); break;
       case "don1": case "don2": sfx.stretch(0.4); sfx.snap(0.75); break;
       case "adjust": sfx.rub(0, 1.0, 3200); break;
+      case "donBoth": sfx.stretch(0.4); sfx.snap(0.75); sfx.stretch(1.8); sfx.snap(2.15); break;
       case "peel": sfx.rip(0.2, 0.9); break;
       case "clean": sfx.squish(0.2, 0.8); sfx.squish(1.0, 0.8); break;
       case "dab": sfx.tap(0.2, 3); break;
@@ -3627,7 +3661,7 @@ const PANS_STEPS = [
     opts: [{ t: "Je nettoie le chariot, je rassemble tout le matériel (set, sérum physiologique, adhésif, sac à déchets) et je vérifie les péremptions", ok: true },
       { t: "J'apporte le set et je chercherai le reste pendant le soin", err: "Chercher du matériel en cours de soin oblige à quitter le champ stérile : tout se prépare avant." },
       { t: "J'utilise le chariot tel quel, il a l'air propre", err: "Le chariot se nettoie avec un détergent-désinfectant avant chaque soin." }] },
-  { id: "patient", name: "Information du patient", cam: "enc", act: "none", hint: PANS_MEMO[1],
+  { id: "patient", name: "Information du patient", cam: "bed", act: "none", hint: PANS_MEMO[1],
     say: "Tu entres dans la chambre. Qu'est-ce que tu fais en premier ?", ok: "Un patient informé est plus coopérant et moins anxieux.",
     opts: [{ t: "Je me présente, j'explique le soin, je vérifie l'identité, je ferme la porte et j'installe le patient confortablement", ok: true },
       { t: "Je commence directement, le patient comprendra", err: "On informe toujours le patient et on vérifie son identité avant tout soin." },
@@ -3642,7 +3676,7 @@ const PANS_STEPS = [
     opts: [{ t: "La péremption, l'intégrité de l'emballage et l'indicateur de stérilité", ok: true },
       { t: "Je regarde seulement la marque", err: "La marque ne garantit rien : la date et l'intégrité de l'emballage sont essentielles." },
       { t: "L'emballage est un peu déchiré, mais ça ira", err: "Un emballage déchiré, humide ou ouvert : le set n'est plus stérile et se remplace." }] },
-  { id: "retirer", name: "Retrait de l'ancien pansement", cam: "hands", act: "peel", hint: PANS_MEMO[4],
+  { id: "retirer", name: "Retrait de l'ancien pansement", cam: "arm", act: "peel", hint: PANS_MEMO[4],
     say: "Le patient a un pansement en place. Comment le retires-tu ?", ok: "Gants propres, geste doux, puis observation de la plaie (aspect, écoulement, signes d'infection).",
     opts: [{ t: "Avec des gants propres, en décollant doucement, puis je le jette dans le sac à déchets et j'observe la plaie", ok: true },
       { t: "Je l'arrache d'un coup pour aller vite", err: "Arracher fait mal et abîme la peau : on décolle doucement, au besoin avec du sérum." },
@@ -3657,27 +3691,27 @@ const PANS_STEPS = [
     opts: [{ t: "Je pose le set sur le chariot désinfecté et je l'ouvre en ne touchant que les bords du papier", ok: true },
       { t: "Je touche le contenu pour mieux le disposer", critical: true, err: "Toucher l'intérieur du set à main nue le contamine." },
       { t: "Je le pose et je l'ouvre sur le lit, près des draps", critical: true, err: "Le lit n'est pas une surface propre : le champ stérile est contaminé." }] },
-  { id: "gants", name: "Gants stériles", cam: "table", act: "don1", hint: PANS_MEMO[7],
+  { id: "gants", name: "Gants stériles", cam: "table", act: "donBoth", hint: PANS_MEMO[7],
     say: "Le champ est prêt. Que mets-tu pour réaliser le soin ?", ok: "Technique aseptique : stérile touche stérile.",
     opts: [{ t: "Des gants stériles, après une hygiène des mains, sans toucher l'extérieur", ok: true },
       { t: "Des gants non stériles propres, c'est suffisant", critical: true, err: "Un pansement stérile se réalise avec des gants stériles (ou des pinces stériles)." },
       { t: "Des gants stériles, puis je remets les mains sous la taille", critical: true, err: "Sous la taille, ce n'est plus stérile : les mains gantées restent visibles, au-dessus de la taille." }] },
-  { id: "nettoyer", name: "Nettoyage de la plaie", cam: "hands", act: "clean", hint: PANS_MEMO[8],
+  { id: "nettoyer", name: "Nettoyage de la plaie", cam: "arm", act: "clean", hint: PANS_MEMO[8],
     say: "Tu nettoies la plaie avec du sérum physiologique. Comment ?", ok: "Du plus propre au plus sale : on n'entraîne jamais les germes vers la plaie.",
     opts: [{ t: "Du centre vers la périphérie, avec une compresse stérile neuve à chaque passage", ok: true },
       { t: "Du bord vers le centre avec la même compresse", critical: true, err: "Du bord vers le centre ramène les germes de la peau sur la plaie, et réutiliser une compresse la recontamine." },
       { t: "Je frotte fort avec un antiseptique alcoolisé sur la plaie ouverte", err: "Un antiseptique alcoolisé agresse les tissus : sauf prescription, on nettoie au sérum physiologique." }] },
-  { id: "secher", name: "Séchage", cam: "hands", act: "dab", hint: PANS_MEMO[9],
+  { id: "secher", name: "Séchage", cam: "arm", act: "dab", hint: PANS_MEMO[9],
     say: "La plaie est nettoyée. Comment la sèches-tu ?", ok: "Tamponner protège le tissu fragile.",
     opts: [{ t: "En tamponnant avec une compresse stérile, sans frotter", ok: true },
       { t: "Je frotte pour bien sécher", err: "Frotter abîme le bourgeonnement et fait saigner la plaie." },
       { t: "Je souffle dessus pour aller plus vite", critical: true, err: "Souffler projette des micro-organismes de la bouche sur la plaie." }] },
-  { id: "appliquer", name: "Pose du pansement", cam: "hands", act: "apply", hint: PANS_MEMO[10],
+  { id: "appliquer", name: "Pose du pansement", cam: "arm", act: "apply", hint: PANS_MEMO[10],
     say: "Tu poses le pansement stérile. Comment ?", ok: "La face qui touche la plaie reste stérile.",
     opts: [{ t: "Je le prends par les bords, sans toucher la face contre la plaie, et je le centre sur la plaie", ok: true },
       { t: "Je touche la compresse du bout des doigts nus pour l'ajuster", critical: true, err: "Plus de main nue : toucher la face interne la contamine." },
       { t: "Je prends un pansement de réserve non stérile, il tient mieux", critical: true, err: "Un pansement non stérile sur une plaie expose à l'infection." }] },
-  { id: "fixer", name: "Fixation", cam: "hands", act: "tape", hint: PANS_MEMO[11],
+  { id: "fixer", name: "Fixation", cam: "arm", act: "tape", hint: PANS_MEMO[11],
     say: "Il faut fixer le pansement. Comment ?", ok: "Fixation douce, large : la peau doit respirer et ne pas être tirée.",
     opts: [{ t: "Avec un adhésif adapté, sans tendre la peau, en couvrant 2 à 3 cm autour de la plaie", ok: true },
       { t: "Je serre fortement l'adhésif pour qu'il tienne bien", err: "Tendre l'adhésif provoque des phlyctènes et des lésions de la peau." },
@@ -3805,8 +3839,9 @@ function startSim() {
   try { stage = createStage(view); } catch (e) { stage = null; }
   if (!stage) {
     view.classList.add("no3d");
-    stage = { cam() {}, act() { return 500; }, mood() {}, talk() {}, shake() {}, stop() {} };
+    stage = { cam() {}, act() { return 500; }, mode() {}, mood() {}, talk() {}, shake() {}, stop() {} };
   }
+  stage.mode(SIMX === SIM_PANS);
   const stageAct = stage.act;
   stage.act = name => { SND.act(name); return stageAct.call(stage, name); };
   sim = { alive: true, idx: 0, mistakes: [], penalty: 0, hints: 0, patience: 100, busy: false, t0: Date.now(), stage, style: simStyle, L: simText(simStyle), tw: null, n1: false, n2: false, hinted: false, restartIdx: SIMX.steps.findIndex(s => s.id === "ouvrir") };
