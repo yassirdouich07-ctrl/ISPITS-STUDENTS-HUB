@@ -3478,6 +3478,9 @@ const SND = (() => {
     thud(d){ const t = T() + (d || 0); hiss(t, 0.09, 0.3, "lowpass", 180, 0.7); tone(110, t, 0.14, 0.2, "sine", master, 60); },
     lid(d){ const t = T() + (d || 0); sfx.thud(d); tone(1800, t, 0.03, 0.04, "square", master); },
     jewel(d){ const t = T() + (d || 0); tone(3100, t, 0.12, 0.03, "sine", master); tone(2400, t + 0.09, 0.15, 0.03, "sine", master); },
+    rip(d, dur){ const t = T() + (d || 0); for (let i = 0; i < 8; i++) hiss(t + i * dur / 8, dur / 8 * 0.9, 0.09, "highpass", 1800 + i * 250, 0.8); },
+    squish(d, dur){ const t = T() + (d || 0); hiss(t, dur, 0.07, "bandpass", 700, 1.5, 1100); hiss(t + 0.1, dur * 0.8, 0.03, "highpass", 3000, 0.7); },
+    tap(d, n){ const t = T() + (d || 0); for (let i = 0; i < n; i++) hiss(t + i * 0.28, 0.05, 0.06, "bandpass", 1200, 1); },
     fanfare(good){ const t = T(); (good ? [523, 659, 784, 1046] : [330, 262]).forEach((f, i) => tone(f, t + i * 0.13, 0.5, 0.05, "triangle", master)); }
   };
 
@@ -3521,6 +3524,11 @@ const SND = (() => {
       case "grab1": case "grab2": sfx.crinkle(0.25, 0.3); break;
       case "don1": case "don2": sfx.stretch(0.4); sfx.snap(0.75); break;
       case "adjust": sfx.rub(0, 1.0, 3200); break;
+      case "peel": sfx.rip(0.2, 0.9); break;
+      case "clean": sfx.squish(0.2, 0.8); sfx.squish(1.0, 0.8); break;
+      case "dab": sfx.tap(0.2, 3); break;
+      case "apply": sfx.crinkle(0.1, 0.3); sfx.tap(0.5, 1); break;
+      case "tape": sfx.rip(0.2, 0.7); sfx.tap(1.0, 1); break;
       case "remove": sfx.snap(0.7); sfx.snap(1.4); sfx.lid(1.5); break;
     }
   }
@@ -3541,6 +3549,107 @@ const SND = (() => {
     fanfare: good => { if (on && ensure()) sfx.fanfare(good); }
   };
 })();
+// ===== SIMULATION : PANSEMENT STÉRILE =====
+const PANS_MEMO = [
+  "Préparer le chariot : nettoyer, rassembler et vérifier tout le matériel",
+  "Informer le patient, vérifier l'identité, préserver l'intimité, installer",
+  "Hygiène des mains : friction hydro-alcoolique, mains sèches, sans bijoux",
+  "Contrôler le set et le sérum physiologique : péremption, intégrité, indicateur de stérilité",
+  "Retirer l'ancien pansement avec des gants propres, doucement, puis le jeter et observer la plaie",
+  "Retirer les gants puis hygiène des mains",
+  "Ouvrir le set sur le chariot en ne touchant que les bords : le champ doit rester stérile",
+  "Enfiler les gants stériles sans toucher l'extérieur",
+  "Nettoyer au sérum physiologique : du centre vers la périphérie, une compresse par passage",
+  "Sécher en tamponnant avec une compresse stérile",
+  "Poser le pansement stérile sans toucher la face contre la plaie",
+  "Fixer sans tendre la peau, en débordant de 2 à 3 cm autour de la plaie",
+  "Éliminer les déchets, retirer les gants, hygiène des mains, tracer le soin"
+];
+const PANS_STEPS = [
+  { id: "chariot", name: "Préparation du chariot", cam: "main", act: "place_trolley", hint: PANS_MEMO[0],
+    say: "Tu prépares un pansement. Que fais-tu avec le chariot ?", ok: "Tout est prêt avant d'entrer : on ne quitte pas le patient en cours de soin.",
+    opts: [{ t: "Je nettoie le chariot, je rassemble tout le matériel (set, sérum physiologique, adhésif, sac à déchets) et je vérifie les péremptions", ok: true },
+      { t: "J'apporte le set et je chercherai le reste pendant le soin", err: "Chercher du matériel en cours de soin oblige à quitter le champ stérile : tout se prépare avant." },
+      { t: "J'utilise le chariot tel quel, il a l'air propre", err: "Le chariot se nettoie avec un détergent-désinfectant avant chaque soin." }] },
+  { id: "patient", name: "Information du patient", cam: "enc", act: "none", hint: PANS_MEMO[1],
+    say: "Tu entres dans la chambre. Qu'est-ce que tu fais en premier ?", ok: "Un patient informé est plus coopérant et moins anxieux.",
+    opts: [{ t: "Je me présente, j'explique le soin, je vérifie l'identité, je ferme la porte et j'installe le patient confortablement", ok: true },
+      { t: "Je commence directement, le patient comprendra", err: "On informe toujours le patient et on vérifie son identité avant tout soin." },
+      { t: "Je n'explique rien pour ne pas l'inquiéter", err: "Le patient a le droit de savoir : l'information le rassure et obtient son accord." }] },
+  { id: "mains", name: "Hygiène des mains", cam: "table", act: "sanitize", hint: PANS_MEMO[2],
+    say: "Avant de toucher au matériel, tu fais quoi ?", ok: "Mains sèches, sans bijoux, friction complète.",
+    opts: [{ t: "Friction hydro-alcoolique, mains sèches, bijoux et montre retirés", ok: true },
+      { t: "Je mets directement des gants", err: "Les gants ne remplacent jamais l'hygiène des mains." },
+      { t: "Un lavage rapide, je ne sèche pas pour gagner du temps", err: "Des mains humides diluent le produit et favorisent la prolifération des germes." }] },
+  { id: "verif", name: "Contrôle du set et des produits", cam: "hands", act: "inspect", hint: PANS_MEMO[3],
+    say: "Tu prends le set de pansement et le sérum. Que contrôles-tu ?", ok: "Un emballage abîmé ou périmé n'est plus garanti stérile.",
+    opts: [{ t: "La péremption, l'intégrité de l'emballage et l'indicateur de stérilité", ok: true },
+      { t: "Je regarde seulement la marque", err: "La marque ne garantit rien : la date et l'intégrité de l'emballage sont essentielles." },
+      { t: "L'emballage est un peu déchiré, mais ça ira", err: "Un emballage déchiré, humide ou ouvert : le set n'est plus stérile et se remplace." }] },
+  { id: "retirer", name: "Retrait de l'ancien pansement", cam: "hands", act: "peel", hint: PANS_MEMO[4],
+    say: "Le patient a un pansement en place. Comment le retires-tu ?", ok: "Gants propres, geste doux, puis observation de la plaie (aspect, écoulement, signes d'infection).",
+    opts: [{ t: "Avec des gants propres, en décollant doucement, puis je le jette dans le sac à déchets et j'observe la plaie", ok: true },
+      { t: "Je l'arrache d'un coup pour aller vite", err: "Arracher fait mal et abîme la peau : on décolle doucement, au besoin avec du sérum." },
+      { t: "Je le retire à mains nues et je le pose sur le chariot", err: "Contact direct avec les liquides biologiques, et le chariot est contaminé : gants propres et sac à déchets." }] },
+  { id: "mains2", name: "Hygiène des mains après retrait", cam: "table", act: "sanitize", hint: PANS_MEMO[5],
+    say: "L'ancien pansement est jeté. Tu fais quoi avant d'ouvrir le set ?", ok: "On passe du sale au propre : gants retirés, mains désinfectées.",
+    opts: [{ t: "Je retire les gants puis je fais une friction hydro-alcoolique", ok: true },
+      { t: "Je garde les mêmes gants et je continue", err: "Des gants souillés ne se réutilisent pas : ils contaminent le matériel propre." },
+      { t: "Je rince seulement les gants à l'eau", err: "Rincer des gants n'élimine pas les germes : ils se jettent et les mains se désinfectent." }] },
+  { id: "ouvrir", name: "Ouverture du set", cam: "table", act: "open", hint: PANS_MEMO[6],
+    say: "Tu ouvres le set de pansement. Comment ?", ok: "Seuls les bords extérieurs se touchent : l'intérieur du champ reste stérile.",
+    opts: [{ t: "Je pose le set sur le chariot désinfecté et je l'ouvre en ne touchant que les bords du papier", ok: true },
+      { t: "Je touche le contenu pour mieux le disposer", critical: true, err: "Toucher l'intérieur du set à main nue le contamine." },
+      { t: "Je le pose et je l'ouvre sur le lit, près des draps", critical: true, err: "Le lit n'est pas une surface propre : le champ stérile est contaminé." }] },
+  { id: "gants", name: "Gants stériles", cam: "table", act: "don1", hint: PANS_MEMO[7],
+    say: "Le champ est prêt. Que mets-tu pour réaliser le soin ?", ok: "Technique aseptique : stérile touche stérile.",
+    opts: [{ t: "Des gants stériles, après une hygiène des mains, sans toucher l'extérieur", ok: true },
+      { t: "Des gants non stériles propres, c'est suffisant", critical: true, err: "Un pansement stérile se réalise avec des gants stériles (ou des pinces stériles)." },
+      { t: "Des gants stériles, puis je remets les mains sous la taille", critical: true, err: "Sous la taille, ce n'est plus stérile : les mains gantées restent visibles, au-dessus de la taille." }] },
+  { id: "nettoyer", name: "Nettoyage de la plaie", cam: "hands", act: "clean", hint: PANS_MEMO[8],
+    say: "Tu nettoies la plaie avec du sérum physiologique. Comment ?", ok: "Du plus propre au plus sale : on n'entraîne jamais les germes vers la plaie.",
+    opts: [{ t: "Du centre vers la périphérie, avec une compresse stérile neuve à chaque passage", ok: true },
+      { t: "Du bord vers le centre avec la même compresse", critical: true, err: "Du bord vers le centre ramène les germes de la peau sur la plaie, et réutiliser une compresse la recontamine." },
+      { t: "Je frotte fort avec un antiseptique alcoolisé sur la plaie ouverte", err: "Un antiseptique alcoolisé agresse les tissus : sauf prescription, on nettoie au sérum physiologique." }] },
+  { id: "secher", name: "Séchage", cam: "hands", act: "dab", hint: PANS_MEMO[9],
+    say: "La plaie est nettoyée. Comment la sèches-tu ?", ok: "Tamponner protège le tissu fragile.",
+    opts: [{ t: "En tamponnant avec une compresse stérile, sans frotter", ok: true },
+      { t: "Je frotte pour bien sécher", err: "Frotter abîme le bourgeonnement et fait saigner la plaie." },
+      { t: "Je souffle dessus pour aller plus vite", critical: true, err: "Souffler projette des micro-organismes de la bouche sur la plaie." }] },
+  { id: "appliquer", name: "Pose du pansement", cam: "hands", act: "apply", hint: PANS_MEMO[10],
+    say: "Tu poses le pansement stérile. Comment ?", ok: "La face qui touche la plaie reste stérile.",
+    opts: [{ t: "Je le prends par les bords, sans toucher la face contre la plaie, et je le centre sur la plaie", ok: true },
+      { t: "Je touche la compresse du bout des doigts nus pour l'ajuster", critical: true, err: "Plus de main nue : toucher la face interne la contamine." },
+      { t: "Je prends un pansement de réserve non stérile, il tient mieux", critical: true, err: "Un pansement non stérile sur une plaie expose à l'infection." }] },
+  { id: "fixer", name: "Fixation", cam: "hands", act: "tape", hint: PANS_MEMO[11],
+    say: "Il faut fixer le pansement. Comment ?", ok: "Fixation douce, large : la peau doit respirer et ne pas être tirée.",
+    opts: [{ t: "Avec un adhésif adapté, sans tendre la peau, en couvrant 2 à 3 cm autour de la plaie", ok: true },
+      { t: "Je serre fortement l'adhésif pour qu'il tienne bien", err: "Tendre l'adhésif provoque des phlyctènes et des lésions de la peau." },
+      { t: "Je fixe avec l'adhésif directement sur la plaie", err: "L'adhésif ne doit jamais toucher la plaie : le pansement la couvre." }] },
+  { id: "fin", name: "Fin de soin", cam: "bin", act: "remove", hint: PANS_MEMO[12],
+    say: "Le soin est terminé. Tu fais quoi ?", ok: "Déchets éliminés, mains désinfectées, soin tracé.",
+    opts: [{ t: "J'élimine les déchets, je retire les gants, je désinfecte mes mains et je note la date et l'aspect de la plaie", ok: true },
+      { t: "Je laisse le matériel utilisé sur le chariot pour la suite", err: "Les déchets s'éliminent tout de suite dans la filière adaptée." },
+      { t: "Je jette tout et je note le soin plus tard", err: "La traçabilité se fait juste après le soin : date, aspect de la plaie, matériel." }] }
+];
+const PANS_TEXT = {
+  fr: {
+    intro: "Bonjour. M. Benali a une plaie au bras à panser. Tu fais un pansement stérile et je te regarde faire. Montre-moi que tu sais.",
+    contam: "Ton champ n'est plus stérile. Nouveau set : on reprend à l'ouverture du set.",
+    verdict: p => p >= 90 ? "Très bien. Je te laisse faire un vrai pansement avec moi." : p >= 70 ? "Correct, mais tu dois être plus rigoureux sur l'asepsie. Relis la fiche." : p >= 50 ? "Insuffisant. Tu aurais infecté la plaie. Reprends la fiche et recommence." : "Dangereux pour le patient. On recommence depuis le début."
+  },
+  dj: {
+    intro: "Salam. Had l mrid 3ndou jerha f dra3 khasha pansement. Khassek tdir pansement stérile, w ana ghadi nchoufek. Werrini bli kat3ref.",
+    contam: "Champ dyalek ma b9ach stérile. Set jdid, n3awdou men fte7 dyal set.",
+    verdict: p => p >= 90 ? "Mzyan bzzaf. Ghadi ndirou pansement 7a9i9i m3ak." : p >= 70 ? "Wakha, walakin khasek tkoun adwa f l'asepsie. 3awed 9ra la fiche." : p >= 50 ? "Ma kafich. Kant'dir l'infection l l jerha. 3awed 9ra w 3awed." : "Khatir 3la l mrid. N3awdou men lwl."
+  }
+};
+const SIM_GANTS = { key: "sim_gants", title: "Enfilage des gants stériles", fiche: "gants", steps: SIM_STEPS, memo: SIM_MEMO, text: null,
+  situation: "Mise en situation : un patient doit avoir un sondage vésical. Votre encadrant vous observe." };
+const SIM_PANS = { key: "sim_pans", title: "Pansement stérile", fiche: null, steps: PANS_STEPS, memo: PANS_MEMO, text: PANS_TEXT,
+  situation: "Mise en situation : un patient a une plaie au bras à panser. Votre encadrant vous observe." };
+let SIMX = SIM_GANTS;
+const simText = st => Object.assign({}, SIM_TEXT[st], SIMX.text ? SIMX.text[st] : {});
 let simStyle = "fr", sim = null, simSeq = 0;
 const SIM_PEN = { normal: 8, critical: 15 };
 const byId = id => document.getElementById(id);
@@ -3554,7 +3663,7 @@ function stopSim() {
 // ---------- Pages ----------
 function renderSimLanding() {
   stopSim();
-  const inner = byId("innerPage"), b = getBest("sim_gants");
+  const inner = byId("innerPage"), b = getBest("sim_gants"), bp = getBest("sim_pans");
   inner.innerHTML = `
     <div class="page-heading">
       <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
@@ -3569,11 +3678,16 @@ function renderSimLanding() {
         <span class="list-sub">Salle de soins en 3D · 14 étapes · encadrant exigeant${b !== null ? " · Meilleur score : " + b + "%" : ""}</span></span>
         <span class="list-arrow">›</span></button>
       <div class="list-row sim-soon"><span class="fiche-num">${ico("hospital")}</span><span class="list-main"><span class="list-title">Sondage vésical</span><span class="list-sub">Bientôt disponible</span></span></div>
-      <div class="list-row sim-soon"><span class="fiche-num">${ico("hospital")}</span><span class="list-main"><span class="list-title">Pansement stérile</span><span class="list-sub">Bientôt disponible</span></span></div>
+      <button class="list-row" type="button" id="simPans">
+        <span class="fiche-num">${ico("hospital")}</span>
+        <span class="list-main"><span class="list-title">Pansement stérile</span>
+        <span class="list-sub">Salle de soins en 3D · 13 étapes · asepsie rigoureuse${bp !== null ? " · Meilleur score : " + bp + "%" : ""}</span></span>
+        <span class="list-arrow">›</span></button>
     </div>
     <div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>`;
   addBackButton(inner);
-  byId("simGants").addEventListener("click", renderSimBrief);
+  byId("simGants").addEventListener("click", () => { SIMX = SIM_GANTS; renderSimBrief(); });
+  byId("simPans").addEventListener("click", () => { SIMX = SIM_PANS; renderSimBrief(); });
   window.scrollTo(0, 0);
 }
 
@@ -3583,12 +3697,12 @@ function renderSimBrief() {
   inner.innerHTML = `
     <div class="page-heading">
       <div class="eyebrow">TP SIMULATION</div>
-      <h1>Enfilage des gants stériles</h1>
-      <p>Mise en situation : un patient doit avoir un sondage vésical. Votre encadrant vous observe.</p>
+      <h1>${SIMX.title}</h1>
+      <p>${SIMX.situation}</p>
     </div>
     <details class="help-item" open>
       <summary>Les étapes à suivre</summary>
-      <div class="help-body">${ol(SIM_MEMO)}${note("Lisez bien ces étapes : pendant la simulation, vous devrez choisir la bonne action à chaque étape, sans la liste devant les yeux.")}</div>
+      <div class="help-body">${ol(SIMX.memo)}${note("Lisez bien ces étapes : pendant la simulation, vous devrez choisir la bonne action à chaque étape, sans la liste devant les yeux.")}</div>
     </details>
     <details class="help-item" open>
       <summary>Comment ça marche</summary>
@@ -3619,7 +3733,7 @@ function startSim() {
   const inner = byId("innerPage");
   inner.innerHTML = `
     <div class="sim-hud">
-      <span id="simStepLbl">Étape 1/${SIM_STEPS.length}</span><span id="simClock">00:00</span>
+      <span id="simStepLbl">Étape 1/${SIMX.steps.length}</span><span id="simClock">00:00</span>
       <div class="sim-pat" title="Patience de l'encadrant"><span id="simPat"></span></div>
       <button class="ghost-btn sim-hintbtn" type="button" id="simHint">Indice</button>
     </div>
@@ -3639,7 +3753,7 @@ function startSim() {
   }
   const stageAct = stage.act;
   stage.act = name => { SND.act(name); return stageAct.call(stage, name); };
-  sim = { alive: true, idx: 0, mistakes: [], penalty: 0, hints: 0, patience: 100, busy: false, t0: Date.now(), stage, style: simStyle, L: SIM_TEXT[simStyle], tw: null, n1: false, n2: false, hinted: false, restartIdx: SIM_STEPS.findIndex(s => s.id === "ouvrir") };
+  sim = { alive: true, idx: 0, mistakes: [], penalty: 0, hints: 0, patience: 100, busy: false, t0: Date.now(), stage, style: simStyle, L: simText(simStyle), tw: null, n1: false, n2: false, hinted: false, restartIdx: SIMX.steps.findIndex(s => s.id === "ouvrir") };
   byId("simQuit").addEventListener("click", () => { stopSim(); renderSimLanding(); });
   const sndPaint = () => { byId("simSnd").textContent = SND.isOn() ? "🔊 Son : activé" : "🔇 Son : coupé"; };
   sndPaint();
@@ -3667,10 +3781,10 @@ const simFlash = () => { const f = byId("simFlash"); if (f) { f.classList.add("o
 
 function simShowStep() {
   if (!sim || !sim.alive) return;
-  const st = SIM_STEPS[sim.idx];
+  const st = SIMX.steps[sim.idx];
   sim.n1 = sim.n2 = sim.hinted = false;
   sim.stage.cam(st.cam);
-  byId("simStepLbl").textContent = `Étape ${sim.idx + 1}/${SIM_STEPS.length}`;
+  byId("simStepLbl").textContent = `Étape ${sim.idx + 1}/${SIMX.steps.length}`;
   simSay("Encadrant", st.say, "calm");
   const order = shuffle(st.opts.map((_, i) => i));
   byId("simOpts").innerHTML = order.map(i => `<button class="opt" type="button" data-i="${i}">${esc(st.opts[i].t)}</button>`).join("");
@@ -3679,7 +3793,7 @@ function simShowStep() {
 
 async function simChoose(i, btn) {
   if (!sim || !sim.alive || sim.busy) return;
-  const my = sim, st = SIM_STEPS[sim.idx], o = st.opts[i], L = sim.L;
+  const my = sim, st = SIMX.steps[sim.idx], o = st.opts[i], L = sim.L;
   sim.busy = true;
   if (o.ok) {
     btn.classList.add("right");
@@ -3691,7 +3805,7 @@ async function simChoose(i, btn) {
     if (sim !== my || !my.alive) return;
     sim.idx++;
     sim.busy = false;
-    if (sim.idx >= SIM_STEPS.length) simFinish(); else simShowStep();
+    if (sim.idx >= SIMX.steps.length) simFinish(); else simShowStep();
     return;
   }
   btn.classList.add("wrong"); btn.disabled = true;
@@ -3721,7 +3835,7 @@ async function simChoose(i, btn) {
 
 function simHint(auto) {
   if (!sim || !sim.alive || sim.busy) return;
-  const st = SIM_STEPS[sim.idx];
+  const st = SIMX.steps[sim.idx];
   if (!sim.hinted) { sim.hints++; sim.hinted = true; }
   sim.patience = Math.max(sim.patience, 55);
   simSay("Encadrant", sim.L.hint + " " + st.hint, "impatient");
@@ -3746,7 +3860,7 @@ function simFinish() {
   const mistakes = s.mistakes, hints = s.hints;
   const pct = Math.max(0, 100 - s.penalty);
   stopSim();
-  setBest("sim_gants", pct);
+  setBest(SIMX.key, pct);
   const inner = byId("innerPage");
   const color = pct >= 80 ? "#18a36b" : pct >= 50 ? "#e0a020" : "#d9534f";
   const C = 2 * Math.PI * 52;
@@ -3777,7 +3891,7 @@ function simFinish() {
   addBackButton(inner, "Retour aux simulations", renderSimLanding);
   SND.fanfare(pct >= 70);
   byId("simRetry").addEventListener("click", renderSimBrief);
-  byId("simFiche").addEventListener("click", () => { setActiveNav("Stages"); renderStages("gants"); });
+  if (SIMX.fiche) byId("simFiche").addEventListener("click", () => { setActiveNav("Stages"); renderStages(SIMX.fiche); }); else byId("simFiche").remove();
   byId("simBack").addEventListener("click", renderSimLanding);
   window.scrollTo(0, 0);
 }
