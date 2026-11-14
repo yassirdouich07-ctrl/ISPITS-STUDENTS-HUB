@@ -984,6 +984,10 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .stat-card[data-open]:after{content:"↗";position:absolute;right:14px;bottom:12px;width:24px;height:24px;display:grid;place-items:center;border-radius:50%;font-size:13px;font-weight:800;color:var(--teal-dark);background:var(--teal-soft);transition:.25s}
 .stat-card[data-open]:hover:after{background:var(--teal);color:#fff;transform:rotate(45deg)}
 .stat-card[data-open]:active{transform:scale(.97)}
+.drive-frame{display:block;width:100%;height:72vh;min-height:420px;border:1px solid var(--border);border-radius:18px;background:#fff;box-shadow:0 12px 32px #0b1f3a0f}
+.drive-frame.viewer{height:80vh}
+.drive-msg{padding:28px;text-align:center;color:var(--muted);font-size:12px}
+.drive-title{font-family:'Outfit',sans-serif;font-weight:700;color:var(--navy);font-size:15px;margin:0 0 12px}
 @media(max-width:760px){
  .hero-tag{display:none}
  .sidebar{margin:0;border-radius:0;position:static;max-height:none;top:auto;box-shadow:none}
@@ -1932,7 +1936,42 @@ function docRow(d, full) {
     <span class="list-main"><span class="list-title">${esc(d.t)}</span><span class="list-sub">${esc(info)}</span></span>
     <span class="list-arrow">↗</span></a>`;
 }
-const docsHTML = (docs, full = true) => `<div class="list">${docs.map(d => docRow(d, full)).join("")}</div>`;
+const driveId = u => (String(u).match(/drive\.google\.com\/drive\/(?:u\/\d+\/)?folders\/([\w-]+)/) || [])[1] || null;
+const docsHTML = (docs, full = true) => `<div class="list">${docs.map(d =>
+  (!full && driveId(d.url)) ? `<div class="drive-box" data-folder="${driveId(d.url)}"></div>` : docRow(d, full)).join("")}</div>`;
+
+// ---- Lecture des cours Google Drive DANS le site ----
+// Pour afficher la liste des fichiers + lecteur intégré : collez ici une clé API Google (Drive API). Sinon, le dossier s'affiche en iframe.
+const GDRIVE_API_KEY = "";
+async function loadDrive(box, id, back) {
+  const frame = `<iframe class="drive-frame" src="https://drive.google.com/embeddedfolderview?id=${id}#list" loading="lazy" title="Documents"></iframe>`;
+  if (!GDRIVE_API_KEY) { box.innerHTML = frame; return; }
+  box.innerHTML = '<div class="drive-msg">Chargement des documents…</div>';
+  try {
+    const q = encodeURIComponent(`'${id}' in parents and trashed=false`);
+    const r = await fetch(`https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(id,name,mimeType)&orderBy=name&pageSize=200&key=${GDRIVE_API_KEY}`);
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.error?.message || "Drive API");
+    const files = j.files || [];
+    const isDir = f => f.mimeType === "application/vnd.google-apps.folder";
+    const backBtn = back ? '<button type="button" class="back-btn" data-back><span>←</span> Retour</button>' : "";
+    box.innerHTML = backBtn + (files.length
+      ? `<div class="list">${files.map((f, i) => `<button class="list-row" type="button" data-i="${i}"><span class="list-main"><span class="list-title">${esc(f.name)}</span><span class="list-sub">${isDir(f) ? "Dossier" : "Document"}</span></span><span class="list-arrow">›</span></button>`).join("")}</div>`
+      : '<div class="drive-msg">Aucun document pour le moment.</div>');
+    const goBack = box.querySelector("[data-back]");
+    if (goBack) goBack.addEventListener("click", back);
+    const reopen = () => loadDrive(box, id, back);
+    box.querySelectorAll("[data-i]").forEach(b => b.addEventListener("click", () => {
+      const f = files[+b.dataset.i];
+      if (isDir(f)) { loadDrive(box, f.id, reopen); return; }
+      box.innerHTML = `<button type="button" class="back-btn" data-back><span>←</span> Retour</button><div class="drive-title">${esc(f.name)}</div>
+        <iframe class="drive-frame viewer" src="https://drive.google.com/file/d/${f.id}/preview" allow="autoplay" title="${esc(f.name)}"></iframe>`;
+      box.querySelector("[data-back]").addEventListener("click", reopen);
+      box.scrollIntoView({ behavior: "smooth", block: "start" });
+    }));
+  } catch (e) { console.error("Drive:", e); box.innerHTML = frame; }
+}
+function initDriveBoxes(root) { root.querySelectorAll(".drive-box").forEach(b => loadDrive(b, b.dataset.folder, null)); }
 
 const emptyPanel = (icon, title, text) =>
   `<div class="resource-panel"><div class="resource-empty"><div class="empty-icon">${icon}</div>
@@ -2022,6 +2061,7 @@ function renderBrowser(section, filiere = null, semestre = null, module = null, 
   inner.querySelectorAll("[data-fil]").forEach(b => b.addEventListener("click", () => renderBrowser(section, b.dataset.fil)));
   inner.querySelectorAll("[data-sem]").forEach(b => b.addEventListener("click", () => renderBrowser(section, filiere, b.dataset.sem)));
   inner.querySelectorAll("[data-mod]").forEach(b => b.addEventListener("click", () => renderBrowser(section, filiere, semestre, mods[+b.dataset.mod].name)));
+  initDriveBoxes(inner);
   inner.querySelectorAll("[data-sub]").forEach(b => b.addEventListener("click", () => renderBrowser(section, filiere, semestre, module, modObj.subs[+b.dataset.sub])));
 
   const input = inner.querySelector("#browseSearch");
