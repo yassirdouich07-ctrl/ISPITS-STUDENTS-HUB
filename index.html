@@ -1855,6 +1855,8 @@ const CURRICULUM = {};
 // type : "cours" ou "resume" | f : filières | s : semestre | m : nom EXACT du module
 // sub : nom EXACT du sous-module ("" s'il n'y en a pas) | t : titre | url : lien du document
 const RESOURCES = [
+  { type: "cours", f: ["IP"], s: "S1", m: "SIB1", sub: "", t: "Cours des constantes", url: "cours/S1/IP/SIB1/cours-des-constantes.pdf" },
+  { type: "cours", f: ["IP"], s: "S1", m: "SIB1", sub: "", t: "Cours SIB1", url: "cours/S1/IP/SIB1/sib1-cours.pdf" },
 ];
 
 const TYPE_LABEL = { cours: "Cours", resume: "Résumé" };
@@ -1873,7 +1875,7 @@ const SITE_PAGES = [
 const esc = t => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const norm = t => String(t).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
   .replace(/&/g, "et").replace(/\s+/g, " ").trim();
-const safeUrl = u => (/^https?:\/\//i.test(String(u)) ? String(u) : "#");
+const safeUrl = u => (/^(https?:\/\/|cours\/[\w\-./%]+\.pdf$)/i.test(String(u)) ? String(u) : "#");
 
 function searchCurriculum(q, filiere) {
   const nq = norm(q);
