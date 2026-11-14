@@ -853,6 +853,7 @@ body{font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
 .cm-react{border:1px solid #dbe3ea;background:#fff;border-radius:999px;padding:4px 10px;font-size:14px;cursor:pointer}
 .cm-react.on{background:#e6f6f4;border-color:var(--teal)}.cm-react:disabled{opacity:.6}
 .cm-link{background:none;border:0;color:var(--teal);font-size:13px;cursor:pointer;padding:0 4px}
+.cm-badge{background:var(--teal);color:#fff;border-radius:6px;font-size:11px;font-weight:700;padding:1px 6px;margin-left:4px}
 </style>
 </head>
 
@@ -2959,6 +2960,10 @@ async function loadComments(ficheId) {
     return;
   }
   const rows = data || [];
+  let admins = new Set();
+  const ar = await db.from("admins").select("user_id");
+  if (ar.error) console.error("Admins :", ar.error); else admins = new Set((ar.data || []).map(x => x.user_id));
+  if (!box.isConnected || box.dataset.f !== ficheId) return;
   let reacts = [];
   if (rows.length) {
     const r = await db.from("comment_reactions").select("comment_id,user_id,kind").in("comment_id", rows.map(c => c.id));
@@ -2966,6 +2971,7 @@ async function loadComments(ficheId) {
     if (!box.isConnected || box.dataset.f !== ficheId) return;
   }
   const me = currentUser ? currentUser.id : null;
+  const isAdmin = !!me && admins.has(me);
   const fmt = d => new Date(d).toLocaleString("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
   const bar = c => {
     const mine = reacts.find(x => x.comment_id === c.id && x.user_id === me);
@@ -2976,8 +2982,8 @@ async function loadComments(ficheId) {
   };
   const item = (c, isReply) => `
     <div class="cm-item${isReply ? " cm-reply" : ""}">
-      <div class="cm-head"><span><strong>${esc(c.author_name || "Étudiant")}</strong> · ${esc(fmt(c.created_at))}</span>
-        ${me && c.user_id === me ? `<button class="cm-del" type="button" data-del="${esc(c.id)}">Supprimer</button>` : ""}</div>
+      <div class="cm-head"><span><strong>${esc(c.author_name || "Étudiant")}</strong>${admins.has(c.user_id) ? ' <span class="cm-badge">Admin</span>' : ""} · ${esc(fmt(c.created_at))}</span>
+        ${me && (c.user_id === me || isAdmin) ? `<button class="cm-del" type="button" data-del="${esc(c.id)}">${c.user_id === me ? "Supprimer" : "Supprimer (admin)"}</button>` : ""}</div>
       <p class="cm-body">${esc(c.body)}</p>
       <div class="cm-actions">${bar(c)}<button type="button" class="cm-link" data-reply="${esc(isReply ? c.parent_id : c.id)}" data-to="${esc(c.author_name || "")}">Répondre</button></div>
     </div>`;
