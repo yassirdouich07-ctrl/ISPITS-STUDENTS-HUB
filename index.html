@@ -2565,6 +2565,62 @@ const FICHES = [
     ]
   },
   {
+    id: "ecg", niveau: 2, short: "ECG", title: "Électrocardiogramme (ECG)", duree: "10 min",
+    keywords: "ecg electrocardiogramme electrocardiographe electrodes derivations precordiales cardiaque thoracique douleur trace v1 v6",
+    resume: "Réaliser un ECG 12 dérivations : installation du patient, pose des électrodes, enregistrement de qualité et identification du tracé.",
+    sections: [
+      { t: "Fiche rapide", html: specs([
+          ["Quand", "Douleur thoracique, palpitations, malaise, dyspnée, bilan, surveillance"],
+          ["Position", "Allongé sur le dos, détendu, immobile, thorax et membres dégagés"],
+          ["Membres", "Rouge : bras droit · Jaune : bras gauche · Vert : jambe gauche · Noir : jambe droite"],
+          ["Précordiales", "V1 à V6 : repérage au niveau des espaces intercostaux"],
+          ["Réglages", "25 mm/s et 10 mm/mV (calibration standard)"],
+          ["Après", "Tracé identifié et transmis, matériel désinfecté, soin tracé"]
+        ]) },
+      { t: "Définition et indications", html:
+          para("L'électrocardiogramme enregistre l'activité électrique du cœur à travers la peau grâce à des électrodes. Il est indolore et sans danger. L'infirmier réalise l'enregistrement, l'interprétation revient au médecin.") +
+          ul(["Douleur thoracique, palpitations, essoufflement, malaise ou syncope", "Bilan préopératoire ou bilan d'admission", "Surveillance d'un traitement ou d'une pathologie cardiaque"]) +
+          warn("Une douleur thoracique est une urgence : réaliser l'ECG sans retard et prévenir immédiatement le médecin.") },
+      { t: "Matériel", html:
+          ul(["Électrocardiographe avec câble patient, branché et chargé", "Papier thermique en quantité suffisante", "Électrodes autocollantes à usage unique, non périmées, au gel humide", "Rasoir ou tondeuse, compresses, drap de pudeur", "Solution hydro-alcoolique, lingettes désinfectantes pour les câbles"]) },
+      { t: "Placement des électrodes", html:
+          "<h4>Membres</h4>" +
+          ul(["<strong>Rouge</strong> : poignet ou bras droit", "<strong>Jaune</strong> : poignet ou bras gauche", "<strong>Vert</strong> : cheville ou jambe gauche", "<strong>Noir</strong> : cheville ou jambe droite"]) +
+          "<h4>Précordiales (codes couleur IEC)</h4>" +
+          ul(["<strong>V1</strong> (rouge) : 4e espace intercostal, bord droit du sternum", "<strong>V2</strong> (jaune) : 4e espace intercostal, bord gauche du sternum", "<strong>V3</strong> (vert) : entre V2 et V4", "<strong>V4</strong> (marron) : 5e espace intercostal, ligne médio-claviculaire gauche", "<strong>V5</strong> (noir) : à la hauteur de V4, ligne axillaire antérieure", "<strong>V6</strong> (violet) : à la hauteur de V4, ligne axillaire moyenne"]) +
+          note("Les codes couleur peuvent varier selon l'appareil (norme IEC ou AHA). Vérifiez toujours la notice de l'appareil et le protocole du service.") },
+      { t: "Déroulement pas à pas", html: ol([
+          "<strong>Préparer le matériel</strong> : appareil branché, papier, câbles, électrodes neuves.",
+          "<strong>Informer le patient</strong>, vérifier son identité, lui demander de rester immobile et détendu.",
+          "<strong>Hygiène des mains</strong> (friction hydro-alcoolique).",
+          "<strong>Installer</strong> le patient allongé sur le dos, thorax et poignets/chevilles dégagés, pudeur préservée. Éloigner montre et téléphone.",
+          "<strong>Préparer la peau</strong> : tondre ou raser si besoin, nettoyer, sécher.",
+          "Poser les <strong>électrodes des membres</strong> (rouge, jaune, vert, noir).",
+          "Poser les <strong>électrodes précordiales</strong> V1 à V6 en repérant les espaces intercostaux.",
+          "Vérifier les câbles et la <strong>calibration</strong> : 25 mm/s et 10 mm/mV.",
+          "<strong>Enregistrer</strong> : patient immobile, respiration calme, sans parler. Refaire si le tracé est parasité.",
+          "<strong>Identifier le tracé</strong> : nom, prénom, date, heure, symptômes, puis le transmettre au médecin.",
+          "<strong>Retirer</strong> les électrodes, nettoyer la peau, réinstaller le patient, désinfecter les câbles, hygiène des mains, tracer."
+        ]) },
+      { t: "Qualité du tracé", html:
+          para("Un tracé parasité est inexploitable. Les causes les plus fréquentes :") +
+          ul(["Mouvements, toux, parole ou tremblements du patient", "Électrodes sèches, décollées ou posées sur peau grasse ou poilue", "Câbles tendus ou mal branchés", "Objets métalliques, téléphone ou appareils électriques à proximité", "Patient froid ou anxieux (frissons)"]) },
+      { t: "Erreurs fréquentes", html: ul([
+          "Inverser les électrodes des bras", "Placer V1 et V2 trop haut ou V4 à la mauvaise hauteur", "Poser les électrodes sur une peau non préparée", "Régler une vitesse ou une amplitude non standard", "Enregistrer pendant que le patient parle ou bouge", "Oublier d'identifier le tracé", "Réutiliser les électrodes ou ne pas désinfecter les câbles"
+        ]) + note("À retenir : patient allongé et immobile, peau préparée, couleurs au bon endroit, V1 à V6 bien repérées, 25 mm/s, tracé identifié.") }
+    ],
+    quiz: [
+      { q: "Où pose-t-on l'électrode rouge des membres ?", o: ["Poignet ou bras gauche", "Poignet ou bras droit", "Cheville gauche", "Cheville droite"], a: 1, e: "Rouge : bras droit. Jaune : bras gauche. Vert : jambe gauche. Noir : jambe droite." },
+      { q: "Où pose-t-on V1 ?", o: ["4e espace intercostal, bord droit du sternum", "5e espace intercostal gauche", "2e espace intercostal droit", "Sous le mamelon gauche"], a: 0, e: "V1 se place dans le 4e espace intercostal, au bord droit du sternum." },
+      { q: "Quelle est la calibration standard de l'ECG ?", o: ["50 mm/s et 20 mm/mV", "25 mm/s et 10 mm/mV", "10 mm/s et 25 mm/mV", "100 mm/s et 5 mm/mV"], a: 1, e: "La calibration standard est 25 mm/s et 10 mm/mV." },
+      { q: "Comment doit être le patient pendant l'enregistrement ?", o: ["Il parle pour se détendre", "Immobile, respirant calmement, sans parler", "Assis penché en avant", "Debout"], a: 1, e: "Les mouvements et la parole créent des artefacts." },
+      { q: "Pourquoi éloigner montre et téléphone du patient ?", o: ["Pour éviter de les abîmer", "Ils créent des interférences sur le tracé", "Ce n'est pas nécessaire", "Pour gagner de la place"], a: 1, e: "Les objets métalliques et les appareils électriques parasitent le tracé." },
+      { q: "Que faire si le tracé est parasité ?", o: ["Le transmettre quand même", "Chercher la cause (mouvement, électrode, câble) et refaire l'ECG", "Le jeter sans rien dire", "Régler la vitesse à 50 mm/s"], a: 1, e: "Un tracé parasité est inexploitable : on corrige la cause et on refait l'enregistrement." },
+      { q: "Qui interprète l'ECG ?", o: ["L'infirmier seul", "Le médecin", "Le patient", "Le secrétariat"], a: 1, e: "L'infirmier enregistre, le médecin interprète. Une anomalie ou une douleur thoracique doit être signalée tout de suite." },
+      { q: "Que fait-on des électrodes après l'examen ?", o: ["On les garde pour le prochain ECG", "On les retire et on les jette, les câbles sont désinfectés", "On les laisse sur le patient", "On les range sans rien faire"], a: 1, e: "Les électrodes sont à usage unique, les câbles se désinfectent entre deux patients." }
+    ]
+  },
+  {
     id: "glyc", niveau: 2, short: "GLY", title: "Glycémie capillaire", duree: "9 min",
     keywords: "glycemie capillaire glucometre lecteur bandelette autopiqueur diabete hypoglycemie hyperglycemie",
     resume: "Mesurer le taux de sucre dans une goutte de sang au bout du doigt, avec un lecteur de glycémie.",
@@ -3210,7 +3266,7 @@ function createStage(container) {
   // Lit et patient
   bx(world, 1.1, 0.3, 2.2, 0x9fb2bb, -2.5, 0.42, -2.4); bx(world, 1.0, 0.18, 2.0, 0xffffff, -2.5, 0.66, -2.4);
   bx(world, 1.02, 0.1, 1.2, 0x7fcfc6, -2.5, 0.78, -1.95); bx(world, 0.6, 0.12, 0.35, 0xf4f4f4, -2.5, 0.79, -3.15);
-  sp(world, 0.12, 0xe0ac84, -2.5, 0.93, -3.1); bx(world, 0.46, 0.1, 0.8, 0x7fcfc6, -2.5, 0.83, -2.7);
+  const oldHead = sp(world, 0.12, 0xe0ac84, -2.5, 0.93, -3.1); const oldBody = bx(world, 0.46, 0.1, 0.8, 0x7fcfc6, -2.5, 0.83, -2.7);
   bx(world, 1.1, 0.9, 0.06, 0xb7c4cb, -2.5, 0.95, -3.55); bx(world, 0.04, 0.35, 1.3, 0xcfd8dc, -1.96, 0.95, -2.3);
   bx(world, 0.8, 0.5, 0.08, 0x20282e, -2.5, 1.95, -3.95); qd(world, 0.7, 0.38, tEcg, -2.5, 1.95, -3.9);
   cy(world, 0.015, 0.015, 2.0, 0xcfd8dc, -1.35, 1.0, -2.0); cy(world, 0.2, 0.2, 0.03, 0x9aa7af, -1.35, 0.015, -2.0);
@@ -3291,7 +3347,8 @@ function createStage(container) {
     main: [[0, 1.55, 2.3], [0, 1.0, -0.4]], hands: [[0, 1.5, 1.75], [0, 1.0, -0.2]],
     table: [[0, 1.42, 1.25], [0, 0.95, -0.1]], enc: [[0.3, 1.55, 1.9], [0.9, 1.45, 0.2]],
     bin: [[0.8, 1.5, 1.8], [1.6, 0.8, -0.8]],
-    arm: [[-1.95, 1.45, -1.75], [-2.2, 0.86, -2.62]], bed: [[-0.9, 1.75, -0.3], [-2.4, 0.85, -2.6]]
+    arm: [[-1.95, 1.45, -1.75], [-2.2, 0.86, -2.62]], pat: [[-1.6, 1.9, -1.2], [-2.5, 0.85, -2.6]], chest: [[-1.8, 1.85, -2.2], [-2.5, 0.95, -2.75]],
+    machine: [[-1.0, 1.55, -1.5], [-1.5, 1.05, -2.5]], arm2: [[-1.7, 1.5, -2.3], [-2.24, 0.85, -2.91]], bed: [[-0.9, 1.75, -0.3], [-2.4, 0.85, -2.6]]
   };
   let camP = views.main[0].slice(), camL = views.main[1].slice(), camTP = camP.slice(), camTL = camL.slice();
   let moodT = "calm", talking = 0, shakeV = 0, rubbing = false, alive = true, last = 0, ecgT = 0;
@@ -3355,7 +3412,79 @@ function createStage(container) {
   acts.mainsPans = () => { const a = acts.removeJewelry(); at(a, () => acts.sanitize()); return a + 2900; };
   acts.donBoth = () => { acts.don1(); at(1400, () => acts.don2()); return 2800; };
   const baseReset = acts.reset;
-  acts.reset = () => { if (pansOn) pansWound(); return baseReset(); };
+  acts.reset = () => { if (pansOn) pansWound(); if (patOn) patReset(); return baseReset(); };
+
+  // ----- Patient réaliste (ECG, injection IM) : jeu complet, respiration, expressions -----
+  const SK = 0xe0ac84, GOWN = 0x9fd3ea, HAIR = 0x3a2a1e;
+  const pt = Ngrp(); attach(world, pt); place(pt, -2.5, 0.76, -3.18); pt.vis = false; pt.mood = "calm";
+  sp(pt, 0.105, SK, 0, 0.12, 0); sp(pt, 0.108, HAIR, 0, 0.115, -0.035, { scl: [1, 0.9, 1] });
+  sp(pt, 0.012, 0x1b1b1b, -0.04, 0.206, 0.045); sp(pt, 0.012, 0x1b1b1b, 0.04, 0.206, 0.045);
+  bx(pt, 0.016, 0.02, 0.03, SK, 0, 0.215, 0.07);
+  const pBL = bx(pt, 0.035, 0.006, 0.008, HAIR, -0.04, 0.217, 0.03), pBR = bx(pt, 0.035, 0.006, 0.008, HAIR, 0.04, 0.217, 0.03);
+  const pMouth = bx(pt, 0.04, 0.008, 0.008, 0x8a3b3b, 0, 0.185, 0.088);
+  cy(pt, 0.04, 0.045, 0.08, SK, 0, 0.06, 0.13, { rot: [PI / 2, 0, 0] });
+  const pSkin = bx(pt, 0.36, 0.2, 0.55, SK, 0, 0.1, 0.445);
+  const gown = bx(pt, 0.376, 0.208, 0.55, GOWN, 0, 0.102, 0.445);
+  bx(pt, 0.376, 0.178, 0.3, GOWN, 0, 0.09, 0.85);
+  [-1, 1].forEach(sd => {
+    cy(pt, 0.06, 0.05, 0.95, SK, sd * 0.1, 0.06, 1.22, { rot: [PI / 2, 0, 0] });
+    bx(pt, 0.09, 0.05, 0.2, SK, sd * 0.1, 0.04, 1.78);
+    cy(pt, 0.042, 0.036, 0.3, SK, sd * 0.26, 0.05, 0.36, { rot: [PI / 2, 0, 0] });
+    cy(pt, 0.036, 0.03, 0.28, SK, sd * 0.26, 0.045, 0.66, { rot: [PI / 2, 0, 0] });
+    sp(pt, 0.036, SK, sd * 0.26, 0.04, 0.85, { scl: [1, 0.6, 1.4] });
+  });
+  const sleeveR = cy(pt, 0.048, 0.048, 0.2, GOWN, -0.26, 0.05, 0.29, { rot: [PI / 2, 0, 0] });
+  const sleeveL = cy(pt, 0.048, 0.048, 0.2, GOWN, 0.26, 0.05, 0.29, { rot: [PI / 2, 0, 0] });
+  bx(pt, 0.72, 0.1, 0.35, 0x7fcfc6, 0, 0.1, 1.125);
+  // Électrodes (codes couleur IEC) : bras D rouge, bras G jaune, jambe G verte, jambe D noire ; V1 rouge, V2 jaune, V3 vert, V4 marron, V5 noir, V6 violet
+  const elec = (c, x, y, z) => { const e = cy(pt, 0.016, 0.016, 0.008, c, x, y, z); e.vis = false; return e; };
+  const limbEl = [elec(0xd9392b, -0.26, 0.092, 0.77), elec(0xf2c200, 0.26, 0.092, 0.77), elec(0x2fa04a, 0.1, 0.123, 1.55), elec(0x20282e, -0.1, 0.123, 1.55)];
+  const chestEl = [[0xd9392b, -0.03, 0.36], [0xf2c200, 0.03, 0.36], [0x2fa04a, 0.07, 0.4], [0x8b5a2b, 0.1, 0.44], [0x20282e, 0.14, 0.44], [0x7a4cc2, 0.17, 0.44]].map(([c, x, z]) => elec(c, x, 0.204, z));
+  // Site d'injection (deltoïde gauche) : antiseptique, compresse, seringue
+  const spot = cy(pt, 0.035, 0.035, 0.003, 0xd9a066, 0.26, 0.094, 0.27, { alpha: 0.7 }); spot.vis = false;
+  const gauze = bx(pt, 0.05, 0.012, 0.05, 0xffffff, 0.26, 0.098, 0.27); gauze.vis = false;
+  const syr = Ngrp(); attach(pt, syr); place(syr, 0.26, 0.28, 0.27); syr.vis = false;
+  cy(syr, 0.009, 0.009, 0.09, 0xeaf6ff, 0, 0.05, 0, { alpha: 0.9 }); cy(syr, 0.0075, 0.0075, 0.05, 0xfff3b0, 0, 0.035, 0);
+  cy(syr, 0.0016, 0.0016, 0.035, 0xcfd8dc, 0, -0.0175, 0); bx(syr, 0.012, 0.01, 0.012, 0x159c94, 0, 0, 0);
+  const plg = Ngrp(); attach(syr, plg); cy(plg, 0.003, 0.003, 0.07, 0xcfd8dc, 0, 0.125, 0); cy(plg, 0.012, 0.012, 0.003, 0xcfd8dc, 0, 0.162, 0);
+  // Électrocardiographe et tracé
+  const tStrip = canvasTex(256, 150, (c, w, h) => {
+    c.fillStyle = "#fff4f1"; c.fillRect(0, 0, w, h); c.strokeStyle = "#f2b8b0"; c.lineWidth = 1;
+    for (let x = 0; x < w; x += 8) { c.beginPath(); c.moveTo(x, 0); c.lineTo(x, h); c.stroke(); }
+    for (let y = 0; y < h; y += 8) { c.beginPath(); c.moveTo(0, y); c.lineTo(w, y); c.stroke(); }
+    c.strokeStyle = "#222"; c.lineWidth = 2;
+    [30, 75, 120].forEach(y0 => { c.beginPath(); for (let x = 0; x < w; x++) { const ph = (x % 64) / 64; let y = y0;
+      if (ph > 0.1 && ph < 0.2) y -= Math.sin((ph - 0.1) / 0.1 * Math.PI) * 5; else if (ph > 0.3 && ph < 0.33) y += 4; else if (ph >= 0.33 && ph < 0.38) y -= 22; else if (ph >= 0.38 && ph < 0.42) y += 8; else if (ph > 0.55 && ph < 0.72) y -= Math.sin((ph - 0.55) / 0.17 * Math.PI) * 8;
+      if (x) c.lineTo(x, y); else c.moveTo(x, y); } c.stroke(); });
+  });
+  const ecgG = Ngrp(); attach(world, ecgG); ecgG.vis = false;
+  cy(ecgG, 0.03, 0.03, 0.9, 0xaeb9bf, -1.5, 0.45, -2.6); cy(ecgG, 0.25, 0.25, 0.03, 0x9aa7af, -1.5, 0.015, -2.6);
+  bx(ecgG, 0.5, 0.12, 0.35, 0xdfe6ea, -1.5, 0.96, -2.6); bx(ecgG, 0.3, 0.02, 0.16, 0x20282e, -1.5, 1.03, -2.65);
+  const strip = qd(ecgG, 0.34, 0.2, tStrip, -1.5, 1.2, -2.45, { rot: [-0.5, 0, 0] }); strip.vis = false;
+  let patOn = false, curMode = "gants";
+  const patReset = () => {
+    limbEl.concat(chestEl).forEach(e => { e.vis = false; }); strip.vis = false; spot.vis = false; gauze.vis = false; syr.vis = false;
+    plg.pos[1] = 0; pt.mood = "calm"; if (curMode === "im") sleeveL.vis = true;
+  };
+  function setPat(on) { patOn = on; pt.vis = on; oldHead.vis = oldBody.vis = !on; gown.vis = true; sleeveL.vis = sleeveR.vis = true; patReset(); }
+  function setMode(m) { curMode = m; setPans(m === "pans"); setPat(m === "ecg" || m === "im"); ecgG.vis = m === "ecg"; }
+  function patFrame(t) {
+    const b = 1 + Math.sin(t * 1.6) * 0.025, pain = pt.mood === "pain";
+    pSkin.scl[1] = b; gown.scl[1] = b;
+    pBL.rot[1] += ((pain ? -0.5 : 0) - pBL.rot[1]) * 0.2; pBR.rot[1] += ((pain ? 0.5 : 0) - pBR.rot[1]) * 0.2;
+    pMouth.scl[0] += ((pain ? 1.5 : 1) - pMouth.scl[0]) * 0.2; pMouth.scl[1] += ((pain ? 2.2 : 1) - pMouth.scl[1]) * 0.2;
+  }
+  const syrTo = (y, ms) => at(ms, () => { syr.pos[1] = y; });
+  acts.ecgExpose = () => { REACH(); at(600, () => { gown.vis = false; }); at(1200, UP); return 1500; };
+  acts.ecgLimbs = () => { REACH(); limbEl.forEach((e, i) => at(300 + i * 300, () => { e.vis = true; })); at(1700, UP); return 1900; };
+  acts.ecgChest = () => { REACH(); chestEl.forEach((e, i) => at(300 + i * 250, () => { e.vis = true; })); at(2000, UP); return 2200; };
+  acts.ecgRecord = () => { UP(); at(900, () => { strip.vis = true; }); return 1500; };
+  acts.ecgRemove = () => { REACH(); at(500, () => { limbEl.concat(chestEl).forEach(e => { e.vis = false; }); strip.vis = false; }); at(1200, UP); return 1500; };
+  acts.imExpose = () => { REACH(); at(600, () => { sleeveL.vis = false; }); at(1200, UP); return 1500; };
+  acts.imWipe = () => { REACH(); rubbing = true; at(300, () => { spot.vis = true; }); at(1300, () => { rubbing = false; UP(); }); return 1600; };
+  acts.imStab = () => { UP(); syr.vis = true; syr.pos[1] = 0.28; syrTo(0.2, 300); syrTo(0.14, 600); syrTo(0.107, 800); at(850, () => { pt.mood = "pain"; }); return 1300; };
+  acts.imInject = () => { at(300, () => { plg.pos[1] = -0.015; }); at(800, () => { plg.pos[1] = -0.03; }); at(1300, () => { plg.pos[1] = -0.045; }); return 1900; };
+  acts.imWithdraw = () => { syrTo(0.2, 200); at(300, () => { syr.vis = false; gauze.vis = true; pt.mood = "calm"; }); return 900; };
 
   const mood = { calm: [0, 0], happy: [0.25, -0.5], impatient: [-0.22, 0], angry: [-0.5, 0] };
   const resize = () => {
@@ -3373,6 +3502,7 @@ function createStage(container) {
     [hR, hL].forEach(h => { lerp(h.n.pos, h.tp, k * 1.3); lerp(h.n.rot, h.tr, k * 1.3); });
     if (rubbing) { hR.n.pos[0] += Math.sin(t * 16) * 0.012; hL.n.pos[0] -= Math.sin(t * 16) * 0.012; hR.n.rot[2] = Math.sin(t * 16) * 0.2; hL.n.rot[2] = -Math.sin(t * 16) * 0.2; } else { hR.n.rot[2] *= 0.8; hL.n.rot[2] *= 0.8; }
     lerp(pack.pos, packT.p, k); lerp(pack.rot, packT.r, k); lerp(paper.scl, [1, 1, 1], k);
+    if (patOn) patFrame(t);
     enc.head.rot[0] = Math.sin(t * 1.3) * 0.04; stag.head.rot[0] = Math.sin(t * 1.1 + 1) * 0.04;
     const mm = mood[moodT] || mood.calm;
     enc.bL.rot[2] += (mm[0] * -1 - enc.bL.rot[2]) * 0.15; enc.bR.rot[2] += (mm[0] - enc.bR.rot[2]) * 0.15;
@@ -3393,7 +3523,7 @@ function createStage(container) {
   return {
     cam(name) { const v = views[name] || views.main; camTP = v[0].slice(); camTL = v[1].slice(); },
     act(name) { return (acts[name] || acts.none)(); },
-    mode(on) { setPans(on); }, mood(m) { moodT = m; }, talk(ms) { talking = ms; }, shake() { shakeV = 0.14; },
+    mode(m) { setMode(m); }, mood(m) { moodT = m; }, talk(ms) { talking = ms; }, shake() { shakeV = 0.14; },
     stop() { alive = false; timers.forEach(clearTimeout); cancelAnimationFrame(raf); const ext = gl.getExtension("WEBGL_lose_context"); if (ext) ext.loseContext(); if (canvas.parentNode) canvas.parentNode.removeChild(canvas); }
   };
 }
@@ -3615,6 +3745,15 @@ const SND = (() => {
       case "don1": case "don2": sfx.stretch(0.4); sfx.snap(0.75); break;
       case "adjust": sfx.rub(0, 1.0, 3200); break;
       case "mainsPans": sfx.jewel(0.5); sfx.pump(1.75); sfx.rub(2.1, 1.7); break;
+      case "ecgExpose": case "imExpose": sfx.crinkle(0.3, 0.6); break;
+      case "ecgLimbs": sfx.tap(0.3, 4); break;
+      case "ecgChest": sfx.tap(0.3, 6); break;
+      case "ecgRecord": sfx.rub(0.9, 2.4, 1800); sfx.snap(3.4); break;
+      case "ecgRemove": sfx.rip(0.5, 0.6); break;
+      case "imWipe": sfx.squish(0.3, 0.9); break;
+      case "imStab": sfx.snap(0.8); break;
+      case "imInject": sfx.squish(0.3, 1.6); break;
+      case "imWithdraw": sfx.snap(0.3); break;
       case "donBoth": sfx.stretch(0.4); sfx.snap(0.75); sfx.stretch(1.8); sfx.snap(2.15); break;
       case "peel": sfx.rip(0.2, 0.9); break;
       case "clean": sfx.squish(0.2, 0.8); sfx.squish(1.0, 0.8); break;
@@ -3736,10 +3875,100 @@ const PANS_TEXT = {
     verdict: p => p >= 90 ? "Mzyan bzzaf. Ghadi ndirou pansement 7a9i9i m3ak." : p >= 70 ? "Wakha, walakin khasek tkoun adwa f l'asepsie. 3awed 9ra la fiche." : p >= 50 ? "Ma kafich. Kant'dir l'infection l l jerha. 3awed 9ra w 3awed." : "Khatir 3la l mrid. N3awdou men lwl."
   }
 };
-const SIM_GANTS = { key: "sim_gants", title: "Enfilage des gants stériles", fiche: "gants", steps: SIM_STEPS, memo: SIM_MEMO, text: null,
+const SIM_GANTS = { mode: "gants", key: "sim_gants", title: "Enfilage des gants stériles", fiche: "gants", steps: SIM_STEPS, memo: SIM_MEMO, text: null,
   situation: "Mise en situation : un patient doit avoir un sondage vésical. Votre encadrant vous observe." };
-const SIM_PANS = { key: "sim_pans", title: "Pansement stérile", fiche: "pansement", steps: PANS_STEPS, memo: PANS_MEMO, text: PANS_TEXT,
+const SIM_PANS = { mode: "pans", key: "sim_pans", title: "Pansement stérile", fiche: "pansement", steps: PANS_STEPS, memo: PANS_MEMO, text: PANS_TEXT,
   situation: "Mise en situation : un patient a une plaie au bras à panser. Votre encadrant vous observe." };
+// ===== SIMULATIONS : ECG et INJECTION INTRAMUSCULAIRE =====
+const mkStep = (id, name, cam, act, hint, say, ok, good, w1, w2) => ({ id, name, cam, act, hint, say, ok,
+  opts: [{ t: good, ok: true }, ...[w1, w2].map(w => ({ t: w[0], err: w[1], critical: !!w[2] }))] });
+const verd = (a, b, c, d) => p => p >= 90 ? a : p >= 70 ? b : p >= 50 ? c : d;
+const ECG_STEPS = [
+  mkStep("materiel", "Préparation du matériel", "main", "inspect", "Vérifier l'appareil (branché, papier, câbles) et préparer électrodes neuves, compresses, drap",
+    "Tu prépares l'électrocardiographe. Que contrôles-tu ?", "Un matériel vérifié évite de quitter le patient pendant l'examen.",
+    "L'appareil (branché, papier, câbles), des électrodes neuves non périmées, compresses et drap", ["Je prends les électrodes du tiroir, même si le gel est sec", "Des électrodes au gel sec donnent un tracé parasité : on les remplace."], ["Je pars sans vérifier l'appareil, je verrai sur place", "Un appareil sans papier ou débranché fait perdre du temps pendant l'urgence."]),
+  mkStep("patient", "Identité et information", "pat", "none", "Vérifier l'identité, expliquer l'examen, demander de rester immobile et détendu",
+    "Tu entres dans la chambre. Que fais-tu en premier ?", "Un patient informé est détendu : le tracé est de meilleure qualité.",
+    "Je me présente, je vérifie l'identité, j'explique que l'examen est indolore et qu'il faut rester immobile", ["Je commence directement, il est déjà au lit", "On vérifie toujours l'identité : un ECG attribué au mauvais patient est dangereux."], ["Je ne lui dis rien pour ne pas l'angoisser", "L'anxiété et les mouvements parasitent le tracé : l'information rassure."]),
+  mkStep("mains", "Hygiène des mains", "table", "sanitize", "Friction hydro-alcoolique avant de toucher le patient",
+    "Avant de toucher le patient, tu fais quoi ?", "L'hygiène des mains protège le patient et le soignant.",
+    "Une friction hydro-alcoolique, mains sèches", ["Rien, je ne fais aucun geste invasif", "Même sans geste invasif, on touche le patient : l'hygiène des mains est obligatoire."], ["Je mets des gants à la place", "Les gants ne remplacent jamais l'hygiène des mains."]),
+  mkStep("installer", "Installation du patient", "pat", "ecgExpose", "Décubitus dorsal, thorax, poignets et chevilles dégagés, retirer les objets métalliques",
+    "Comment installes-tu le patient ?", "Détendu et bien installé, il bouge moins : moins d'artefacts.",
+    "Allongé sur le dos, thorax dégagé (pudeur préservée), bras le long du corps, objets métalliques et téléphone éloignés", ["Assis penché en avant, avec son pull", "Assis ou habillé, le tracé est parasité et les électrodes sont mal posées."], ["Allongé, avec sa montre et son téléphone sur la poitrine", "Les objets métalliques et téléphones créent des interférences sur le tracé."]),
+  mkStep("peau", "Préparation de la peau", "chest", "dab", "Peau propre et sèche, raser ou tondre si nécessaire, frotter légèrement",
+    "Il y a quelques poils et la peau est un peu grasse. Tu fais quoi ?", "Une peau propre et sèche améliore le contact des électrodes.",
+    "Je tonds ou rase la zone si besoin, je nettoie et je sèche en frottant légèrement", ["Je pose les électrodes directement, ça tiendra", "Poils et sébum empêchent le contact : tracé instable, électrodes qui se décollent."], ["Je mouille la peau avec de l'alcool et je pose tout de suite", "L'alcool doit sécher complètement : une peau humide empêche le contact."]),
+  mkStep("membres", "Électrodes des membres", "pat", "ecgLimbs", "Rouge poignet droit, jaune poignet gauche, vert cheville gauche, noir cheville droite",
+    "Tu poses les électrodes des membres. Où vont-elles ?", "Rouge, jaune, vert, noir : droite, gauche, cheville gauche, cheville droite.",
+    "Rouge : poignet droit, jaune : poignet gauche, vert : cheville gauche, noir : cheville droite", ["Rouge au poignet gauche, jaune au poignet droit", "Inverser les électrodes des bras donne un tracé inversé : fausse interprétation.", true], ["Je les place au hasard, l'appareil les reconnaîtra", "L'appareil ne corrige pas les erreurs de pose : chaque électrode a sa place.", true]),
+  mkStep("precordiales", "Électrodes précordiales", "chest", "ecgChest", "V1 4e EIC droit, V2 4e EIC gauche, V4 5e EIC médio-claviculaire, V3 entre V2 et V4, V5 et V6 à la hauteur de V4",
+    "Tu poses V1 à V6. Quelle est la bonne disposition ?", "Un repérage exact est indispensable pour comparer les tracés.",
+    "V1 : 4e espace intercostal droit, V2 : 4e gauche, V4 : 5e médio-claviculaire, V3 entre V2 et V4, V5 et V6 à la hauteur de V4", ["Les six alignées sur une même ligne horizontale", "V4, V5, V6 doivent être à la hauteur de V4 (5e espace), mais V1 et V2 sont plus haut.", true], ["V1 et V2 dans le 2e espace, V4 sous le sein", "Un mauvais repérage décale les tracés et peut faire manquer une anomalie.", true]),
+  mkStep("verif", "Vérification de l'appareil", "machine", "none", "Vérifier les câbles et la calibration : 25 mm/s et 10 mm/mV",
+    "Avant d'enregistrer, que vérifies-tu ?", "La calibration standard permet de comparer le tracé d'un ECG à l'autre.",
+    "Les câbles bien connectés et la calibration standard : 25 mm/s et 10 mm/mV", ["Je règle 50 mm/s et 20 mm/mV pour mieux voir", "Une vitesse ou une amplitude non standard fausse la lecture du tracé."], ["Je ne vérifie rien, l'appareil est prêt", "Une mauvaise connexion ou calibration est impossible à corriger après l'enregistrement."]),
+  mkStep("enregistrer", "Enregistrement", "machine", "ecgRecord", "Patient immobile, respiration calme, sans parler, refaire si le tracé est parasité",
+    "Tu lances l'enregistrement. Que demandes-tu au patient ?", "Un tracé propre commence par un patient immobile et silencieux.",
+    "De rester immobile, de respirer calmement et de ne pas parler pendant l'enregistrement", ["Il peut parler, ça le détend", "Parler et bouger créent des artefacts : le tracé devient ininterprétable."], ["Je n'explique rien et je regarde ailleurs", "On surveille la qualité du tracé et on refait l'ECG s'il est parasité."]),
+  mkStep("identifier", "Identification du tracé", "machine", "none", "Écrire nom, prénom, date, heure et symptômes sur le tracé, puis le transmettre",
+    "Le tracé est sorti. Que fais-tu ?", "Un tracé non identifié ne peut pas être exploité.",
+    "J'inscris nom, prénom, date et heure (et les symptômes) puis je le transmets au médecin", ["Je le donne sans rien inscrire, je m'en souviendrai", "Un tracé sans identification peut être attribué au mauvais patient."], ["Je l'identifierai plus tard, quand j'aurai le temps", "L'identification se fait immédiatement après l'enregistrement."]),
+  mkStep("fin", "Fin de l'examen", "pat", "ecgRemove", "Retirer les électrodes, nettoyer la peau, réinstaller, désinfecter les câbles, hygiène des mains, tracer",
+    "L'examen est terminé. Tu fais quoi ?", "Patient confortable, matériel désinfecté, soin tracé.",
+    "Je retire les électrodes, je nettoie la peau, j'installe le patient, je désinfecte les câbles, hygiène des mains, traçabilité", ["Je laisse les électrodes en place pour le prochain ECG", "Les électrodes se retirent et se jettent : elles ne se réutilisent pas."], ["Je range les câbles sans les désinfecter", "Les câbles se désinfectent entre deux patients."])
+];
+const IM_STEPS = [
+  mkStep("prescription", "Contrôle de la prescription", "main", "none", "Vérifier : bon patient, bon médicament, bonne dose, bonne voie, bon moment, allergies",
+    "Tu dois faire une injection. Que contrôles-tu en premier ?", "Les 5 B évitent les erreurs de médicament.",
+    "La prescription : bon patient, bon médicament, bonne dose, bonne voie, bon moment, et les allergies", ["Le nom du médicament seulement", "Dose, voie, horaire et allergies doivent aussi être vérifiés."], ["Je donne le médicament habituel du service", "Seule la prescription fait foi : on ne donne jamais par habitude."]),
+  mkStep("mains", "Hygiène des mains", "table", "mainsPans", "Retirer bijoux et montre, friction hydro-alcoolique",
+    "Avant de préparer le produit, tu fais quoi ?", "Mains propres, sans bijoux, avant toute préparation.",
+    "Je retire bijoux et montre, puis une friction hydro-alcoolique", ["Je prépare directement avec les mains propres à l'œil", "Des mains visiblement propres ne sont pas désinfectées : friction obligatoire."], ["Je fais seulement un essuyage rapide", "L'essuyage ne désinfecte pas : friction hydro-alcoolique."]),
+  mkStep("prepa", "Préparation du produit", "hands", "inspect", "Contrôler produit, prélever avec l'aiguille de prélèvement, purger, changer d'aiguille IM 21 à 23 G",
+    "Tu prépares le produit. Comment ?", "Aiguille de prélèvement pour aspirer, aiguille neuve pour piquer.",
+    "Je contrôle ampoule et date, j'aspire avec l'aiguille de prélèvement, je change d'aiguille IM (21 à 23 G) et je purge", ["Je pique avec la même aiguille de prélèvement", "Une aiguille émoussée par le prélèvement blesse davantage et peut contaminer le muscle.", true], ["J'aspire sans lire l'étiquette de l'ampoule", "Ne jamais utiliser un produit non vérifié : risque d'erreur grave.", true]),
+  mkStep("patient", "Information du patient", "pat", "none", "Informer, vérifier l'identité, demander allergies et anticoagulants, installer",
+    "Tu arrives auprès du patient. Que fais-tu ?", "Un patient informé et installé se crispe moins.",
+    "Je me présente, je vérifie l'identité, j'explique le soin, je demande les allergies et je l'installe", ["Je pique directement, c'est rapide", "L'information et l'identité sont toujours un préalable : le patient doit consentir."], ["Je ne dis rien pour qu'il ne s'inquiète pas", "Un patient surpris bouge au moment de la piqûre : risque d'accident."]),
+  mkStep("gants", "Gants", "table", "donBoth", "Gants à usage unique après friction hydro-alcoolique",
+    "Tu es prêt auprès du patient. Que portes-tu ?", "Les gants protègent du contact avec le sang.",
+    "Des gants à usage unique, après hygiène des mains", ["Aucun gant, je me suis lavé les mains", "Un risque de contact avec le sang existe : on porte des gants."], ["Des gants déjà utilisés pour un autre soin", "Des gants à usage unique ne se réutilisent jamais."]),
+  mkStep("site", "Choix du site", "arm2", "imExpose", "Deltoïde : 2 à 3 travers de doigt sous l'acromion, peau saine, volume maximal 1 à 2 mL",
+    "Tu injectes 1 mL dans le muscle. Où piques-tu ?", "Le deltoïde convient aux petits volumes (1 à 2 mL).",
+    "Au centre du deltoïde, à 2 ou 3 travers de doigt sous l'acromion, sur une peau saine", ["Au pli du coude", "Le pli du coude est une zone vasculaire, pas un site IM.", true], ["Sur une zone rouge et douloureuse, c'est plus proche de l'os", "Jamais sur une peau lésée, rouge ou inflammatoire : risque d'infection.", true]),
+  mkStep("desinfecter", "Désinfection du site", "arm2", "imWipe", "Antiseptique sur compresse stérile du centre vers l'extérieur, laisser sécher",
+    "Tu désinfectes la peau. Comment ?", "L'antiseptique agit en séchant : pas de précipitation.",
+    "Antiseptique sur compresse stérile, du centre vers l'extérieur, puis laisser sécher", ["Je mouille la peau et je pique tout de suite", "L'antiseptique doit sécher pour agir, et piquer sur une peau mouillée pique davantage."], ["Je repasse la même compresse plusieurs fois, d'un côté à l'autre", "Une compresse réutilisée rapporte les germes : mouvement centrifuge avec compresse neuve."]),
+  mkStep("piquer", "Piqûre", "arm2", "imStab", "Tendre la peau, piquer à 90° d'un geste rapide et franc",
+    "Tu piques. Comment fais-tu ?", "Un geste rapide et franc à 90° diminue la douleur et assure l'injection dans le muscle.",
+    "Je tends la peau, je pique à 90° d'un geste franc et rapide", ["Je pique à 45° lentement", "À 45°, le produit risque d'aller en sous-cutané et le geste lent est plus douloureux."], ["Je pique sans tendre la peau, très doucement", "Une peau non tendue et un geste hésitant augmentent la douleur."]),
+  mkStep("injecter", "Injection", "arm2", "imInject", "Aspirer légèrement si le protocole le prévoit, injecter lentement en surveillant le patient",
+    "L'aiguille est en place. Que fais-tu ?", "Une injection lente est mieux tolérée.",
+    "J'aspire légèrement (selon protocole) puis j'injecte lentement en observant le patient", ["J'injecte tout le produit rapidement pour finir vite", "Une injection rapide est douloureuse et abîme le muscle."], ["Je masse la zone pendant que j'injecte", "On n'effectue aucun geste parasite pendant l'injection : risque de mouvement."]),
+  mkStep("retirer", "Retrait de l'aiguille", "arm2", "imWithdraw", "Retirer d'un geste rapide, comprimer sans masser, ne jamais recapuchonner",
+    "L'injection est terminée. Que fais-tu ?", "On protège la peau, et on ne recapuchonne jamais l'aiguille.",
+    "Je retire l'aiguille d'un geste rapide, je comprime avec une compresse sèche sans masser, sans recapuchonner", ["Je remets le capuchon à deux mains", "Le recapuchonnage est la première cause de piqûre accidentelle : risque d'AES.", true], ["Je masse fortement la zone", "Masser fait diffuser le produit trop vite et peut provoquer un hématome."]),
+  mkStep("dechets", "Élimination et traçabilité", "bin", "remove", "Seringue et aiguille dans le collecteur, retirer les gants, hygiène des mains, tracer",
+    "Le soin est terminé. Que fais-tu ?", "Collecteur, mains propres, soin tracé.",
+    "Seringue et aiguille dans le collecteur, gants retirés, hygiène des mains, traçabilité du soin", ["L'aiguille dans le sac poubelle normal", "Les objets piquants vont dans le collecteur OPCT, jamais au sac normal.", true], ["Je pose la seringue sur le chariot et je la jetterai plus tard", "Une aiguille laissée en vrac expose à une piqûre accidentelle.", true])
+];
+const SIM_ECG = { key: "sim_ecg", mode: "ecg", restartId: "membres", title: "Électrocardiogramme (ECG)", fiche: "ecg", steps: ECG_STEPS, memo: ECG_STEPS.map(s => s.hint),
+  situation: "Mise en situation : M. Idrissi a des douleurs thoraciques. Réalisez un ECG 12 dérivations. Votre encadrant vous observe.",
+  text: { fr: { intro: "Bonjour. M. Idrissi se plaint de douleurs dans la poitrine. Tu réalises un ECG 12 dérivations et je te regarde faire. Montre-moi que tu sais.",
+      contam: "L'ECG est inexploitable : on reprend à la pose des électrodes.",
+      verdict: verd("Très bien. Je te laisse faire un vrai ECG avec moi.", "Correct, mais sois plus rigoureux sur le placement des électrodes.", "Insuffisant. Tes tracés auraient été faux. Reprends la fiche et recommence.", "Dangereux : un ECG faux peut passer à côté d'un infarctus. On recommence.") },
+    dj: { intro: "Salam. Had l mrid 3ndou wja3 f sder. Khassek tdir ECG b 12 dérivations, w ana ghadi nchoufek. Werrini bli kat3ref.",
+      contam: "L'ECG ma b9ach s7i7. N3awdou men 7ett dyal les électrodes.",
+      verdict: verd("Mzyan bzzaf. Ghadi ndirou ECG 7a9i9i m3ak.", "Wakha, walakin khasek tkoun adwa f blasset les électrodes.", "Ma kafich. Tracé dyalek ghadi ykoun ghalet. 3awed 9ra la fiche.", "Khatir 3la l mrid. ECG ghalet i9der ymchi f nefs dyal infarctus. N3awdou.") } } };
+const SIM_IM = { key: "sim_im", mode: "im", restartId: "prepa", title: "Injection intramusculaire", fiche: "im", steps: IM_STEPS, memo: IM_STEPS.map(s => s.hint),
+  situation: "Mise en situation : un patient doit recevoir une injection intramusculaire dans le deltoïde. Votre encadrant vous observe.",
+  text: { fr: { intro: "Bonjour. M. Idrissi doit avoir une injection intramusculaire. Tu prépares et tu injectes, je te regarde faire. Montre-moi que tu sais.",
+      contam: "Faute grave : on reprend à la préparation avec un nouveau matériel.",
+      verdict: verd("Très bien. Je te laisse faire une vraie injection avec moi.", "Correct, mais sois plus rigoureux sur l'asepsie et la sécurité.", "Insuffisant. Tu aurais mis le patient et toi en danger. Reprends la fiche.", "Dangereux pour le patient. On recommence depuis le début.") },
+    dj: { intro: "Salam. Had l mrid khasou injection f l 3ddal. Khassek t7ddr ou tdir l injection, w ana ghadi nchoufek. Werrini bli kat3ref.",
+      contam: "Ghalta khatira. N3awdou men t7dir b matériel jdid.",
+      verdict: verd("Mzyan bzzaf. Ghadi ndirou injection 7a9i9iya m3ak.", "Wakha, walakin khasek tkoun adwa f l'asepsie w sécurité.", "Ma kafich. Kant'khtar l mrid w nta. 3awed 9ra la fiche.", "Khatir 3la l mrid. N3awdou men lwl.") } } };
 let SIMX = SIM_GANTS;
 const simText = st => Object.assign({}, SIM_TEXT[st], SIMX.text ? SIMX.text[st] : {});
 let simStyle = "fr", sim = null, simSeq = 0;
@@ -3755,7 +3984,7 @@ function stopSim() {
 // ---------- Pages ----------
 function renderSimLanding() {
   stopSim();
-  const inner = byId("innerPage"), b = getBest("sim_gants"), bp = getBest("sim_pans");
+  const inner = byId("innerPage"), b = getBest("sim_gants"), bp = getBest("sim_pans"), be = getBest("sim_ecg"), bi = getBest("sim_im");
   inner.innerHTML = `
     <div class="page-heading">
       <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
@@ -3775,11 +4004,17 @@ function renderSimLanding() {
         <span class="list-main"><span class="list-title">Pansement stérile</span>
         <span class="list-sub">Salle de soins en 3D · 13 étapes · asepsie rigoureuse${bp !== null ? " · Meilleur score : " + bp + "%" : ""}</span></span>
         <span class="list-arrow">›</span></button>
+      <button class="list-row" type="button" id="simEcg"><span class="fiche-num">${ico("hospital")}</span><span class="list-main"><span class="list-title">Électrocardiogramme (ECG)</span>
+        <span class="list-sub">Patient réaliste · 11 étapes · 12 dérivations${be !== null ? " · Meilleur score : " + be + "%" : ""}</span></span><span class="list-arrow">›</span></button>
+      <button class="list-row" type="button" id="simIm"><span class="fiche-num">${ico("syringe")}</span><span class="list-main"><span class="list-title">Injection intramusculaire</span>
+        <span class="list-sub">Patient réaliste · 11 étapes · deltoïde${bi !== null ? " · Meilleur score : " + bi + "%" : ""}</span></span><span class="list-arrow">›</span></button>
     </div>
     <div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>`;
   addBackButton(inner);
   byId("simGants").addEventListener("click", () => { SIMX = SIM_GANTS; renderSimBrief(); });
   byId("simPans").addEventListener("click", () => { SIMX = SIM_PANS; renderSimBrief(); });
+  byId("simEcg").addEventListener("click", () => { SIMX = SIM_ECG; renderSimBrief(); });
+  byId("simIm").addEventListener("click", () => { SIMX = SIM_IM; renderSimBrief(); });
   window.scrollTo(0, 0);
 }
 
@@ -3843,10 +4078,10 @@ function startSim() {
     view.classList.add("no3d");
     stage = { cam() {}, act() { return 500; }, mode() {}, mood() {}, talk() {}, shake() {}, stop() {} };
   }
-  stage.mode(SIMX === SIM_PANS);
+  stage.mode(SIMX.mode);
   const stageAct = stage.act;
   stage.act = name => { SND.act(name); return stageAct.call(stage, name); };
-  sim = { alive: true, idx: 0, mistakes: [], penalty: 0, hints: 0, patience: 100, busy: false, t0: Date.now(), stage, style: simStyle, L: simText(simStyle), tw: null, n1: false, n2: false, hinted: false, restartIdx: SIMX.steps.findIndex(s => s.id === "ouvrir") };
+  sim = { alive: true, idx: 0, mistakes: [], penalty: 0, hints: 0, patience: 100, busy: false, t0: Date.now(), stage, style: simStyle, L: simText(simStyle), tw: null, n1: false, n2: false, hinted: false, restartIdx: SIMX.steps.findIndex(s => s.id === (SIMX.restartId || "ouvrir")) };
   byId("simQuit").addEventListener("click", () => { stopSim(); renderSimLanding(); });
   const sndPaint = () => { byId("simSnd").textContent = SND.isOn() ? "🔊 Son : activé" : "🔇 Son : coupé"; };
   sndPaint();
