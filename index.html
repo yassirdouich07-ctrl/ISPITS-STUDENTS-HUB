@@ -3419,12 +3419,214 @@ const SIM_TEXT = {
     verdict: p => p >= 90 ? "Mzyan bzzaf. Ghadi ndirou sondage 7a9i9i m3ak." : p >= 70 ? "Wakha, walakin khasek tkoun adwa. 3awed 9ra la fiche." : p >= 50 ? "Ma kafich. Ghadi twsskh l champ bzzaf mrat. 3awed 9ra w 3awed." : "Khatir 3la l mrid. N3awdou men lwl."
   }
 };
+// ===== SIMULATION : SONS (ambiance d'hôpital + voix de l'encadrant) =====
+// Darija écrit en arabe, uniquement pour la synthèse vocale (le texte affiché ne change pas).
+const SIM_AR = {
+  "Salam. Had l mrida khasha sondage. Khassek tlbes les gants stériles, w ana ghadi nchoufek. Werrini bli kat3ref.": "سلام. هاد المريضة خاصها سوندا. خاصك تلبس لقوانتي ستيريل، وأنا غادي نشوفك. وريني بلي كاتعرف.",
+  "Mzyan.": "مزيان.", "Hakka, kemmel.": "هاكا، كمّل.", "Safi, wakha.": "صافي، واخا.", "Hadchi mzyan, zid.": "هادشي مزيان، زيد.",
+  "La la la ! Fakker 9bel ma tdir !": "لا لا لا! فكّر قبل ما تدير!", "Ach 3lemouk f l'école ?!": "أش علموك فالمدرسة؟!",
+  "Ghadi twsskh kolchi b hadchi !": "غادي توسّخ كولشي بهادشي!", "Hadchi machi hakka !": "هادشي ماشي هاكا!",
+  "Yallah, ma 3ndnach l wa9t.": "يالاه، ما عندناش الوقت.", "L mrid kaytsenna, tsre3 chwiya.": "المريض كايتسنّا، تسرّع شوية.",
+  "Ana kanchoufek, rkez.": "أنا كانشوفك، ركّز.", "Ach kat'tsenna ?": "أش كاتسنّا؟",
+  "Les gants dyalek ma b9awch stériles. Zwj jdid, n3awdou men fte7 l'emballage.": "لقوانتي ديالك ما بقاوش ستيريل. زوج جديد، نعاودو من فتح الأمبلاج.",
+  "3awed.": "عاود.", "Nfekkrek f had l khtwa :": "نفكرك فهاد الخطوة:",
+  "Mzyan bzzaf. Ghadi ndirou sondage 7a9i9i m3ak.": "مزيان بزاف. غادي نديرو سوندا حقيقي معاك.",
+  "Wakha, walakin khasek tkoun adwa. 3awed 9ra la fiche.": "واخا، ولكن خاصك تكون أكثر دقة. عاود قرا لافيش.",
+  "Ma kafich. Ghadi twsskh l champ bzzaf mrat. 3awed 9ra w 3awed.": "ما كافيش. غادي توسّخ الحقل بزاف ديال المرات. عاود قرا وعاود.",
+  "Khatir 3la l mrid. N3awdou men lwl.": "خطير على المريض. نعاودو من الأول."
+};
+const SND = (() => {
+  const synth = window.speechSynthesis || null;
+  const AR_KEYS = Object.keys(SIM_AR);
+  let ctx = null, master = null, amb = null, far = null, noise = null;
+  let on = true, live = false, room = null, beatTimer = null, oddTimer = null;
+  let gen = 0, pending = 0, waiters = [], voices = [];
+  try { on = localStorage.getItem("ish_snd") !== "0"; } catch (e) { /* ignoré */ }
+  const loadVoices = () => { if (synth) voices = synth.getVoices() || []; };
+  if (synth) { loadVoices(); if (synth.addEventListener) synth.addEventListener("voiceschanged", loadVoices); }
+
+  function ensure() {
+    if (ctx) { if (ctx.state === "suspended") ctx.resume(); return ctx; }
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    ctx = new AC();
+    master = ctx.createGain(); master.gain.value = 0.9; master.connect(ctx.destination);
+    amb = ctx.createGain(); amb.gain.value = 1; amb.connect(master);
+    far = ctx.createBiquadFilter(); far.type = "lowpass"; far.frequency.value = 1700; far.connect(amb);
+    const len = ctx.sampleRate * 2, buf = ctx.createBuffer(1, len, ctx.sampleRate), d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+    noise = buf;
+    return ctx;
+  }
+  const T = () => ctx.currentTime;
+
+  function tone(freq, t0, dur, vol, type, dest, f2) {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = type || "sine"; o.frequency.setValueAtTime(freq, t0);
+    if (f2) o.frequency.exponentialRampToValueAtTime(f2, t0 + dur);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol, t0 + 0.008);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g); g.connect(dest || amb); o.start(t0); o.stop(t0 + dur + 0.05);
+  }
+  function hiss(t0, dur, vol, type, f, q, f2, dest) {
+    const s = ctx.createBufferSource(), flt = ctx.createBiquadFilter(), g = ctx.createGain();
+    const a = Math.min(0.02, dur / 3);
+    s.buffer = noise; s.loop = true;
+    flt.type = type; flt.frequency.setValueAtTime(f, t0); flt.Q.value = q || 1;
+    if (f2) flt.frequency.exponentialRampToValueAtTime(f2, t0 + dur);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol, t0 + a);
+    g.gain.setValueAtTime(vol, t0 + Math.max(dur - 0.04, a + 0.001));
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    s.connect(flt); flt.connect(g); g.connect(dest || master);
+    s.start(t0, Math.random()); s.stop(t0 + dur + 0.05);
+  }
+
+  // --- Effets sonores ---
+  const sfx = {
+    ok()   { const t = T(); tone(880, t, 0.35, 0.05, "sine", master); tone(1320, t + 0.07, 0.45, 0.035, "sine", master); },
+    bad()  { const t = T(); tone(170, t, 0.28, 0.07, "sawtooth", master); tone(130, t + 0.12, 0.3, 0.06, "sawtooth", master); },
+    alarm(){ const t = T(); for (let i = 0; i < 4; i++) tone(i % 2 ? 1240 : 980, t + i * 0.16, 0.13, 0.08, "square", master); },
+    snap(d){ const t = T() + (d || 0); hiss(t, 0.05, 0.22, "bandpass", 2200, 1.2); hiss(t + 0.03, 0.06, 0.1, "highpass", 4000, 0.7); },
+    stretch(d){ const t = T() + (d || 0); hiss(t, 0.45, 0.1, "bandpass", 500, 2, 1600); hiss(t + 0.05, 0.35, 0.05, "highpass", 3500, 0.7); },
+    crinkle(d, dur){ const t = T() + (d || 0), n = Math.round(dur * 28);
+      for (let i = 0; i < n; i++) hiss(t + Math.random() * dur, 0.02 + Math.random() * 0.03, 0.07 + Math.random() * 0.08, "highpass", 2500 + Math.random() * 3000, 0.8); },
+    rub(d, dur, f){ const t = T() + (d || 0), n = Math.round(dur * 14);
+      for (let i = 0; i < n; i++) hiss(t + i / 14, 0.06, 0.05 + Math.random() * 0.03, "bandpass", f || 2600, 0.9); },
+    pump(d){ const t = T() + (d || 0); tone(320, t, 0.03, 0.08, "square", master); hiss(t + 0.02, 0.14, 0.12, "bandpass", 1800, 0.8); },
+    thud(d){ const t = T() + (d || 0); hiss(t, 0.09, 0.3, "lowpass", 180, 0.7); tone(110, t, 0.14, 0.2, "sine", master, 60); },
+    lid(d){ const t = T() + (d || 0); sfx.thud(d); tone(1800, t, 0.03, 0.04, "square", master); },
+    jewel(d){ const t = T() + (d || 0); tone(3100, t, 0.12, 0.03, "sine", master); tone(2400, t + 0.09, 0.15, 0.03, "sine", master); },
+    fanfare(good){ const t = T(); (good ? [523, 659, 784, 1046] : [330, 262]).forEach((f, i) => tone(f, t + i * 0.13, 0.5, 0.05, "triangle", master)); }
+  };
+
+  // --- Ambiance : bruit de salle + bip du scope + sons lointains ---
+  function startAmbient() {
+    if (!on || !ctx || room) return;
+    const src = ctx.createBufferSource(), lp = ctx.createBiquadFilter(), g = ctx.createGain();
+    src.buffer = noise; src.loop = true; lp.type = "lowpass"; lp.frequency.value = 260; g.gain.value = 0.05;
+    src.connect(lp); lp.connect(g); g.connect(amb); src.start();
+    const hum = ctx.createOscillator(), hg = ctx.createGain();
+    hum.frequency.value = 50; hg.gain.value = 0.008; hum.connect(hg); hg.connect(amb); hum.start();
+    room = [src, hum];
+    beatTimer = setInterval(() => { if (live && on && ctx) tone(1000, T(), 0.11, 0.07, "sine", amb); }, 1333);
+    const odd = () => {
+      oddTimer = setTimeout(() => {
+        if (!live || !on || !ctx) return;
+        const t = T(), r = Math.random();
+        if (r < 0.4) { tone(659, t, 0.4, 0.05, "sine", far); tone(880, t + 0.2, 0.55, 0.05, "sine", far); }
+        else if (r < 0.75) { tone(2400, t, 0.07, 0.03, "square", far); tone(2400, t + 0.16, 0.07, 0.03, "square", far); }
+        else { tone(1568, t, 0.8, 0.035, "sine", far); }
+        odd();
+      }, 11000 + Math.random() * 13000);
+    };
+    odd();
+  }
+  function stopAmbient() {
+    clearInterval(beatTimer); clearTimeout(oddTimer); beatTimer = oddTimer = null;
+    if (room) { room.forEach(n => { try { n.stop(); } catch (e) { /* ignoré */ } }); room = null; }
+  }
+
+  // --- Voix de l'encadrant ---
+  const MOODS = { calm: { r: 0.97, p: 0.8 }, happy: { r: 1, p: 0.92 }, impatient: { r: 1.1, p: 0.82 }, angry: { r: 1.2, p: 0.72 } };
+  function pickVoice(l) {
+    const norm = v => (v.lang || "").toLowerCase().replace("_", "-");
+    const list = voices.filter(v => norm(v).startsWith(l));
+    if (!list.length) return null;
+    const rank = v => { const L = norm(v); let s = 0;
+      if (L === "ar-ma" || L === "fr-ma") s += 5; if (L === "fr-fr") s += 3;
+      if (/natural|neural|google|online/i.test(v.name)) s += 2;
+      if (/thomas|henri|paul|claude|antoine|nicolas|maged|hamed|naayf|male/i.test(v.name)) s += 1;
+      if (/hortense|julie|denise|eloise|amelie|audrey|marie|zira|salma|hoda|laila|mariam|female/i.test(v.name)) s -= 1;
+      return s; };
+    return list.sort((a, b) => rank(b) - rank(a))[0];
+  }
+  function segs(text, style) {
+    if (style !== "dj") return [{ t: text, l: "fr" }];
+    const out = []; let rest = text;
+    while (rest) {
+      let best = null, bi = 1e9;
+      for (const k of AR_KEYS) { const i = rest.indexOf(k); if (i >= 0 && (i < bi || (i === bi && k.length > best.length))) { best = k; bi = i; } }
+      if (!best) { out.push({ t: rest, l: "fr" }); break; }
+      if (bi > 0) out.push({ t: rest.slice(0, bi), l: "fr" });
+      out.push({ t: SIM_AR[best], alt: best, l: "ar" });
+      rest = rest.slice(bi + best.length);
+    }
+    return out.filter(s => s.t.trim());
+  }
+  const duck = d => { if (ctx && amb) amb.gain.setTargetAtTime(d ? 0.4 : 1, T(), 0.15); };
+  function flush() { const w = waiters; waiters = []; w.forEach(f => f()); }
+  function cancelVoice() {
+    gen++; pending = 0;
+    if (synth) { try { synth.cancel(); } catch (e) { /* ignoré */ } }
+    duck(false); flush();
+  }
+  function speak(text, style, mood) {
+    if (!on || !synth || !text) return;
+    cancelVoice();
+    const my = gen, m = MOODS[mood] || MOODS.calm, arV = pickVoice("ar"), frV = pickVoice("fr");
+    let started = false;
+    segs(text, style).forEach(p => {
+      let t = p.t, v = frV, lang = "fr-FR";
+      if (p.l === "ar") { if (arV) { v = arV; lang = arV.lang; } else t = p.alt; }
+      const u = new SpeechSynthesisUtterance(t);
+      u.lang = lang; if (v) u.voice = v; u.rate = m.r; u.pitch = m.p; u.volume = 1;
+      pending++;
+      u.onstart = () => { started = true; duck(true); };
+      const fin = () => { if (gen !== my) return; pending = Math.max(0, pending - 1); if (!pending) { duck(false); flush(); } };
+      u.onend = fin; u.onerror = fin;
+      synth.speak(u);
+    });
+    setTimeout(() => { if (gen === my && pending && !started) { pending = 0; flush(); } }, 1800);
+  }
+  function done(maxMs) {
+    if (!pending) return Promise.resolve();
+    return new Promise(res => { const to = setTimeout(res, maxMs || 9000); waiters.push(() => { clearTimeout(to); res(); }); });
+  }
+
+  // --- Actions du geste -> bruitages ---
+  function act(name) {
+    if (!on || !ensure()) return;
+    switch (name) {
+      case "removeJewelry": sfx.jewel(0.5); break;
+      case "sanitize": sfx.pump(0.45); sfx.rub(0.8, 1.7); break;
+      case "inspect": sfx.crinkle(0.15, 0.35); break;
+      case "placeTable": sfx.thud(0.6); break;
+      case "place_bed": case "place_trolley": sfx.thud(0.7); break;
+      case "open": sfx.crinkle(0.45, 1.0); break;
+      case "grab1": case "grab2": sfx.crinkle(0.25, 0.3); break;
+      case "don1": case "don2": sfx.stretch(0.4); sfx.snap(0.75); break;
+      case "adjust": sfx.rub(0, 1.0, 3200); break;
+      case "remove": sfx.snap(0.7); sfx.snap(1.4); sfx.lid(1.5); break;
+    }
+  }
+  const play = n => { if (on && ensure()) sfx[n](); };
+
+  return {
+    start() { live = true; if (on && ensure()) startAmbient(); },
+    stop() { live = false; stopAmbient(); cancelVoice(); },
+    toggle() {
+      on = !on;
+      try { localStorage.setItem("ish_snd", on ? "1" : "0"); } catch (e) { /* ignoré */ }
+      if (!on) { stopAmbient(); cancelVoice(); } else if (live && ensure()) startAmbient();
+      return on;
+    },
+    isOn: () => on,
+    speak, done, act,
+    ok: () => play("ok"), bad: () => play("bad"), alarm: () => play("alarm"),
+    fanfare: good => { if (on && ensure()) sfx.fanfare(good); }
+  };
+})();
+document.addEventListener("visibilitychange", () => { try { if (document.hidden) speechSynthesis.cancel(); } catch (e) { /* ignoré */ } });
+
 let simStyle = "fr", sim = null, simSeq = 0;
 const SIM_PEN = { normal: 8, critical: 15 };
 const byId = id => document.getElementById(id);
 const pick = a => a[Math.floor(Math.random() * a.length)];
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 function stopSim() {
+  SND.stop();
   if (sim) { sim.alive = false; clearInterval(sim.timer); clearInterval(sim.tw); try { sim.stage.stop(); } catch (e) { /* ignoré */ } sim = null; }
 }
 
@@ -3505,6 +3707,7 @@ function startSim() {
       <div class="sim-dialog"><div class="sim-who" id="simWho">Encadrant</div><div class="sim-say" id="simSay"></div></div>
     </div>
     <div class="sim-panel"><div class="sim-q" id="simQ">Que fais-tu ?</div><div id="simOpts"></div></div>
+    <button class="ghost-btn" type="button" id="simSnd"></button>
     <button class="ghost-btn" type="button" id="simQuit">Quitter la simulation</button>`;
   const view = byId("simView");
   let stage = null;
@@ -3513,13 +3716,20 @@ function startSim() {
     view.classList.add("no3d");
     stage = { cam() {}, act() { return 500; }, mood() {}, talk() {}, shake() {}, stop() {} };
   }
+  const stageAct = stage.act;
+  stage.act = name => { SND.act(name); return stageAct.call(stage, name); };
   sim = { alive: true, idx: 0, mistakes: [], penalty: 0, hints: 0, patience: 100, busy: false, t0: Date.now(), stage, style: simStyle, L: SIM_TEXT[simStyle], tw: null, n1: false, n2: false, hinted: false, restartIdx: SIM_STEPS.findIndex(s => s.id === "ouvrir") };
   byId("simQuit").addEventListener("click", () => { stopSim(); renderSimLanding(); });
+  const sndPaint = () => { byId("simSnd").textContent = SND.isOn() ? "🔊 Son : activé" : "🔇 Son : coupé"; };
+  sndPaint();
+  byId("simSnd").addEventListener("click", () => { SND.toggle(); sndPaint(); });
   byId("simHint").addEventListener("click", () => simHint(false));
   sim.timer = setInterval(simTick, 500);
+  SND.start();
   simSay("Encadrant", sim.L.intro, "calm");
   sim.busy = true;
-  setTimeout(() => { if (sim && sim.alive) { sim.busy = false; simShowStep(); } }, Math.min(sim.L.intro.length * 22, 3600) + 900);
+  const introSim = sim;
+  setTimeout(async () => { await SND.done(); if (sim === introSim && sim.alive) { sim.busy = false; simShowStep(); } }, Math.min(sim.L.intro.length * 22, 3600) + 900);
   window.scrollTo(0, 0);
 }
 
@@ -3531,6 +3741,7 @@ function simSay(who, text, mood) {
   let i = 0;
   if (who === "Encadrant") sim.stage.talk(Math.min(text.length * 22, 4200));
   if (mood) sim.stage.mood(mood);
+  if (who === "Encadrant") SND.speak(text, sim.style, mood);
   sim.tw = setInterval(() => { i += 2; sEl.textContent = text.slice(0, i); if (i >= text.length) clearInterval(sim.tw); }, 22);
 }
 const simFlash = () => { const f = byId("simFlash"); if (f) { f.classList.add("on"); setTimeout(() => f.classList.remove("on"), 450); } };
@@ -3553,10 +3764,12 @@ async function simChoose(i, btn) {
   sim.busy = true;
   if (o.ok) {
     btn.classList.add("right");
+    SND.ok();
     sim.patience = 100;
     simSay("Encadrant", pick(L.praise) + " " + st.ok, "happy");
     const d = sim.stage.act(st.act || "none");
     await sleep(Math.max(d, 1000) + 900);
+    await SND.done();
     if (sim !== my || !my.alive) return;
     sim.idx++;
     sim.busy = false;
@@ -3568,10 +3781,12 @@ async function simChoose(i, btn) {
   sim.mistakes.push({ n: sim.idx + 1, step: st.name, chose: o.t, err: o.err, right: st.opts.find(x => x.ok).t, critical: crit });
   sim.penalty += crit ? SIM_PEN.critical : SIM_PEN.normal;
   sim.stage.shake(); simFlash();
+  if (crit) SND.alarm(); else SND.bad();
   if (o.wrongAct) sim.stage.act(o.wrongAct);
   simSay("Encadrant", pick(L.scold) + (crit ? " " + L.contam : " " + L.retry), "angry");
   if (Math.random() < 0.6) setTimeout(() => { if (sim === my && my.alive && !byId("simWho").dataset.lock) { /* ambiance */ } }, 100);
   await sleep(crit ? 3400 : 2200);
+  await SND.done();
   if (sim !== my || !my.alive) return;
   if (o.wrongAct) sim.stage.act("inspect");
   if (crit) {
@@ -3643,6 +3858,8 @@ function simFinish() {
     <button class="ghost-btn" type="button" id="simFiche">Revoir la fiche technique</button>
     <button class="ghost-btn" type="button" id="simBack">Retour aux simulations</button>`;
   addBackButton(inner, "Retour aux simulations", renderSimLanding);
+  SND.fanfare(pct >= 70);
+  SND.speak(L.verdict(pct), s.style, pct >= 70 ? "happy" : "angry");
   byId("simRetry").addEventListener("click", renderSimBrief);
   byId("simFiche").addEventListener("click", () => { setActiveNav("Stages"); renderStages("gants"); });
   byId("simBack").addEventListener("click", renderSimLanding);
