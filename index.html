@@ -716,6 +716,28 @@ a.list-row{text-decoration:none}
   .ai-chat-body{padding:22px 15px;min-height:280px}
 }
 
+
+/* SIMULATION 3D */
+.sim-hud{display:flex;align-items:center;gap:12px;margin:0 0 10px;font-size:13px;font-weight:800;color:var(--navy)}
+.sim-pat{flex:1;min-width:70px;height:9px;border-radius:6px;background:#e3e8ee;overflow:hidden}
+.sim-pat span{display:block;height:100%;width:100%;background:#18a36b;transition:width .45s,background .45s}
+.sim-hintbtn{width:auto;height:36px;margin:0;padding:0 14px;font-size:12px}
+.sim-view{position:relative;width:100%;aspect-ratio:16/10;border-radius:16px;overflow:hidden;background:linear-gradient(#cfe3ee,#eaf2f6);box-shadow:var(--shadow);margin-bottom:12px}
+.sim-view.no3d:before{content:"Mode 3D indisponible sur cet appareil : la simulation continue en mode texte.";position:absolute;left:0;right:0;top:34%;text-align:center;padding:0 24px;font-size:13px;color:#4a5b6e;line-height:1.7}
+.sim-dialog{position:absolute;left:10px;right:10px;top:10px;background:rgba(14,39,64,.9);color:#fff;border-radius:12px;padding:10px 14px;min-height:66px}
+.sim-who{font-size:11px;font-weight:800;letter-spacing:1.2px;color:#6fe3d6;text-transform:uppercase;margin-bottom:3px}
+.sim-say{font-size:14px;line-height:1.55}
+.sim-flash{position:absolute;inset:0;background:#d9534f;opacity:0;pointer-events:none;transition:opacity .4s;z-index:2}
+.sim-flash.on{opacity:.38}
+.sim-panel{margin-bottom:12px}
+.sim-q{font-family:'Outfit',sans-serif;font-weight:700;font-size:15px;color:var(--navy);margin:0 0 10px}
+.opt.right{border-color:#18a36b;background:#e8f7ef;color:#18734d;font-weight:700}
+.opt.wrong{border-color:#d9534f;background:#fdeceb;color:#b3392f;opacity:.85}
+.sim-verdict{background:var(--navy);color:#fff;border-radius:14px;padding:14px 16px;margin:0 0 16px}
+.sim-soon{opacity:.55;cursor:default}
+.fiche-num .ico{width:20px;height:20px}
+@media(max-width:600px){.sim-view{aspect-ratio:4/3.6}.sim-say{font-size:13px}}
+
 /* ===== THÈME PRO ===== */
 :root{
   --navy:#0e2740;--navy2:#16395a;
@@ -821,10 +843,6 @@ body{font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
   .hero-banner{padding:24px 20px}
 }
 @media(max-width:480px){.stat-number{font-size:22px}}
-.field-hint{display:block;margin-top:6px;color:var(--muted);font-size:11px;line-height:1.5}
-.form-group select{width:100%;padding:13px 14px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--text);outline:none}
-.form-group input[readonly]{background:#f3f6f8;color:var(--teal-dark);font-weight:600}
-
 </style>
 </head>
 
@@ -930,50 +948,20 @@ body{font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
       </div>
 
       <form id="authForm">
-        <div class="form-group" id="nameGroup">
-          <label for="lastName">Nom</label>
-          <input id="lastName" type="text" placeholder="Votre nom" autocomplete="family-name" required>
+        <div class="form-group hidden" id="nameGroup">
+          <label for="fullName">Nom complet</label>
+          <input id="fullName" type="text" placeholder="Votre nom complet" autocomplete="name">
         </div>
 
-        <div class="form-group" id="firstNameGroup">
-          <label for="firstName">Prénom</label>
-          <input id="firstName" type="text" placeholder="Votre prénom" autocomplete="given-name" required>
-        </div>
-
-        <div class="form-group" id="emailGroup">
-          <label for="email" id="emailLabel">Adresse e-mail personnelle</label>
-          <input id="email" type="email" placeholder="exemple@gmail.com" autocomplete="email" required>
-          <small class="field-hint" id="emailHint">Utilisez une adresse e-mail personnelle valide. Un lien de confirmation vous sera envoyé.</small>
-        </div>
-
-        <div class="form-group hidden" id="academicGroup">
-          <label for="option">Option / Filière</label>
-          <select id="option" required>
-            <option value="">Choisissez votre option</option>
-            <option value="IP">IP</option><option value="ISM">ISM</option>
-            <option value="ISFSC">ISFSC</option><option value="IAR">IAR</option>
-            <option value="AS">AS</option><option value="TRX">TRX</option>
-            <option value="SEV">SEV</option><option value="INP">INP</option>
-          </select>
-          <label for="semester" style="margin-top:12px">Semestre</label>
-          <select id="semester" required>
-            <option value="">Choisissez votre semestre</option>
-            <option value="S1">S1</option><option value="S2">S2</option>
-            <option value="S3">S3</option><option value="S4">S4</option>
-            <option value="S5">S5</option><option value="S6">S6</option>
-          </select>
+        <div class="form-group">
+          <label for="email">Adresse e-mail</label>
+          <input id="email" type="email" placeholder="exemple@email.com" autocomplete="email" required>
         </div>
 
         <div class="form-group">
           <label for="password">Mot de passe</label>
           <input id="password" type="password" placeholder="Minimum 6 caractères"
                  minlength="6" autocomplete="current-password" required>
-        </div>
-
-        <div class="form-group hidden" id="confirmPasswordGroup">
-          <label for="confirmPassword">Confirmer le mot de passe</label>
-          <input id="confirmPassword" type="password" placeholder="Retapez votre mot de passe"
-                 minlength="6" autocomplete="new-password">
         </div>
 
         <div class="forgot-row" id="forgotRow">
@@ -1200,9 +1188,6 @@ const authMessage = document.getElementById("authMessage");
 const loginTab = document.getElementById("loginTab");
 const signupTab = document.getElementById("signupTab");
 const nameGroup = document.getElementById("nameGroup");
-const firstNameGroup = document.getElementById("firstNameGroup");
-const academicGroup = document.getElementById("academicGroup");
-const confirmPasswordGroup = document.getElementById("confirmPasswordGroup");
 const forgotRow = document.getElementById("forgotRow");
 const submitBtn = document.getElementById("submitBtn");
 
@@ -1240,19 +1225,6 @@ function setMode(mode) {
   loginTab.classList.toggle("active", !isSignup);
   signupTab.classList.toggle("active", isSignup);
   nameGroup.classList.toggle("hidden", !isSignup);
-  firstNameGroup.classList.toggle("hidden", !isSignup);
-  document.getElementById("lastName").required = isSignup;
-  document.getElementById("firstName").required = isSignup;
-  document.getElementById("emailLabel").textContent = isSignup ? "Adresse e-mail personnelle" : "Adresse e-mail";
-  document.getElementById("emailHint").textContent = isSignup
-    ? "Utilisez une adresse e-mail personnelle valide. Un lien de confirmation vous sera envoyé."
-    : "Saisissez l'adresse e-mail utilisée lors de votre inscription.";
-  document.getElementById("email").value = "";
-  academicGroup.classList.toggle("hidden", !isSignup);
-  confirmPasswordGroup.classList.toggle("hidden", !isSignup);
-  document.getElementById("confirmPassword").required = isSignup;
-  document.getElementById("option").required = isSignup;
-  document.getElementById("semester").required = isSignup;
   forgotRow.classList.toggle("hidden", isSignup);
 
   document.getElementById("formTitle").textContent =
@@ -1260,8 +1232,8 @@ function setMode(mode) {
 
   document.getElementById("formSubtitle").textContent =
     isSignup
-      ? "Saisissez vos informations, votre e-mail personnel, puis choisissez votre option et votre semestre."
-      : "Saisissez votre adresse e-mail et votre mot de passe.";
+      ? "Rejoignez votre communauté étudiante."
+      : "Connectez-vous à votre espace étudiant pour accéder à vos ressources.";
 
   submitBtn.textContent = isSignup ? "Créer mon compte →" : "Se connecter →";
   document.getElementById("password").autocomplete =
@@ -1318,6 +1290,7 @@ function setStats() {
 }
 
 function showAuth() {
+  stopSim();
   aiMessages = [];
   closeProfileMenu();
   closeModal();
@@ -1334,53 +1307,37 @@ authForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   clearMessage();
 
-  const lastName = document.getElementById("lastName").value.trim();
-  const firstName = document.getElementById("firstName").value.trim();
-  const email = document.getElementById("email").value.trim().toLowerCase();
+  const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
-  const confirmPassword = document.getElementById("confirmPassword").value;
-  const option = document.getElementById("option").value;
-  const semester = document.getElementById("semester").value;
-  const fullName = `${firstName} ${lastName}`.trim();
+  const fullName = document.getElementById("fullName").value.trim();
 
   submitBtn.disabled = true;
   submitBtn.textContent = "Chargement...";
 
   try {
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-      throw new Error("Veuillez saisir une adresse e-mail valide.");
     if (currentMode === "signup") {
-      if (!lastName || !firstName)
-        throw new Error("Veuillez saisir votre nom et votre prénom.");
-      if (!option || !semester) throw new Error("Veuillez choisir votre option et votre semestre.");
+      if (!fullName) throw new Error("Veuillez saisir votre nom complet.");
       if (password.length < 6) throw new Error("Le mot de passe doit contenir au moins 6 caractères.");
-      if (password !== confirmPassword) throw new Error("Les deux mots de passe ne correspondent pas.");
 
       const { data, error } = await db.auth.signUp({
         email,
         password,
         options: {
-          data: {
-            full_name: fullName,
-            first_name: firstName,
-            last_name: lastName,
-            filiere: option,
-            semestre: semester
-          }
+          data: { full_name: fullName },
+          emailRedirectTo: window.location.origin + window.location.pathname
         }
       });
 
       if (error) throw error;
+
       if (data.session && data.user) {
         showDashboard(data.user);
-        showToast("Votre compte étudiant a été créé avec succès.");
+        showToast("Votre compte a été créé avec succès.");
       } else {
         showMessage(
-          "Votre compte a été créé. Consultez votre boîte e-mail et cliquez sur le lien de confirmation envoyé par Supabase. Après confirmation, revenez ici pour vous connecter avec cette adresse e-mail et votre mot de passe.",
+          "Inscription réussie ! Consultez votre boîte e-mail pour confirmer votre compte.",
           "success"
         );
-        authForm.reset();
-        setMode("login");
       }
     } else {
       const { data, error } = await db.auth.signInWithPassword({ email, password });
@@ -1388,13 +1345,11 @@ authForm.addEventListener("submit", async (event) => {
       showDashboard(data.user);
     }
   } catch (error) {
-    let message = error.message || "Une erreur est survenue.";
-    if (/already registered|already been registered|user already/i.test(message))
-      message = "Un compte existe déjà avec cette adresse e-mail. Essayez de vous connecter ou utilisez une autre adresse.";
-    showMessage(message, "error");
+    showMessage(error.message || "Une erreur est survenue.", "error");
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = currentMode === "signup" ? "Créer mon compte →" : "Se connecter →";
+    submitBtn.textContent =
+      currentMode === "signup" ? "Créer mon compte →" : "Se connecter →";
   }
 });
 
@@ -1403,24 +1358,26 @@ authForm.addEventListener("submit", async (event) => {
 // =====================================
 document.getElementById("forgotBtn").addEventListener("click", async () => {
   clearMessage();
-  const email = document.getElementById("email").value.trim().toLowerCase();
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    showMessage("Saisissez d'abord votre adresse e-mail dans le champ prévu, puis réessayez.", "error");
+  const email = document.getElementById("email").value.trim();
+
+  if (!email) {
+    showMessage("Veuillez saisir votre adresse e-mail.", "info");
     document.getElementById("email").focus();
     return;
   }
-  const button = document.getElementById("forgotBtn");
-  button.disabled = true;
+
   try {
     const { error } = await db.auth.resetPasswordForEmail(email, {
-      redirectTo: window.location.origin
+      redirectTo: window.location.origin + window.location.pathname
     });
     if (error) throw error;
-    showMessage("Si cette adresse correspond à un compte, un e-mail de réinitialisation vient d'être envoyé. Vérifiez aussi vos courriers indésirables.", "success");
+
+    showMessage(
+      "Si cette adresse possède un compte, un e-mail de réinitialisation a été envoyé.",
+      "success"
+    );
   } catch (error) {
-    showMessage(error.message || "Impossible d'envoyer l'e-mail de réinitialisation.", "error");
-  } finally {
-    button.disabled = false;
+    showMessage(error.message || "Impossible d'envoyer l'e-mail.", "error");
   }
 });
 
@@ -1459,6 +1416,7 @@ const moduleIcons = {
 };
 
 function showHome() {
+  stopSim();
   document.getElementById("homePage").classList.remove("hidden");
   document.getElementById("innerPage").classList.add("hidden");
   setActiveNav("Accueil");
@@ -1472,6 +1430,7 @@ function setActiveNav(pageName) {
 }
 
 function openPage(pageName, arg) {
+  stopSim();
   setActiveNav(pageName);
   document.getElementById("sidebar").classList.remove("open");
 
@@ -1514,6 +1473,11 @@ function openPage(pageName, arg) {
     return;
   }
 
+  if (pageName === "TP Simulation") {
+    renderSimLanding();
+    return;
+  }
+
   inner.innerHTML = `
     <div class="page-heading">
       <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
@@ -1544,7 +1508,7 @@ function addBackButton(inner, label = "Retour au dashboard", handler = showHome)
 // =====================================
 // COURS / RÉSUMÉS : filières → semestres → modules → sous-modules → documents
 // =====================================
-const FILIERES = ["IP", "ISM", "ISFSC", "IAR", "AS", "TRX", "SEV", "INP"];
+const FILIERES = ["IP", "ISM", "ISFSC", "INP", "LABO", "TRX", "SF", "AS", "IAR"];
 const SEMESTRES = ["S1", "S2", "S3", "S4", "S5", "S6"];
 
 // Modules communs à IP, ISM, ISFSC, INP et IAR (S1). "subs" = sous-modules.
@@ -1574,7 +1538,7 @@ const SITE_PAGES = [
   { name: "Résumés", words: "resumes fiches revision syntheses" },
   { name: "Stages", words: "stage protocoles fiches techniques situations cliniques" },
   { name: "Emploi du temps", words: "planning emploi du temps horaires" },
-  { name: "TP Simulation", words: "tp simulation travaux pratiques gestes techniques soins" },
+  { name: "TP Simulation", words: "tp simulation travaux pratiques gestes techniques soins jeu 3d gants steriles encadrant" },
   { name: "Examens & QCM", words: "examens qcm evaluations" },
   { name: "Assistant IA", words: "assistant ia intelligence artificielle questions" },
   { name: "Assistance", words: "aide assistance conditions utilisation mode emploi" }
@@ -1652,10 +1616,6 @@ function bindModuleResults(container, list, getSection) {
 }
 
 function renderBrowser(section, filiere = null, semestre = null, module = null, sub = null) {
-  // Chaque étudiant arrive directement sur son option et son semestre enregistrés.
-  const academicProfile = currentUser?.user_metadata || {};
-  if (!filiere && academicProfile.filiere) filiere = academicProfile.filiere;
-  if (!semestre && academicProfile.semestre) semestre = academicProfile.semestre;
   const inner = document.getElementById("innerPage");
   const SEC = section.toUpperCase(), sec = section.toLowerCase();
   const TYPE = section === "Cours" ? "cours" : "resume";
@@ -1833,12 +1793,12 @@ function renderHelp() {
       <summary>Mode d'emploi</summary>
       <div class="help-body">
         <ol>
-          <li><strong>Compte :</strong> créez votre compte avec votre nom, votre prénom, votre adresse e-mail personnelle, votre option et votre semestre. Confirmez votre adresse en cliquant sur le lien reçu par e-mail. Utilisez ensuite cette même adresse et votre mot de passe pour vous connecter.</li>
+          <li><strong>Compte :</strong> créez votre compte avec votre adresse e-mail, puis connectez-vous. En cas d'oubli, utilisez « Mot de passe oublié ? » sur la page de connexion.</li>
           <li><strong>Cours :</strong> choisissez votre filière, puis le semestre, puis le module. Si le module contient des sous-modules, ouvrez celui qui vous intéresse pour voir ses cours.</li>
           <li><strong>Résumés :</strong> ils ont leur propre rubrique et fonctionnent de la même façon que les cours.</li>
           <li><strong>Recherche :</strong> utilisez la barre de recherche de l'accueil ou la rubrique « Recherche » pour trouver un cours, un résumé, un module ou une rubrique. Dans « Cours » et « Résumés », une barre de recherche est aussi disponible.</li>
           <li><strong>Assistant IA :</strong> posez vos questions sur vos cours ou demandez un QCM. Le bouton « Nouvelle discussion » efface la conversation.</li>
-          <li><strong>Profil :</strong> cliquez sur votre photo en haut à droite pour modifier votre photo, votre téléphone, votre option et votre semestre, changer votre mot de passe ou vous déconnecter.</li>
+          <li><strong>Profil :</strong> cliquez sur votre photo en haut à droite pour modifier votre profil (photo, téléphone, filière, semestre...), changer votre mot de passe ou vous déconnecter.</li>
           <li><strong>Navigation :</strong> sur téléphone, le bouton ☰ ouvre le menu. La flèche « Retour » en haut de chaque page vous ramène à l'étape précédente.</li>
         </ol>
       </div>
@@ -2098,14 +2058,14 @@ function figBrassard() {
     <rect x="72" y="54" width="64" height="62" rx="7" fill="#6f86d6" stroke="#3f55a8" stroke-width="1.5"/>
     ${LN(104, 54, 104, 32, "#3f55a8", 2)}<circle cx="104" cy="22" r="13" fill="#fff" stroke="#3f55a8" stroke-width="1.5"/>${LN(104, 22, 110, 15, "#d9534f", 1.5)}
     <circle cx="164" cy="86" r="6" fill="#6b7a8a"/>${LN(164, 86, 214, 36, "#6b7a8a", 1.5)}
-    ${T(104, 138, "Brassard : 2–3 cm au-dessus", "middle")}${T(104, 151, "du pli du coude", "middle")}${LN(104, 124, 104, 116)}
-    ${T(214, 136, "Pavillon du stéthoscope", "middle")}${T(214, 149, "sur l'artère brachiale", "middle")}${LN(214, 124, 168, 92)}
+    ${T(10, 138, "Brassard : 2–3 cm au-dessus", "start")}${T(10, 151, "du pli du coude", "start")}${LN(60, 126, 92, 116)}
+    ${T(292, 138, "Pavillon du stéthoscope", "end")}${T(292, 151, "sur l'artère brachiale", "end")}${LN(240, 126, 168, 92)}
     ${T(54, 20, "Manomètre", "middle", 10, "#6b7a8a")}`,
     "Position du brassard et du stéthoscope");
 }
 
 function figKorotkoff() {
-  return SVG("0 0 300 196", `
+  return SVG("0 0 360 196", `
     ${LN(40, 20, 40, 160, "#6b7a8a", 1.2)}${LN(40, 160, 284, 160, "#6b7a8a", 1.2)}
     <rect x="146" y="20" width="57" height="140" fill="rgba(21,156,148,.14)"/>
     ${LN(40, 90, 146, 90, "#159c94", 1, "4 3")}${LN(40, 125, 203, 125, "#159c94", 1, "4 3")}
@@ -2949,6 +2909,748 @@ function renderResult() {
 }
 // ===== STAGES : FIN =====
 
+// ===== SIMULATION : DEBUT =====
+// ---------- Mini moteur 3D (WebGL, sans bibliothèque) ----------
+const m4 = {
+  mul(a, b) {
+    const o = new Float32Array(16);
+    for (let c = 0; c < 4; c++) for (let r = 0; r < 4; r++) {
+      let s = 0;
+      for (let k = 0; k < 4; k++) s += a[k * 4 + r] * b[c * 4 + k];
+      o[c * 4 + r] = s;
+    }
+    return o;
+  },
+  persp(fov, asp, n, f) {
+    const t = 1 / Math.tan(fov / 2), nf = 1 / (n - f);
+    return new Float32Array([t / asp, 0, 0, 0, 0, t, 0, 0, 0, 0, (f + n) * nf, -1, 0, 0, 2 * f * n * nf, 0]);
+  },
+  look(e, c) {
+    let zx = e[0] - c[0], zy = e[1] - c[1], zz = e[2] - c[2];
+    let l = Math.hypot(zx, zy, zz) || 1; zx /= l; zy /= l; zz /= l;
+    let xx = zz, xy = 0, xz = -zx;           // cross(up=(0,1,0), z)
+    l = Math.hypot(xx, xy, xz) || 1; xx /= l; xy /= l; xz /= l;
+    const yx = zy * xz - zz * xy, yy = zz * xx - zx * xz, yz = zx * xy - zy * xx;
+    return new Float32Array([xx, yx, zx, 0, xy, yy, zy, 0, xz, yz, zz, 0,
+      -(xx * e[0] + xy * e[1] + xz * e[2]), -(yx * e[0] + yy * e[1] + yz * e[2]), -(zx * e[0] + zy * e[1] + zz * e[2]), 1]);
+  },
+  trs(p, r, s) {
+    const cx = Math.cos(r[0]), sx = Math.sin(r[0]), cy = Math.cos(r[1]), sy = Math.sin(r[1]), cz = Math.cos(r[2]), sz = Math.sin(r[2]);
+    const RX = new Float32Array([1, 0, 0, 0, 0, cx, sx, 0, 0, -sx, cx, 0, 0, 0, 0, 1]);
+    const RY = new Float32Array([cy, 0, -sy, 0, 0, 1, 0, 0, sy, 0, cy, 0, 0, 0, 0, 1]);
+    const RZ = new Float32Array([cz, sz, 0, 0, -sz, cz, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]);
+    const R = m4.mul(m4.mul(RY, RX), RZ);
+    for (let i = 0; i < 3; i++) { R[i] *= s[0]; R[4 + i] *= s[1]; R[8 + i] *= s[2]; R[12 + i] = p[i]; }
+    return R;
+  }
+};
+const ID4 = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]);
+
+// Géométries (position, normale, uv entrelacés)
+const GEO = {
+  box(w, h, d) {
+    const x = w / 2, y = h / 2, z = d / 2, v = [], idx = [];
+    const faces = [
+      [[1, 0, 0], [[x, -y, -z], [x, y, -z], [x, y, z], [x, -y, z]]],
+      [[-1, 0, 0], [[-x, -y, z], [-x, y, z], [-x, y, -z], [-x, -y, -z]]],
+      [[0, 1, 0], [[-x, y, z], [x, y, z], [x, y, -z], [-x, y, -z]]],
+      [[0, -1, 0], [[-x, -y, -z], [x, -y, -z], [x, -y, z], [-x, -y, z]]],
+      [[0, 0, 1], [[-x, -y, z], [x, -y, z], [x, y, z], [-x, y, z]]],
+      [[0, 0, -1], [[x, -y, -z], [-x, -y, -z], [-x, y, -z], [x, y, -z]]]
+    ];
+    const uv = [[0, 0], [1, 0], [1, 1], [0, 1]];
+    faces.forEach(([n, c], f) => {
+      c.forEach((p, i) => v.push(p[0], p[1], p[2], n[0], n[1], n[2], uv[i][0], uv[i][1]));
+      idx.push(f * 4, f * 4 + 1, f * 4 + 2, f * 4, f * 4 + 2, f * 4 + 3);
+    });
+    return { v: new Float32Array(v), i: new Uint16Array(idx) };
+  },
+  cyl(rt, rb, h, seg) {
+    const v = [], idx = [], slope = (rb - rt) / h;
+    for (let i = 0; i <= seg; i++) {
+      const a = i / seg * Math.PI * 2, c = Math.cos(a), s = Math.sin(a);
+      const nl = Math.hypot(1, slope);
+      v.push(rt * c, h / 2, rt * s, c / nl, slope / nl, s / nl, i / seg, 1);
+      v.push(rb * c, -h / 2, rb * s, c / nl, slope / nl, s / nl, i / seg, 0);
+    }
+    for (let i = 0; i < seg; i++) { const a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
+    [[1, rt, h / 2], [-1, rb, -h / 2]].forEach(([ny, r, y]) => {
+      const base = v.length / 8;
+      v.push(0, y, 0, 0, ny, 0, .5, .5);
+      for (let i = 0; i <= seg; i++) { const a = i / seg * Math.PI * 2; v.push(r * Math.cos(a), y, r * Math.sin(a), 0, ny, 0, .5, .5); }
+      for (let i = 0; i < seg; i++) idx.push(base, base + 1 + i, base + 2 + i);
+    });
+    return { v: new Float32Array(v), i: new Uint16Array(idx) };
+  },
+  sph(r, ws, hs) {
+    const v = [], idx = [];
+    for (let y = 0; y <= hs; y++) for (let x = 0; x <= ws; x++) {
+      const th = y / hs * Math.PI, ph = x / ws * Math.PI * 2;
+      const nx = Math.sin(th) * Math.cos(ph), ny = Math.cos(th), nz = Math.sin(th) * Math.sin(ph);
+      v.push(nx * r, ny * r, nz * r, nx, ny, nz, x / ws, y / hs);
+    }
+    for (let y = 0; y < hs; y++) for (let x = 0; x < ws; x++) {
+      const a = y * (ws + 1) + x, b = a + ws + 1;
+      idx.push(a, b, a + 1, b, b + 1, a + 1);
+    }
+    return { v: new Float32Array(v), i: new Uint16Array(idx) };
+  },
+  quad(w, h) {
+    const x = w / 2, y = h / 2;
+    return { v: new Float32Array([-x, -y, 0, 0, 0, 1, 0, 0, x, -y, 0, 0, 0, 1, 1, 0, x, y, 0, 0, 0, 1, 1, 1, -x, y, 0, 0, 0, 1, 0, 1]), i: new Uint16Array([0, 1, 2, 0, 2, 3]) };
+  }
+};
+const hexRGB = c => [(c >> 16 & 255) / 255, (c >> 8 & 255) / 255, (c & 255) / 255];
+
+function makeGL(canvas) {
+  const gl = canvas.getContext("webgl", { antialias: true });
+  if (!gl) return null;
+  const vs = `attribute vec3 aPos;attribute vec3 aNrm;attribute vec2 aUv;uniform mat4 uVP;uniform mat4 uM;
+    varying vec3 vN;varying vec3 vW;varying vec2 vUv;
+    void main(){vec4 w=uM*vec4(aPos,1.0);vW=w.xyz;vN=mat3(uM)*aNrm;vUv=aUv;gl_Position=uVP*w;}`;
+  const fs = `precision mediump float;varying vec3 vN;varying vec3 vW;varying vec2 vUv;
+    uniform vec3 uColor;uniform vec3 uL;uniform vec3 uCam;uniform vec3 uFogC;
+    uniform float uAlpha;uniform float uEmis;uniform float uUseTex;uniform float uFogN;uniform float uFogF;uniform sampler2D uTex;
+    void main(){
+      vec3 base=uUseTex>.5?texture2D(uTex,vUv).rgb:uColor;
+      vec3 n=normalize(vN);
+      if(dot(n,uCam-vW)<0.0)n=-n;
+      float d=max(dot(n,normalize(uL)),0.0);
+      float h=n.y*.5+.5;
+      vec3 amb=mix(vec3(.60,.64,.69),vec3(.98,.99,1.0),h);
+      vec3 col=mix(base*(amb*.76+vec3(d*.40)),base,uEmis);
+      float f=clamp((length(vW-uCam)-uFogN)/(uFogF-uFogN),0.0,1.0);
+      col=mix(col,uFogC,f);
+      gl_FragColor=vec4(col,uAlpha);}`;
+  const sh = (t, s) => { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(o)); return o; };
+  const pr = gl.createProgram();
+  gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(pr);
+  if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) throw new Error("link");
+  gl.useProgram(pr);
+  const U = {};
+  ["uVP", "uM", "uColor", "uL", "uCam", "uFogC", "uAlpha", "uEmis", "uUseTex", "uFogN", "uFogF", "uTex"].forEach(n => U[n] = gl.getUniformLocation(pr, n));
+  const A = { p: gl.getAttribLocation(pr, "aPos"), n: gl.getAttribLocation(pr, "aNrm"), t: gl.getAttribLocation(pr, "aUv") };
+  gl.enable(gl.DEPTH_TEST);
+  gl.disable(gl.CULL_FACE);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+  const cache = new Map();
+  const buf = (key, g) => {
+    if (!cache.has(key)) {
+      const vb = gl.createBuffer(), ib = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, vb); gl.bufferData(gl.ARRAY_BUFFER, g.v, gl.STATIC_DRAW);
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ib); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, g.i, gl.STATIC_DRAW);
+      cache.set(key, { vb, ib, n: g.i.length });
+    }
+    return cache.get(key);
+  };
+  const uploadTex = t => {
+    if (!t.gl) { t.gl = gl.createTexture(); t.dirty = true; }
+    if (t.dirty) {
+      gl.bindTexture(gl.TEXTURE_2D, t.gl);
+      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, t.canvas);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      t.dirty = false;
+    }
+  };
+  function drawNode(n, M) {
+    const b = buf(n.key, n.g);
+    gl.bindBuffer(gl.ARRAY_BUFFER, b.vb);
+    gl.enableVertexAttribArray(A.p); gl.vertexAttribPointer(A.p, 3, gl.FLOAT, false, 32, 0);
+    gl.enableVertexAttribArray(A.n); gl.vertexAttribPointer(A.n, 3, gl.FLOAT, false, 32, 12);
+    gl.enableVertexAttribArray(A.t); gl.vertexAttribPointer(A.t, 2, gl.FLOAT, false, 32, 24);
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, b.ib);
+    gl.uniformMatrix4fv(U.uM, false, M);
+    gl.uniform3fv(U.uColor, n.col);
+    gl.uniform1f(U.uAlpha, n.alpha);
+    gl.uniform1f(U.uEmis, n.emis);
+    if (n.tex) { uploadTex(n.tex); gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, n.tex.gl); gl.uniform1i(U.uTex, 0); gl.uniform1f(U.uUseTex, 1); }
+    else gl.uniform1f(U.uUseTex, 0);
+    gl.drawElements(gl.TRIANGLES, b.n, gl.UNSIGNED_SHORT, 0);
+  }
+  function collect(n, pM, out) {
+    if (!n.vis) return;
+    const M = m4.mul(pM, m4.trs(n.pos, n.rot, n.scl));
+    if (n.g) out.push([n, M]);
+    n.kids.forEach(k => collect(k, M, out));
+  }
+  function drawTree(root, VP, eye, fogN, fogF, light, bg) {
+    gl.uniformMatrix4fv(U.uVP, false, VP);
+    gl.uniform3fv(U.uCam, eye); gl.uniform3fv(U.uL, light); gl.uniform3fv(U.uFogC, bg);
+    gl.uniform1f(U.uFogN, fogN); gl.uniform1f(U.uFogF, fogF);
+    const list = []; collect(root, ID4, list);
+    gl.disable(gl.BLEND); gl.depthMask(true);
+    list.filter(([n]) => n.alpha >= 1).forEach(([n, M]) => drawNode(n, M));
+    gl.enable(gl.BLEND); gl.depthMask(false);
+    list.filter(([n]) => n.alpha < 1).forEach(([n, M]) => drawNode(n, M));
+    gl.depthMask(true); gl.disable(gl.BLEND);
+  }
+  return { gl, drawTree };
+}
+
+// Nœuds de scène
+const hexN = c => (typeof c === "number" ? hexRGB(c) : c);
+function nodeOf(key, g, color, o) {
+  return Object.assign({ key, g, col: hexN(color), pos: [0, 0, 0], rot: [0, 0, 0], scl: [1, 1, 1], kids: [], vis: true, alpha: 1, emis: 0, tex: null }, o || {});
+}
+const gcache = {};
+const getG = (key, make) => gcache[key] || (gcache[key] = make());
+const Nbox = (w, h, d, c, o) => nodeOf(`b${w},${h},${d}`, getG(`b${w},${h},${d}`, () => GEO.box(w, h, d)), c, o);
+const Ncyl = (rt, rb, h, c, o, seg = 14) => nodeOf(`c${rt},${rb},${h},${seg}`, getG(`c${rt},${rb},${h},${seg}`, () => GEO.cyl(rt, rb, h, seg)), c, o);
+const Nsph = (r, c, o) => nodeOf(`s${r}`, getG(`s${r}`, () => GEO.sph(r, 16, 12)), c, o);
+const Nquad = (w, h, c, o) => nodeOf(`q${w},${h}`, getG(`q${w},${h}`, () => GEO.quad(w, h)), c, o);
+const Ngrp = () => ({ g: null, kids: [], pos: [0, 0, 0], rot: [0, 0, 0], scl: [1, 1, 1], vis: true });
+const place = (n, x, y, z) => { n.pos = [x, y, z]; return n; };
+const attach = (p, n) => { p.kids.push(n); return n; };
+const canvasTex = (w, h, draw) => { const c = document.createElement("canvas"); c.width = w; c.height = h; const x = c.getContext("2d"); draw(x, w, h); return { canvas: c, gl: null, dirty: true }; };
+
+// ---------- Scène : salle de soins ----------
+function createStage(container) {
+  const canvas = document.createElement("canvas");
+  canvas.style.cssText = "width:100%;height:100%;display:block";
+  let R = null;
+  try { R = makeGL(canvas); } catch (e) { R = null; }
+  if (!R) return null;
+  container.insertBefore(canvas, container.firstChild);
+  const gl = R.gl;
+  const BG = [0.86, 0.91, 0.94];
+  const world = Ngrp(), hud = Ngrp();
+  const bx = (p, w, h, d, c, x, y, z, o) => attach(p, place(Nbox(w, h, d, c, o), x, y, z));
+  const cy = (p, rt, rb, h, c, x, y, z, o, seg) => attach(p, place(Ncyl(rt, rb, h, c, o, seg), x, y, z));
+  const sp = (p, r, c, x, y, z, o) => attach(p, place(Nsph(r, c, o), x, y, z));
+  const qd = (p, w, h, tex, x, y, z, o) => attach(p, place(Nquad(w, h, 0xffffff, Object.assign({ tex, emis: 1 }, o || {})), x, y, z));
+  const shade = (x, z, r) => cy(world, r, r, 0.004, 0x000000, x, 0.004, z, { alpha: 0.22 }, 20);
+  const PI = Math.PI;
+
+  // Textures
+  const tFloor = canvasTex(512, 430, (c, w, h) => { c.fillStyle = "#cfdbe1"; c.fillRect(0, 0, w, h); c.strokeStyle = "#b9c8d0"; c.lineWidth = 2; for (let i = 0; i <= 12; i++) { c.beginPath(); c.moveTo(i * w / 12, 0); c.lineTo(i * w / 12, h); c.stroke(); } for (let j = 0; j <= 10; j++) { c.beginPath(); c.moveTo(0, j * h / 10); c.lineTo(w, j * h / 10); c.stroke(); } });
+  const tSky = canvasTex(128, 128, (c, w, h) => { const g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, "#8fc7ee"); g.addColorStop(1, "#eaf6ff"); c.fillStyle = g; c.fillRect(0, 0, w, h); c.fillStyle = "rgba(255,255,255,.85)"; c.beginPath(); c.arc(40, 70, 18, 0, 7); c.arc(62, 66, 22, 0, 7); c.arc(86, 72, 16, 0, 7); c.fill(); });
+  const tClock = canvasTex(128, 128, (c, w, h) => { c.fillStyle = "#fff"; c.fillRect(0, 0, w, h); c.strokeStyle = "#26384b"; c.lineWidth = 6; c.beginPath(); c.arc(64, 64, 56, 0, 7); c.stroke(); c.lineWidth = 5; c.beginPath(); c.moveTo(64, 64); c.lineTo(64, 28); c.moveTo(64, 64); c.lineTo(92, 74); c.stroke(); c.strokeStyle = "#d9534f"; c.lineWidth = 2; c.beginPath(); c.moveTo(64, 64); c.lineTo(40, 100); c.stroke(); });
+  const tPoster = canvasTex(256, 340, (c, w, h) => { c.fillStyle = "#fff"; c.fillRect(0, 0, w, h); c.fillStyle = "#159c94"; c.fillRect(0, 0, w, 70); c.fillStyle = "#fff"; c.font = "bold 26px sans-serif"; c.textAlign = "center"; c.fillText("HYGIÈNE", w / 2, 32); c.fillText("DES MAINS", w / 2, 60); c.fillStyle = "#26384b"; c.font = "bold 20px sans-serif"; ["Friction", "hydro-alcoolique", "avant chaque soin"].forEach((t, i) => c.fillText(t, w / 2, 120 + i * 30)); c.fillStyle = "#e9f3fb"; c.beginPath(); c.arc(w / 2, 245, 52, 0, 7); c.fill(); c.fillStyle = "#159c94"; c.fillRect(w / 2 - 8, 215, 16, 60); c.fillRect(w / 2 - 30, 237, 60, 16); });
+  const tPack = canvasTex(256, 170, (c, w, h) => { c.fillStyle = "#f7fbff"; c.fillRect(0, 0, w, h); c.fillStyle = "#159c94"; c.fillRect(0, 0, w, 34); c.fillStyle = "#fff"; c.font = "bold 20px sans-serif"; c.textAlign = "center"; c.fillText("GANTS STÉRILES", w / 2, 25); c.fillStyle = "#26384b"; c.font = "bold 22px sans-serif"; c.fillText("Taille 7,5", w / 2, 78); c.font = "16px sans-serif"; c.fillText("Péremption : 03/2028", w / 2, 108); c.strokeStyle = "#159c94"; c.lineWidth = 3; c.strokeRect(70, 124, 116, 34); c.fillStyle = "#159c94"; c.font = "bold 18px sans-serif"; c.fillText("STERILE", w / 2, 148); });
+  const tEcg = canvasTex(256, 128, () => {});
+  const drawEcg = t => { const c = tEcg.canvas.getContext("2d"); c.fillStyle = "#04120d"; c.fillRect(0, 0, 256, 128); c.strokeStyle = "#2dff8f"; c.lineWidth = 3; c.beginPath(); for (let x = 0; x < 256; x++) { const ph = ((x + t * 60) % 80) / 80; let y = 70; if (ph > .45 && ph < .5) y = 70 - (ph - .45) / .05 * 40; else if (ph >= .5 && ph < .56) y = 30 + (ph - .5) / .06 * 60; else if (ph >= .56 && ph < .6) y = 90 - (ph - .56) / .04 * 20; else if (ph > .72 && ph < .82) y = 70 - Math.sin((ph - .72) / .1 * PI) * 10; if (x === 0) c.moveTo(x, y); else c.lineTo(x, y); } c.stroke(); c.fillStyle = "#2dff8f"; c.font = "bold 22px sans-serif"; c.fillText("78", 205, 26); tEcg.dirty = true; };
+  drawEcg(0);
+
+  // Salle
+  qd(world, 12, 10, tFloor, 0, 0.001, -1.5, { rot: [-PI / 2, 0, 0], emis: 0.55 });
+  bx(world, 12, 3.2, 0.1, 0xeaf2f2, 0, 1.6, -4.05);
+  bx(world, 0.1, 3.2, 10, 0xe2edee, -5.05, 1.6, -1.5);
+  bx(world, 0.1, 3.2, 10, 0xe2edee, 5.05, 1.6, -1.5);
+  bx(world, 12, 0.1, 10, 0xf4f7f9, 0, 3.25, -1.5, { emis: 0.6 });
+  [[-2, -1], [2, -1], [-2, 1.6], [2, 1.6]].forEach(([x, z]) => bx(world, 1.2, 0.04, 0.5, 0xffffff, x, 3.18, z, { emis: 1 }));
+  bx(world, 12, 0.9, 0.04, 0xbfe3df, 0, 0.45, -3.98);
+  bx(world, 12, 0.06, 0.06, 0xaab7bf, 0, 0.95, -3.94);
+  bx(world, 0.06, 1.5, 2.4, 0xffffff, -4.98, 1.8, -1.4);
+  qd(world, 2.2, 1.3, tSky, -4.94, 1.8, -1.4, { rot: [0, PI / 2, 0] });
+  qd(world, 0.5, 0.5, tClock, 1.0, 2.5, -3.97);
+  qd(world, 0.9, 1.2, tPoster, 3.7, 1.8, -3.97);
+  bx(world, 1.5, 1.1, 0.5, 0xcfd8dc, 3.3, 0.55, -3.7); bx(world, 1.4, 0.04, 0.45, 0x9aa7af, 3.3, 1.12, -3.7);
+
+  // Lit et patient
+  bx(world, 1.1, 0.3, 2.2, 0x9fb2bb, -2.5, 0.42, -2.4); bx(world, 1.0, 0.18, 2.0, 0xffffff, -2.5, 0.66, -2.4);
+  bx(world, 1.02, 0.1, 1.2, 0x7fcfc6, -2.5, 0.78, -1.95); bx(world, 0.6, 0.12, 0.35, 0xf4f4f4, -2.5, 0.79, -3.15);
+  sp(world, 0.12, 0xe0ac84, -2.5, 0.93, -3.1); bx(world, 0.46, 0.1, 0.8, 0x7fcfc6, -2.5, 0.83, -2.7);
+  bx(world, 1.1, 0.9, 0.06, 0xb7c4cb, -2.5, 0.95, -3.55); bx(world, 0.04, 0.35, 1.3, 0xcfd8dc, -1.96, 0.95, -2.3);
+  bx(world, 0.8, 0.5, 0.08, 0x20282e, -2.5, 1.95, -3.95); qd(world, 0.7, 0.38, tEcg, -2.5, 1.95, -3.9);
+  cy(world, 0.015, 0.015, 2.0, 0xcfd8dc, -1.35, 1.0, -2.0); cy(world, 0.2, 0.2, 0.03, 0x9aa7af, -1.35, 0.015, -2.0);
+  bx(world, 0.14, 0.24, 0.04, 0xcfeaf5, -1.35, 1.9, -2.0, { alpha: 0.85 });
+  shade(-2.5, -2.4, 1.3);
+
+  // Table de soin, chariot bas, conteneur
+  bx(world, 1.3, 0.04, 0.75, 0xdfe6ea, 0, 0.95, -0.1); bx(world, 1.2, 0.03, 0.65, 0xc4ced4, 0, 0.3, -0.1);
+  [[-0.6, -0.4], [0.6, -0.4], [-0.6, 0.2], [0.6, 0.2]].forEach(([x, z]) => cy(world, 0.022, 0.022, 0.95, 0xaeb9bf, x, 0.475, z));
+  shade(0, -0.1, 0.85);
+  const bottle = cy(world, 0.036, 0.036, 0.17, 0xffffff, 0.45, 1.055, -0.25); cy(world, 0.037, 0.037, 0.05, 0x159c94, 0.45, 1.05, -0.25);
+  const pump = bx(world, 0.05, 0.03, 0.025, 0xdfe6ea, 0.45, 1.165, -0.25);
+  bx(world, 0.7, 0.04, 0.45, 0xcfd8dc, -1.0, 0.48, 0.3); [[-0.3, 0.2], [0.3, 0.2], [-0.3, 0.4], [0.3, 0.4]].forEach(([x, z]) => cy(world, 0.02, 0.02, 0.46, 0x9aa7af, -1.0 + x, 0.23, z + 0.1)); shade(-1.0, 0.3, 0.5);
+  bx(world, 0.45, 0.6, 0.45, 0xf2c200, 1.9, 0.3, -1.1); const binLid = bx(world, 0.47, 0.05, 0.47, 0x2b2b2b, 1.9, 0.62, -1.1); shade(1.9, -1.1, 0.4);
+
+  // Emballage de gants
+  const pack = Ngrp(); attach(world, pack);
+  bx(pack, 0.30, 0.03, 0.20, 0xf7fbff, 0, 0, 0); bx(pack, 0.302, 0.032, 0.035, 0x159c94, 0, 0, -0.08);
+  qd(pack, 0.26, 0.16, tPack, 0, 0.0165, 0.01, { rot: [-PI / 2, 0, 0] });
+  const packT = { p: [-1.0, 0.52, 0.3], r: [0, 0, 0] }; pack.pos = packT.p.slice(); pack.rot = packT.r.slice();
+
+  // Papier intérieur et gants
+  const paper = Ngrp(); attach(world, paper); place(paper, 0, 0.975, -0.05); paper.vis = false;
+  bx(paper, 0.40, 0.004, 0.32, 0xe9f3fb, 0, 0, 0);
+  function glove(side) {
+    const g = Ngrp(), c = 0xa7d8f0;
+    bx(g, 0.07, 0.01, 0.08, c, 0, 0, 0);
+    [-0.024, -0.008, 0.008, 0.024].forEach((x, i) => { const l = [0.05, 0.062, 0.058, 0.046][i]; bx(g, 0.014, 0.009, l, c, x, 0, -0.04 - l / 2); });
+    bx(g, 0.016, 0.009, 0.045, c, side * 0.05, 0, -0.02, { rot: [0, side * 0.5, 0] });
+    bx(g, 0.078, 0.016, 0.03, 0x7fbfe3, 0, 0.004, 0.055);
+    return g;
+  }
+  const gloveR = attach(paper, place(glove(1), 0.09, 0.008, 0.02)), gloveL = attach(paper, place(glove(-1), -0.09, 0.008, 0.02));
+
+  // Mains (espace caméra)
+  function hand(side) {
+    const h = Ngrp(), skin = 0xe0ac84, parts = [];
+    const part = n => { parts.push(n); return n; };
+    attach(h, part(Nbox(0.08, 0.022, 0.09, skin)));
+    [-0.027, -0.009, 0.009, 0.027].forEach((x, i) => { const l = [0.052, 0.064, 0.06, 0.05][i]; attach(h, part(place(Ncyl(0.0088, 0.0078, l, skin, { rot: [PI / 2, 0, 0] }, 8), x, 0, -0.045 - l / 2))); });
+    attach(h, part(place(Ncyl(0.0095, 0.0085, 0.05, skin, { rot: [PI / 2, side * 0.6, 0] }, 8), side * 0.05, 0, -0.04)));
+    attach(h, part(place(Ncyl(0.034, 0.034, 0.16, skin, { rot: [PI / 2, 0, 0] }, 12), 0, 0, 0.12)));
+    attach(h, place(Ncyl(0.047, 0.05, 0.34, 0xffffff, { rot: [PI / 2, 0, 0] }, 12), 0, 0, 0.37));
+    const cuff = attach(h, place(Ncyl(0.043, 0.043, 0.03, 0x6db3dc, { rot: [PI / 2, 0, 0] }, 12), 0, 0, 0.065)); cuff.vis = false;
+    return { n: h, parts, cuff, tp: [side * 0.17, -0.27, -0.55], tr: [0.35, -side * 0.12, 0], gloved: false };
+  }
+  const hR = hand(1), hL = hand(-1); attach(hud, hR.n); attach(hud, hL.n);
+  hR.n.pos = hR.tp.slice(); hL.n.pos = hL.tp.slice(); hR.n.rot = hR.tr.slice(); hL.n.rot = hL.tr.slice();
+  const watch = attach(hL.n, place(Nbox(0.052, 0.014, 0.036, 0x20282e), 0, 0.03, 0.1)); attach(watch, place(Nbox(0.03, 0.002, 0.022, 0x9fe8ff, { emis: 1 }), 0, 0.008, 0));
+  const ring = attach(hL.n, place(Ncyl(0.0105, 0.0105, 0.008, 0xf2c200, { rot: [PI / 2, 0, 0] }, 10), 0.009, 0, -0.07));
+  const setGlove = (h, on) => { h.gloved = on; h.cuff.vis = on; h.parts.forEach(n => { n.col = hexRGB(on ? 0x8ecdf0 : 0xe0ac84); }); };
+
+  // Personnages
+  function person(o) {
+    const p = Ngrp(); attach(world, p);
+    cy(p, 0.075, 0.07, 0.86, o.pants, -0.1, 0.43, 0); cy(p, 0.075, 0.07, 0.86, o.pants, 0.1, 0.43, 0);
+    bx(p, 0.11, 0.06, 0.22, 0x2b2f33, -0.1, 0.03, 0.04); const foot = bx(p, 0.11, 0.06, 0.22, 0x2b2f33, 0.1, 0.03, 0.04);
+    cy(p, 0.2, 0.17, 0.64, o.coat, 0, 1.2, 0);
+    cy(p, 0.045, 0.04, 0.36, o.coat, -0.25, 1.32, 0.02); cy(p, 0.045, 0.04, 0.36, o.coat, 0.25, 1.32, 0.02);
+    bx(p, 0.44, 0.085, 0.09, o.coat, 0, 1.2, 0.2); sp(p, 0.04, o.skin, -0.2, 1.2, 0.25); sp(p, 0.04, o.skin, 0.2, 1.2, 0.25);
+    bx(p, 0.07, 0.035, 0.01, 0xffffff, 0.1, 1.38, 0.205);
+    cy(p, 0.045, 0.05, 0.08, o.skin, 0, 1.56, 0);
+    const head = attach(p, place(Ngrp(), 0, 1.67, 0));
+    sp(head, 0.115, o.skin, 0, 0, 0); sp(head, 0.12, o.hair, 0, 0.03, -0.02, { scl: [1, 0.75, 1] });
+    sp(head, 0.014, 0x1b1b1b, -0.042, 0.012, 0.106); sp(head, 0.014, 0x1b1b1b, 0.042, 0.012, 0.106);
+    const bL = bx(head, 0.05, 0.01, 0.012, o.hair, -0.042, 0.05, 0.108), bR = bx(head, 0.05, 0.01, 0.012, o.hair, 0.042, 0.05, 0.108);
+    const mouth = bx(head, 0.05, 0.012, 0.012, 0x8a3b3b, 0, -0.05, 0.108);
+    shade(0, 0, 0.35);
+    p.scl = [o.s, o.s, o.s]; place(p, o.x, 0, o.z); p.rot = [0, Math.atan2(0 - o.x, 2.3 - o.z), 0];
+    return { p, head, mouth, bL, bR, foot };
+  }
+  const enc = person({ x: 1.15, z: 0.15, s: 1, coat: 0xffffff, pants: 0x2f4a63, skin: 0xd9a47c, hair: 0x2b1d14 });
+  const stag = person({ x: -1.7, z: -1.0, s: 0.96, coat: 0x2aa198, pants: 0x2aa198, skin: 0xe8b894, hair: 0x4a2c1a });
+  bx(stag.p, 0.2, 0.28, 0.02, 0xf5f5f0, 0.16, 1.2, 0.26, { rot: [0.2, 0, 0.15] });
+
+  // Caméra
+  const views = {
+    main: [[0, 1.55, 2.3], [0, 1.0, -0.4]], hands: [[0, 1.5, 1.75], [0, 1.0, -0.2]],
+    table: [[0, 1.42, 1.25], [0, 0.95, -0.1]], enc: [[0.3, 1.55, 1.9], [0.9, 1.45, 0.2]],
+    bin: [[0.8, 1.5, 1.8], [1.6, 0.8, -0.8]]
+  };
+  let camP = views.main[0].slice(), camL = views.main[1].slice(), camTP = camP.slice(), camTL = camL.slice();
+  let moodT = "calm", talking = 0, shakeV = 0, rubbing = false, alive = true, last = 0, ecgT = 0;
+  const timers = [];
+  const at = (ms, fn) => timers.push(setTimeout(() => { if (alive) fn(); }, ms));
+  const lerp = (a, b, k) => { for (let i = 0; i < a.length; i++) a[i] += (b[i] - a[i]) * k; };
+  const hp = (h, p, r) => { h.tp = p; h.tr = r; };
+  const REST = () => { hp(hR, [0.17, -0.27, -0.55], [0.35, -0.12, 0]); hp(hL, [-0.17, -0.27, -0.55], [0.35, 0.12, 0]); };
+  const UP = () => { hp(hR, [0.1, -0.12, -0.52], [0.55, -0.1, 0]); hp(hL, [-0.1, -0.12, -0.52], [0.55, 0.1, 0]); };
+  const REACH = () => { hp(hR, [0.12, -0.2, -0.78], [0.6, 0, 0]); hp(hL, [-0.12, -0.2, -0.78], [0.6, 0, 0]); };
+  const packTo = (p, r) => { packT.p = p; packT.r = r; };
+  const TABLE = [0, 0.995, -0.05];
+
+  const acts = {
+    none: () => 300,
+    removeJewelry: () => { hp(hL, [-0.06, -0.14, -0.45], [0.8, 0.3, 0.1]); at(500, () => { watch.vis = false; ring.vis = false; }); at(1000, REST); return 1300; },
+    sanitize: () => { hp(hR, [0.12, -0.18, -0.8], [0.5, 0, 0]); at(450, () => { pump.pos[1] = 1.14; }); at(800, () => { pump.pos[1] = 1.165; hp(hR, [0.05, -0.12, -0.5], [0.5, 0, 0]); hp(hL, [-0.05, -0.12, -0.5], [0.5, 0, 0]); rubbing = true; }); at(2500, () => { rubbing = false; UP(); }); return 2900; },
+    inspect: () => { packTo([0, 1.2, 1.15], [-1.1, 0, 0]); REACH(); at(1200, UP); return 1400; },
+    placeTable: () => { packTo(TABLE, [0, 0, 0]); REACH(); at(900, UP); return 1300; },
+    place_bed: () => { packTo([-1.9, 0.8, -1.5], [0, 0.4, 0]); REACH(); return 1000; },
+    place_trolley: () => { packTo([-1.0, 0.52, 0.3], [0, 0, 0]); REACH(); return 1000; },
+    open: () => { REACH(); at(500, () => { pack.vis = false; paper.vis = true; paper.scl = [0.8, 1, 0.8]; }); at(900, () => { paper.scl = [1, 1, 1]; }); at(1500, UP); return 1800; },
+    grab1: () => { hp(hL, [0.05, -0.3, -0.8], [0.9, 0, 0]); return 900; },
+    don1: () => { hp(hR, [0.05, -0.3, -0.8], [0.9, 0, 0]); at(500, () => { gloveR.vis = false; setGlove(hR, true); }); at(900, () => { REST(); hp(hR, [0.12, -0.14, -0.55], [0.6, 0, 0]); }); return 1300; },
+    grab2: () => { hp(hR, [-0.05, -0.3, -0.8], [0.9, 0, 0]); return 900; },
+    don2: () => { hp(hL, [-0.05, -0.3, -0.8], [0.9, 0, 0]); at(500, () => { gloveL.vis = false; setGlove(hL, true); }); at(900, UP); return 1300; },
+    adjust: () => { hp(hR, [0.05, -0.14, -0.5], [0.6, 0.2, 0]); hp(hL, [-0.05, -0.14, -0.5], [0.6, -0.2, 0]); rubbing = true; at(1000, () => { rubbing = false; UP(); }); return 1300; },
+    holdUp: () => { UP(); return 700; },
+    remove: () => { hp(hR, [0.05, -0.15, -0.55], [0.6, 0, 0]); at(700, () => { setGlove(hL, false); hp(hL, [-0.05, -0.22, -0.55], [0.5, 0, 0]); }); at(1400, () => { setGlove(hR, false); REST(); binLid.pos[1] = 0.7; }); at(2000, () => { binLid.pos[1] = 0.62; }); return 2300; },
+    reset: () => { setGlove(hR, false); setGlove(hL, false); rubbing = false; gloveR.vis = true; gloveL.vis = true; paper.vis = false; pack.vis = true; packT.p = TABLE.slice(); packT.r = [0, 0, 0]; pack.pos = packT.p.slice(); pack.rot = [0, 0, 0]; REST(); return 600; }
+  };
+
+  const mood = { calm: [0, 0], happy: [0.25, -0.5], impatient: [-0.22, 0], angry: [-0.5, 0] };
+  const resize = () => {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2), w = Math.max(2, Math.round(container.clientWidth * dpr)), h = Math.max(2, Math.round(container.clientHeight * dpr));
+    if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+    return [w, h];
+  };
+  function frame(ts) {
+    if (!alive) return;
+    const dt = Math.min(0.05, (ts - last) / 1000 || 0.016); last = ts; const t = ts / 1000;
+    const k = 1 - Math.exp(-dt * 4.5);
+    lerp(camP, camTP, k); lerp(camL, camTL, k);
+    shakeV *= 0.9;
+    const eye = [camP[0] + (Math.random() - 0.5) * shakeV, camP[1] + Math.sin(t * 1.2) * 0.004 + (Math.random() - 0.5) * shakeV, camP[2]];
+    [hR, hL].forEach(h => { lerp(h.n.pos, h.tp, k * 1.3); lerp(h.n.rot, h.tr, k * 1.3); });
+    if (rubbing) { hR.n.pos[0] += Math.sin(t * 16) * 0.012; hL.n.pos[0] -= Math.sin(t * 16) * 0.012; hR.n.rot[2] = Math.sin(t * 16) * 0.2; hL.n.rot[2] = -Math.sin(t * 16) * 0.2; } else { hR.n.rot[2] *= 0.8; hL.n.rot[2] *= 0.8; }
+    lerp(pack.pos, packT.p, k); lerp(pack.rot, packT.r, k); lerp(paper.scl, [1, 1, 1], k);
+    enc.head.rot[0] = Math.sin(t * 1.3) * 0.04; stag.head.rot[0] = Math.sin(t * 1.1 + 1) * 0.04;
+    const mm = mood[moodT] || mood.calm;
+    enc.bL.rot[2] += (mm[0] * -1 - enc.bL.rot[2]) * 0.15; enc.bR.rot[2] += (mm[0] - enc.bR.rot[2]) * 0.15;
+    enc.bL.pos[1] = 0.05 + mm[1] * 0.01; enc.bR.pos[1] = 0.05 + mm[1] * 0.01;
+    if (talking > 0) { talking -= dt * 1000; enc.mouth.scl[1] = 0.7 + Math.abs(Math.sin(t * 18)) * 1.4; } else enc.mouth.scl[1] = 0.8;
+    enc.foot.rot[0] = (moodT === "impatient" || moodT === "angry") ? Math.abs(Math.sin(t * 8)) * 0.3 : 0;
+    ecgT += dt; if (ecgT > 0.09) { ecgT = 0; drawEcg(t); }
+    const [w, h] = resize(); gl.viewport(0, 0, w, h);
+    gl.clearColor(BG[0], BG[1], BG[2], 1); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    const asp = w / h, fov = (asp < 1.15 ? 72 : 58) * PI / 180;
+    const P = m4.persp(fov, asp, 0.05, 40);
+    R.drawTree(world, m4.mul(P, m4.look(eye, camL)), eye, 8, 17, [-0.4, 0.9, 0.5], BG);
+    gl.clear(gl.DEPTH_BUFFER_BIT);
+    R.drawTree(hud, P, [0, 0, 0], 60, 80, [-0.3, 0.8, 0.6], BG);
+    raf = requestAnimationFrame(frame);
+  }
+  let raf = requestAnimationFrame(frame);
+  return {
+    cam(name) { const v = views[name] || views.main; camTP = v[0].slice(); camTL = v[1].slice(); },
+    act(name) { return (acts[name] || acts.none)(); },
+    mood(m) { moodT = m; }, talk(ms) { talking = ms; }, shake() { shakeV = 0.14; },
+    stop() { alive = false; timers.forEach(clearTimeout); cancelAnimationFrame(raf); const ext = gl.getExtension("WEBGL_lose_context"); if (ext) ext.loseContext(); if (canvas.parentNode) canvas.parentNode.removeChild(canvas); }
+  };
+}
+
+// ---------- Contenu de la simulation ----------
+const SIM_MEMO = [
+  "Retirer les bijoux et la montre",
+  "Hygiène des mains : friction hydro-alcoolique, mains sèches",
+  "Contrôler l'emballage : taille, péremption, intégrité",
+  "Poser l'emballage sur une surface propre, sèche, à hauteur de taille",
+  "Ouvrir l'emballage et déplier le papier en ne touchant que les bords",
+  "Saisir le 1er gant par la face interne de la manchette repliée, à main nue",
+  "Enfiler la première main, manchette laissée repliée",
+  "Glisser les doigts gantés sous la manchette du 2e gant",
+  "Enfiler la seconde main sans toucher la peau",
+  "Ajuster en ne touchant que des surfaces gantées",
+  "Garder les mains au-dessus de la taille, devant soi, sans rien toucher de non stérile",
+  "Retirer les gants sans se contaminer, puis hygiène des mains"
+];
+const SIM_STEPS = [
+  { id: "bijoux", name: "Bijoux et montre", cam: "hands", act: "removeJewelry", hint: SIM_MEMO[0],
+    say: "Avant de commencer : ta montre et ta bague. Qu'est-ce que tu en fais ?", ok: "Les bijoux retiennent les germes.",
+    opts: [{ t: "Je les retire avant de commencer", ok: true },
+      { t: "Je les laisse : les gants vont les couvrir", err: "Bijoux et montre abritent des micro-organismes et peuvent perforer les gants. On les retire avant l'hygiène des mains." },
+      { t: "Je remonte ma manche au-dessus de la montre", err: "Une manche remontée ne supprime pas le risque. La montre et les bagues doivent être retirées." }] },
+  { id: "mains", name: "Hygiène des mains", cam: "table", act: "sanitize", hint: SIM_MEMO[1],
+    say: "Maintenant, tes mains. Comment tu fais ?", ok: "On laisse sécher complètement.",
+    opts: [{ t: "Friction hydro-alcoolique, puis j'attends que mes mains soient sèches", ok: true },
+      { t: "Un coup de lingette sur ma blouse, ça suffit", err: "Il faut une vraie hygiène des mains : friction hydro-alcoolique (ou lavage) jusqu'à séchage complet." },
+      { t: "Je mets les gants directement : ils me protègent", err: "Les gants ne remplacent jamais l'hygiène des mains : ils peuvent être micro-perforés ou contaminés à l'enfilage." }] },
+  { id: "verif", name: "Contrôle de l'emballage", cam: "hands", act: "inspect", hint: SIM_MEMO[2],
+    say: "Tu prends la boîte de gants. Qu'est-ce que tu contrôles avant de l'ouvrir ?", ok: "Un emballage abîmé ou périmé n'est plus garanti stérile.",
+    opts: [{ t: "La taille, la date de péremption et l'intégrité de l'emballage", ok: true },
+      { t: "Seulement la taille", err: "La péremption et l'intégrité de l'emballage sont indispensables : un emballage abîmé ou périmé n'est plus stérile." },
+      { t: "Rien : le service les a déjà contrôlés", err: "Chaque soignant contrôle lui-même le matériel stérile avant de l'utiliser." }] },
+  { id: "surface", name: "Surface de pose", cam: "main", act: "placeTable", hint: SIM_MEMO[3],
+    say: "Où tu poses l'emballage pour l'ouvrir ?", ok: "Surface propre, sèche, visible.",
+    opts: [{ t: "Sur la table de soin, propre, sèche, à hauteur de taille", ok: true },
+      { t: "Sur le lit du patient", wrongAct: "place_bed", err: "Le lit n'est pas une surface propre et sèche réservée au matériel : on risque de contaminer l'emballage." },
+      { t: "Sur le chariot bas, près du sol", wrongAct: "place_trolley", err: "Sous la taille, on ne voit plus ce qu'on touche et on ne peut pas garantir la stérilité." },
+      { t: "Je le garde dans ma main pendant que j'ouvre", err: "On a besoin d'une surface propre et sèche pour ouvrir l'emballage sans le contaminer." }] },
+  { id: "question", name: "Question de l'encadrant", cam: "enc", act: "none", hint: "Ce qui est sous la taille n'est plus visible : on ne peut pas garantir qu'il reste stérile.",
+    say: "Question : pourquoi on travaille à hauteur de taille, et pas plus bas ?", ok: "Exactement.",
+    opts: [{ t: "Ce qui est sous la taille n'est plus visible : on ne peut plus garantir sa stérilité", ok: true },
+      { t: "Pour gagner de la place sur la table", err: "La hauteur de travail sert à garder le matériel sous les yeux, pas à gagner de la place." },
+      { t: "C'est une simple habitude du service", err: "Ce n'est pas une habitude : c'est une règle d'asepsie. Ce qui est sous la taille n'est plus visible, donc plus garanti stérile." }] },
+  { id: "ouvrir", name: "Ouverture de l'emballage", cam: "table", act: "open", hint: SIM_MEMO[4],
+    say: "Tu ouvres l'emballage. Pour déplier le papier intérieur, tu fais comment ?", ok: "Le centre du champ reste stérile.",
+    opts: [{ t: "Je le saisis par les bords extérieurs, sans toucher le centre", ok: true },
+      { t: "Je pose la main au centre pour le maintenir", critical: true, err: "Le centre du papier est stérile : le toucher à main nue le contamine. Il faut une nouvelle paire." },
+      { t: "Je le déplie en soufflant dessus pour le lisser", critical: true, err: "Il ne faut ni souffler ni gesticuler au-dessus du champ stérile : les gouttelettes le contaminent." }] },
+  { id: "gant1", name: "Saisie du premier gant", cam: "table", act: "grab1", hint: SIM_MEMO[5],
+    say: "Premier gant. Tu le saisis comment ?", ok: "Seule la face interne de la manchette se touche à main nue.",
+    opts: [{ t: "Par la face interne de la manchette repliée, à main nue", ok: true },
+      { t: "Par les doigts du gant", critical: true, err: "Les doigts du gant sont stériles : les toucher à main nue les contamine." },
+      { t: "Par la face externe du gant, à main nue", critical: true, err: "La face externe doit rester stérile : on ne la touche pas à main nue." }] },
+  { id: "enfiler1", name: "Première main", cam: "table", act: "don1", hint: SIM_MEMO[6],
+    say: "Tu enfiles la première main. Comment ?", ok: "On ne touche pas l'extérieur.",
+    opts: [{ t: "Je glisse la main sans toucher l'extérieur, manchette laissée repliée", ok: true },
+      { t: "Je déplie la manchette tout de suite avec ma main nue", critical: true, err: "Déplier la manchette à main nue ramène la peau au contact de l'extérieur du gant : il est contaminé." },
+      { t: "J'ajuste les doigts avec ma main nue", critical: true, err: "Une main nue ne doit jamais toucher l'extérieur du gant : il n'est plus stérile." }] },
+  { id: "gant2", name: "Saisie du second gant", cam: "table", act: "grab2", hint: SIM_MEMO[7],
+    say: "Le second gant. Avec ta main gantée, tu fais quoi ?", ok: "Stérile touche stérile.",
+    opts: [{ t: "Je glisse les doigts gantés sous la manchette repliée (face externe)", ok: true },
+      { t: "Je le prends à main nue pour aller plus vite", critical: true, err: "À main nue, on contamine le second gant. Seule la main gantée peut le toucher, par l'extérieur." },
+      { t: "Je le saisis par l'intérieur de la manchette avec ma main gantée", critical: true, err: "La face interne de la manchette n'est pas stérile : la toucher avec un gant stérile le contamine." }] },
+  { id: "enfiler2", name: "Seconde main", cam: "table", act: "don2", hint: SIM_MEMO[8],
+    say: "Tu enfiles la seconde main. Attention.", ok: "Sans toucher la peau.",
+    opts: [{ t: "Je l'enfile en gardant la main gantée sous la manchette, sans toucher ma peau", ok: true },
+      { t: "Je touche mon avant-bras avec le gant pour tirer", critical: true, err: "Toucher la peau avec un gant stérile le contamine." },
+      { t: "Je descends les mains sous la table pour l'enfiler", critical: true, err: "Sous la taille, on ne voit plus et on ne garantit plus la stérilité." }] },
+  { id: "ajuster", name: "Ajustement", cam: "hands", act: "adjust", hint: SIM_MEMO[9],
+    say: "Tu ajustes les gants et tu déroules les manchettes. Comment ?", ok: "Stérile sur stérile uniquement.",
+    opts: [{ t: "Je ne touche que des surfaces gantées", ok: true },
+      { t: "J'ajuste avec ma main nue, juste un peu", critical: true, err: "Il n'y a plus de main nue : toucher le gant avec la peau le contamine." },
+      { t: "Je tire sur la manche de ma blouse", critical: true, err: "La blouse n'est pas stérile : on ne la touche pas avec les gants." }] },
+  { id: "dossier", name: "Le dossier du patient", cam: "enc", act: "holdUp", hint: "Mains stériles : on ne touche rien de non stérile.",
+    say: "Vite ! Passe-moi le dossier du patient, là !", ok: "Les mains stériles ne touchent rien d'autre.",
+    opts: [{ t: "Je réponds que mes mains sont stériles et que je le ferai après le soin", ok: true },
+      { t: "Je le prends avec mes mains gantées", critical: true, err: "Un dossier n'est pas stérile : le toucher contamine les gants." },
+      { t: "Je me retourne et je le prends du bout des doigts", critical: true, err: "Se retourner et toucher un objet non stérile contamine les gants, même du bout des doigts." }] },
+  { id: "position", name: "Position des mains", cam: "main", act: "holdUp", hint: SIM_MEMO[10],
+    say: "En attendant l'infirmière, tu gardes tes mains où ?", ok: "Visibles, devant toi.",
+    opts: [{ t: "Devant moi, au-dessus de la taille, bien visibles", ok: true },
+      { t: "Le long du corps", critical: true, err: "Le long du corps, les mains sont sous la taille et peuvent toucher la tenue : elles ne sont plus stériles." },
+      { t: "Dans mes poches", critical: true, err: "Les poches ne sont pas stériles : les gants sont contaminés." },
+      { t: "Croisées dans le dos", critical: true, err: "Dans le dos, on ne voit plus les mains : on ne peut plus garantir leur stérilité." }] },
+  { id: "retrait", name: "Retrait des gants", cam: "bin", act: "remove", hint: SIM_MEMO[11],
+    say: "Le soin est terminé. Tu retires les gants comment ?", ok: "Face contaminée à l'intérieur.",
+    opts: [{ t: "Je retourne le premier en le pinçant à l'extérieur, puis le second par-dessus, je jette et je me lave les mains", ok: true },
+      { t: "Je les arrache et je les laisse sur le chariot", err: "Les gants usagés se jettent dans le sac prévu, en les retournant pour garder la face contaminée à l'intérieur." },
+      { t: "Je les rince et je les garde pour le soin suivant", err: "Des gants à usage unique ne se réutilisent jamais." }] }
+];
+const SIM_TEXT = {
+  fr: {
+    intro: "Bonjour. Mme Alaoui doit avoir un sondage vésical. Tu mets des gants stériles et je te regarde faire. Montre-moi que tu sais.",
+    praise: ["Bien.", "C'est correct. Continue.", "Voilà. Tu vois, quand tu veux.", "Hmm. Pas mal."],
+    scold: ["Non ! Réfléchis avant d'agir.", "Qu'est-ce qu'on t'a appris ?!", "Tu vas contaminer tout le champ !", "Ce n'est pas du tout comme ça !"],
+    nudge: ["On n'a pas toute la journée.", "Le patient attend, dépêche-toi.", "Je te regarde, hein.", "Alors ? J'attends."],
+    contam: "Tes gants ne sont plus stériles. Nouvelle paire : on reprend à l'ouverture de l'emballage.",
+    retry: "Réessaie.", hint: "Je te rappelle l'étape :",
+    stagGood: ["Bien joué !", "Trop fort !"], stagBad: ["Aïe...", "Courage !"],
+    verdict: p => p >= 90 ? "Très bien. Je te laisse faire un vrai sondage avec moi." : p >= 70 ? "Correct, mais tu dois être plus rigoureux. Relis la fiche." : p >= 50 ? "Insuffisant. Tu aurais contaminé le champ plusieurs fois. Reprends la fiche et recommence." : "Dangereux pour le patient. On recommence depuis le début."
+  },
+  dj: {
+    intro: "Salam. Had l mrida khasha sondage. Khassek tlbes les gants stériles, w ana ghadi nchoufek. Werrini bli kat3ref.",
+    praise: ["Mzyan.", "Hakka, kemmel.", "Safi, wakha.", "Hadchi mzyan, zid."],
+    scold: ["La la la ! Fakker 9bel ma tdir !", "Ach 3lemouk f l'école ?!", "Ghadi twsskh kolchi b hadchi !", "Hadchi machi hakka !"],
+    nudge: ["Yallah, ma 3ndnach l wa9t.", "L mrid kaytsenna, tsre3 chwiya.", "Ana kanchoufek, rkez.", "Ach kat'tsenna ?"],
+    contam: "Les gants dyalek ma b9awch stériles. Zwj jdid, n3awdou men fte7 l'emballage.",
+    retry: "3awed.", hint: "Nfekkrek f had l khtwa :",
+    stagGood: ["Bravo 3lik !", "Zwin hadchi !"], stagBad: ["Ayyyy...", "Cho3ba, sbar !"],
+    verdict: p => p >= 90 ? "Mzyan bzzaf. Ghadi ndirou sondage 7a9i9i m3ak." : p >= 70 ? "Wakha, walakin khasek tkoun adwa. 3awed 9ra la fiche." : p >= 50 ? "Ma kafich. Ghadi twsskh l champ bzzaf mrat. 3awed 9ra w 3awed." : "Khatir 3la l mrid. N3awdou men lwl."
+  }
+};
+let simStyle = "fr", sim = null, simSeq = 0;
+const SIM_PEN = { normal: 8, critical: 15 };
+const byId = id => document.getElementById(id);
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+function stopSim() {
+  if (sim) { sim.alive = false; clearInterval(sim.timer); clearInterval(sim.tw); try { sim.stage.stop(); } catch (e) { /* ignoré */ } sim = null; }
+}
+
+// ---------- Pages ----------
+function renderSimLanding() {
+  stopSim();
+  const inner = byId("innerPage"), b = getBest("sim_gants");
+  inner.innerHTML = `
+    <div class="page-heading">
+      <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
+      <h1>TP Simulation</h1>
+      <p>Entraînez-vous aux gestes de soins en conditions proches du réel, avec votre encadrant.</p>
+    </div>
+    <h3 class="res-head">Simulations disponibles</h3>
+    <div class="list">
+      <button class="list-row" type="button" id="simGants">
+        <span class="fiche-num">${ico("syringe")}</span>
+        <span class="list-main"><span class="list-title">Enfilage des gants stériles</span>
+        <span class="list-sub">Salle de soins en 3D · 14 étapes · encadrant exigeant${b !== null ? " · Meilleur score : " + b + "%" : ""}</span></span>
+        <span class="list-arrow">›</span></button>
+      <div class="list-row sim-soon"><span class="fiche-num">${ico("hospital")}</span><span class="list-main"><span class="list-title">Sondage vésical</span><span class="list-sub">Bientôt disponible</span></span></div>
+      <div class="list-row sim-soon"><span class="fiche-num">${ico("hospital")}</span><span class="list-main"><span class="list-title">Pansement stérile</span><span class="list-sub">Bientôt disponible</span></span></div>
+    </div>
+    <div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>`;
+  addBackButton(inner);
+  byId("simGants").addEventListener("click", renderSimBrief);
+  window.scrollTo(0, 0);
+}
+
+function renderSimBrief() {
+  stopSim();
+  const inner = byId("innerPage");
+  inner.innerHTML = `
+    <div class="page-heading">
+      <div class="eyebrow">TP SIMULATION</div>
+      <h1>Enfilage des gants stériles</h1>
+      <p>Mise en situation : un patient doit avoir un sondage vésical. Votre encadrant vous observe.</p>
+    </div>
+    <details class="help-item" open>
+      <summary>Les étapes à suivre</summary>
+      <div class="help-body">${ol(SIM_MEMO)}${note("Lisez bien ces étapes : pendant la simulation, vous devrez choisir la bonne action à chaque étape, sans la liste devant les yeux.")}</div>
+    </details>
+    <details class="help-item" open>
+      <summary>Comment ça marche</summary>
+      <div class="help-body">${ul([
+        "Vous êtes dans la salle de soins. À chaque étape, choisissez la bonne action.",
+        "L'encadrant vous met la pression : sa <strong>patience</strong> baisse si vous hésitez trop.",
+        "Une faute grave (contamination) vous oblige à reprendre avec une nouvelle paire.",
+        "À la fin, vous voyez toutes vos erreurs et votre score."
+      ])}</div>
+    </details>
+    <div class="seg-label">Style de l'encadrant :</div>
+    <div class="seg" id="simStyleSeg">
+      <button type="button" class="seg-btn" data-st="fr">Français</button>
+      <button type="button" class="seg-btn" data-st="dj">Darija</button>
+    </div>
+    <button class="primary-btn" type="button" id="simStart">Commencer la simulation</button>
+    <div class="bottom-footer">ISPITS STUDENTS HUB · TP Simulation</div>`;
+  addBackButton(inner, "Retour aux simulations", renderSimLanding);
+  const paint = () => inner.querySelectorAll("[data-st]").forEach(b => b.classList.toggle("active", b.dataset.st === simStyle));
+  inner.querySelectorAll("[data-st]").forEach(b => b.addEventListener("click", () => { simStyle = b.dataset.st; paint(); }));
+  paint();
+  byId("simStart").addEventListener("click", startSim);
+  window.scrollTo(0, 0);
+}
+
+function startSim() {
+  stopSim();
+  const inner = byId("innerPage");
+  inner.innerHTML = `
+    <div class="sim-hud">
+      <span id="simStepLbl">Étape 1/${SIM_STEPS.length}</span><span id="simClock">00:00</span>
+      <div class="sim-pat" title="Patience de l'encadrant"><span id="simPat"></span></div>
+      <button class="ghost-btn sim-hintbtn" type="button" id="simHint">Indice</button>
+    </div>
+    <div class="sim-view" id="simView">
+      <div class="sim-flash" id="simFlash"></div>
+      <div class="sim-dialog"><div class="sim-who" id="simWho">Encadrant</div><div class="sim-say" id="simSay"></div></div>
+    </div>
+    <div class="sim-panel"><div class="sim-q" id="simQ">Que fais-tu ?</div><div id="simOpts"></div></div>
+    <button class="ghost-btn" type="button" id="simQuit">Quitter la simulation</button>`;
+  const view = byId("simView");
+  let stage = null;
+  try { stage = createStage(view); } catch (e) { stage = null; }
+  if (!stage) {
+    view.classList.add("no3d");
+    stage = { cam() {}, act() { return 500; }, mood() {}, talk() {}, shake() {}, stop() {} };
+  }
+  sim = { alive: true, idx: 0, mistakes: [], penalty: 0, hints: 0, patience: 100, busy: false, t0: Date.now(), stage, style: simStyle, L: SIM_TEXT[simStyle], tw: null, n1: false, n2: false, hinted: false, restartIdx: SIM_STEPS.findIndex(s => s.id === "ouvrir") };
+  byId("simQuit").addEventListener("click", () => { stopSim(); renderSimLanding(); });
+  byId("simHint").addEventListener("click", () => simHint(false));
+  sim.timer = setInterval(simTick, 500);
+  simSay("Encadrant", sim.L.intro, "calm");
+  sim.busy = true;
+  setTimeout(() => { if (sim && sim.alive) { sim.busy = false; simShowStep(); } }, Math.min(sim.L.intro.length * 22, 3600) + 900);
+  window.scrollTo(0, 0);
+}
+
+function simSay(who, text, mood) {
+  if (!sim) return;
+  const wEl = byId("simWho"), sEl = byId("simSay");
+  if (!wEl || !sEl) return;
+  wEl.textContent = who; sEl.textContent = ""; clearInterval(sim.tw);
+  let i = 0;
+  if (who === "Encadrant") sim.stage.talk(Math.min(text.length * 22, 4200));
+  if (mood) sim.stage.mood(mood);
+  sim.tw = setInterval(() => { i += 2; sEl.textContent = text.slice(0, i); if (i >= text.length) clearInterval(sim.tw); }, 22);
+}
+const simFlash = () => { const f = byId("simFlash"); if (f) { f.classList.add("on"); setTimeout(() => f.classList.remove("on"), 450); } };
+
+function simShowStep() {
+  if (!sim || !sim.alive) return;
+  const st = SIM_STEPS[sim.idx];
+  sim.n1 = sim.n2 = sim.hinted = false;
+  sim.stage.cam(st.cam);
+  byId("simStepLbl").textContent = `Étape ${sim.idx + 1}/${SIM_STEPS.length}`;
+  simSay("Encadrant", st.say, "calm");
+  const order = shuffle(st.opts.map((_, i) => i));
+  byId("simOpts").innerHTML = order.map(i => `<button class="opt" type="button" data-i="${i}">${esc(st.opts[i].t)}</button>`).join("");
+  byId("simOpts").querySelectorAll("[data-i]").forEach(b => b.addEventListener("click", () => simChoose(+b.dataset.i, b)));
+}
+
+async function simChoose(i, btn) {
+  if (!sim || !sim.alive || sim.busy) return;
+  const my = sim, st = SIM_STEPS[sim.idx], o = st.opts[i], L = sim.L;
+  sim.busy = true;
+  if (o.ok) {
+    btn.classList.add("right");
+    sim.patience = 100;
+    simSay("Encadrant", pick(L.praise) + " " + st.ok, "happy");
+    const d = sim.stage.act(st.act || "none");
+    await sleep(Math.max(d, 1000) + 900);
+    if (sim !== my || !my.alive) return;
+    sim.idx++;
+    sim.busy = false;
+    if (sim.idx >= SIM_STEPS.length) simFinish(); else simShowStep();
+    return;
+  }
+  btn.classList.add("wrong"); btn.disabled = true;
+  const crit = !!o.critical;
+  sim.mistakes.push({ n: sim.idx + 1, step: st.name, chose: o.t, err: o.err, right: st.opts.find(x => x.ok).t, critical: crit });
+  sim.penalty += crit ? SIM_PEN.critical : SIM_PEN.normal;
+  sim.stage.shake(); simFlash();
+  if (o.wrongAct) sim.stage.act(o.wrongAct);
+  simSay("Encadrant", pick(L.scold) + (crit ? " " + L.contam : " " + L.retry), "angry");
+  if (Math.random() < 0.6) setTimeout(() => { if (sim === my && my.alive && !byId("simWho").dataset.lock) { /* ambiance */ } }, 100);
+  await sleep(crit ? 3400 : 2200);
+  if (sim !== my || !my.alive) return;
+  if (o.wrongAct) sim.stage.act("inspect");
+  if (crit) {
+    sim.stage.act("reset");
+    sim.idx = sim.restartIdx;
+    sim.patience = 70;
+    await sleep(800);
+    if (sim !== my || !my.alive) return;
+    sim.busy = false; simShowStep();
+  } else {
+    sim.busy = false;
+    sim.stage.mood("impatient");
+  }
+}
+
+function simHint(auto) {
+  if (!sim || !sim.alive || sim.busy) return;
+  const st = SIM_STEPS[sim.idx];
+  if (!sim.hinted) { sim.hints++; sim.hinted = true; }
+  sim.patience = Math.max(sim.patience, 55);
+  simSay("Encadrant", sim.L.hint + " " + st.hint, "impatient");
+}
+
+function simTick() {
+  if (!sim || !sim.alive) return;
+  const s = Math.floor((Date.now() - sim.t0) / 1000);
+  const clock = byId("simClock"), pat = byId("simPat");
+  if (clock) clock.textContent = String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0");
+  if (!sim.busy) {
+    sim.patience -= 1.1;
+    if (sim.patience < 60 && !sim.n1) { sim.n1 = true; simSay("Encadrant", pick(sim.L.nudge), "impatient"); }
+    if (sim.patience < 30 && !sim.n2) { sim.n2 = true; simSay("Encadrant", pick(sim.L.nudge), "angry"); }
+    if (sim.patience <= 0) simHint(true);
+  }
+  if (pat) { const p = Math.max(0, sim.patience); pat.style.width = p + "%"; pat.style.background = p > 60 ? "#18a36b" : p > 30 ? "#e0a020" : "#d9534f"; }
+}
+
+function simFinish() {
+  const s = sim, L = s.L, secs = Math.floor((Date.now() - s.t0) / 1000);
+  const mistakes = s.mistakes, hints = s.hints;
+  const pct = Math.max(0, 100 - s.penalty);
+  stopSim();
+  setBest("sim_gants", pct);
+  const inner = byId("innerPage");
+  const color = pct >= 80 ? "#18a36b" : pct >= 50 ? "#e0a020" : "#d9534f";
+  const C = 2 * Math.PI * 52;
+  const mm = String(Math.floor(secs / 60)).padStart(2, "0") + ":" + String(secs % 60).padStart(2, "0");
+  inner.innerHTML = `
+    <div class="page-heading"><div class="eyebrow">TP SIMULATION · RÉSULTAT</div><h1>Votre évaluation</h1></div>
+    <div class="score-wrap">
+      <svg width="150" height="150" viewBox="0 0 130 130" role="img" aria-label="Score ${pct} pour cent">
+        <circle cx="65" cy="65" r="52" fill="none" stroke="#eef2f6" stroke-width="12"/>
+        <circle cx="65" cy="65" r="52" fill="none" stroke="${color}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${(pct / 100 * C).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 65 65)"/>
+        <text x="65" y="73" text-anchor="middle" font-size="26" font-weight="800" fill="${color}" font-family="Outfit,sans-serif">${pct}%</text>
+      </svg>
+      <div class="score-line">${mistakes.length} erreur${mistakes.length > 1 ? "s" : ""} · ${hints} indice${hints > 1 ? "s" : ""} · ${mm}</div>
+    </div>
+    <div class="sim-verdict"><div class="sim-who">Encadrant</div><div class="sim-say">${esc(L.verdict(pct))}</div></div>
+    ${mistakes.length
+      ? `<h3 class="res-head">Vos erreurs (${mistakes.length})</h3>` + mistakes.map(m => `
+        <div class="err-card">
+          <div class="err-q">Étape ${m.n} : ${esc(m.step)}${m.critical ? " · faute grave (contamination)" : ""}</div>
+          <div class="err-a bad">Votre choix : ${esc(m.chose)}</div>
+          <div class="err-a good">Bonne action : ${esc(m.right)}</div>
+          <div class="err-e">${esc(m.err)}</div>
+        </div>`).join("")
+      : note("Aucune erreur. Geste parfaitement maîtrisé !")}
+    <button class="primary-btn" type="button" id="simRetry">Rejouer la simulation</button>
+    <button class="ghost-btn" type="button" id="simFiche">Revoir la fiche technique</button>
+    <button class="ghost-btn" type="button" id="simBack">Retour aux simulations</button>`;
+  addBackButton(inner, "Retour aux simulations", renderSimLanding);
+  byId("simRetry").addEventListener("click", renderSimBrief);
+  byId("simFiche").addEventListener("click", () => { setActiveNav("Stages"); renderStages("gants"); });
+  byId("simBack").addEventListener("click", renderSimLanding);
+  window.scrollTo(0, 0);
+}
+// ===== SIMULATION : FIN =====
+
+
 // Barre de recherche de l'accueil
 document.getElementById("homeSearchForm").addEventListener("submit", e => {
   e.preventDefault();
@@ -3009,7 +3711,14 @@ async function aiSend(text) {
     aiMessages.push({ role: "assistant", content: data.reply || "…" });
   } catch (err) {
     console.error("AI error:", err);
-    aiMessages.push({ role: "assistant", error: true, content: "⚠️ Désolé, une erreur est survenue. Réessayez dans un instant." });
+    let detail = "";
+    try {
+      if (err && err.context && typeof err.context.json === "function") {
+        const b = await err.context.json();
+        if (b && b.error) detail = String(b.error).slice(0, 180);
+      } else if (err && err.message) { detail = String(err.message).slice(0, 180); }
+    } catch (e) { /* ignoré */ }
+    aiMessages.push({ role: "assistant", error: true, content: "⚠️ Désolé, une erreur est survenue. Réessayez dans un instant." + (detail ? "\n(" + detail + ")" : "") });
   }
   aiBusy = false;
   aiRender();
@@ -3197,7 +3906,8 @@ function openProfileModal() {
     { label: "Nom complet", name: "fullName", type: "text", attrs: "required" },
     { label: "Nom d'utilisateur", name: "username", type: "text", attrs: 'placeholder="ex : yassir_07" maxlength="20" autocomplete="username"' },
     { label: "Numéro de téléphone", name: "phone", type: "tel", attrs: 'placeholder="06 00 00 00 00" autocomplete="tel"' },
-    { label: "Option / Filière", name: "filiere", type: "select", options: ["", "IP", "ISM", "ISFSC", "IAR", "AS", "TRX", "SEV", "INP"] },
+    { label: "Filière", name: "filiere", type: "text", attrs: 'placeholder="ex : Soins infirmiers"' },
+    { label: "Parcours / Option", name: "parcours", type: "text", attrs: 'placeholder="Votre parcours ou option"' },
     { label: "Semestre", name: "semestre", type: "select", options: ["", "S1", "S2", "S3", "S4", "S5", "S6"] },
     { label: "Adresse e-mail", name: "email", type: "email", attrs: "disabled" }
   ], "Enregistrer", async v => {
@@ -3210,7 +3920,7 @@ function openProfileModal() {
 
     const meta = {
       full_name: name, username, phone,
-      filiere: v.filiere, semestre: v.semestre
+      filiere: v.filiere.trim(), parcours: v.parcours.trim(), semestre: v.semestre
     };
     if (pendingAvatar !== undefined) meta.avatar_url = pendingAvatar;
 
@@ -3226,6 +3936,7 @@ function openProfileModal() {
   f.elements.username.value = m.username || "";
   f.elements.phone.value = m.phone || "";
   f.elements.filiere.value = m.filiere || "";
+  f.elements.parcours.value = m.parcours || "";
   f.elements.semestre.value = m.semestre || "";
   f.elements.email.value = currentUser?.email || "";
 
