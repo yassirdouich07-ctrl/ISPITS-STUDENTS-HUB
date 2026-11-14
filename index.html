@@ -2509,6 +2509,62 @@ const FICHES = [
     ]
   },
   {
+    id: "pansement", niveau: 2, short: "PANS", title: "Pansement stérile", duree: "10 min",
+    keywords: "pansement sterile plaie compresse serum physiologique asepsie cicatrisation soin plaie dressing",
+    resume: "Réaliser un pansement stérile sur une plaie propre en respectant l'asepsie, du retrait de l'ancien pansement à la traçabilité.",
+    sections: [
+      { t: "Fiche rapide", html: specs([
+          ["Quand", "Plaie post-opératoire, traumatique propre, suture, selon prescription ou protocole"],
+          ["Avant", "Informer le patient, hygiène des mains, matériel vérifié et préparé"],
+          ["Nettoyage", "Sérum physiologique, compresses stériles, du centre vers la périphérie"],
+          ["Séchage", "Par tamponnement, sans frotter"],
+          ["Règle d'or", "Du plus propre au plus sale, une compresse par passage"],
+          ["Après", "Déchets éliminés, hygiène des mains, soin tracé"]
+        ]) },
+      { t: "Définition et indications", html:
+          para("Le pansement protège la plaie, absorbe les écoulements, maintient un milieu favorable à la cicatrisation et limite le risque d'infection. Il se réalise en technique aseptique : tout ce qui touche la plaie doit être stérile.") +
+          ul(["Plaie opératoire ou traumatique propre", "Plaie suturée ou avec points de rapprochement", "Plaie chronique, selon prescription et protocole", "Pansement souillé, humide, décollé ou arrivé à sa date de renouvellement"]) },
+      { t: "Matériel", html:
+          ul(["Chariot nettoyé et désinfecté, à hauteur de taille", "Set de pansement stérile (compresses, pince ou champ), contrôlé", "Sérum physiologique stérile (péremption, ouverture récente)", "Compresses stériles supplémentaires et pansement adapté à la plaie", "Adhésif hypoallergénique ou bande de fixation", "Gants à usage unique propres pour le retrait, gants stériles pour le soin", "Solution hydro-alcoolique, sac à déchets, protection de lit si besoin", "Antiseptique uniquement si prescrit ou prévu par le protocole"]) },
+      { t: "Déroulement pas à pas", html: ol([
+          "<strong>Préparer le chariot</strong> : le nettoyer, rassembler tout le matériel et contrôler les dates de péremption.",
+          "<strong>Informer le patient</strong>, vérifier son identité, préserver son intimité et l'installer confortablement.",
+          "<strong>Hygiène des mains</strong> (friction hydro-alcoolique), mains sèches, sans bijoux ni montre.",
+          "Contrôler le set et le sérum : péremption, emballage intact, indicateur de stérilité.",
+          "Mettre des gants propres, <strong>retirer l'ancien pansement</strong> doucement (au besoin le mouiller au sérum), le jeter dans le sac à déchets et <strong>observer la plaie</strong>.",
+          "Retirer les gants, puis nouvelle <strong>hygiène des mains</strong>.",
+          "Ouvrir le set sur le chariot <strong>en ne touchant que les bords</strong> : l'intérieur du champ reste stérile.",
+          "Enfiler les <strong>gants stériles</strong> sans toucher l'extérieur. Garder les mains au-dessus de la taille.",
+          "<strong>Nettoyer</strong> la plaie au sérum physiologique avec des compresses stériles, du centre vers la périphérie, une compresse neuve à chaque passage.",
+          "<strong>Sécher</strong> en tamponnant avec une compresse stérile, sans frotter.",
+          "<strong>Poser le pansement</strong> stérile en le tenant par les bords, sans toucher la face qui sera contre la plaie, et le centrer sur la plaie.",
+          "<strong>Fixer</strong> sans tendre la peau, en débordant de 2 à 3 cm autour de la plaie. L'adhésif ne touche jamais la plaie.",
+          "Éliminer les déchets, retirer les gants, <strong>hygiène des mains</strong>, installer le patient, puis <strong>tracer</strong> : date, aspect de la plaie, matériel utilisé."
+        ]) },
+      { t: "Surveillance et signes d'alerte", html:
+          para("À chaque pansement, observer la plaie : couleur, taille, écoulement, odeur, état de la peau autour. Prévenir l'infirmier ou le médecin devant :") +
+          ul(["Rougeur qui s'étend, chaleur, gonflement", "Douleur qui augmente", "Écoulement purulent ou mauvaise odeur", "Fièvre ou frissons", "Plaie qui s'ouvre, saigne ou ne se cicatrise pas"]) },
+      { t: "Si le champ est contaminé", html: ul([
+          "Toucher l'intérieur du set, un objet non stérile, la peau ou la tenue : le champ n'est plus stérile",
+          "Emballage abîmé, humide ou périmé : le set se remplace",
+          "En cas de doute, <strong>reprendre avec un nouveau set et de nouveaux gants stériles</strong>"
+        ]) },
+      { t: "Erreurs fréquentes", html: ul([
+          "Oublier l'hygiène des mains entre le retrait et la pose", "Ne pas contrôler le set ni le sérum", "Nettoyer du bord vers le centre ou réutiliser une compresse", "Frotter la plaie au lieu de tamponner", "Souffler sur la plaie pour la sécher", "Toucher la face du pansement qui touche la plaie", "Tendre l'adhésif ou le poser sur la plaie", "Ne pas tracer le soin"
+        ]) + note("À retenir : informer, désinfecter les mains, champ stérile, du centre vers la périphérie, une compresse par passage, tracer.") }
+    ],
+    quiz: [
+      { q: "Comment nettoie-t-on une plaie propre ?", o: ["Du bord vers le centre", "Du centre vers la périphérie, une compresse neuve à chaque passage", "En frottant avec la même compresse", "Avec de l'eau du robinet"], a: 1, e: "On va du plus propre au plus sale, sans réutiliser de compresse." },
+      { q: "Quel produit utilise-t-on en priorité pour nettoyer la plaie ?", o: ["Un antiseptique alcoolisé", "Du sérum physiologique stérile", "De l'eau oxygénée", "Du savon"], a: 1, e: "Sauf prescription ou protocole, on nettoie au sérum physiologique." },
+      { q: "Comment sèche-t-on la plaie ?", o: ["En frottant", "En soufflant dessus", "En tamponnant avec une compresse stérile", "On laisse à l'air libre longtemps"], a: 2, e: "Tamponner protège le tissu fragile et évite la contamination." },
+      { q: "Que fait-on entre le retrait de l'ancien pansement et l'ouverture du set ?", o: ["Rien", "On retire les gants et on fait une hygiène des mains", "On rince les gants", "On ouvre le set avec les mêmes gants"], a: 1, e: "On passe du sale au propre : gants retirés, mains désinfectées." },
+      { q: "Comment ouvre-t-on le set de pansement ?", o: ["En touchant l'intérieur pour le disposer", "En ne touchant que les bords du papier", "Sur le lit du patient", "En le secouant"], a: 1, e: "Seuls les bords extérieurs se touchent : l'intérieur du champ reste stérile." },
+      { q: "Quels gants porte-t-on pour réaliser le soin sur la plaie ?", o: ["Des gants propres non stériles", "Aucun gant", "Des gants stériles", "Des gants de ménage"], a: 2, e: "La technique est aseptique : stérile touche stérile." },
+      { q: "Comment fixe-t-on le pansement ?", o: ["En tendant fortement l'adhésif", "Sans tendre la peau, en débordant de 2 à 3 cm autour de la plaie", "Avec l'adhésif directement sur la plaie", "Sans fixer"], a: 1, e: "Une fixation douce évite les lésions de la peau, l'adhésif ne touche jamais la plaie." },
+      { q: "Quel signe doit alerter après un pansement ?", o: ["Une plaie propre et sèche", "Une rougeur qui s'étend avec une douleur croissante", "Une cicatrice qui se ferme", "Un pansement bien en place"], a: 1, e: "Rougeur, chaleur, douleur croissante, pus ou fièvre font suspecter une infection." }
+    ]
+  },
+  {
     id: "glyc", niveau: 2, short: "GLY", title: "Glycémie capillaire", duree: "9 min",
     keywords: "glycemie capillaire glucometre lecteur bandelette autopiqueur diabete hypoglycemie hyperglycemie",
     resume: "Mesurer le taux de sucre dans une goutte de sang au bout du doigt, avec un lecteur de glycémie.",
@@ -3646,7 +3702,7 @@ const PANS_TEXT = {
 };
 const SIM_GANTS = { key: "sim_gants", title: "Enfilage des gants stériles", fiche: "gants", steps: SIM_STEPS, memo: SIM_MEMO, text: null,
   situation: "Mise en situation : un patient doit avoir un sondage vésical. Votre encadrant vous observe." };
-const SIM_PANS = { key: "sim_pans", title: "Pansement stérile", fiche: null, steps: PANS_STEPS, memo: PANS_MEMO, text: PANS_TEXT,
+const SIM_PANS = { key: "sim_pans", title: "Pansement stérile", fiche: "pansement", steps: PANS_STEPS, memo: PANS_MEMO, text: PANS_TEXT,
   situation: "Mise en situation : un patient a une plaie au bras à panser. Votre encadrant vous observe." };
 let SIMX = SIM_GANTS;
 const simText = st => Object.assign({}, SIM_TEXT[st], SIMX.text ? SIMX.text[st] : {});
