@@ -3352,6 +3352,7 @@ function createStage(container) {
   acts.dab = () => { REACH(); at(300, () => { cmp.vis = true; }); at(900, () => { cmp.vis = false; }); at(1200, UP); return 1400; };
   acts.apply = () => { REACH(); at(500, () => { newD.vis = true; }); at(1000, UP); return 1300; };
   acts.tape = () => { REACH(); at(400, () => { tape1.vis = true; }); at(800, () => { tape2.vis = true; }); at(1200, UP); return 1500; };
+  acts.mainsPans = () => { const a = acts.removeJewelry(); at(a, () => acts.sanitize()); return a + 2900; };
   acts.donBoth = () => { acts.don1(); at(1400, () => acts.don2()); return 2800; };
   const baseReset = acts.reset;
   acts.reset = () => { if (pansOn) pansWound(); return baseReset(); };
@@ -3613,6 +3614,7 @@ const SND = (() => {
       case "grab1": case "grab2": sfx.crinkle(0.25, 0.3); break;
       case "don1": case "don2": sfx.stretch(0.4); sfx.snap(0.75); break;
       case "adjust": sfx.rub(0, 1.0, 3200); break;
+      case "mainsPans": sfx.jewel(0.5); sfx.pump(1.75); sfx.rub(2.1, 1.7); break;
       case "donBoth": sfx.stretch(0.4); sfx.snap(0.75); sfx.stretch(1.8); sfx.snap(2.15); break;
       case "peel": sfx.rip(0.2, 0.9); break;
       case "clean": sfx.squish(0.2, 0.8); sfx.squish(1.0, 0.8); break;
@@ -3666,7 +3668,7 @@ const PANS_STEPS = [
     opts: [{ t: "Je me présente, j'explique le soin, je vérifie l'identité, je ferme la porte et j'installe le patient confortablement", ok: true },
       { t: "Je commence directement, le patient comprendra", err: "On informe toujours le patient et on vérifie son identité avant tout soin." },
       { t: "Je n'explique rien pour ne pas l'inquiéter", err: "Le patient a le droit de savoir : l'information le rassure et obtient son accord." }] },
-  { id: "mains", name: "Hygiène des mains", cam: "table", act: "sanitize", hint: PANS_MEMO[2],
+  { id: "mains", name: "Hygiène des mains", cam: "table", act: "mainsPans", hint: PANS_MEMO[2],
     say: "Avant de toucher au matériel, tu fais quoi ?", ok: "Mains sèches, sans bijoux, friction complète.",
     opts: [{ t: "Friction hydro-alcoolique, mains sèches, bijoux et montre retirés", ok: true },
       { t: "Je mets directement des gants", err: "Les gants ne remplacent jamais l'hygiène des mains." },
