@@ -1043,6 +1043,22 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
  .hero-banner{padding:26px 20px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+
+/* ===== MENU MOBILE EN TIROIR LATÉRAL ===== */
+.side-overlay{display:none}
+@media(max-width:760px){
+  body .sidebar{display:flex!important;position:fixed;top:0;left:0;bottom:0;width:min(82vw,310px);max-height:none;margin:0;border:0;border-radius:0 24px 24px 0;padding:22px 16px;overflow-y:auto;z-index:70;
+    transform:translateX(-105%);visibility:hidden;transition:transform .32s cubic-bezier(.22,.8,.3,1),visibility 0s linear .32s;box-shadow:none}
+  body .sidebar.open{transform:none;visibility:visible;transition:transform .32s cubic-bezier(.22,.8,.3,1);box-shadow:0 0 60px rgba(8,20,40,.5)}
+  .side-overlay{display:block;position:fixed;inset:0;background:rgba(8,20,40,.5);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .3s;z-index:65}
+  .side-overlay.show{opacity:1;pointer-events:auto}
+  body.menu-open{overflow:hidden}
+}
+/* ===== RECHERCHE GLOBALE ===== */
+.dx-snip{display:block;font-size:12px;color:var(--muted);line-height:1.55;margin-top:3px;white-space:normal}
+.dx-snip mark{background:#fff1b8;color:inherit;border-radius:3px;padding:0 2px}
+.res-count{display:inline-block;margin-left:6px;font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;background:var(--teal-soft);color:var(--teal-dark);vertical-align:middle}
+.dx-link{background:none;border:0;color:var(--teal-dark);font-weight:700;font-size:13px;padding:8px 2px 14px}
 </style>
 </head>
 
@@ -1277,7 +1293,7 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 
           <form class="home-search" id="homeSearchForm">
             <span class="s-ico"><svg class="ico"><use href="#i-search"/></svg></span>
-            <input id="homeSearchInput" type="search" placeholder="Rechercher un cours, un module, une rubrique..." autocomplete="off">
+            <input id="homeSearchInput" type="search" placeholder="Rechercher un cours, une fiche, un médicament, un article…" autocomplete="off">
             <button type="submit">Rechercher</button>
           </form>
 
@@ -1850,7 +1866,7 @@ function rgParas(list) {
   flush();
   return out;
 }
-function renderReglement() {
+function renderReglement(focus = null) {
   const inner = document.getElementById("innerPage");
   const all = [];
   REGLEMENT.chapters.forEach(c => c.arts.forEach(a => all.push({ n: a.n, ch: c, p: a.p, hay: rgNorm("article " + a.n + " " + a.p.join(" ")) })));
@@ -1894,6 +1910,7 @@ function renderReglement() {
   inner.querySelector("#rgQ").addEventListener("input", e => { const q = e.target.value.trim(); if (q) drawSearch(q); else drawAll(); });
   addBackButton(inner);
   window.scrollTo(0, 0);
+  if (focus) setTimeout(() => goTo(focus), 60);
 }
 
 function addBackButton(inner, label = "Retour au dashboard", handler = showHome) {
@@ -2120,15 +2137,79 @@ function renderBrowser(section, filiere = null, semestre = null, module = null, 
 // =====================================
 let searchSection = "Cours";
 
+// ===== RECHERCHE GLOBALE : contenu des fiches, médicaments, règlement, emploi du temps, simulations =====
+let SEARCH_INDEX = null, deepLast = [];
+const plainText = h => String(h).replace(/<[^>]*>/g, " ").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&#39;|&apos;/g, "'").replace(/\s+/g, " ").trim();
+const allStrings = v => Array.isArray(v) ? v.flatMap(allStrings) : (v && typeof v === "object") ? Object.values(v).flatMap(allStrings) : typeof v === "string" ? [v] : [];
+function buildSearchIndex() {
+  const out = [];
+  const add = (cat, title, sub, text, go) => out.push({ cat, title, sub, text, go, hay: norm(title + " " + sub + " " + text), nt: norm(title + " " + sub) });
+  FICHES.forEach(f => {
+    const go = () => { setActiveNav("Stages"); renderStages(f.id); };
+    if (f.resume) add("Contenu des fiches", f.title, "Résumé", f.resume, go);
+    (f.sections || []).forEach(s => add("Contenu des fiches", f.title, s.t, plainText(s.html), go));
+    (f.quiz || []).forEach(q => add("Contenu des fiches", f.title, "Test", q.q + " " + (q.o || []).join(" ") + " " + (q.e || ""), go));
+  });
+  MEDS.forEach(m => add("Médicaments", m.name, m.brands || "", allStrings(Object.entries(m).filter(([k]) => !["id", "icon", "tag", "g", "name", "brands"].includes(k)).map(e => e[1])).join(" "), () => { openPage("Médicaments"); renderMedicaments(m.id); }));
+  REGLEMENT.chapters.forEach(c => c.arts.forEach(a => add("Règlement intérieur", "Article " + a.n, "Chapitre " + c.n + " · " + c.t, a.p.join(" "), () => { openPage("Règlement intérieur"); renderReglement(a.n); })));
+  TIMETABLES.forEach(tt => TT_DAYS.forEach((day, i) => (tt.days[day] || []).forEach(c => add("Emploi du temps", c.t,
+    "Semestre " + tt.s.slice(1) + " · " + day + " " + ttDate(tt.start, i).toLocaleDateString("fr-FR", { day: "numeric", month: "short" }) + " · " + c.h, c.p || "",
+    () => { openPage("Emploi du temps"); ttSel = tt.s; renderTimetable(); }))));
+  [SIM_GANTS, SIM_PANS, SIM_ECG, SIM_IM].forEach(sim => sim.steps.forEach(st => add("Simulations", sim.title, st.name,
+    allStrings([st.say, st.hint, st.ok, st.opts]).join(" "), () => { openPage("TP Simulation"); SIMX = sim; renderSimBrief(); })));
+  return out;
+}
+function deepSearch(q) {
+  try { if (!SEARCH_INDEX) SEARCH_INDEX = buildSearchIndex(); } catch (e) { console.error("Index de recherche :", e); return []; }
+  const nq = norm(q), words = nq.split(" ").filter(w => w.length >= 2);
+  if (!words.length) return [];
+  const has = (hay, w) => w.length >= 4 ? hay.includes(w) : (" " + hay).includes(" " + w);
+  return SEARCH_INDEX.filter(e => words.every(w => has(e.hay, w)))
+    .map(e => ({ e, sc: e.nt.includes(nq) ? 3 : words.every(w => e.nt.includes(w)) ? 2 : 0 }))
+    .sort((a, b) => b.sc - a.sc).map(x => Object.assign({}, x.e, { words }));
+}
+const foldChars = t => [...t].map(c => c.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")).join("");
+function snippet(text, words) {
+  const nm = foldChars(text);
+  if (nm.length !== text.length) return esc(text.slice(0, 160));
+  let at = -1;
+  words.forEach(w => { const i = nm.indexOf(w); if (i >= 0 && (at < 0 || i < at)) at = i; });
+  const start = Math.max(0, at - 50), end = Math.min(text.length, start + 170), rng = [];
+  words.forEach(w => { let i = nm.indexOf(w, start); while (i >= 0 && i < end) { rng.push([i, i + w.length]); i = nm.indexOf(w, i + w.length); } });
+  rng.sort((a, b) => a[0] - b[0]);
+  let out = "", pos = start;
+  rng.forEach(([a, b]) => { if (a < pos) return; out += esc(text.slice(pos, a)) + "<mark>" + esc(text.slice(a, b)) + "</mark>"; pos = b; });
+  out += esc(text.slice(pos, end));
+  return (start > 0 ? "… " : "") + out + (end < text.length ? " …" : "");
+}
+function deepHTML(deep) {
+  deepLast = deep;
+  let h = "";
+  ["Contenu des fiches", "Médicaments", "Règlement intérieur", "Emploi du temps", "Simulations"].forEach(cat => {
+    const items = deep.map((e, i) => ({ e, i })).filter(x => x.e.cat === cat);
+    if (!items.length) return;
+    h += `<h3 class="res-head">${esc(cat)} <span class="res-count">${items.length}</span></h3><div class="list">${items.map((x, k) =>
+      `<button class="list-row${k >= 6 ? " dx-more hidden" : ""}" type="button" data-dx="${x.i}"><span class="list-main"><span class="list-title">${esc(x.e.title)}</span><span class="list-sub">${esc(x.e.sub)}</span><span class="dx-snip">${snippet(x.e.text, x.e.words)}</span></span><span class="list-arrow">›</span></button>`).join("")}</div>` +
+      (items.length > 6 ? `<button type="button" class="dx-link" data-showmore="1">Afficher les ${items.length - 6} autres résultats</button>` : "");
+  });
+  return h;
+}
+function bindDeep(box) {
+  box.querySelectorAll("[data-dx]").forEach(b => b.addEventListener("click", () => deepLast[+b.dataset.dx].go()));
+  box.querySelectorAll("[data-showmore]").forEach(b => b.addEventListener("click", () => {
+    b.previousElementSibling.querySelectorAll(".dx-more").forEach(r => r.classList.remove("hidden")); b.remove();
+  }));
+}
+
 function renderSearch(initial = "") {
   const inner = document.getElementById("innerPage");
   inner.innerHTML = `
     <div class="page-heading">
       <div class="eyebrow">RECHERCHE</div>
-      <h1>Rechercher sur le site</h1>
-      <p>Trouvez un cours, un résumé, un module ou une rubrique.</p>
+      <h1>Rechercher sur la plateforme</h1>
+      <p>Une seule recherche dans les cours, fiches techniques, médicaments, règlement intérieur, emploi du temps et simulations.</p>
     </div>
-    <div class="search-box"><span class="s-ico"><svg class="ico"><use href="#i-search"/></svg></span><input id="siteSearch" type="search" placeholder="Ex : anatomie, droit, SIB1..." autocomplete="off"></div>
+    <div class="search-box"><span class="s-ico"><svg class="ico"><use href="#i-search"/></svg></span><input id="siteSearch" type="search" placeholder="Ex : absence, paracétamol, ECG, rattrapage, anatomie…" autocomplete="off"></div>
     <div class="seg-label">Ouvrir les modules trouvés dans :</div>
     <div class="seg">
       <button type="button" class="seg-btn" data-seg="Cours">Cours</button>
@@ -2148,8 +2229,8 @@ function renderSearch(initial = "") {
       box.innerHTML = `<div class="search-hint">Tapez au moins 2 lettres pour lancer la recherche.</div>`;
       return;
     }
-    const pages = searchPages(q), mods = searchCurriculum(q, null), docs = searchDocs(q, null, null), fiches = searchFiches(q);
-    if (!pages.length && !mods.length && !docs.length && !fiches.length) { box.innerHTML = noResultsPanel(); return; }
+    const pages = searchPages(q), mods = searchCurriculum(q, null), docs = searchDocs(q, null, null), fiches = searchFiches(q), deep = deepSearch(q);
+    if (!pages.length && !mods.length && !docs.length && !fiches.length && !deep.length) { box.innerHTML = noResultsPanel(); return; }
 
     let html = "";
     if (pages.length) {
@@ -2164,7 +2245,9 @@ function renderSearch(initial = "") {
     }
     if (mods.length) html += `<h3 class="res-head">Modules</h3>` + resultsHTML(mods);
     if (docs.length) html += `<h3 class="res-head">Documents</h3>` + docsHTML(docs);
+    html += deepHTML(deep);
     box.innerHTML = html;
+    bindDeep(box);
 
     box.querySelectorAll("[data-pg]").forEach(b =>
       b.addEventListener("click", () => openPage(pages[+b.dataset.pg].name)));
@@ -5507,9 +5590,18 @@ document.querySelectorAll("[data-open]").forEach(button => {
 });
 
 // Mobile menu
-document.getElementById("menuBtn").addEventListener("click", () => {
-  document.getElementById("sidebar").classList.toggle("open");
-});
+// Menu mobile : tiroir latéral avec fond assombri
+(() => {
+  const side = document.getElementById("sidebar"), btn = document.getElementById("menuBtn");
+  const ov = document.createElement("div"); ov.className = "side-overlay"; document.body.appendChild(ov);
+  const mobile = () => window.matchMedia("(max-width:760px)").matches;
+  const sync = () => { const open = side.classList.contains("open"); ov.classList.toggle("show", open); document.body.classList.toggle("menu-open", open && mobile()); };
+  new MutationObserver(sync).observe(side, { attributes: true, attributeFilter: ["class"] });
+  btn.addEventListener("click", () => side.classList.toggle("open"));
+  ov.addEventListener("click", () => side.classList.remove("open"));
+  document.addEventListener("keydown", e => { if (e.key === "Escape") side.classList.remove("open"); });
+  window.addEventListener("resize", () => { if (!mobile()) side.classList.remove("open"); sync(); });
+})();
 
 // =====================================
 // MENU PROFIL & SÉCURITÉ
