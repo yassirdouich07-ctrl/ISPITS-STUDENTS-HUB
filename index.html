@@ -984,6 +984,29 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .stat-card[data-open]:after{content:"↗";position:absolute;right:14px;bottom:12px;width:24px;height:24px;display:grid;place-items:center;border-radius:50%;font-size:13px;font-weight:800;color:var(--teal-dark);background:var(--teal-soft);transition:.25s}
 .stat-card[data-open]:hover:after{background:var(--teal);color:#fff;transform:rotate(45deg)}
 .stat-card[data-open]:active{transform:scale(.97)}
+
+/* Fiches techniques : cartes */
+.res-head.lv1,.res-head.lv2,.res-head.lv3{display:flex;align-items:center;gap:10px}
+.lv-dot{width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 0 4px #10b98128}
+.lv2 .lv-dot{background:#f59e0b;box-shadow:0 0 0 4px #f59e0b28}.lv3 .lv-dot{background:#ef4444;box-shadow:0 0 0 4px #ef444428}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;margin-bottom:8px}
+.fcard{position:relative;overflow:hidden;display:flex;align-items:center;gap:15px;padding:16px;text-align:left;border:0;border-radius:22px;background:#fff;color:var(--text);box-shadow:0 10px 28px #0b1f3a0f;transition:.28s;-webkit-tap-highlight-color:transparent}
+.fcard:before{content:"";position:absolute;inset:0;opacity:0;transition:.3s;background:radial-gradient(240px 140px at 100% 0,var(--g1)26,transparent 70%)}
+.fcard:hover{transform:translateY(-5px);box-shadow:0 24px 46px #0b1f3a1f}.fcard:hover:before{opacity:1}.fcard:active{transform:scale(.98)}
+.fc-ico{position:relative;flex:none;width:62px;height:62px;border-radius:19px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--g1),var(--g2));box-shadow:0 12px 24px var(--g1)55;transition:.3s}
+.fc-ico .ico{width:28px;height:28px;stroke-width:1.9}
+.fcard:hover .fc-ico{transform:rotate(-8deg) scale(1.08)}
+.fc-tag{position:absolute;right:-6px;bottom:-6px;font-style:normal;font-size:9px;font-weight:800;letter-spacing:.5px;padding:3px 7px;border-radius:20px;background:#fff;color:var(--g1);box-shadow:0 4px 10px #0b1f3a22}
+.fc-body{position:relative;flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
+.fc-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;line-height:1.35;color:var(--navy)}
+.fc-meta{display:flex;flex-wrap:wrap;gap:6px}
+.fc-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:20px;background:#f1f5f9;color:#5d6f82;font-size:10px;font-weight:700}
+.fc-chip .ico{width:12px;height:12px}
+.fc-score{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--muted)}
+.fc-bar{flex:1;height:6px;border-radius:6px;background:#e8eef4;overflow:hidden}.fc-bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--g1),var(--g2))}
+.fc-score b{color:var(--navy);font-size:11px}
+.fc-go{position:relative;flex:none;align-self:flex-start;width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:var(--teal-soft);color:var(--teal-dark);font-size:13px;font-weight:800;transition:.3s}
+.fcard:hover .fc-go{background:var(--g1);color:#fff;transform:rotate(45deg)}
 @media(max-width:760px){
  .hero-tag{display:none}
  .sidebar{margin:0;border-radius:0;position:static;max-height:none;top:auto;box-shadow:none}
@@ -1046,6 +1069,14 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
   <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></symbol>
   <symbol id="i-cap" viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5M22 9v6"/></symbol>
   <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2-5h6"/></symbol>
+  <symbol id="i-bed" viewBox="0 0 24 24"><path d="M2 18V6M2 14h20v4M22 14v-2a3 3 0 0 0-3-3h-8v5"/><circle cx="6.5" cy="11" r="1.8"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></symbol>
+  <symbol id="i-bandage" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M10 10h.01M10 14h.01M14 10h.01M14 14h.01M18 6v12M6 6v12"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 2.7S5 10 5 14.5a7 7 0 0 0 14 0C19 10 12 2.7 12 2.7z"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M10 2v7.5L4.5 19a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9.5V2M8.5 2h7M7 16h10"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
 </svg>
 
 <!-- AUTHENTICATION -->
@@ -3203,6 +3234,12 @@ const LEVELS = { 1: "Niveau 1 · Techniques simples", 2: "Niveau 2 · Techniques
 const ORDERED = [1, 2, 3].flatMap(n => FICHES.filter(f => f.niveau === n));
 let stageCtx = null;
 
+const FICHE_STYLE = {
+  id: ["syringe", "#14b8a6", "#0ea5e9"], sc: ["syringe", "#7c5cff", "#a78bfa"], im: ["syringe", "#f59e0b", "#f97316"], iv: ["syringe", "#ff7a59", "#ff4d6d"],
+  lit: ["bed", "#0ea5e9", "#6366f1"], gants: ["hand", "#10b981", "#84cc16"], pansement: ["bandage", "#ec4899", "#f97316"],
+  ecg: ["pulse", "#ef4444", "#ec4899"], glyc: ["drop", "#06b6d4", "#14b8a6"], pouls: ["heart", "#f43f5e", "#fb7185"],
+  ta: ["gauge", "#6366f1", "#8b5cf6"], dilu: ["flask", "#0d9488", "#22d3ee"]
+};
 function renderStages(ficheId = null) {
   const inner = document.getElementById("innerPage");
   const fiche = ficheId ? FICHES.find(f => f.id === ficheId) : null;
@@ -3219,13 +3256,16 @@ function renderStages(ficheId = null) {
       ${[1, 2, 3].map(n => {
         const items = FICHES.filter(f => f.niveau === n);
         if (!items.length) return "";
-        return `<h3 class="res-head">${LEVELS[n]}</h3><div class="list">${items.map(f => {
-          const b = getBest(f.id);
-          return `<button class="list-row" type="button" data-fi="${f.id}">
-            <span class="fiche-num">${ORDERED.indexOf(f) + 1}</span>
-            <span class="list-main"><span class="list-title">${esc(f.title)}</span>
-            <span class="list-sub">${esc(f.duree)} de lecture · Test de ${f.quiz.length} questions${b !== null ? " · Meilleur score : " + b + "%" : ""}</span></span>
-            <span class="list-arrow">›</span></button>`;
+        return `<h3 class="res-head lv${n}"><span class="lv-dot"></span>${LEVELS[n]}</h3><div class="fgrid">${items.map(f => {
+          const b = getBest(f.id), st = FICHE_STYLE[f.id] || ["file", "#14b8a6", "#0ea5e9"];
+          return `<button class="fcard" type="button" data-fi="${f.id}" style="--g1:${st[1]};--g2:${st[2]}">
+            <span class="fc-ico">${ico(st[0])}<em class="fc-tag">${esc(f.short)}</em></span>
+            <span class="fc-body">
+              <span class="fc-title">${esc(f.title)}</span>
+              <span class="fc-meta"><span class="fc-chip">${ico("clock")}${esc(f.duree)}</span><span class="fc-chip">${ico("check")}${f.quiz.length} questions</span></span>
+              <span class="fc-score${b !== null ? " has" : ""}">${b !== null ? `<span class="fc-bar"><i style="width:${b}%"></i></span><b>${b}%</b>` : "<small>Pas encore testé</small>"}</span>
+            </span>
+            <span class="fc-go">↗</span></button>`;
         }).join("")}</div>`;
       }).join("")}
       <p class="search-hint">D'autres fiches seront ajoutées prochainement.</p>
