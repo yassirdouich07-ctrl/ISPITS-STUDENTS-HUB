@@ -1026,6 +1026,15 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .nat-ico .ico{width:19px;height:19px}
 .nat-badge{flex:none;padding:5px 10px;border-radius:20px;background:var(--teal-soft);color:var(--teal-dark);font-size:10px;font-weight:800}
 .nat-row .fc-meta{margin-top:6px}
+.seg{grid-template-columns:repeat(3,1fr)}
+.seg button{padding:11px 4px;font-size:11px}.seg button b{margin-left:4px;padding:2px 6px}
+.br-dci{font-weight:600;color:var(--muted);font-size:11px}
+.spec-card{display:flex;gap:14px;align-items:center;margin:0 0 14px;padding:16px;border-radius:20px;background:#fff;box-shadow:0 12px 30px #0b1f3a12;border:1px solid var(--border)}
+.spec-ico{flex:none;width:54px;height:54px;border-radius:17px;display:grid;place-items:center;color:#fff}.spec-ico .ico{width:26px;height:26px}
+.spec-tag{font-size:9px;font-weight:800;letter-spacing:1.2px;color:var(--teal-dark)}
+.spec-name{font-family:'Outfit',sans-serif;font-weight:800;font-size:18px;color:var(--navy);margin-top:2px}
+.spec-sub{font-size:11px;color:var(--muted);margin-top:3px}
+.spec-comp{margin-top:8px;padding:8px 10px;border-radius:10px;background:var(--teal-soft);color:#0b5e57;font-size:11px;line-height:1.5}
 @media(max-width:760px){
  .hero-tag{display:none}
  .sidebar{margin:0;border-radius:0;position:static;max-height:none;top:auto;box-shadow:none}
@@ -3284,7 +3293,7 @@ const MEDS = [
     ci: ["Insuffisance hépatique sévère", "Allergie au paracétamol"],
     ei: ["Rares aux doses usuelles", "Surdosage : atteinte du foie, à signaler immédiatement"],
     astuce: "Le surdosage est la principale erreur : cumulez toujours les doses des 24 heures." },
-  { id: "ibuprofene", name: "Ibuprofène", brands: "Advil®, Brufen®", cat: "Antalgiques", icon: "pill", tag: "PO", g: ["#f59e0b", "#f97316"],
+  { id: "ibuprofene", name: "Ibuprofène", brands: "Brufen®, Algantil®, No-Dol Fen®, Algofene®, Intralgis®, Nurodol®, Analgyl®, Ibumac®, Prodol®, Ibuphil®, Agifene®", cat: "Antalgiques", icon: "pill", tag: "PO", g: ["#f59e0b", "#f97316"],
     classe: "Anti-inflammatoire non stéroïdien (AINS)", voies: "Orale",
     indic: ["Douleur et inflammation", "Fièvre"],
     poso: "Adulte : 200 à 400 mg par prise, pendant un repas, durée la plus courte possible (1 200 mg/jour au maximum en automédication). Dose selon prescription.",
@@ -3292,7 +3301,7 @@ const MEDS = [
     ci: ["Ulcère gastro-duodénal", "Insuffisance rénale ou cardiaque sévère", "Allergie aux AINS ou asthme induit par l'aspirine", "Grossesse (à partir du 6e mois)", "Traitement anticoagulant"],
     ei: ["Douleurs gastriques, nausées", "Saignement digestif", "Insuffisance rénale aiguë", "Réaction allergique"],
     astuce: "Ne jamais associer deux AINS (ibuprofène, kétoprofène, aspirine à dose anti-inflammatoire...)." },
-  { id: "tramadol", name: "Tramadol", brands: "Topalgic®, Contramal®", cat: "Antalgiques", icon: "pill", tag: "PO/IV", g: ["#7c5cff", "#a78bfa"],
+  { id: "tramadol", name: "Tramadol", brands: "Topalgic®", cat: "Antalgiques", icon: "pill", tag: "PO/IV", g: ["#7c5cff", "#a78bfa"],
     classe: "Antalgique opioïde faible (palier 2)", voies: "Orale · IV (perfusion lente) · IM",
     indic: ["Douleur modérée à intense"],
     poso: "Selon prescription : 50 à 100 mg par prise, maximum 400 mg/jour chez l'adulte (à adapter chez la personne âgée et en cas d'insuffisance rénale ou hépatique).",
@@ -3308,7 +3317,7 @@ const MEDS = [
     ci: ["Insuffisance respiratoire sévère non ventilée", "Traumatisme crânien avec hypertension intracrânienne", "Allergie connue aux opioïdes"],
     ei: ["Somnolence, vertiges", "Nausées, vomissements", "Constipation constante", "Dépression respiratoire en cas de surdosage", "Rétention d'urine, démangeaisons"],
     astuce: "Antidote : naloxone (sur prescription médicale). Somnolence importante ou respiration lente : alerter immédiatement." },
-  { id: "amoxicilline", name: "Amoxicilline", brands: "Clamoxyl®", cat: "Antibiotiques", icon: "pill", tag: "PO/IV", g: ["#10b981", "#84cc16"],
+  { id: "amoxicilline", name: "Amoxicilline", brands: "Amoxil®, Clamoxyl®", cat: "Antibiotiques", icon: "pill", tag: "PO/IV", g: ["#10b981", "#84cc16"],
     classe: "Antibiotique, pénicilline A (bêta-lactamine)", voies: "Orale · IV",
     indic: ["Angines à streptocoque, otites", "Infections respiratoires et urinaires (selon prescription)"],
     poso: "Selon prescription (varie selon l'infection, l'âge et le poids). Respecter la durée complète du traitement.",
@@ -3340,7 +3349,7 @@ const MEDS = [
     ci: ["Hémorragie active ou risque hémorragique élevé", "Insuffisance rénale sévère (adaptation de dose)", "Antécédent de thrombopénie induite par l'héparine", "Allergie à l'énoxaparine"],
     ei: ["Hématomes au point d'injection", "Saignements", "Baisse des plaquettes", "Élévation des transaminases"],
     astuce: "Gardez le pli cutané pendant toute l'injection et ne purgez pas la bulle d'air." },
-  { id: "furosemide", name: "Furosémide", brands: "Lasilix®", cat: "Cœur et reins", icon: "drop", tag: "PO/IV", g: ["#06b6d4", "#14b8a6"],
+  { id: "furosemide", name: "Furosémide", brands: "Lasilix®, Duresan®", cat: "Cœur et reins", icon: "drop", tag: "PO/IV", g: ["#06b6d4", "#14b8a6"],
     classe: "Diurétique de l'anse", voies: "Orale · IV lente · IM",
     indic: ["Œdèmes", "Insuffisance cardiaque, œdème aigu du poumon", "Hypertension artérielle (selon prescription)"],
     poso: "Selon prescription. En IV : injection lente, jamais rapide.",
@@ -3348,7 +3357,7 @@ const MEDS = [
     ci: ["Anurie", "Hypovolémie, déshydratation", "Hypokaliémie sévère", "Allergie connue au furosémide ou aux sulfamides"],
     ei: ["Hypokaliémie", "Hypotension orthostatique", "Crampes, déshydratation", "Bourdonnements d'oreille (injection IV trop rapide)"],
     astuce: "Prévoyez l'accès aux toilettes ou le bassin, et notez la diurèse." },
-  { id: "insuline", name: "Insuline", brands: "NovoRapid®, Actrapid®, Lantus®", cat: "Diabète", icon: "syringe", tag: "SC", g: ["#7c5cff", "#ec4899"],
+  { id: "insuline", name: "Insuline", brands: "Lantus®, NovoRapid®, Humalog®, Actrapid®, Insulatard®, Mixtard®, Levemir®", cat: "Diabète", icon: "syringe", tag: "SC", g: ["#7c5cff", "#ec4899"],
     classe: "Hormone hypoglycémiante (rapide, intermédiaire ou lente)", voies: "Sous-cutanée (l'insuline rapide peut aussi être donnée en IV en soins intensifs)",
     indic: ["Diabète de type 1", "Diabète de type 2 insulino-requérant", "Déséquilibre glycémique aigu"],
     poso: "Dose individuelle en unités (UI), toujours prescrite en fonction de la glycémie. Double vérification de la dose et du type d'insuline.",
@@ -3397,6 +3406,43 @@ const MEDS = [
     ei: ["Hyperglycémie", "Hyponatrémie", "Surcharge hydrique"],
     astuce: "Ne remplit pas le volume sanguin : ne jamais l'utiliser pour un remplissage vasculaire." }
 ];
+const BRANDS = [
+  { n: "Doliprane", p: "comprimé 500 mg / 1 g", m: "paracetamol", l: "Sanofi", c: "Paracétamol 500 mg ou 1 g" },
+  { n: "Efferalgan", p: "comprimé effervescent 500 mg", m: "paracetamol", l: "UPSA", c: "Paracétamol 500 mg" },
+  { n: "Perfalgan", p: "solution pour perfusion IV", m: "paracetamol", l: "", c: "Paracétamol 10 mg/mL" },
+  { n: "No-Dol Fen", p: "comprimé pelliculé 200 / 400 mg · sirop", m: "ibuprofene", l: "Sanofi", c: "Ibuprofène 200 ou 400 mg" },
+  { n: "Algantil", p: "comprimé enrobé ou effervescent 200 mg · suspension buvable 2 %", m: "ibuprofene", l: "Laprophan", c: "Ibuprofène 200 mg · 2 % (20 mg/mL)" },
+  { n: "Brufen", p: "comprimé enrobé 400 mg · suspension pédiatrique 100 mg", m: "ibuprofene", l: "Cooper Pharma", c: "Ibuprofène 400 mg · 100 mg" },
+  { n: "Algofene", p: "comprimé pelliculé 200 / 400 mg · sirop 20 mg/mL", m: "ibuprofene", l: "Pharma5", c: "Ibuprofène 200 ou 400 mg · 20 mg/mL" },
+  { n: "Intralgis", p: "comprimé pelliculé 200 mg · suspension 100 mg/5 mL", m: "ibuprofene", l: "Steripharma", c: "Ibuprofène 200 mg · 100 mg/5 mL" },
+  { n: "Ibumac LP", p: "gélule 300 mg", m: "ibuprofene", l: "Spimaco", c: "Ibuprofène 300 mg (libération prolongée)" },
+  { n: "Analgyl", p: "dragée 200 mg", m: "ibuprofene", l: "Bottu", c: "Ibuprofène 200 mg" },
+  { n: "Prodol", p: "suspension buvable pédiatrique 20 mg/mL", m: "ibuprofene", l: "Galenica", c: "Ibuprofène 20 mg/mL" },
+  { n: "Ibuphil", p: "sirop 2 %", m: "ibuprofene", l: "Novopharma", c: "Ibuprofène 2 % (20 mg/mL)" },
+  { n: "Nurodol", p: "comprimé enrobé 200 / 400 mg · suspension enfant", m: "ibuprofene", l: "Synthemedic", c: "Ibuprofène 200 ou 400 mg · 20 mg/mL" },
+  { n: "Agifene", p: "suspension buvable 2 %", m: "ibuprofene", l: "PHI", c: "Ibuprofène 2 % (20 mg/mL)" },
+  { n: "Topalgic", p: "gélule 50 mg", m: "tramadol", l: "Sanofi", c: "Tramadol (chlorhydrate) 50 mg" },
+  { n: "Amoxil", p: "gélule · poudre pour suspension (plusieurs dosages)", m: "amoxicilline", l: "", c: "Amoxicilline" },
+  { n: "Clamoxyl", p: "comprimé · poudre (plusieurs dosages)", m: "amoxicilline", l: "", c: "Amoxicilline" },
+  { n: "Augmentin", p: "comprimé · sachet · poudre (adulte et enfant)", m: "augmentin", l: "GSK", c: "Amoxicilline + acide clavulanique" },
+  { n: "Rocéphine", p: "poudre pour injection IV / IM", m: "ceftriaxone", l: "Roche", c: "Ceftriaxone (1 g)" },
+  { n: "Lovenox 4000", p: "solution injectable 4 000 UI anti-Xa / 0,4 mL (seringue)", m: "enoxaparine", l: "Sanofi", c: "Énoxaparine sodique 4 000 UI anti-Xa (40 mg)" },
+  { n: "Lovenox 6000", p: "solution injectable 6 000 UI anti-Xa / 0,6 mL (seringue)", m: "enoxaparine", l: "Sanofi", c: "Énoxaparine sodique 6 000 UI anti-Xa (60 mg)" },
+  { n: "Lasilix 40 mg", p: "comprimé", m: "furosemide", l: "Sanofi", c: "Furosémide 40 mg" },
+  { n: "Lasilix 20 mg/2 mL", p: "solution injectable (ampoule)", m: "furosemide", l: "Sanofi", c: "Furosémide 20 mg / 2 mL" },
+  { n: "Duresan 40 mg", p: "comprimé", m: "furosemide", l: "", c: "Furosémide 40 mg" },
+  { n: "Lantus", p: "solution injectable 100 UI/mL (stylo / cartouche)", m: "insuline", l: "Sanofi", c: "Insuline glargine (action lente)" },
+  { n: "NovoRapid", p: "solution injectable 100 UI/mL", m: "insuline", l: "Novo Nordisk", c: "Insuline asparte (action rapide)" },
+  { n: "Humalog", p: "solution injectable 100 UI/mL", m: "insuline", l: "Lilly", c: "Insuline lispro (action rapide)" },
+  { n: "Actrapid", p: "solution injectable 100 UI/mL", m: "insuline", l: "Novo Nordisk", c: "Insuline humaine (action rapide)" },
+  { n: "Insulatard", p: "suspension injectable 100 UI/mL", m: "insuline", l: "Novo Nordisk", c: "Insuline humaine NPH (action intermédiaire)" },
+  { n: "Mixtard 30", p: "suspension injectable 100 UI/mL", m: "insuline", l: "Novo Nordisk", c: "Insuline humaine mixte (30 % rapide / 70 % NPH)" },
+  { n: "Levemir", p: "solution injectable 100 UI/mL", m: "insuline", l: "Novo Nordisk", c: "Insuline détémir (action lente)" },
+  { n: "Mopral", p: "gélule gastro-résistante", m: "omeprazole", l: "", c: "Oméprazole" },
+  { n: "Primpéran", p: "comprimé 10 mg · solution injectable 10 mg/2 mL", m: "metoclopramide", l: "Sanofi", c: "Métoclopramide 10 mg" },
+  { n: "Ventoline", p: "suspension pour inhalation 100 µg/dose (aérosol doseur)", m: "salbutamol", l: "GSK", c: "Salbutamol 100 µg/dose" }
+];
+const BRAND_NOTE = "Marques et présentations commercialisées au Maroc, relevées dans des répertoires publics (liste non exhaustive). La composition indiquée est celle de la substance active : vérifiez toujours la boîte ou la notice.";
 let medCtx = { q: "", cat: "Tous", tab: "fiches", form: "Tous" };
 // Liste nationale (LNME 2019) : nom (DCI) | formes disponibles. Retranscrite à partir du PDF officiel.
 const MED_FORMS = { c: "Comprimé / gélule", i: "Injectable", s: "Sirop / buvable", u: "Suppositoire", t: "Crème / pommade", o: "Collyre / oreille", h: "Inhalation", g: "Gynécologique", a: "Autre" };
@@ -3406,7 +3452,7 @@ const medLinkId = n => LNME_LINK[n] || (n.startsWith("INSULINE") ? "insuline" : 
 const medTitle = n => { const t = n.toLowerCase(); return t.charAt(0).toUpperCase() + t.slice(1); };
 const medUl = a => `<ul class="med-ul">${a.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
 
-function renderMedicaments(medId = null) {
+function renderMedicaments(medId = null, brandIdx = null) {
   const inner = document.getElementById("innerPage");
   const footer = `<div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>`;
   const m = medId ? MEDS.find(x => x.id === medId) : null;
@@ -3420,8 +3466,9 @@ function renderMedicaments(medId = null) {
       </div>
       ${note(esc(MED_DISCLAIMER))}
       <div class="seg" id="medTabs">
-        <button type="button" data-tab="fiches">Fiches détaillées <b>${MEDS.length}</b></button>
-        <button type="button" data-tab="nat">Liste nationale <b>${LNME.length}</b></button>
+        <button type="button" data-tab="fiches">Fiches <b>${MEDS.length}</b></button>
+        <button type="button" data-tab="brands">Marques <b>${BRANDS.length}</b></button>
+        <button type="button" data-tab="nat">Liste LNME <b>${LNME.length}</b></button>
       </div>
       <label class="med-search">${ico("search")}<input id="medQ" type="search" placeholder="Rechercher un médicament, une classe..." autocomplete="off" value="${esc(medCtx.q)}"></label>
       <div class="chips" id="medChips"></div>
@@ -3429,16 +3476,25 @@ function renderMedicaments(medId = null) {
       ${footer}`;
     addBackButton(inner);
     const grid = inner.querySelector("#medGrid"), chips = inner.querySelector("#medChips");
-    const open = id => renderMedicaments(id);
+    const open = (id, bi) => renderMedicaments(id, bi);
     const draw = () => {
-      const nat = medCtx.tab === "nat", q = norm(medCtx.q);
+      const nat = medCtx.tab === "nat", br = medCtx.tab === "brands", q = norm(medCtx.q);
       inner.querySelectorAll("#medTabs [data-tab]").forEach(b => b.classList.toggle("on", b.dataset.tab === medCtx.tab));
-      inner.querySelector("#medQ").placeholder = nat ? "Rechercher dans la liste nationale (ex : paracétamol)..." : "Rechercher un médicament, une classe...";
+      inner.querySelector("#medQ").placeholder = nat ? "Rechercher dans la liste nationale (ex : paracétamol)..." : br ? "Nom commercial (ex : Doliprane, Lovenox...)" : "Rechercher un médicament, une classe...";
       const chipList = nat ? [["Tous", "Tous"], ...Object.entries(MED_FORMS)] : ["Tous", ...MED_CATS].map(c => [c, c]);
       const cur = nat ? medCtx.form : medCtx.cat;
       chips.innerHTML = chipList.map(([v, l]) => `<button type="button" class="chip${v === cur ? " on" : ""}" data-chip="${esc(v)}">${esc(l)}</button>`).join("");
       chips.querySelectorAll("[data-chip]").forEach(b => b.addEventListener("click", () => { if (nat) medCtx.form = b.dataset.chip; else medCtx.cat = b.dataset.chip; draw(); }));
-      if (nat) {
+      if (br) {
+        const medOf = id => MEDS.find(z => z.id === id) || {};
+        const items = BRANDS.map((x, i) => ({ ...x, i })).filter(x => (medCtx.cat === "Tous" || medOf(x.m).cat === medCtx.cat) &&
+          (!q || norm([x.n, x.p, x.l, x.c, medOf(x.m).name].join(" ")).includes(q)));
+        grid.innerHTML = `<p class="search-hint">${items.length} nom${items.length > 1 ? "s" : ""} commercia${items.length > 1 ? "ux" : "l"} · ${esc(BRAND_NOTE)}</p>` +
+          (items.length ? `<div class="list">${items.map(x => {
+            const md = medOf(x.m), g = md.g || ["#14b8a6", "#6366f1"];
+            return `<button type="button" class="list-row nat-row" data-med="${x.m}" data-b="${x.i}"><span class="nat-ico" style="background:linear-gradient(135deg,${g[0]},${g[1]})">${ico(md.icon || "pill")}</span><span class="list-main"><span class="list-title">${esc(x.n)}<small class="br-dci"> · ${esc(md.name || "")}</small></span><span class="list-sub">${esc(x.p)}${x.l ? " · " + esc(x.l) : ""}</span><span class="fc-meta"><span class="fc-chip">${esc(x.c)}</span></span></span><span class="list-arrow">›</span></button>`;
+          }).join("")}</div>` : `<div class="resource-panel"><div class="resource-empty"><div class="empty-icon">${ico("pill")}</div><h3>Aucune marque trouvée</h3><p>Essayez le nom de la substance (ex : paracétamol) ou cherchez dans les fiches.</p></div></div>`);
+      } else if (nat) {
         const items = LNME.filter(x => (medCtx.form === "Tous" || x.f.includes(medCtx.form)) && (!q || norm(x.n).includes(q)));
         grid.innerHTML = `<p class="search-hint">${items.length} médicament${items.length > 1 ? "s" : ""} · Source : Nomenclature nationale des médicaments essentiels (LNME, éd. 2019). Liste retranscrite automatiquement : en cas de doute, référez-vous au document officiel.</p>` +
           (items.length ? `<div class="list">${items.map(x => {
@@ -3457,7 +3513,7 @@ function renderMedicaments(medId = null) {
             <span class="fc-go">↗</span></button>`).join("")}</div>`
           : `<div class="resource-panel"><div class="resource-empty"><div class="empty-icon">${ico("pill")}</div><h3>Aucun médicament trouvé</h3><p>Essayez un autre mot, ou cherchez dans la liste nationale.</p></div></div>`;
       }
-      grid.querySelectorAll("[data-med]").forEach(b => b.addEventListener("click", () => open(b.dataset.med)));
+      grid.querySelectorAll("[data-med]").forEach(b => b.addEventListener("click", () => open(b.dataset.med, b.dataset.b === undefined ? null : +b.dataset.b)));
     };
     draw();
     inner.querySelector("#medQ").addEventListener("input", e => { medCtx.q = e.target.value; draw(); });
@@ -3474,11 +3530,12 @@ function renderMedicaments(medId = null) {
       <p>${esc(m.classe)}</p>
     </div>
     <div class="fiche-meta"><span class="badge">${esc(m.brands)}</span><span class="badge gray">${esc(m.voies)}</span></div>
+    ${BRANDS[brandIdx] ? `<div class="spec-card"><div class="spec-ico" style="background:linear-gradient(135deg,${m.g[0]},${m.g[1]})">${ico("pill")}</div><div class="spec-body"><div class="spec-tag">NOM COMMERCIAL</div><div class="spec-name">${esc(BRANDS[brandIdx].n)}</div><div class="spec-sub">${esc(BRANDS[brandIdx].p)}${BRANDS[brandIdx].l ? " · " + esc(BRANDS[brandIdx].l) : ""}</div><div class="spec-comp"><b>Composition :</b> ${esc(BRANDS[brandIdx].c)}</div></div></div>` : ""}
     ${note(esc(MED_DISCLAIMER))}
     ${sec("Indications", medUl(m.indic))}
     ${sec("Posologie usuelle", `<p>${esc(m.poso)}</p>`)}
     ${sec("Surveillance infirmière", medUl(m.surv))}
-    ${sec("Contre-indications et précautions", medUl(m.ci))}
+    ${sec("Contre-indications et précautions d'emploi", medUl(m.ci))}
     ${sec("Effets indésirables", medUl(m.ei))}
     <div class="warn"><strong>À retenir :</strong> ${esc(m.astuce)}</div>
     ${footer}`;
