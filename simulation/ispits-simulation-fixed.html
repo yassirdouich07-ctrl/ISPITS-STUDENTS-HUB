@@ -35,7 +35,7 @@
 <body>
 <div id="scene"></div>
 <div id="startupError"><strong>Impossible de démarrer la simulation</strong><span id="startupErrorText">Vérifiez votre connexion Internet puis rechargez la page.</span><br><button class="btn" onclick="location.reload()">Recharger</button></div>
-<div id="top"><div class="panel"><div id="brand">ISPITS STUDENTS HUB · LAB 3D</div><div id="scenario">Pansement simple</div></div><div class="panel"><div style="font-size:9px;color:#718096">TEMPS ÉCOULÉ</div><div id="timer">00:00</div></div></div>
+<div id="top"><div class="panel"><div id="brand">ISPITS STUDENTS HUB · LAB 3D · V2</div><div id="scenario">Pansement simple</div></div><div class="panel"><div style="font-size:9px;color:#718096">TEMPS ÉCOULÉ</div><div id="timer">00:00</div></div></div>
 <div id="task" class="panel"><strong id="stepTitle">Objectif de la séance</strong><p id="stepText">Préparez le matériel et réalisez le pansement en respectant l'asepsie.</p><div id="progress"><div id="bar"></div></div></div>
 <div id="cross"></div><div id="lookHelp">Glissez pour regarder</div><div id="hint">Avancez vers le chariot et touchez les objets demandés.</div>
 <div id="joystick"><div id="stick"></div></div><button id="action">AGIR</button>
@@ -90,13 +90,75 @@ box('Lit patient',-1.1,.62,-1.6,2.25,.18,3.5,steel);box('Matelas',-1.1,.79,-1.6,
 for(const x of [-2.05,-.15])for(const z of [-3,.0])cyl('Pied lit',x,.28,z,.055,.55,steel);
 box('Tête lit',-1.1,1.15,-3.3,2.2,.7,.12,blue);
 const pillow=new THREE.Mesh(new THREE.BoxGeometry(.65,.15,.45),white);pillow.position.set(-1.1,1.02,-2.85);scene.add(pillow);
-// mannequin patient placeholder; detailed rigged human model is planned for asset phase
-const torso=new THREE.Mesh(new THREE.CapsuleGeometry(.42,.85,5,12),skin);torso.rotation.x=Math.PI/2;torso.position.set(-1.1,1.12,-1.25);scene.add(torso);
-const head=new THREE.Mesh(new THREE.SphereGeometry(.28,24,18),skin);head.position.set(-1.1,1.18,-2.55);scene.add(head);
-for(const x of [-1.55,-.65]){const arm=new THREE.Mesh(new THREE.CapsuleGeometry(.12,.8,4,10),skin);arm.rotation.z=x< -1?-.35:.35;arm.position.set(x,1.02,-1.1);scene.add(arm)}
-const wound=new THREE.Mesh(new THREE.CircleGeometry(.19,32),mat('#8c443d'));wound.position.set(-.62,1.1,-1.35);wound.rotation.y=-Math.PI/2;scene.add(wound);
-const oldDressing=box('Pansement en place',-.60,1.1,-1.35,.035,.5,.55,white,true);oldDressing.rotation.z=.08;
-const cleanDressing=box('Pansement stérile',-.58,1.1,-1.35,.025,.48,.52,white);cleanDressing.visible=false;
+// Patient model — procedural detailed character (lightweight, no external asset required)
+const patient = new THREE.Group(); patient.position.set(-1.1,0,-1.45); scene.add(patient);
+const pSkin=mat('#c99278'), pSkinLight=mat('#d9a58c'), gown=mat('#6f9fb5'), gownDark=mat('#47778e');
+function ellipsoid(parent,name,pos,scale,material,segments=24){
+  const m=new THREE.Mesh(new THREE.SphereGeometry(1,segments,Math.max(12,segments>>1)),material);
+  m.name=name;m.position.set(...pos);m.scale.set(...scale);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;
+}
+function limb(parent,name,a,b,r1,r2,material){
+  const A=new THREE.Vector3(...a),B=new THREE.Vector3(...b),d=new THREE.Vector3().subVectors(B,A);
+  const m=new THREE.Mesh(new THREE.CapsuleGeometry((r1+r2)/2,Math.max(.01,d.length()-(r1+r2)),5,12),material);
+  m.position.copy(A).add(B).multiplyScalar(.5);m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize());m.castShadow=true;parent.add(m);return m;
+}
+// Torso, gown and shoulders
+const body=ellipsoid(patient,'Buste du patient',[0,1.12,.1],[.48,.30,1.05],pSkin);
+const gownBody=ellipsoid(patient,'Blouse patient',[0,1.18,.12],[.50,.32,.88],gown);
+ellipsoid(patient,'Col blouse',[0,1.45,-.45],[.24,.055,.15],gownDark);
+ellipsoid(patient,'Epaule gauche',[-.40,1.22,-.38],[.23,.20,.28],gown);
+ellipsoid(patient,'Epaule droite',[.40,1.22,-.38],[.23,.20,.28],gown);
+// Neck and head; face oriented upward toward the ceiling
+ellipsoid(patient,'Cou',[0,1.18,-.88],[.16,.16,.20],pSkin);
+ellipsoid(patient,'Tête',[0,1.28,-1.18],[.29,.30,.34],pSkinLight,32);
+ellipsoid(patient,'Cheveux',[0,1.49,-1.14],[.29,.12,.31],mat('#4a3934'),32);
+for(const x of [-.30,.30]) ellipsoid(patient,'Oreille',[x,1.28,-1.18],[.07,.12,.09],pSkin);
+for(const x of [-.115,.115]){
+  ellipsoid(patient,'Oeil',[x,1.535,-1.19],[.052,.018,.035],white);
+  ellipsoid(patient,'Pupille',[x,1.551,-1.19],[.018,.009,.018],dark);
+  ellipsoid(patient,'Sourcil',[x,1.56,-1.10],[.065,.018,.025],mat('#60463c'));
+}
+ellipsoid(patient,'Nez',[0,1.57,-1.30],[.055,.045,.085],pSkin);
+ellipsoid(patient,'Bouche',[0,1.555,-1.42],[.075,.012,.025],mat('#985f59'));
+// Arms resting alongside the body
+limb(patient,'Bras gauche',[-.42,1.18,-.25],[-.70,1.02,.65],.13,.11,pSkin);
+limb(patient,'Avant bras gauche',[-.70,1.02,.65],[-.72,.99,1.05],.105,.085,pSkin);
+ellipsoid(patient,'Main gauche',[-.72,.98,1.12],[.12,.055,.18],pSkin);
+limb(patient,'Bras droit',[.42,1.18,-.25],[.70,1.02,.65],.13,.11,pSkin);
+limb(patient,'Avant bras droit',[.70,1.02,.65],[.72,.99,1.05],.105,.085,pSkin);
+ellipsoid(patient,'Main droite',[.72,.98,1.12],[.12,.055,.18],pSkin);
+// Wound on the patient's left upper arm, visible from the side of the bed
+const woundGroup=new THREE.Group();woundGroup.position.set(-.725,1.08,.62);woundGroup.rotation.y=-Math.PI/2;patient.add(woundGroup);
+const woundBase=new THREE.Mesh(new THREE.CircleGeometry(.19,32),mat('#a95750'));woundGroup.add(woundBase);
+const woundInner=new THREE.Mesh(new THREE.CircleGeometry(.115,32),mat('#7d3535'));woundInner.position.z=.004;woundGroup.add(woundInner);
+for(let i=0;i<5;i++){
+  const dot=new THREE.Mesh(new THREE.SphereGeometry(.012,8,6),mat('#c9786d'));
+  const a=i*Math.PI*2/5;dot.position.set(Math.cos(a)*.14,Math.sin(a)*.14,.01);woundGroup.add(dot);
+}
+const oldDressing=box('Pansement en place',-1.825,1.08,-.83,.035,.5,.55,white,true);oldDressing.rotation.z=.08;
+const cleanDressing=box('Pansement stérile',-1.80,1.08,-.83,.025,.48,.52,white);cleanDressing.visible=false;
+
+// First-person student's gloved hands and forearms (camera-space)
+const handsRig=new THREE.Group();camera.add(handsRig);
+const gloveMat=mat('#e9f2f2',.38),sleeveMat=mat('#dce7ee');
+function makeHand(side){
+  const g=new THREE.Group();g.position.set(side*.34,-.40,-.78);handsRig.add(g);
+  const forearm=new THREE.Mesh(new THREE.CapsuleGeometry(.075,.42,4,10),sleeveMat);
+  forearm.rotation.z=side*.20;forearm.position.set(0,-.13,0);g.add(forearm);
+  const cuff=new THREE.Mesh(new THREE.CylinderGeometry(.082,.082,.10,16),mat('#b8cbd5'));
+  cuff.rotation.z=Math.PI/2;cuff.position.set(0,.08,0);g.add(cuff);
+  const palm=ellipsoid(g,'Paume gantée',[0,.18,-.02],[.105,.13,.07],gloveMat,16);
+  for(let i=0;i<4;i++){
+    const finger=new THREE.Mesh(new THREE.CapsuleGeometry(.023,.10,3,8),gloveMat);
+    finger.position.set((i-1.5)*.045,.29,-.015);finger.rotation.z=(i-1.5)*-.10;g.add(finger);
+  }
+  const thumb=new THREE.Mesh(new THREE.CapsuleGeometry(.025,.09,3,8),gloveMat);
+  thumb.position.set(side*-.105,.17,-.005);thumb.rotation.z=side*.85;g.add(thumb);
+  return g;
+}
+const leftHand=makeHand(-1),rightHand=makeHand(1);
+handsRig.visible=false;
+let handAnim=0,breathTime=0;
 // Treatment trolley and selectable supplies
 box('Chariot plateau',2.2,1.05,-1.1,1.55,.12,1,steel);box('Chariot étagère',2.2,.55,-1.1,1.48,.08,.92,steel);
 for(const x of [1.55,2.85])for(const z of [-1.48,-.72])cyl('Roue',x,.2,z,.09,.12,dark);
@@ -120,14 +182,15 @@ const steps=[
 let step=0,elapsed=0,started=false,done=false,yaw=0,pitch=0,drag=false,lastX=0,lastY=0,moveX=0,moveY=0,joyOn=false;
 const ray=new THREE.Raycaster(),center=new THREE.Vector2(0,0);
 function updateStep(){const s=steps[step];document.querySelector('#stepTitle').textContent=s.title;document.querySelector('#stepText').textContent=s.text;document.querySelector('#bar').style.width=(step/steps.length*100)+'%';document.querySelector('#hint').textContent='À faire : '+s.need.filter(n=>!s.done.includes(n)).join(' + ')}
-function finish(){done=true;document.querySelector('#bar').style.width='100%';document.querySelector('#msgTitle').textContent='Séance terminée';document.querySelector('#msgText').textContent='Vous avez terminé les 6 étapes de ce prototype. Cette version valide le déplacement et les interactions de base. La prochaine étape ajoutera les modèles humains détaillés, les animations gestuelles, la validation clinique et une note /20.';document.querySelector('#message').style.display='block'}
+function finish(){done=true;document.querySelector('#bar').style.width='100%';document.querySelector('#msgTitle').textContent='Séance terminée';document.querySelector('#msgText').textContent='Vous avez terminé les 6 étapes de cette version évoluée. Le patient détaillé, les mains gantées en vue subjective et les premières animations procédurales sont activés. Le bilan clinique détaillé et la note sur 20 seront ajoutés dans une prochaine version.';document.querySelector('#message').style.display='block'}
 function interact(){if(done)return;ray.setFromCamera(center,camera);const hits=ray.intersectObjects(targets,false);if(!hits.length){document.querySelector('#hint').textContent='Visez un objet interactif et rapprochez-vous.';return}
 const obj=hits[0].object,s=steps[step];if(camera.position.distanceTo(obj.position)>4.3){document.querySelector('#hint').textContent='Approchez-vous davantage de l’objet.';return}
 if(!s.need.includes(obj.name)){document.querySelector('#hint').textContent='Cet objet ne correspond pas à l’étape actuelle.';return}
 if(s.done.includes(obj.name)){document.querySelector('#hint').textContent='Déjà effectué.';return}
 s.done.push(obj.name);
-if(obj.name==='Pansement en place'){oldDressing.visible=false;wound.visible=true}
-if(obj.name==='Compresses stériles'&&step===4){cleanDressing.visible=true;wound.visible=false}
+handAnim=1.0;
+if(obj.name==='Pansement en place'){oldDressing.visible=false;woundGroup.visible=true}
+if(obj.name==='Compresses stériles'&&step===4){cleanDressing.visible=true;woundGroup.visible=false}
 if(s.done.length===s.need.length){step++;if(step===steps.length)finish();else updateStep()}
 else{document.querySelector('#hint').textContent='Bien. Il reste : '+s.need.filter(n=>!s.done.includes(n)).join(', ')}
 }
@@ -140,7 +203,7 @@ joy.addEventListener('pointerdown',e=>{joyOn=true;joy.setPointerCapture(e.pointe
 function joyMove(e){const r=joy.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;let dx=e.clientX-cx,dy=e.clientY-cy,len=Math.hypot(dx,dy),max=34;if(len>max){dx=dx/len*max;dy=dy/len*max}moveX=dx/max;moveY=dy/max;stick.style.transform=`translate(${dx}px,${dy}px)`}
 const keys={};addEventListener('keydown',e=>keys[e.key.toLowerCase()]=true);addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
 const clock=new THREE.Clock();
-function loop(){requestAnimationFrame(loop);const dt=Math.min(clock.getDelta(),.04);if(started&&!done){elapsed+=dt;document.querySelector('#timer').textContent=String(Math.floor(elapsed/60)).padStart(2,'0')+':'+String(Math.floor(elapsed%60)).padStart(2,'0');camera.rotation.order='YXZ';camera.rotation.set(pitch,yaw,0);let f=-moveY+(keys.w||keys.z?1:0)-(keys.s?1:0),side=moveX+(keys.d?1:0)-(keys.a||keys.q?1:0);const v=new THREE.Vector3(side,0,f);if(v.length()>1)v.normalize();v.applyAxisAngle(new THREE.Vector3(0,1,0),yaw);camera.position.addScaledVector(v,dt*2.45);camera.position.x=THREE.MathUtils.clamp(camera.position.x,-5.35,5.35);camera.position.z=THREE.MathUtils.clamp(camera.position.z,-6.1,6.1);camera.position.y=1.65}renderer.render(scene,camera)}
+function loop(){requestAnimationFrame(loop);const dt=Math.min(clock.getDelta(),.04);if(started&&!done){handsRig.visible=true;breathTime+=dt;patient.position.y=Math.sin(breathTime*1.35)*.012;gownBody.scale.y=.32+Math.sin(breathTime*1.35)*.004;handAnim=Math.max(0,handAnim-dt*1.55);const reach=Math.sin((1-handAnim)*Math.PI)*.20;leftHand.position.y=-.40+reach;rightHand.position.y=-.40+reach;leftHand.rotation.x=-reach*1.7;rightHand.rotation.x=-reach*1.7;elapsed+=dt;document.querySelector('#timer').textContent=String(Math.floor(elapsed/60)).padStart(2,'0')+':'+String(Math.floor(elapsed%60)).padStart(2,'0');camera.rotation.order='YXZ';camera.rotation.set(pitch,yaw,0);let f=-moveY+(keys.w||keys.z?1:0)-(keys.s?1:0),side=moveX+(keys.d?1:0)-(keys.a||keys.q?1:0);const v=new THREE.Vector3(side,0,f);if(v.length()>1)v.normalize();v.applyAxisAngle(new THREE.Vector3(0,1,0),yaw);camera.position.addScaledVector(v,dt*2.45);camera.position.x=THREE.MathUtils.clamp(camera.position.x,-5.35,5.35);camera.position.z=THREE.MathUtils.clamp(camera.position.z,-6.1,6.1);camera.position.y=1.65}renderer.render(scene,camera)}
 loop();
 document.querySelector('#begin').addEventListener('click',()=>{window.__ispitsSimulationStarted=true;started=true;document.querySelector('#start').style.display='none';document.querySelector('#startupError').style.display='none';updateStep();if(matchMedia('(pointer:fine)').matches)renderer.domElement.requestPointerLock?.()});
 renderer.domElement.addEventListener('click',()=>{if(started&&document.pointerLockElement===renderer.domElement)interact()});
