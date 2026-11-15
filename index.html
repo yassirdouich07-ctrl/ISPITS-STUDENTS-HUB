@@ -6,11 +6,11 @@
 <meta name="theme-color" content="#102b46">
 <title>ISPITS Students Hub</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
 
 <style>
 :root{
@@ -738,13 +738,6 @@ a.list-row{text-decoration:none}
 .fiche-num .ico{width:20px;height:20px}
 @media(max-width:600px){.sim-view{aspect-ratio:4/3.6}.sim-say{font-size:13px}}
 
-.force-page{min-height:100vh;display:grid;place-items:center;padding:24px;background:var(--bg)}
-.force-card{width:100%;max-width:440px;background:#fff;border:1px solid var(--border);border-radius:18px;padding:30px;box-shadow:var(--shadow)}
-.force-card h2{font-family:'Outfit',sans-serif;color:var(--navy);font-size:24px;letter-spacing:-.5px;margin:22px 0 8px}
-.force-card p{font-size:13.5px;color:var(--muted);line-height:1.8;margin:0 0 20px}
-.force-out{display:block;margin:16px auto 0}
-.forgot-hint{font-size:12px;color:var(--muted)}
-
 /* ===== THÈME PRO ===== */
 :root{
   --navy:#0e2740;--navy2:#16395a;
@@ -850,6 +843,155 @@ body{font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
   .hero-banner{padding:24px 20px}
 }
 @media(max-width:480px){.stat-number{font-size:22px}}
+.cm{margin-top:28px}.cm-title{font-family:'Outfit',sans-serif;font-size:19px;color:var(--navy);margin:0 0 12px}
+.cm-box{margin:14px 0 8px}.cm-box textarea{width:100%;min-height:84px;border:1px solid #dbe3ea;border-radius:12px;padding:12px;font:inherit;resize:vertical;box-sizing:border-box;margin-bottom:10px}
+.cm-err{color:#b42318;font-size:13px;margin:6px 0 0;min-height:1em}.cm-item{border-top:1px solid #eef2f6;padding:12px 0}
+.cm-head{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:#64748b}.cm-body{margin:6px 0 0;white-space:pre-wrap;word-break:break-word;color:var(--navy);line-height:1.55}
+.cm-del{background:none;border:0;color:#b42318;font-size:13px;cursor:pointer;padding:0}
+.cm-reply{margin-left:18px;padding-left:12px;border-left:3px solid #e2e8f0;border-top:0}.cm-replybox{margin-left:18px}
+.cm-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.cm-react{border:1px solid #dbe3ea;background:#fff;border-radius:999px;padding:4px 10px;font-size:14px;cursor:pointer}
+.cm-react.on{background:#e6f6f4;border-color:var(--teal)}.cm-react:disabled{opacity:.6}
+.cm-link{background:none;border:0;color:var(--teal);font-size:13px;cursor:pointer;padding:0 4px}
+.cm-badge{background:var(--teal);color:#fff;border-radius:6px;font-size:11px;font-weight:700;padding:1px 6px;margin-left:4px}
+.tt-chips{display:flex;gap:8px;margin:0 0 14px;flex-wrap:wrap}.tt-chip{border:1px solid #dbe3ea;background:#fff;border-radius:999px;padding:8px 16px;font:inherit;font-weight:600;color:var(--navy);cursor:pointer}
+.tt-chip.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.tt-info{background:#f4f8fb;border-radius:14px;padding:12px 14px;margin:0 0 14px;display:flex;flex-direction:column;gap:4px;color:var(--navy)}.tt-info span{font-size:13px;color:#64748b}
+.tt-day{border:1px solid #e6edf3;border-radius:14px;padding:12px;margin:0 0 12px;background:#fff}.tt-day.today{border-color:var(--teal);box-shadow:0 0 0 2px #e6f6f4}
+.tt-dayhead{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 8px;color:var(--navy)}.tt-dayhead span{font-size:13px;color:#64748b}
+.tt-slot{display:flex;gap:12px;border-left:4px solid var(--teal);background:#f6fbfa;border-radius:10px;padding:10px 12px;margin:6px 0}
+.tt-slot.stage{border-left-color:#e08a1e;background:#fff7ec}.tt-slot.ferie{border-left-color:#94a3b8;background:#f1f5f9}
+.tt-time{font-size:13px;font-weight:700;color:var(--navy);min-width:96px}.tt-title{font-weight:700;color:var(--navy)}.tt-prof{font-size:13px;color:#64748b;margin-top:2px}
+.tt-empty{font-size:13px;color:#94a3b8;padding:6px 2px}
+.rg-search{width:100%;border:1px solid #dbe3ea;border-radius:12px;padding:12px;font:inherit;margin:0 0 16px;box-sizing:border-box}
+.rg-keys{display:grid;gap:10px;margin:0 0 20px}.rg-key{border:1px solid #e6edf3;border-radius:14px;padding:12px 14px;background:#fff}
+.rg-key strong{color:var(--navy);font-family:'Outfit',sans-serif}.rg-key p{margin:6px 0 8px;line-height:1.55;color:var(--navy);font-size:14px}
+.rg-refs{display:flex;gap:6px;flex-wrap:wrap}.rg-ref{border:1px solid var(--teal);background:#e6f6f4;color:var(--navy);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600;cursor:pointer}
+.rg-art{border-top:1px solid #eef2f6;padding:12px 4px;border-radius:8px;transition:background .4s}.rg-art:first-child{border-top:0}
+.rg-art h4{margin:0 0 6px;color:var(--navy);font-family:'Outfit',sans-serif}.rg-art p{margin:6px 0;line-height:1.6;color:var(--navy)}.rg-art ul{margin:6px 0;padding-left:20px;line-height:1.6;color:var(--navy)}
+.rg-flash{background:#fff3c4}.rg-range{font-size:12px;color:#64748b;font-weight:400;margin-left:6px}
+.rg-hit{border:1px solid #e6edf3;border-radius:14px;padding:10px 12px;margin:0 0 10px;background:#fff}.rg-chap{font-size:12px;color:#64748b;margin:0 0 4px}
+
+/* ================= AURORA THEME ================= */
+:root{--navy:#0b1f3a;--navy2:#12385a;--teal:#14b8a6;--teal-dark:#0d9488;--teal-soft:#e3f9f6;--bg:#eef3f8;--border:#e3eaf2;--shadow:0 22px 50px rgba(11,31,58,.12);--radius:22px}
+body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%),radial-gradient(700px 520px at -8% 35%,#7c5cff1c,transparent 62%),var(--bg);background-attachment:fixed}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes ecg{to{background-position:-260px 50%}}
+@keyframes aurora{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+#homePage>*{animation:up .6s both}
+#homePage>*:nth-child(2){animation-delay:.06s}#homePage>*:nth-child(3){animation-delay:.12s}#homePage>*:nth-child(4){animation-delay:.18s}#homePage>*:nth-child(5){animation-delay:.24s}#homePage>*:nth-child(n+6){animation-delay:.3s}
+
+/* Auth */
+.auth-visual{background:linear-gradient(135deg,#0b1f3a,#0f4c6a,#0d9488,#4c3fd1,#0b1f3a);background-size:300% 300%;animation:aurora 18s ease infinite}
+.visual-content h1 span{background:linear-gradient(90deg,#5eead4,#a5b4fc);-webkit-background-clip:text;background-clip:text;color:transparent}
+.visual-badge{backdrop-filter:blur(8px)}
+.feature-check{background:linear-gradient(135deg,#14b8a6,#22d3ee);color:#fff;box-shadow:0 6px 16px #14b8a655}
+.float-cards{display:none}
+@media(min-width:1250px){
+ .float-cards{display:block;position:absolute;right:6%;top:24%;z-index:1;width:210px}
+ .fc{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding:14px 16px;border-radius:18px;color:#fff;font-size:12px;font-weight:700;
+  background:#ffffff1c;border:1px solid #ffffff30;backdrop-filter:blur(14px);box-shadow:0 18px 40px #00000030;animation:drift 6s ease-in-out infinite}
+ .fc:nth-child(2){margin-left:38px;animation-delay:-2s}.fc:nth-child(3){animation-delay:-4s}
+ .fc small{display:block;font-weight:500;color:#cfe6ee;font-size:10px;margin-top:2px}
+ .fc i{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#14b8a6,#6366f1)}
+ .fc i svg{width:19px;height:19px}
+}
+.submit-btn{background:linear-gradient(135deg,#0d9488,#14b8a6 55%,#22d3ee);box-shadow:0 12px 26px #14b8a64d}
+.submit-btn:hover{background:linear-gradient(135deg,#0b8277,#14b8a6);box-shadow:0 16px 34px #14b8a66b}
+.auth-tab.active{color:var(--teal-dark)}
+
+/* Topbar */
+.topbar{background:#ffffffb8;backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid #ffffffa0}
+.avatar{background:linear-gradient(135deg,#14b8a6,#6366f1);color:#fff}
+
+/* Sidebar (dark floating) */
+.sidebar{margin:16px 0 16px 16px;border:0;border-radius:26px;position:sticky;top:88px;align-self:flex-start;max-height:calc(100vh - 104px);overflow:auto;
+ background:linear-gradient(175deg,#0b1f3a,#12385a);box-shadow:0 24px 50px #0b1f3a40}
+.side-label{color:#5f7d96}
+.nav-item{color:#a6bdd0;border-radius:14px;position:relative}
+.nav-item:hover{background:#ffffff14;color:#fff;transform:translateX(3px)}
+.nav-item.active{color:#fff;background:linear-gradient(90deg,#14b8a6,#0ea5a0);box-shadow:0 10px 24px #14b8a655}
+.nav-item.active:before{content:"";position:absolute;left:-16px;top:12px;bottom:12px;width:4px;border-radius:4px;background:#5eead4}
+.side-bottom{background:linear-gradient(135deg,#ffffff14,#ffffff06);border:1px solid #ffffff18}
+.side-bottom strong{color:#fff}.side-bottom p{color:#9db4c8}
+
+/* Home */
+.welcome-row h1{font-size:34px;letter-spacing:-1.4px}
+#welcomeName{background:linear-gradient(90deg,#0d9488,#6366f1,#ec4899);-webkit-background-clip:text;background-clip:text;color:transparent}
+.welcome-small{display:inline-block;padding:6px 12px;border-radius:20px;background:var(--teal-soft)}
+.date-card{border-radius:14px;background:#ffffffc0;backdrop-filter:blur(8px)}
+.home-search{border-radius:20px!important;box-shadow:0 14px 34px #0b1f3a14;transition:.25s}
+.home-search:focus-within{box-shadow:0 0 0 4px #14b8a62e,0 18px 40px #14b8a626}
+.home-search button{background:linear-gradient(135deg,#0d9488,#14b8a6)!important;color:#fff!important;border-radius:14px!important}
+.hero-banner{border-radius:28px;padding:36px 34px;background:linear-gradient(120deg,#0b1f3a,#0f4c6a 55%,#0d9488);box-shadow:0 26px 55px #0b1f3a33}
+.hero-banner:before{content:"";position:absolute;width:320px;height:320px;right:-60px;top:-120px;border-radius:50%;background:radial-gradient(circle,#5eead455,transparent 70%)}
+.hero-banner:after{content:"";position:absolute;left:0;right:0;bottom:0;top:auto;height:90px;transform:none;font-size:0;opacity:.55;
+ background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='90' viewBox='0 0 260 90'><path d='M0 50H70l10-6 8 6h14l8-34 12 62 10-28h12l8-6 8 6H260' fill='none' stroke='%235eead4' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/></svg>") repeat-x 0 50%;
+ animation:ecg 5s linear infinite;-webkit-mask:linear-gradient(90deg,transparent,#000 35%);mask:linear-gradient(90deg,transparent,#000 35%)}
+.hero-banner h2{font-size:26px;letter-spacing:-.6px}
+.hero-tag{display:flex;align-items:center;gap:7px;backdrop-filter:blur(10px);border-radius:30px}
+.hero-tag .ico{width:14px;height:14px}
+.stat-card{border:0;border-radius:20px;background:#ffffffd0;backdrop-filter:blur(8px);box-shadow:0 10px 28px #0b1f3a0d;transition:.25s}
+.stat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.stat-icon{color:#fff;background:linear-gradient(135deg,#14b8a6,#0ea5e9)}
+.stat-card:nth-child(2) .stat-icon{background:linear-gradient(135deg,#ff7a59,#ff4d6d)}
+.stat-card:nth-child(3) .stat-icon{background:linear-gradient(135deg,#7c5cff,#a78bfa)}
+.stat-card:nth-child(4) .stat-icon{background:linear-gradient(135deg,#f59e0b,#fb7185)}
+.stat-number{font-size:28px}
+.section-title h2{font-size:20px}
+.section-title h2:before{content:"";display:inline-block;width:8px;height:20px;border-radius:5px;margin-right:10px;vertical-align:-3px;background:linear-gradient(#14b8a6,#6366f1)}
+
+/* Module cards */
+.module-card{border:0;border-radius:24px;overflow:hidden;box-shadow:0 10px 28px #0b1f3a0f;min-height:176px}
+.module-card:before{content:"";position:absolute;inset:0;opacity:0;transition:.3s;background:radial-gradient(260px 160px at 100% 0,var(--g1,#14b8a6)22,transparent 70%)}
+.module-card:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 26px 50px #0b1f3a1f}
+.module-card:hover:before{opacity:1}
+.module-icon{position:relative;width:52px;height:52px;border-radius:16px;color:#fff;background:linear-gradient(135deg,var(--g1,#14b8a6),var(--g2,#0ea5e9))!important;box-shadow:0 12px 24px var(--g1,#14b8a6)55;transition:.3s}
+.module-icon .ico{width:24px;height:24px}
+.module-card:hover .module-icon{transform:rotate(-8deg) scale(1.08)}
+.module-card h3{font-size:15px}.module-card p{font-size:11px}
+.module-arrow{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:var(--teal-soft);transition:.3s}
+.module-card:hover .module-arrow{background:var(--g1,#14b8a6);color:#fff;transform:rotate(45deg)}
+.module-card:nth-child(1){--g1:#14b8a6;--g2:#0ea5e9}.module-card:nth-child(2){--g1:#ff7a59;--g2:#ff4d6d}
+.module-card:nth-child(3){--g1:#7c5cff;--g2:#a78bfa}.module-card:nth-child(4){--g1:#f59e0b;--g2:#f97316}
+.module-card:nth-child(5){--g1:#0ea5e9;--g2:#6366f1}.module-card:nth-child(6){--g1:#10b981;--g2:#84cc16}
+.module-card:nth-child(7){--g1:#ec4899;--g2:#7c5cff}.module-card:nth-child(8){--g1:#06b6d4;--g2:#14b8a6}
+
+/* Inner pages + AI */
+.page-heading h1{font-size:32px}
+.resource-panel,.ai-chat,.ai-side-info{border:0;border-radius:24px;box-shadow:0 12px 32px #0b1f3a0f}
+.ai-msg.user{background:linear-gradient(135deg,#0d9488,#6366f1)}
+.ai-composer button{background:linear-gradient(135deg,#0d9488,#14b8a6)}
+.back-btn{border-radius:14px}
+
+
+/* name colour fix + extra icons */
+#welcomeName{background:none;-webkit-background-clip:initial;background-clip:initial;color:var(--teal-dark)}
+.gr-ico{display:inline-block;width:32px;height:32px;vertical-align:-5px;margin-right:10px;padding:5px;border-radius:11px;color:#f59e0b;background:#fff4dc}
+.section-title h2:before{display:none}
+.section-title h2{display:flex;align-items:center;gap:10px}
+.section-title h2 .ico{width:32px;height:32px;padding:6px;border-radius:11px;color:#fff;background:linear-gradient(135deg,#14b8a6,#6366f1)}
+.hero-chips{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.hero-chips span{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:30px;font-size:11px;font-weight:700;color:#e6fbf8;background:#ffffff1a;border:1px solid #ffffff26;backdrop-filter:blur(8px)}
+.hero-chips .ico{width:15px;height:15px}
+.date-card:before{content:"";display:inline-block;width:15px;height:15px;margin-right:8px;vertical-align:-3px;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2314b8a6' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='5' width='18' height='16' rx='2'/><path d='M3 10h18M8 3v4M16 3v4'/></svg>") center/contain no-repeat}
+.form-group input#email,.form-group input#password,.form-group input#fullName{padding-left:44px;background-repeat:no-repeat;background-position:14px center;background-size:19px}
+.form-group input#email{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2314b8a6' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='5' width='18' height='14' rx='2'/><path d='m3 7 9 6 9-6'/></svg>")}
+.form-group input#password{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2314b8a6' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><rect x='4' y='11' width='16' height='10' rx='2'/><path d='M8 11V7a4 4 0 0 1 8 0v4'/></svg>")}
+.form-group input#fullName{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2314b8a6' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='8' r='4'/><path d='M4 21a8 8 0 0 1 16 0'/></svg>")}
+.stat-card[data-open]{cursor:pointer;position:relative;-webkit-tap-highlight-color:transparent}
+.stat-card[data-open]:after{content:"↗";position:absolute;right:14px;bottom:12px;width:24px;height:24px;display:grid;place-items:center;border-radius:50%;font-size:13px;font-weight:800;color:var(--teal-dark);background:var(--teal-soft);transition:.25s}
+.stat-card[data-open]:hover:after{background:var(--teal);color:#fff;transform:rotate(45deg)}
+.stat-card[data-open]:active{transform:scale(.97)}
+@media(max-width:760px){
+ .hero-tag{display:none}
+ .sidebar{margin:0;border-radius:0;position:static;max-height:none;top:auto;box-shadow:none}
+ .nav-item.active:before{display:none}
+ .welcome-row h1{font-size:26px}
+ .hero-banner{padding:26px 20px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 </head>
 
@@ -899,6 +1041,11 @@ body{font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
   <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
   <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
   <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5M22 9v6"/></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2-5h6"/></symbol>
 </svg>
 
 <!-- AUTHENTICATION -->
@@ -929,6 +1076,11 @@ body{font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
       </div>
     </div>
 
+    <div class="float-cards" aria-hidden="true">
+      <div class="fc"><i><svg class="ico"><use href="#i-book"/></svg></i><span>Cours<small>Tous vos modules</small></span></div>
+      <div class="fc"><i><svg class="ico"><use href="#i-check"/></svg></i><span>QCM &amp; Examens<small>Entraînez-vous</small></span></div>
+      <div class="fc"><i><svg class="ico"><use href="#i-spark"/></svg></i><span>Assistant IA<small>Aide 24h/24</small></span></div>
+    </div>
     <div class="visual-footer">ISPITS STUDENTS HUB · MAROC · © 2026 Yassir Douich</div>
   </section>
 
@@ -962,12 +1114,12 @@ body{font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
 
         <div class="form-group">
           <label for="email">Adresse e-mail</label>
-          <input id="email" type="email" placeholder="Votre adresse e-mail de la plateforme" autocomplete="email" required>
+          <input id="email" type="email" placeholder="exemple@email.com" autocomplete="email" required>
         </div>
 
         <div class="form-group">
           <label for="password">Mot de passe</label>
-          <input id="password" type="password" placeholder="Votre mot de passe"
+          <input id="password" type="password" placeholder="Minimum 6 caractères"
                  minlength="6" autocomplete="current-password" required>
         </div>
 
@@ -986,34 +1138,6 @@ body{font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
       </div>
     </div>
   </section>
-</main>
-
-<!-- PREMIÈRE CONNEXION : changement obligatoire du mot de passe -->
-<main id="forceView" class="force-page hidden">
-  <div class="force-card">
-    <div class="logo">
-      <svg class="logo-symbol"><use href="#hub-logo"></use></svg>
-      <div>
-        <div class="logo-title">ISPITS STUDENTS HUB</div>
-        <span class="logo-sub">PREMIÈRE CONNEXION</span>
-      </div>
-    </div>
-    <h2>Choisissez votre mot de passe</h2>
-    <p>Pour protéger votre compte, remplacez le mot de passe provisoire par un mot de passe personnel que vous êtes le seul à connaître.</p>
-    <form id="forceForm">
-      <div class="form-group">
-        <label for="fpNew">Nouveau mot de passe</label>
-        <input id="fpNew" type="password" minlength="8" autocomplete="new-password" placeholder="Minimum 8 caractères" required>
-      </div>
-      <div class="form-group">
-        <label for="fpConfirm">Confirmer le mot de passe</label>
-        <input id="fpConfirm" type="password" minlength="8" autocomplete="new-password" required>
-      </div>
-      <button class="submit-btn" id="fpSubmit" type="submit">Enregistrer et continuer</button>
-    </form>
-    <div id="fpMsg" class="message" role="status"></div>
-    <button class="text-btn force-out" type="button" id="fpLogout">Se déconnecter</button>
-  </div>
 </main>
 
 <!-- DASHBOARD -->
@@ -1063,6 +1187,7 @@ body{font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
       <button class="nav-item" data-page="Stages" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-hospital"/></svg></span>Stages</button>
       <button class="nav-item" data-page="Résumés" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-file"/></svg></span>Résumés</button>
       <button class="nav-item" data-page="Emploi du temps" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-calendar"/></svg></span>Emploi du temps</button>
+      <button class="nav-item" data-page="Règlement intérieur" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-file"/></svg></span>Règlement intérieur</button>
       <button class="nav-item" data-page="TP Simulation" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-syringe"/></svg></span>TP Simulation</button>
       <button class="nav-item" data-page="Examens & QCM" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-check"/></svg></span>Examens & QCM</button>
       <button class="nav-item" data-page="Assistant IA" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-spark"/></svg></span>Assistant IA</button>
@@ -1082,7 +1207,7 @@ body{font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
           <div class="welcome-row">
             <div>
               <div class="welcome-small">VOTRE ESPACE DE FORMATION</div>
-              <h1><span id="greeting">Bonjour</span>, <span id="welcomeName">Étudiant</span></h1>
+              <h1><svg class="ico gr-ico"><use href="#i-sun"/></svg><span id="greeting">Bonjour</span>, <span id="welcomeName">Étudiant</span></h1>
               <p>Heureux de vous retrouver. Que souhaitez-vous consulter aujourd'hui ?</p>
             </div>
             <div class="date-card" id="todayDate"></div>
@@ -1098,31 +1223,32 @@ body{font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
             <div class="hero-copy">
               <h2>Bienvenue sur votre plateforme !</h2>
               <p>Toutes vos ressources pédagogiques réunies dans un seul espace pour accompagner votre parcours de formation.</p>
+            <div class="hero-chips"><span><svg class="ico"><use href="#i-book"/></svg>Cours</span><span><svg class="ico"><use href="#i-syringe"/></svg>TP</span><span><svg class="ico"><use href="#i-check"/></svg>QCM</span><span><svg class="ico"><use href="#i-spark"/></svg>IA</span></div>
             </div>
-            <div class="hero-tag">✦ Learning space</div>
+            <div class="hero-tag"><svg class="ico"><use href="#i-spark"/></svg> Learning space</div>
           </div>
 
           <div class="stats-grid">
-            <div class="stat-card">
+            <div class="stat-card" data-open="Cours" role="button" tabindex="0" aria-label="Ouvrir Cours">
               <div class="stat-top"><div class="stat-icon"><svg class="ico"><use href="#i-layers"/></svg></div><div class="stat-number" id="statFilieres">9</div></div>
               <div class="stat-label">Filières disponibles</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" data-open="Stages" role="button" tabindex="0" aria-label="Ouvrir Stages">
               <div class="stat-top"><div class="stat-icon"><svg class="ico"><use href="#i-hospital"/></svg></div><div class="stat-number" id="statFiches">—</div></div>
               <div class="stat-label">Fiches techniques</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" data-open="Cours" role="button" tabindex="0" aria-label="Ouvrir Cours">
               <div class="stat-top"><div class="stat-icon"><svg class="ico"><use href="#i-file"/></svg></div><div class="stat-number" id="statDocs">—</div></div>
               <div class="stat-label">Documents disponibles</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" data-open="Assistant IA" role="button" tabindex="0" aria-label="Ouvrir Assistant IA">
               <div class="stat-top"><div class="stat-icon"><svg class="ico"><use href="#i-spark"/></svg></div><div class="stat-number">IA</div></div>
               <div class="stat-label">Assistant pédagogique</div>
             </div>
           </div>
 
           <div class="section-title">
-            <h2>Explorer les ressources</h2>
+            <h2><svg class="ico"><use href="#i-compass"/></svg>Explorer les ressources</h2>
             <span>Accès rapide</span>
           </div>
 
@@ -1152,6 +1278,13 @@ body{font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
               <div class="module-icon"><svg class="ico"><use href="#i-calendar"/></svg></div>
               <h3>Emploi du temps</h3>
               <p>Plannings, organisation des cours et informations académiques.</p>
+              <span class="module-arrow">↗</span>
+            </button>
+
+            <button class="module-card" data-open="Règlement intérieur" type="button">
+              <div class="module-icon"><svg class="ico"><use href="#i-file"/></svg></div>
+              <h3>Règlement intérieur</h3>
+              <p>Absences, évaluations, rattrapage, discipline et droits de l'étudiant.</p>
               <span class="module-arrow">↗</span>
             </button>
 
@@ -1198,7 +1331,14 @@ body{font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>window.supabase||document.write('<script src="https://unpkg.com/@supabase/supabase-js@2"><\/script>')</script>
 <script>
+if (!window.supabase) {
+  document.getElementById("authView").insertAdjacentHTML("afterbegin",'<div class="message show error" style="position:fixed;top:12px;left:12px;right:12px;z-index:99">Connexion impossible. Vérifiez votre réseau puis rechargez la page.</div>');
+  throw new Error("supabase not loaded");
+}
+
 // =====================================
 // SUPABASE CONFIGURATION
 // =====================================
@@ -1227,10 +1367,6 @@ const forgotRow = document.getElementById("forgotRow");
 const submitBtn = document.getElementById("submitBtn");
 
 let currentMode = "login";
-
-// Réglages d'accès : les comptes sont créés par l'administration
-const ALLOW_SIGNUP = false;   // true pour réactiver l'onglet « Inscription »
-const ALLOW_RESET = false;    // true pour réactiver « Mot de passe oublié ? »
 let currentUser = null;
 let toastTimer = null;
 
@@ -1280,11 +1416,6 @@ function setMode(mode) {
 }
 loginTab.addEventListener("click", () => setMode("login"));
 signupTab.addEventListener("click", () => setMode("signup"));
-if (!ALLOW_SIGNUP) document.querySelector(".auth-tabs").classList.add("hidden");
-if (!ALLOW_RESET) {
-  document.getElementById("forgotBtn").classList.add("hidden");
-  forgotRow.insertAdjacentHTML("beforeend", '<span class="forgot-hint">Mot de passe oublié ? Contactez l\'administration de la plateforme.</span>');
-}
 
 // =====================================
 // SHOW / HIDE DASHBOARD
@@ -1292,15 +1423,6 @@ if (!ALLOW_RESET) {
 function showDashboard(user) {
   if (!user) return;
   currentUser = user;
-
-  // Premier accès : mot de passe provisoire à remplacer avant d'entrer
-  if (user.user_metadata && user.user_metadata.must_change_password === true) {
-    authView.classList.add("hidden");
-    appView.classList.add("hidden");
-    document.getElementById("forceView").classList.remove("hidden");
-    return;
-  }
-  document.getElementById("forceView").classList.add("hidden");
 
   authView.classList.add("hidden");
   appView.classList.remove("hidden");
@@ -1344,7 +1466,6 @@ function setStats() {
 
 function showAuth() {
   stopSim();
-  document.getElementById("forceView").classList.add("hidden");
   aiMessages = [];
   closeProfileMenu();
   closeModal();
@@ -1408,37 +1529,6 @@ authForm.addEventListener("submit", async (event) => {
 });
 
 // =====================================
-// PREMIÈRE CONNEXION : CHANGEMENT DU MOT DE PASSE
-// =====================================
-document.getElementById("forceForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const a = document.getElementById("fpNew").value;
-  const b = document.getElementById("fpConfirm").value;
-  const btn = document.getElementById("fpSubmit");
-  const msg = document.getElementById("fpMsg");
-  const show = (t, type) => { msg.textContent = t; msg.className = "message show " + type; };
-  if (a.length < 8) return show("Le mot de passe doit contenir au moins 8 caractères.", "error");
-  if (a !== b) return show("Les deux mots de passe ne correspondent pas.", "error");
-  btn.disabled = true;
-  const { data, error } = await db.auth.updateUser({ password: a, data: { must_change_password: false } });
-  btn.disabled = false;
-  if (error) {
-    return show(/differen|same/i.test(error.message)
-      ? "Le nouveau mot de passe doit être différent du mot de passe provisoire."
-      : error.message, "error");
-  }
-  document.getElementById("fpNew").value = "";
-  document.getElementById("fpConfirm").value = "";
-  msg.className = "message";
-  showDashboard(data.user);
-  showToast("Mot de passe enregistré. Bienvenue !");
-});
-document.getElementById("fpLogout").addEventListener("click", async () => {
-  await db.auth.signOut();
-  showAuth();
-});
-
-// =====================================
 // PASSWORD RESET
 // =====================================
 document.getElementById("forgotBtn").addEventListener("click", async () => {
@@ -1486,6 +1576,7 @@ const moduleDescriptions = {
   "Stages": "Consultez les documents de stage, les protocoles, les fiches techniques et les situations cliniques.",
   "Résumés": "Accédez aux fiches de révision, synthèses et documents conçus pour faciliter vos révisions.",
   "Emploi du temps": "Retrouvez les plannings, les emplois du temps et les informations relatives à votre organisation académique.",
+  "Règlement intérieur": "Consultez le règlement intérieur des ISPITS : absences, évaluations, rattrapage, discipline et droits de l'étudiant.",
   "TP Simulation": "Préparez vos travaux pratiques grâce aux fiches techniques, procédures et ressources de simulation.",
   "Examens & QCM": "Entraînez-vous avec les examens des années précédentes, les QCM et les évaluations blanches."
 };
@@ -1496,6 +1587,7 @@ const moduleIcons = {
   "Stages": ico("hospital"),
   "Résumés": ico("file"),
   "Emploi du temps": ico("calendar"),
+  "Règlement intérieur": ico("file"),
   "TP Simulation": ico("syringe"),
   "Examens & QCM": ico("check")
 };
@@ -1563,6 +1655,16 @@ function openPage(pageName, arg) {
     return;
   }
 
+  if (pageName === "Emploi du temps") {
+    renderTimetable();
+    return;
+  }
+
+  if (pageName === "Règlement intérieur") {
+    renderReglement();
+    return;
+  }
+
   inner.innerHTML = `
     <div class="page-heading">
       <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
@@ -1579,6 +1681,144 @@ function openPage(pageName, arg) {
     <div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>
   `;
   addBackButton(inner);
+}
+
+// =====================================
+// EMPLOI DU TEMPS (semaine par semaine, par semestre)
+// =====================================
+// Pour ajouter une semaine : copier un bloc de TIMETABLES, changer "start" (lundi, AAAA-MM-JJ) et les créneaux.
+// kind : "cours" | "stage" | "ferie" | h : horaire | t : intitulé | p : enseignant (facultatif)
+const TT_DAYS = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+const TIMETABLES = [
+  { f: "IP", s: "S1", start: "2026-11-16", annee: "2026-2027", filiere: "Soins Infirmiers", option: "Infirmier polyvalent", room: "Amphi",
+    days: {
+      Lundi: [{ kind: "cours", h: "08H00 – 12H00", t: "Sémiologie et Terminologie médicale", p: "Mme EL HASSOUNI" }],
+      Mardi: [{ kind: "cours", h: "08H00 – 12H00", t: "SIB 1", p: "M. EL MAJDOUBI" }],
+      Mercredi: [{ kind: "ferie", h: "Toute la journée", t: "Jour férié" }],
+      Jeudi: [{ kind: "cours", h: "08H00 – 12H00", t: "SIB 1", p: "M. EL MAJDOUBI" }],
+      Vendredi: [{ kind: "cours", h: "08H00 – 12H00", t: "Sémiologie et Terminologie médicale", p: "Mme EL HASSOUNI" }],
+      Samedi: []
+    } },
+  { f: "IP", s: "S3", start: "2026-11-16", annee: "2026-2027", filiere: "Soins Infirmiers", option: "Infirmier polyvalent", room: "Amphi",
+    days: {
+      Lundi: [{ kind: "stage", h: "08H30 – 12H30", t: "Stage discontinu" }, { kind: "cours", h: "14H00 – 18H00", t: "PAS 1", p: "Mme LGHAZI" }],
+      Mardi: [{ kind: "stage", h: "08H30 – 12H30", t: "Stage discontinu" }, { kind: "cours", h: "14H00 – 16H00", t: "Soins en médecine", p: "M. ARBANI" }, { kind: "cours", h: "16H00 – 18H00", t: "Soins en chirurgie", p: "Mme MAGOURI" }],
+      Mercredi: [{ kind: "ferie", h: "Toute la journée", t: "Jour férié" }],
+      Jeudi: [{ kind: "stage", h: "08H30 – 12H30", t: "Stage discontinu" }, { kind: "cours", h: "14H00 – 16H00", t: "PAS 1", p: "Mme LGHAZI" }, { kind: "cours", h: "16H00 – 18H00", t: "Soins en chirurgie", p: "Mme MAGOURI" }],
+      Vendredi: [{ kind: "stage", h: "08H30 – 16H30", t: "Stage continu" }],
+      Samedi: []
+    } }
+];
+let ttSel = "S1";
+const ttDate = (iso, add = 0) => { const [y, m, d] = iso.split("-").map(Number); return new Date(y, m - 1, d + add); };
+const ttIso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+
+function renderTimetable() {
+  const inner = document.getElementById("innerPage");
+  const list = TIMETABLES.filter(x => x.f === "IP");
+  const tt = list.find(x => x.s === ttSel) || list[0];
+  ttSel = tt.s;
+  const fmt = (d, o) => d.toLocaleDateString("fr-FR", o);
+  const from = ttDate(tt.start), to = ttDate(tt.start, 5);
+  const today = ttIso(new Date());
+  inner.innerHTML = `
+    <div class="page-heading">
+      <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
+      <h1>Emploi du temps</h1>
+      <p>${esc(moduleDescriptions["Emploi du temps"] || "")}</p>
+    </div>
+    <div class="tt-chips">${list.map(x => `<button type="button" class="tt-chip${x.s === tt.s ? " on" : ""}" data-s="${esc(x.s)}">Semestre ${esc(x.s.slice(1))}</button>`).join("")}</div>
+    <div class="tt-info">
+      <strong>Semaine du ${esc(fmt(from, { day: "numeric", month: "long" }))} au ${esc(fmt(to, { day: "numeric", month: "long", year: "numeric" }))}</strong>
+      <span>Année académique ${esc(tt.annee)} · ${esc(tt.filiere)} · ${esc(tt.option)} · Salle : ${esc(tt.room)}</span>
+    </div>
+    ${TT_DAYS.map((day, i) => {
+      const d = ttDate(tt.start, i), slots = tt.days[day] || [], isToday = ttIso(d) === today;
+      return `<div class="tt-day${isToday ? " today" : ""}">
+        <div class="tt-dayhead"><strong>${esc(day)}</strong><span>${esc(fmt(d, { day: "numeric", month: "short" }))}${isToday ? " · Aujourd'hui" : ""}</span></div>
+        ${slots.length ? slots.map(c => `<div class="tt-slot ${esc(c.kind)}">
+          <div class="tt-time">${esc(c.h)}</div>
+          <div class="tt-main"><div class="tt-title">${esc(c.t)}</div>${c.p ? `<div class="tt-prof">${esc(c.p)}</div>` : ""}</div>
+        </div>`).join("") : `<div class="tt-empty">Pas de cours</div>`}
+      </div>`;
+    }).join("")}
+    <p class="search-hint">Emploi du temps de l'ISPITS Errachidia. En cas de modification, référez-vous à l'affichage de l'institut.</p>
+    <div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>`;
+  inner.querySelectorAll("[data-s]").forEach(b => b.addEventListener("click", () => { ttSel = b.dataset.s; renderTimetable(); }));
+  addBackButton(inner);
+  window.scrollTo(0, 0);
+}
+
+// =====================================
+// RÈGLEMENT INTÉRIEUR (texte du règlement intérieur type des ISPITS, version janvier 2015)
+// =====================================
+const RG_KEYS = [
+  ["Absences", "Trois absences non justifiées sous 48 h dans un élément de module : interdiction de passer le contrôle final (note 0) et module non validé. Absence pour raison de santé : certificat médical sous 48 h.", [108, 111]],
+  ["Retards", "Un étudiant qui arrive plus de 10 minutes après le début de l'activité est considéré comme retardataire et peut être considéré absent.", [107]],
+  ["Évaluations écrites", "Carte d'étudiant et CIN obligatoires. Aucune entrée après 10 minutes. Sortie possible seulement après 30 minutes minimum.", [75, 77, 78]],
+  ["Téléphone", "Interdit pendant les évaluations (l'étudiant surpris est considéré comme fraudeur) et pendant les cours théoriques et pratiques.", [80, 104]],
+  ["Fraude et plagiat", "Exclusion de l'épreuve, note zéro et module non validé si la fraude concerne le contrôle final. Le plagiat entraîne des sanctions et l'obligation de refaire le travail.", [82, 83]],
+  ["Validation", "Un module est validé à 10/20 ou plus (sans note d'élément sous la note limite). Un semestre est validé avec une moyenne d'au moins 10/20 et chaque module à 10/20 ou plus.", [58, 64]],
+  ["Rattrapage", "Un seul rattrapage par élément de module et par semestre. L'étudiant conserve la meilleure note entre la session normale et le rattrapage.", [59, 60, 61]],
+  ["Compensation et rachat", "Après le rattrapage, avec une moyenne de semestre d'au moins 10/20 : module majeur accepté dès 8/20, autres modules dès 5/20. Rachat possible dans la limite d'un point.", [68, 85]],
+  ["Inscription S3 et S5", "Elle nécessite la validation de tous les modules majeurs des semestres précédents. Deux semestres de réserve possibles.", [71, 72]],
+  ["Tenue et stage", "Badge et tenue réglementaire obligatoires. L'uniforme est interdit hors des lieux de stage. Les absences en stage sont à récupérer.", [48, 49, 112]],
+  ["Notes et copies", "Dates des contrôles communiquées au moins 10 jours avant. Consultation de copie : lettre manuscrite 48 h après les résultats.", [93]],
+  ["Sanctions", "Avertissement, blâme, exclusion temporaire, exclusion définitive.", [113]]
+];
+const REGLEMENT = {"pre":["Les Instituts Supérieurs des Professions Infirmières et Techniques de Santé sont des établissements de l’enseignement supérieur ne relevant pas des universités et qui sont sous la tutelle de l’autorité gouvernementale chargée de la Santé. Ces instituts ont pour missions principales :","• La formation de base ;","• La formation continue ;","• La recherche scientifique et technologique favorisant le développement de la profession infirmière et des techniques de santé ;","• Le renouvellement des pratiques infirmières et techniques de santé ;","• L’organisation des services et des soins infirmiers ;","• La réalisation d’expertises liées aux domaines des professions infirmières et des techniques de santé.","Ces instituts participent à l'effort d'intégration, de coordination et de rationalisation du système national de l'enseignement supérieur par la contribution :","• Au développement des complémentarités avec les établissements de l’enseignement supérieur ;","• A la mise en place de passerelles avec les établissements de l’enseignement supérieur public au niveau des cycles, filières et options ;","• A la réalisation et à la conduite de programmes communs en matière de formation et de recherche ;","• A la promotion des synergies à travers l'émergence de centres ou pôles spécialisés.","Les Instituts Supérieurs des Professions Infirmières et Techniques de Santé assurent la préparation et la délivrance des diplômes nationaux organisés en trois cycles d’études dans les domaines des Professions Infirmières et des Techniques de Santé (Cycle de la Licence professionnelle, Cycle de Master et Cycle du Doctorat)."],"chapters":[{"n":"I","t":"Dispositions générales","arts":[{"n":1,"p":["Le présent règlement intérieur a pour objet de fixer les règles organisationnelles et fonctionnelles des Instituts Supérieurs des Professions Infirmières et Techniques de Santé et leurs annexes dans leur mode de gestion.","Il précise également le régime des études et définit les règles d’évaluation des connaissances, des aptitudes et des compétences des étudiants.","Il détermine les droits et les obligations des étudiants, vis-à-vis de leur formation, du corps enseignant et des organes de gouvernance ainsi que leurs devoirs de maintenir les biens et équipements constituant le patrimoine de l’Institut."]},{"n":2,"p":["Ce règlement intérieur est appliqué au sein des Instituts Supérieurs des Professions Infirmières et Techniques de Santé et des annexes qui leurs sont rattachées.","Il concerne le corps enseignant, le staff administratif et technique et les étudiants, ainsi que toute personne présente, à quelque titre que ce soit, au sein de l’institut (intervenants extérieurs, prestataires de service, invités...)"]},{"n":3,"p":["Tout intervenant au niveau des ISPITS doit prendre connaissance de ce règlement intérieur et s’engager à respecter scrupuleusement ses dispositions. Les instituts avec le concours des Directions Régionales de la Santé sont tenus de la diffusion du règlement intérieur et de son application.","La Direction des Ressources Humaines relevant de l’autorité gouvernementale chargée de la Santé veille au suivi et à l’accompagnement des instituts en matière de gestion administrative et pédagogique."]}]},{"n":"II","t":"Organisation administrative des instituts","arts":[{"n":4,"p":["Chaque Institut est dirigé par un directeur assisté par deux directeurs adjoints et un secrétaire général."]},{"n":5,"p":["Le Directeur assure le fonctionnement de l’institut et coordonne l’ensemble de ses activités. Il préside le Conseil d’Etablissement. Il gère l’ensemble des personnels affectés à l’institut. Il veille au bon déroulement des enseignements et des contrôles des connaissances et prend les mesures appropriées à cette fin. Il négocie les accords et conventions de coopération qui sont soumis à l’approbation du Conseil d’Etablissement. Il veille au respect de la législation et la réglementation en vigueur, ainsi que le respect du règlement intérieur dans l’institut, et peut prendre toutes les mesures que les circonstances exigent."]},{"n":6,"p":["Le Directeur adjoint chargé des études est responsable de l’organisation, la coordination et le suivi des programmes pédagogiques et académiques mis en œuvre au niveau de l’institut et ses annexes.","Il est assisté par les coordonnateurs de filières et les coordinateurs d’options. Une unité des affaires estudiantines et scolarité et une unité de gestion pédagogique lui sont rattachées."]},{"n":7,"p":["Le Directeur adjoint chargé de la recherche, de la formation continue et de la coopération assure les fonctions de l’organisation, de la coordination, du suivi de l’exécution des différentes activités de recherche scientifique, de la formation continue et de la coopération nationale et internationale.","Une unité de recherche scientifique, une unité de formation continue, une unité de coopération/partenariat et le Centre de Documentation et d’information lui sont rattachés."]},{"n":8,"p":["Le secrétaire général est chargé de la gestion de l’ensemble des services administratifs et financiers de l’institut et ses annexes. Une unité de gestion des moyens et des affaires générales, une unité de la gestion du budget et de la comptabilité, une unité de la gestion des ressources humaines et un Bureau d’ordre lui sont rattachés.","Le secrétaire général est chargé également du secrétariat du Conseil d’Etablissement."]},{"n":9,"p":["Chaque annexe d’un Institut est dirigée par un Directeur qui relève hiérarchiquement du Directeur de l’ISPITS et coordonne avec les deux Directeurs adjoints et avec le Secrétaire Général de l’institut. Il est assisté par une unité de gestion pédagogique et une unité de gestion administrative."]},{"n":10,"p":["Le coordonnateur pédagogique de chaque filière veille, sous l’autorité du directeur de l’institut et du directeur adjoint chargé des études, sur la planification, la synchronisation de la mise en œuvre des programmes de formation et préside le jury de validation des modules et des semestres au sein des options constituant la filière dont il est responsable.","Le coordonnateur de filière est appelé à :","• Coordonner et collaborer entre les options constituant la filière et le Directeur chargé des études ;","• Participer aux activités d’enseignement théorique, pratique et à l’encadrement des projets de fin d’études;","• Superviser le déroulement de l’enseignement/apprentissage au niveau des annexes rattachées à l’institut","• Suivre et évaluer l’état d’avancement du programme de formation de la filière","• Veiller sur la qualité de l’enseignement/apprentissage selon les orientations stratégiques de l’autorité gouvernementale chargée de la Santé, en considérant l’évolution de l’environnement dans le domaine de la santé et la formation ;","• Participer aux activités de développement des professions infirmières et techniques de santé initiées par l’institut."]},{"n":11,"p":["Le coordonateur de la filière est nommé par décision du directeur de l’institut sur proposition des coordinateurs des options et en concertation avec le directeur adjoint chargé des études."]},{"n":12,"p":["La coordination des enseignements au niveau de chaque option est confiée à un coordinateur enseignant permanent ayant la même spécialité pour laquelle forme l’option.","En cas de non disponibilité de cet enseignant permanent, un enseignant permanent d’une autre spécialité ayant les conditions requises, peut être chargé à titre exceptionnel de cette coordination.","Il est responsable de la planification et de l’encadrement de la mise en œuvre du programme de formation de l’option."]},{"n":13,"p":["Le coordinateur de l’option est appelé à :","• Planifier et coordonner les activités relatives à l’enseignement/apprentissage des étudiants de l’option au niveau de l’institut;","• Participer à l’enseignement théorique et pratique ;","• Suivre et évaluer l’état d’avancement du programme de formation de l’option;","• Veiller sur la qualité de l’enseignement/apprentissage au niveau de l’option ;","• Participer à l’encadrement des projets de fin d’études;","• Coordonner les activités d’enseignement/apprentissage entre l’équipe pédagogique et le milieu clinique ;","• Représenter l’option auprès des instances internes de l’ISPITS."]},{"n":14,"p":["Le coordinateur de l’option est nommé par décision du directeur de l’Institut sur proposition du coordonnateur de la filière et des enseignants de l’option et en concertation avec le directeur adjoint chargé des études ."]},{"n":15,"p":["Le responsable d’un module est un enseignant permanent appartenant à la filière ou à l’institut en général. Il encadre et coordonne l’enseignement /apprentissage et les évaluations des éléments du module. Il est désigné par décision du directeur de l’Institut sur proposition des enseignants chargés du module en concertation avec les coordonnateurs des filières et du directeur adjoint chargé des études."]},{"n":16,"p":["Il est institué au sein des instituts un Conseil d’Etablissement, selon les mêmes conditions stipulées dans l’article 35 de la loi 01-00. L’organisation, la composition ainsi que les attributions de ce conseil sont déterminées par le décret d’application de ladite loi (décret n° 2-05-885 du 22 rabii I 1427/ 21 avril 2006)."]},{"n":17,"p":["Le président du Conseil d’Etablissement qui est le Directeur de l’Institut arrête l’ordre du jour, et veille à la préparation des documents nécessaires et à la convocation des membres faite par le secrétaire général, une semaine avant la date fixée pour la réunion sauf en cas d’extrême urgence."]},{"n":18,"p":["Les Décisions du Conseil d’Etablissement, sont prises à la majorité des membres présents.","En cas de partage des voix, celle du président est prépondérante."]},{"n":19,"p":["Les réunions du Conseil d’Etablissement sont consignées dans des procès verbaux signés par le président et diffusés aux différents membres."]},{"n":20,"p":["Lors de sa première réunion, le Conseil d’Etablissement crée des commissions permanentes :","• Commission des affaires académiques et pédagogiques,","• Commission de recherche et de valorisation scientifique,","• Commission de partenariat et de communication,","• Commission de suivi de budget, D’autres commissions ad-hoc peuvent être créées éventuellement en cas de besoin."]},{"n":21,"p":["Chaque commission est composée d’au moins cinq membres y compris son coordonnateur ; le(s) directeur(s) de l’institut(s) annexe(s) en font partie.","Le coordonnateur de chaque commission est désigné par le président du Conseil d’Etablissement parmi les enseignants chercheurs relevant de l’Institut.","Chaque coordonnateur de commission ne peut avoir la charge de la coordination que d’une seule commission."]},{"n":22,"p":["La candidature aux commissions est ouverte à tous les enseignants chercheurs, enseignants permanents et au personnel administratif et technique relevant de l’Institut. Chaque membre ne peut s’inscrire dans plus de deux commissions permanentes."]},{"n":23,"p":["Le coordonnateur de chaque commission permanente propose, lors de la première réunion, son adjoint et désigne son rapporteur.","Cet adjoint remplit les tâches du coordonnateur en cas de son absence. Les procès verbaux et les rapports élaborés par le rapporteur sont transmis aux membres de la commission et au président du Conseil d’Etablissement."]},{"n":24,"p":["Les commissions permanentes se réunissent aussi souvent que nécessaire."]},{"n":25,"p":["Les commissions se réunissent valablement en présence de la majorité relative de leurs membres. Si le quorum n’est pas atteint, une deuxième réunion peut être valablement tenue, au cours de la semaine suivante, sans condition de quorum."]},{"n":26,"p":["Les commissions permanentes émettent leurs recommandations et propositions à la majorité des membres présents. En cas de partage des voix, celle du coordonnateur est prépondérante."]},{"n":27,"p":["Les commissions permanentes sont dissoutes automatiquement suite à la désignation d’un nouveau Conseil d’Etablissement."]}]},{"n":"III","t":"Admission des étudiants","arts":[{"n":28,"p":["L’accès aux ISPITS est ouvert aux candidats titulaires d’un baccalauréat scientifique. Les options orthophonie, psychomotricité et assistant social sont ouverts aussi aux titulaires du baccalauréat série Lettres modernes.","Le concours d’accès comporte trois étapes, la sélection sur dossier, l’épreuve écrite et le test d’aptitude."]},{"n":29,"p":["Les conditions d’accès ainsi que les modalités d’organisation du concours d’accès aux différents cycles ouverts au niveau des ISPITS sont rappelées annuellement par une circulaire de Monsieur le Ministre de la Santé.","La Direction des Ressources Humaines relevant de l’autorité gouvernementale chargée de la Santé veille sur l’organisation du concours d’accès, et assure l’accompagnement pédagogique des instituts."]},{"n":30,"p":["Le nombre de candidats à admettre par cycle est fixé par la Commission Centrale de la Coordination de la Formation en concertation avec les directeurs des instituts concernés."]},{"n":31,"p":["Les résultats du concours d’accès ne sont valables que pour l’année scolaire au titre de laquelle ce concours a été organisé."]},{"n":32,"p":["La liste des candidats déclarés admis au concours d’accès aux instituts ainsi que la liste d’attente sont communiquées par affichage au niveau de ces Instituts et au niveau du site web de l’autorité gouvernementale chargée de la santé."]},{"n":33,"p":["Les candidats admis qui ne se sont pas inscrits dans la limite de cinq (05) jours ouvrables suivant la date de la rentrée sont considérés comme ayant renoncé à leur admission et seront remplacés par les candidats figurant sur la liste d’attente.","La liste d’inscription définitive sera fermée dix jours après la rentrée officielle."]},{"n":34,"p":["Une carte d’étudiant est délivrée à chaque étudiant admis aux Instituts Supérieurs des Professions Infirmières et des Techniques de Santé. Elle est renouvelée au début de chaque année d’études."]},{"n":35,"p":["Un dossier d’étudiant est tenu pour chaque candidat admis et inscrit au niveau de l’Institut et ses annexes."]},{"n":36,"p":["Des passerelles sont également prévues dont les conditions d’accès et la procédure de sélection sont spécifiées dans les descriptif des filières et options."]},{"n":37,"p":["Toutes les modalités d’accès et procédures de sélection pour les passerelles (diplômes requis, constitution du dossier de candidature pour programme passerelle, le nombre de places offertes chaque année, dates prévues de dépôt des demandes de passerelle, jury) sont fixées par décision du Conseil d’Etablissement et validées par la Commission Centrale de la Coordination de la Formation"]},{"n":38,"p":["L'étudiant ayant validé au moins les deux premiers semestres peut, sur sa demande, être autorisé à poursuivre ses études dans la même option dans un autre institut assurant la même formation, et ce après avis favorable des directeurs des deux instituts et approbation de la Commission Pédagogique, tout en gardant ses modules ou éléments de modules validés. Le dossier sera transmis à la Direction des Ressources Humaines, pour établir la note de transfert."]}]},{"n":"IV","t":"Organisation des études","arts":[{"n":39,"p":["L’enseignement dispensé dans les ISPITS comprend un ensemble de modules, répartis par semestre, qui peuvent être enseignés sous forme de cours théoriques et/ou des travaux pratiques et/ou des travaux dirigés, soit des travaux sur le terrain ou projet, soit un stage.","Cet enseignement est réparti en trois cycles :","• Le cycle de la Licence professionnelle;","• Le cycle de Master ;","• Le cycle de Doctorat."]},{"n":40,"p":["Chaque année d’études est composée de deux semestres comprenant chacun 16 semaines d’enseignement et d’évaluation Les six semestres de formation en Licence correspondent à deux périodes :","• Les semestres 1, 3 et 5 sont prévus de mi-septembre à mi-février.","• Les semestres 2, 4 et 6 sont prévus de mi-février à mi- juillet."]},{"n":41,"p":["Les étudiants bénéficient de vacances universitaires dont les conditions sont fixées par le l’autorité gouvernementale chargée de l’Enseignement Supérieur."]},{"n":42,"p":["Le cycle de la Licence professionnelle peut comporter une ou plusieurs filières constituées d’au moins une option dans les domaines des professions infirmières et des techniques de santé.","Les filières et options ouvertes dans le cadre du cycle de la Licence professionnelle, sont :","• Soins infirmiers : Infirmier polyvalent, Infirmier en santé mentale, Infirmier en anesthésie réanimation, Infirmier en soins d’urgence et soins intensifs","• Sage-femme : Sage-femme","• Techniques de santé : Laboratoire, Santé et environnement, Radiologie, Diététique / Nutrition, Préparateur en pharmacie, Maintenance biomédicale, Statistiques sanitaires","• Rééducation et réhabilitation : Orthoprothésie, Kinésithérapie / Physiothérapie, Orthophonie, Orthoptie, Psychomotricité","• Assistance médico-sociale : Assistant social","D’autres filières ou options peuvent être ouvertes ou supprimées et d’autres peuvent être créées suite aux propositions du Conseil d’Etablissement après approbation de la Commission Centrale de la Coordination de la Formation."]},{"n":43,"p":["Le régime des études au niveau des Instituts Supérieurs des Professions Infirmières et Techniques de Santé et leurs annexes est exclusivement l’externat."]},{"n":44,"p":["Les stages, se déroulent à temps plein ou à temps partiel dans les structures sanitaires publiques ou dans toute autre structure qualifiée et offrant des opportunités d’apprentissage des étudiants."]},{"n":45,"p":["Des conventions peuvent être conclues entre les Instituts et les structures et organismes relevant des secteurs : public, semi-public et privé, notamment pour l’accomplissement des stages, des projets de fin d’études et la réalisation en partenariat des programmes de formation continue et des travaux de recherche.","La Direction Régionale de la Santé, lieu d’implantation de l’institut, est appelée à accompagner les instituts dans la réalisation de leur missions en l’occurrence l’apprentissage dans le milieu clinique."]},{"n":46,"p":["Au cours des stages qu'ils accomplissent, les étudiants sont encadrés par le personnel enseignant de l’Institut et/ou les professionnels de santé exerçant au niveau des lieux des stages."]},{"n":47,"p":["Lorsque les stages sont effectués sous forme de gardes de nuit, les étudiants sont libérés la matinée du lendemain."]},{"n":48,"p":["Durant leurs stages cliniques et les cours théoriques et pratiques, les étudiants sont tenus d'avoir leurs badges et une tenue réglementaire dont les caractéristiques sont fixées par la direction de l’institut en concertation avec le staff pédagogique.","De même, ils sont astreints à l'obligation du respect de l’éthique et la déontologie professionnelle et du règlement intérieur de l'établissement où se déroulent leurs stages."]},{"n":49,"p":["Le port de l’uniforme (souliers inclus) doit être limité aux lieux de stage et aux laboratoires. A cet égard, le port de l’uniforme est à proscrire dans tout lieu public à l’extérieur de l’établissement d’accueil de stage, afin de prévenir la propagation des infections."]}]},{"n":"V","t":"Évaluations","arts":[{"n":50,"p":["Les évaluations sont de deux natures :","• Le contrôle continu;","• Le contrôle final."]},{"n":51,"p":["Le contrôle continu des connaissances se fait au moyen d’évaluations écrites, orales, exposés, rapport ou tout autre moyen de contrôle fixé dans le descriptif de module.","L'évaluation des aptitudes se fait au moyen des exercices pratiques et de l'évaluation des stages.","Le contrôle des aptitudes et attitudes se fait sur la base de grilles conçues à cet effet.","Des travaux de recherche ou projet de fin d’études sont présentés par les étudiants individuellement ou en groupe, devant un jury à la fin de chaque cycle."]},{"n":52,"p":["L'évaluation des connaissances, des aptitudes et des compétences de l’examen de fin des modules porte sur les contenus de l'ensemble des éléments des modules tels qu'ils sont arrêtés par le descriptif de chaque filière, option et module.","Le contrôle final des connaissances se fait au moyen d’épreuve écrite. Le contrôle final des aptitudes/attitudes se fait au moyen des exercices pratiques et de l'évaluation des stages.","Les contrôles finaux d’un module peuvent être programmés à la fin de l’enseignement de l’un ou de tous les éléments du module.","Les durées des épreuves sont fixées par les intervenants du module en concertation avec le coordonnateur du module et le coordonnateur de la filière."]},{"n":53,"p":["L’administration de l’institut doit prévoir, pour le contrôle final, des feuilles d’examen portant l’identification de l’institut et contenant des cases vides, réservées aux informations concernant l’étudiant.","Le enseignants/personnel chargé de la surveillance veille sur le contrôle de présence sur les listes préétablies, et ce avant le démarrage de l’épreuve."]},{"n":54,"p":["Un procès-verbal des délibérations de chaque semestre est élaboré en 03 exemplaires, dont un doit être transmis à la Direction des Ressources Humaines."]},{"n":55,"p":["Chaque élément de module peut donner lieu à un ou plusieurs contrôles continus. La note définitive de l’élément du module est calculée à la base des coefficients de pondération des différents contrôles (contrôles continus et contrôle final) fixés par le descriptif de la filière/option. La note de l’élément du module s'étale sur une échelle de zéro à vingt."]},{"n":56,"p":["Le volume horaire prévu pour l'évaluation d'un élément de module, est comptabilisé dans le volume horaire total dudit élément de module."]},{"n":57,"p":["La note globale du module est calculée à la base des notes globales des différents éléments qui le composent. Les coefficients de pondération attribués aux éléments composant le module sont définis dans le descriptif de la filière/option. La note du module s'étale sur une échelle de zéro à vingt."]},{"n":58,"p":["Un module est acquis soit par validation soit par compensation :","• Un module est validé si sa note est supérieure ou égale à 10 sur 20 et si aucune note de l’un des éléments le composant n’est inférieure à la note limite précisée dans le descriptif du module correspondant ;","• Un module est acquis par compensation, si l’étudiant, valide le semestre dont fait partie ce module, conformément à la norme RG 9 du CNP."]},{"n":59,"p":["Les étudiants n’ayant pas acquis un module par validation à la session normale, sont autorisés à passer un contrôle de rattrapage dans les éléments du module dont la note est inférieure à 10 sur 20."]},{"n":60,"p":["Un étudiant n'a droit qu'à un seul rattrapage par élément de module par semestre."]},{"n":61,"p":["Après le rattrapage, l’étudiant conserve la note maximale, obtenue entre la session normale et la session du rattrapage, et c’est cette note qui est considérée lors du calcul de la note définitive des éléments du module et la note globale du module.","La note finale d’un élément de module sera calculée pour la session normale ainsi que pour la session de rattrapage selon la formule suivante :","Note finale = (Pcc) x (Ncc) + (Pcf) x (Ncf)","• Pcc : coefficient de pondération du contrôle continu (selon le descriptif du module)","• Ncc : note du contrôle continu","• Pcf : coefficient de pondération du contrôle final (selon le descriptif du module)","• Ncf : note du contrôle final"]},{"n":62,"p":["Les étudiants seront classés selon deux listes ; une liste d’admission à l’issue de la session normale, et une autre relative à la session de rattrapage."]},{"n":63,"p":["La moyenne générale du semestre est égale à la moyenne des notes globales des différents modules dispensés durant le semestre considéré."]},{"n":64,"p":["Un semestre est validé en session normale si sa moyenne est supérieure ou égale à 10 sur 20, et à condition que la note globale de chaque module constituant le semestre soit supérieure ou égale à 10 sur 20."]},{"n":65,"p":["Un semestre n’est pas validé pour la session normale si sa moyenne est supérieure ou égale à 10 sur 20 alors que les notes de certains modules les composants sont inférieures à 10 sur 20.","En conséquence, l’étudiant doit passer le rattrapage pour les modules non valides selon les dispositions de l’article 59"]},{"n":66,"p":["La session de rattrapage est accordée aux étudiants n’ayant pas obtenu dans la session normale une moyenne générale du semestre supérieure ou égale à 10 sur 20. Le rattrapage concerne les modules ayant une note globale inférieure à 10 sur 20. Le rattrapage se fera pour les éléments du module dont la note est inférieure à 10 sur 20.","L’autorisation de participation au contrôle de rattrapage est accordée également aux étudiants absents au contrôle final à condition que cette absence soit dûment justifiée dans un délai de 48 heures."]},{"n":67,"p":["Après la session de rattrapage, l’étudiant ayant obtenu une moyenne générale du semestre inférieure à 10 sur 20, conservera les modules dont la note globale est supérieure ou égale à 10 sur 20, à condition que chacun des éléments les composant a une note finale supérieure ou égale à la note limite précisée dans le descriptif du module.","Ainsi, l’étudiant doit se réinscrire dans les autres modules ne répondant pas à cette condition."]},{"n":68,"p":["Une compensation entre les modules du semestre est accordée après la session de rattrapage aux étudiants ayant obtenu une moyenne du semestre supérieure ou égale à 10 sur 20, alors que les notes de certains modules les composant sont :","• Inférieures à 10 sur 20 et supérieures ou égales à 8 sur 20 pour les modules majeurs ;","• Inférieures à 10 sur 20 et supérieures ou égales à 5 sur 20 pour les modules complémentaires, outils et transversaux.","En outre, la possibilité du rachat est envisageable selon les dispositions de l’article 85."]},{"n":69,"p":["Les rattrapages sont réalisés pendant le semestre durant lequel sont programmés les modules concernés."]},{"n":70,"p":["L’inscription aux modules d’un semestre du cycle de la Licence nécessite la satisfaction des prérequis de ces modules spécifiés dans leur descriptifs correspondants."]},{"n":71,"p":["L’inscription au 3ème et 5ème semestre se fait après la validation de la totalité des modules majeurs des semestres précédents.","Toutefois, l’étudiant conserve la note obtenue dans les modules complémentaires, outils et transversaux validés (note globale est supérieure ou égale à 10 sur 20, et chacun des éléments les composant a une note finale supérieure ou égale à 10 sur 20), et se réinscrira uniquement dans les modules majeurs.","L’étudiant peut s’inscrire exceptionnellement à 05 modules par semestre, après accord de la commission pédagogique."]},{"n":72,"p":["L’étudiant peut bénéficier de deux semestres de réserve avec la possibilité d’un troisième sur proposition de la commission pédagogique et l’accord du directeur de l’institut."]},{"n":73,"p":["Le projet de fin d’études (PFE) est présenté à huis clos, par l’étudiant ou par le groupe d’étudiants, devant un jury pour discussion et évaluation. Le nombre d’étudiants par groupe ne doit pas dépasser deux, sauf cas exceptionnel, on peut accepter trois étudiants par groupe.","Cette commission est constituée de l’encadrant du PFE et d’au moins deux examinateurs désignés par le Coordonnateur de la filière et celui de l’option dont relève l'étudiant.","La note du projet de fin d'études est une moyenne pondérée des notes de plusieurs composantes faisant objet d’une grille d’évaluation en vigueur."]},{"n":74,"p":["A l’issue des résultats de chaque semestre, un relevé de notes est établi et communiqué à la Direction des Ressources Humaines. Ce relevé de notes doit mentionner si le semestre est validé ou non validé. Si le semestre est validé, le relevé de notes doit mentionner s’il est validé lors de la session normale ou la session de rattrapage.","Ce relevé est délivré à l’étudiant sur une demande établie au moins trois semaines à l’avance."]},{"n":75,"p":["La présence aux évaluations est obligatoire. En cas d’absence non justifiée dans un délai de 48 heures, la note zéro (0) est attribué au module ou à l’élément du module. Le contrôle continu n’est pas rattrapable en cas d’absence non justifiée.","Les étudiants doivent être munis de leur carte d’étudiant et de leur carte nationale d’identité, et de les présenter au responsable du contrôle de présence Avant le début de l’épreuve, le surveillant responsable du contrôle doit vérifier sur la liste officielle, fournie par le coordonnateur d’option ou le coordonnateur du module sujet de l’évaluation, l’identité des étudiants inscrits pour effectuer l’épreuve du contrôle."]},{"n":76,"p":["La surveillance des étudiants lors des évaluations écrites (contrôle continu et contrôle final) est assurée au minimum, dans la mesure du possible, par deux enseignants/personnel exerçant au niveau de l’institut. Les surveillants rappellent aux étudiants les dispositions réglementaires et spécifiques à l’évaluation."]},{"n":77,"p":["Lors des évaluations écrites, aucun étudiant ne peut être admis après 10 minutes de l’ouverture des épreuves."]},{"n":78,"p":["Aucun étudiant ne peut quitter la salle de déroulement d'un contrôle écrit, même s'il compte rendre une copie vierge, que sur autorisation des surveillants et après une durée minimale de 30 minutes.","Avant de quitter la salle d’examen, l’étudiant doit rendre sa copie et porter son nom et sa signature sur la liste de présence.","Les copies d’examen ne portant pas de nom seront rejetées, et l’étudiant sera considéré comme absent. Les surveillants consignent les faits dans un rapport circonstancié.","Sauf cas d’urgence, l’étudiant ne peut quitter provisoirement la salle d’examen pour toute autre raison jugée acceptable par l’enseignant surveillant, qu’après une heure de la distribution de l’épreuve. L’étudiant concerné doit être accompagné par une autre personne exerçant au niveau de l’institut. Le temps de non présence à la salle d’examen ne doit pas dépasser 5 minutes."]},{"n":79,"p":["Toute copie non remise par un étudiant à la fin d'une épreuve écrite est sanctionnée par la note zéro. Les surveillants consignent le fait dans un rapport circonstancié.","Les étudiants doivent porter sur les copies et les brouillons de l’épreuve, leurs noms, prénoms, numéros d’examen éventuel et le nom du module ou l’élément du module sujet d’examen."]},{"n":80,"p":["Les téléphones portables et les instruments d'enregistrement électroniques sont interdits pendant les séances d’évaluation, ils doivent être éteints et rangés avant le début de l’épreuve.","L’étudiant surpris en possession d’un téléphone portable, de kit oreillettes ou tout autre moyen d’information et de télécommunication pendant la durée du contrôle, est considéré comme fraudeur.","Le responsable de la salle d’examen a droit de vérifier, en cas de doute, si l’étudiant ne possède pas de kit oreillettes."]},{"n":81,"p":["Les documents, les blocs notes comportant les informations relatives au module ou à l’élément du module sujet de l’évaluation, les cartables et tout autre instrument sont interdits. Ils doivent être déposés loin des étudiants.","Toute écriture en relation avec le sujet de l’évaluation, figurant sur les feuilles non autorisées, les tables, les trousses, les chaises ou autre est considérée comme un cas de fraude.","Durant un contrôle, l’étudiant récepteur ou émetteur de documents non autorisés est considéré comme fraudeur, qu’il les ait utilisés ou pas.","En cas de communication entre les étudiants, le surveillant doit dans un premier temps avertir ceux concernés ou les déplacer. En cas de récidive, les étudiants concernés sont expulsés de la salle. Le surveillant doit élaborer un procès-verbal accompagné des documents saisis, relatifs à la fraude."]},{"n":82,"p":["Toute fraude, toute tentative de fraude ou toute infraction aux dispositions des articles cidessus (80 et 81) sont sanctionnées par l'exclusion des épreuves.","Les surveillants responsables en informent l'administration de l'institut et établissent un rapport circonstancié, appuyé par des pièces justificatives s’il y a lieu.","La note Zéro est attribuée au fraudeur dans l'évaluation en question.","Si la fraude concerne le contrôle final, le module concerné est considéré non valide et l’étudiant est non autorisé à passer la session de rattrapage. Il doit se réinscrire dans le module en question."]},{"n":83,"p":["Constituent notamment un plagiat, l’utilisation totale ou partielle, littérale ou déguisée, d’un texte d’autrui en le faisant passer pour sien, ou sans indication de référence à l’occasion d’un travail ou d’une activité faisant l’objet d’une évaluation, d’un rapport de stage ou un Projet de fin d’études.","Tout plagiat donnera lieu à des sanctions disciplinaires et oblige l’étudiant à refaire le travail et à passer la session de rattrapage."]},{"n":84,"p":["Les notes attribuées aux évaluations, sont portées à la connaissance des étudiants et inscrites dans leurs dossiers."]},{"n":85,"p":["Une possibilité de rachat dans la limite d’un point, en fonction de la note obtenue et de la conduite et la discipline de l’étudiant, est laissée à l’appréciation de l’équipe pédagogique du module, peut être envisagée après la session de rattrapage, et en veillant toutefois, à ce qu’aucun étudiant ne bénéficie deux fois de ce rachat, au cours des délibérations d’un même semestre."]}]},{"n":"VI","t":"Droits et obligations des étudiants","arts":[{"n":86,"p":["Sont considérés comme étudiants, les bénéficiaires de services d'enseignement et de la recherche régulièrement inscrits dans les Instituts Supérieurs des Professions Infirmières et Techniques de Santé et leurs annexes en vue de la préparation d'un diplôme en formation initiale."]},{"n":87,"p":["Tout étudiant jouit de la liberté d'information et d'expression dans les enceintes et locaux des Instituts, dans la mesure où l'exercice de cette liberté ne nuit pas au fonctionnement normal de l’institut, ainsi qu'à la vie communautaire estudiantine, et aux activités du personnel enseignant, administratif et technique."]},{"n":88,"p":["Les étudiants participent à l'organisation des activités culturelles et sportives dans le cadre d'associations régulièrement constituées et fonctionnant conformément à leurs statuts.","(Dahir N°1-58-377 du 3 joumada1er1378, 15 novembre 1958 portant règlement des Associations publiques) sous la tutelle de l’administration de l’institut qui garde un droit de regard sur la gestion financière et administrative de l’association."]},{"n":89,"p":["Les étudiants sont représentés dans le Conseil d’Etablissement selon le décret n° 2.05.885 du 21 avril 2006."]},{"n":90,"p":["Le matériel, les équipements, les documents et ouvrages mis à la disposition des étudiants sont la propriété de l’institut. Ils ne peuvent en aucun cas être utilisés dans un autre environnement que celui qui leur a été défini, ni dans un autre but que celui de la formation des étudiants."]},{"n":91,"p":["Tout matériel/équipement inventorié de l’institut, détérioré partiellement ou totalement ou perdu par un étudiant est obligatoirement remplacé par l’étudiant ou les étudiants en question. Aucune pièce administrative ne peut être délivrée à l’étudiant n’ayant pas régularisé sa situation."]},{"n":92,"p":["Les étudiants admis aux Instituts peuvent bénéficier d'une bourse d'études de l’autorité gouvernementale chargée de l’enseignement supérieur, dans les conditions prévues par la réglementation en vigueur."]},{"n":93,"p":["Les étudiants doivent être informés de la date des contrôles continus et du contrôle final au moins dix jours avant la date prévue.","A l’issue de chaque contrôle continu ou final, l’enseignant est tenu à porter à la connaissance de l’étudiant la note qu’il a obtenue. Pour consulter sa copie, l’étudiant doit faire une demande de consultation au coordonnateur de filière sous couvert du coordinateur d’option sous forme de lettre manuscrite 48 heures après la proclamation des résultats."]},{"n":94,"p":["Tout étudiant admis dans une filière/option de formation à l'institut a droit aux vaccinations programmées par l’autorité gouvernementale chargée de la Santé et jugées nécessaires, compte tenu du contexte épidémiologique."]},{"n":95,"p":["Les étudiants sont obligatoirement assurés contre les accidents qui peuvent survenir à l'occasion des cours, des travaux pratiques, des stages et dans les autres locaux de l'institut.","Les frais d'assurance sont à la charge de l'administration.","Tout accident doit être déclaré dans les conditions, formes et délais prescrits par la réglementation en vigueur."]}]},{"n":"VII","t":"Discipline générale","arts":[{"n":96,"p":["Les étudiants sont tenus de respecter le règlement intérieur des instituts qui les accueillent.","Sans préjudice de l'application des autres dispositions législatives ou réglementaires, les actes contraires à ce règlement exposent les contrevenants à des sanctions disciplinaires selon une procédure et une graduation déterminées par voie réglementaire"]},{"n":97,"p":["Les étudiants sont tenus de respecter les règles qu'exige le déroulement normal de l’enseignement / apprentissage, et de la vie collective à l'institut. Les étudiants doivent éviter tout ce qui peut troubler l'ordre ou gêner le travail de leurs camarades ou des enseignants ou du personnel administratif et technique ou des usagers de l’établissement."]},{"n":98,"p":["La détention de substance illicite quelle qu’en soit la nature expose l’étudiant à des sanctions graves conformément au décret n° 2.06.619 du 28 chaoual 1429 (28 octobre 2008) relatif au Conseil de Discipline des étudiants."]},{"n":99,"p":["L’organisation des manifestations sportives ou culturelles est soumise à l’accord préalable du directeur ou du secrétaire général de l’Institut."]},{"n":100,"p":["L’affichage est autorisé, après accord et signature de l’administration. Il se fait sur les panneaux prévus à cet effet, et mis à la disposition du personnel et des étudiants, mais reste interdit dans les parties communes (murs, portes, couloirs,…).","L’affichage ne peut être anonyme, toute personne ou groupement de personnes est responsable du contenu des documents qu’il affiche, diffuse, ou distribue."]},{"n":101,"p":["Les automobilistes, les cyclistes, les piétons doivent impérativement respecter les règles de circulation dans l’enceinte de l’institut.","Le stationnement des véhicules en dehors des emplacements délimités est formellement interdit.","Les étudiants sont tenus de respecter les espaces verts de l’institut qui les accueille .les actes contraires à ce règlement exposent les contrevenants aux sanctions disciplinaires en vigueur."]},{"n":102,"p":["L'administration, ne peut en aucun cas être tenue responsable de la disparition, du vol ou de la détérioration du matériel d'études ou objet quelconque appartenant aux étudiants."]},{"n":103,"p":["Les étudiants n'ont accès aux salles de classe que pour les cours sauf autorisation expresse donnée par la Direction de l’institut. Il leur est interdit d'introduire dans les locaux des personnes étrangères à l'Etablissement."]},{"n":104,"p":["Les téléphones portables et les instruments d'enregistrement électroniques ou autres appareils assimilés à d’autres fins que celles exigées par l’enseignement dispensé, sont strictement interdits pendant les séances de cours, ils doivent être éteints et rangés avant le démarrage des cours théoriques et pratiques."]},{"n":105,"p":["Pour des raisons d'hygiène et de sécurité, il est interdit de fumer, de manger dans les salles de cours, laboratoires, salles de démonstrations pratiques et dans les lieux de stage.","Sous peine de se voir interdire l'accès aux laboratoires, salles de travaux dirigés, de travaux pratiques, les étudiants sont tenus de respecter les consignes particulières qui peuvent leur être exigées."]},{"n":106,"p":["Sauf en cas d'absence justifiée, les étudiants sont tenus d'être présents aux heures prévues aux emplois du temps, à tous les cours, séances de travaux dirigés, travaux pratiques, stages, visites documentaires, évaluations, ou toute activité programmée par la direction de l'institut."]},{"n":107,"p":["Sera considéré comme retardataire, tout étudiant qui n’a pas rejoint une salle de cours, un laboratoire ou un terrain de stage, 10 mn après le début de l’activité programmée dans l’emploi du temps. L’étudiant retardataire peut ne pas être autorisé à participer à ladite activité et sera considéré, en conséquence, absent.","Les retards répétés et abusifs non justifiés sont passibles de sanctions disciplinaires après mise en demeure écrite et rappel à l’ordre. Le cas échéant, le contrevenant peut être traduit devant le Conseil de Discipline"]},{"n":108,"p":["Trois absences non justifiées dans un délai de 48 heures dûment constatées aux séances de cours, de travaux pratiques et/ou de travaux dirigés d’un élément de module, ou toute activité pédagogique obligatoire, entrainent l’interdiction à l’étudiant de se présenter au contrôle final de l’élément du module où l’absence a été constatée, et aura par conséquent la note zéro sur vingt .","Le module dont relève l’élément est automatiquement considéré comme non validé.","L’étudiant pourra bénéficier du contrôle de rattrapage dont les modalités sont prévues dans l’article 59."]},{"n":109,"p":["Chaque enseignant/ encadrant est responsable, du contrôle de présence des étudiants durant les séances de cours, de travaux dirigés, de travaux pratiques et de stages et ce en remplissant une fiche prévue à cet effet.","Une fiche individuelle pour chaque étudiant est tenue à jour et actualisée par le responsable de l’unité des affaires estudiantines."]},{"n":110,"p":["Les convocations par un service de l'institut ne constituent pas une autorisation d'absence ou de retard, les étudiants doivent répondre à ces convocations pendant les heures laissées libres par les emplois du temps."]},{"n":111,"p":["En cas de force majeure, les autorisations d'absence n'excédant pas deux jours peuvent être accordées par les directeurs des études ou les directeurs des annexes sous couvert des coordonnateurs de filière/d’option. Cette autorisation est accordée au vu de pièces justificatives.","Les étudiants peuvent s’absenter pour raisons de santé sur production d'un certificat médical dans un délai de 48 heures. L'administration de l'institut se réserve le droit de contre-visite."]},{"n":112,"p":["Les étudiants qui s'absentent au cours des stages, toutes causes confondues, sont tenus de récupérer ces absences hors des heures de cours selon l’emploi du temps."]},{"n":113,"p":["Les sanctions disciplinaires, prises par le Conseil d’Etablissement agissant en Conseil de Discipline, comprennent par ordre de gravité des agissements commis comme suit :","• L’avertissement ;","• Le blâme ;","• L’exclusion temporaire pour une période à déterminer par le Conseil de Discipline.","• L’exclusion définitive de l’établissement."]},{"n":114,"p":["L'avertissement est prononcé par décision motivée du directeur de l'institut ou le directeur de l’annexe après avoir provoqué les explications écrites de l’intéressé suite à un rapport relatant les faits qui lui sont reprochés.","L’exclusion temporaire peut être prononcée par le directeur de l'institut, en cas de manquement grave à la discipline générale. Il doit en saisir immédiatement le Conseil de Discipline. Ce dernier doit se prononcer dans les 48 heures qui suivent la décision de cette exclusion.","L'exclusion définitive de l'institut ne peut être prononcée que par décision du Ministre de la Santé sur proposition du Conseil de Discipline."]},{"n":115,"p":["En tout état de cause, le Conseil de Discipline est saisi par le Directeur de l'institut au moyen d'un rapport établi conjointement par le coordinateur de l’option et le coordonateur de la filière dont relève l’étudiant. Ce rapport doit mentionner les faits reprochés à l’étudiant et, le cas échéant, les témoignages recueillis et les résultats d’enquête éventuellement menée.","Le Conseil de Discipline émet sa décision au plus tard dans les 15 jours qui suivent la date de sa saisie. En cas d’enquête, le délai est porté à un mois."]},{"n":116,"p":["L’étudiant traduit devant le Conseil de Discipline a le droit de consulter son dossier disciplinaire et ce, en formulant une demande de consultation.","L’étudiant peut présenter sa défense devant le Conseil de Discipline."]},{"n":117,"p":["La sanction prononcée doit être notifiée à l'intéressé et inscrite dans son dossier d’étudiant."]}]},{"n":"VIII","t":"Personnel","arts":[{"n":118,"p":["Le personnel de chaque institut comprend, outre le directeur, les deux directeurs adjoints, le secrétaire général et les directeurs des annexes :","• Un personnel enseignant ;","• Un personnel administratif et technique ;","• Un personnel de service et d’appui."]},{"n":119,"p":["Le personnel enseignant est constitué comme suit :","• Des enseignants chercheurs ;","• Des enseignants permanents parmi les fonctionnaires de l’autorité gouvernementale chargée de la Santé;","• Des enseignants vacataires."]},{"n":120,"p":["Les enseignants permanents parmi les fonctionnaires de l’autorité gouvernementale chargée de la Santé comprennent:","• Le personnel titulaire du Diplôme d’Etat du deuxième cycle des Etudes Paramédicales de la section Enseignement Paramédical des anciens Instituts de Formation aux Carrières de Santé ou des anciennes Ecoles des Cadres.","• Le personnel justifiant de compétences techniques et pédagogiques dans les champs disciplinaires pour lesquels forme l’institut, et titulaire de diplôme de premier cycle des IFCS ou d’autres diplômes au moins équivalents, et ayant exercé en qualité de faisant fonction d’enseignant au sein des anciens IFCS avant la date de publication du décret de création des ISPITS.","• Le personnel justifiant de compétences techniques requises dans les champs disciplinaires pour lesquels forme l’institut."]},{"n":121,"p":["Le personnel enseignant de l’institut dispense l'enseignement théorique et pratique et assure l'encadrement des étudiants au niveau des terrains de stage en rapport avec son domaine de compétence et son expérience. Il procède à l'évaluation des connaissances, des aptitudes et attitudes des étudiants. Il participe à la direction et à l'appréciation des travaux de recherche que les étudiants effectuent. De plus, il contribue à l'accomplissement de toute autre activité pédagogique organisée par la direction de l'institut et ses annexes et peut être appelé à participer à animer des sessions de formation continue organisée par l'institut en collaboration avec ses partenaires. Il peut également être sollicité pour réaliser des activités d’expertise et de recherche dans les domaines de ses compétences."]},{"n":122,"p":["Outre les enseignants chercheurs et les enseignants permanents parmi les fonctionnaires de l’autorité gouvernementale chargée de la Santé, il peut être fait appel à des enseignants vacataires ayant une expérience professionnelle et pédagogique dans le domaine à enseigner.","Les enseignants vacataires sont désignés après validation de leur demande par le Conseil d’Etablissement et ce sur proposition des directeurs et des directeurs adjoints"]},{"n":123,"p":["Tous les enseignants chercheurs et les enseignants permanents parmi les fonctionnaires de l’autorité gouvernementale chargée de la Santé doivent bénéficier des sessions de formation continue, au moins une fois par année.","Ces sessions de formation porteront sur le développement de compétences pédagogiques et managériales, ainsi que sur les nouvelles techniques et les avancées technologiques relatives à chaque discipline."]}]},{"n":"IX","t":"Centre de Documentation et d’Information","arts":[{"n":124,"p":["Il est institué au niveau de l’institut un Centre de Documentation et d’Information dont la vocation est essentiellement professionnelle et pédagogique. En plus de la conservation des documents, la diffusion de l'information et l'animation de la recherche documentaire, le Centre Documentaire se propose de répondre aux besoins en matière d'information et de documentation des enseignants et des étudiants de l'institut et de toute autre personne autorisée par la direction de l'institut à bénéficier de ses services"]},{"n":125,"p":["Le Centre de Documentation et d’Information est géré par un bibliothécaire qui est aidé dans ses fonctions par des préposés et par un conseil dont la composition et les attributions sont arrêtées par un règlement interne dudit Centre."]},{"n":126,"p":["L'exploitation du fonds documentaire se fait selon deux modes soit la consultation sur place ou le prêt à domicile.","Tout document prêté doit faire l'objet d'une fiche dûment remplie et signée par l'emprunteur. Le préposé à l'unité de prêt doit veiller à la bonne inscription des références.","Le prêt à domicile est accordé aux seuls enseignants relevant de l’institut et aux étudiants.","Les enseignants vacataires peuvent bénéficier du prêt à domicile sur autorisation préalable délivrée par le directeur de l'institut."]},{"n":127,"p":["La durée du prêt à domicile est de 07 jours ouvrables. Toutefois, si le document n'est pas sollicité par une autre personne, la durée du prêt peut être prolongée de la même durée.","Toutefois, l'unité de prêt se réserve le droit de réclamer à tout moment le document en question, dans ce cas l'emprunteur est obligé de le rendre. Lorsque le délai du prêt est dépassé, des réclamations sont adressées aux usagers qui sont tenus de procéder à la remise des documents réclamés; à défaut, la suspension du prêt est prononcée et la direction de l'institut en est informée en vue d'entreprendre les mesures nécessaires."]},{"n":128,"p":["Les ouvrages de référence (dictionnaires, annuaires, Atlas…), les dossiers documentaires et rapports ainsi que les livres existants en exemplaire unique, ne peuvent en aucun cas faire l'objet de prêt à domicile; ils sont consultés sur place. Il en est de même pour les ouvrages très demandés pendant certaines périodes (séminaires, examens, etc...)."]},{"n":129,"p":["L'accès à la salle de réserve et aux rayonnages est strictement interdit aux usagers non autorisés.","Tout document détérioré partiellement ou totalement ou perdu est obligatoirement remplacé par son emprunteur.","Aucune pièce administrative ne peut être délivrée aux usagers qui ne sont pas en règle avec le Centre de Documentation et d’Information."]}]},{"n":"X","t":"Dispositions diverses","arts":[{"n":130,"p":["Une unité médico-sociale, dotée de médicaments nécessaires aux premiers soins est mise à la disposition des étudiants et du personnel au niveau de chaque Institut."]},{"n":131,"p":["Les installations et le matériel sportif, si disponibles, sont mis à la disposition des étudiants et sont placés alors sous leur responsabilité."]},{"n":132,"p":["La pratique du sport peut se faire dans le cadre des séances de sport libre en dehors des horaires prévus dans l'emploi du temps."]},{"n":133,"p":["Toute utilisation spéciale des locaux de l’établissement ou ses annexes pour des activités parascolaires, sportives, sociales ou culturelles, est soumise à l’autorisation du Directeur de l’institut. La demande d’utilisation des locaux est adressée à la direction de l’institut au moins 10 jours avant la date d’utilisation."]},{"n":134,"p":["L'utilisation du matériel et des installations de loisirs de l'institut est réservée aux étudiants. Toutefois, les invités étrangers peuvent y accéder après accord de l'administration."]},{"n":135,"p":["En application des termes du décret n° 2-13-658 portant création des ISPITS, notamment les articles 17,18, 19 et 20 et en attendant la mise en place du Conseil d’Etablissement, il est créé de manière transitoire auprès de chaque ISPITS siège, une commission ad-hoc comme il est stipulé dans l’article 19 deuxième alinéa. Cette commission est chargée du rôle attribué au Conseil d’Etablissement et des attributions dévolues aux commissions à savoir la commission des affaires académiques et pédagogiques, la commission de la recherche et de valorisation scientifique, la commission de partenariat et la commission de suivi du budget.","Cette commission est constituée des membres suivants :","• Directeur de l’ISPITS ;","• Directeur Régional de la Santé ;","• Directeur(s) de (s) l’annexe (s);","• Directeur adjoint chargé des études ;","• Directeur adjoint chargé de la recherche, de la formation continue et de la coopération ;","• Secrétaire général ;","• Coordonnateurs des filières ;","• Coordinateurs des options."]}]}]};
+const rgNorm = t => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+function rgParas(list) {
+  let out = "", ul = [];
+  const flush = () => { if (ul.length) { out += "<ul>" + ul.map(x => "<li>" + esc(x) + "</li>").join("") + "</ul>"; ul = []; } };
+  list.forEach(p => { if (p.startsWith("• ")) ul.push(p.slice(2)); else { flush(); out += "<p>" + esc(p) + "</p>"; } });
+  flush();
+  return out;
+}
+function renderReglement() {
+  const inner = document.getElementById("innerPage");
+  const all = [];
+  REGLEMENT.chapters.forEach(c => c.arts.forEach(a => all.push({ n: a.n, ch: c, p: a.p, hay: rgNorm("article " + a.n + " " + a.p.join(" ")) })));
+  const artHtml = a => `<div class="rg-art" id="art-${a.n}"><h4>Article ${a.n}</h4>${rgParas(a.p)}</div>`;
+  inner.innerHTML = `
+    <div class="page-heading">
+      <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
+      <h1>Règlement intérieur</h1>
+      <p>${esc(moduleDescriptions["Règlement intérieur"] || "")}</p>
+    </div>
+    <input id="rgQ" class="rg-search" type="search" placeholder="Rechercher : absence, rattrapage, article 108, téléphone…" autocomplete="off">
+    <div id="rgBody"></div>
+    <p class="search-hint">Texte du règlement intérieur type des ISPITS (Direction des Ressources Humaines, janvier 2015). Votre institut peut appliquer des précisions complémentaires : référez-vous à l'administration en cas de doute.</p>
+    <div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>`;
+  const body = inner.querySelector("#rgBody");
+  const goTo = n => {
+    const el = document.getElementById("art-" + n);
+    if (!el) return;
+    const d = el.closest("details"); if (d) d.open = true;
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    el.classList.add("rg-flash"); setTimeout(() => el.classList.remove("rg-flash"), 2200);
+  };
+  const drawAll = () => {
+    body.innerHTML = `
+      <h2 class="cm-title">À retenir pour l'étudiant</h2>
+      <div class="rg-keys">${RG_KEYS.map(k => `<div class="rg-key"><strong>${esc(k[0])}</strong><p>${esc(k[1])}</p>
+        <div class="rg-refs">${k[2].map(n => `<button type="button" class="rg-ref" data-go="${n}">Art. ${n}</button>`).join("")}</div></div>`).join("")}</div>
+      <h2 class="cm-title">Texte complet</h2>
+      <details class="help-item"><summary>Préambule</summary><div class="help-body">${rgParas(REGLEMENT.pre)}</div></details>
+      ${REGLEMENT.chapters.map(c => `<details class="help-item"><summary>Chapitre ${esc(c.n)} · ${esc(c.t)} <span class="rg-range">Art. ${c.arts[0].n}${c.arts.length > 1 ? "–" + c.arts[c.arts.length - 1].n : ""}</span></summary>
+        <div class="help-body">${c.arts.map(artHtml).join("")}</div></details>`).join("")}`;
+    body.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => goTo(b.dataset.go)));
+  };
+  const drawSearch = q => {
+    const words = rgNorm(q).split(/\s+/).filter(Boolean);
+    const hits = all.filter(a => words.every(w => a.hay.includes(w)));
+    body.innerHTML = `<p class="search-hint">${hits.length} résultat${hits.length > 1 ? "s" : ""} pour « ${esc(q)} »</p>` +
+      hits.map(a => `<div class="rg-hit"><div class="rg-chap">Chapitre ${esc(a.ch.n)} · ${esc(a.ch.t)}</div>${artHtml(a)}</div>`).join("");
+  };
+  drawAll();
+  inner.querySelector("#rgQ").addEventListener("input", e => { const q = e.target.value.trim(); if (q) drawSearch(q); else drawAll(); });
+  addBackButton(inner);
+  window.scrollTo(0, 0);
 }
 
 function addBackButton(inner, label = "Retour au dashboard", handler = showHome) {
@@ -1615,6 +1855,8 @@ const CURRICULUM = {};
 // type : "cours" ou "resume" | f : filières | s : semestre | m : nom EXACT du module
 // sub : nom EXACT du sous-module ("" s'il n'y en a pas) | t : titre | url : lien du document
 const RESOURCES = [
+  { type: "cours", f: ["IP"], s: "S1", m: "SIB1", sub: "", t: "Cours des constantes", url: "cours/S1/IP/SIB1/cours-des-constantes.pdf" },
+  { type: "cours", f: ["IP"], s: "S1", m: "SIB1", sub: "", t: "Cours SIB1", url: "cours/S1/IP/SIB1/sib1-cours.pdf" },
 ];
 
 const TYPE_LABEL = { cours: "Cours", resume: "Résumé" };
@@ -1623,6 +1865,7 @@ const SITE_PAGES = [
   { name: "Résumés", words: "resumes fiches revision syntheses" },
   { name: "Stages", words: "stage protocoles fiches techniques situations cliniques" },
   { name: "Emploi du temps", words: "planning emploi du temps horaires" },
+  { name: "Règlement intérieur", words: "reglement interieur absences retard rattrapage fraude discipline sanctions droits obligations evaluation" },
   { name: "TP Simulation", words: "tp simulation travaux pratiques gestes techniques soins jeu 3d gants steriles encadrant" },
   { name: "Examens & QCM", words: "examens qcm evaluations" },
   { name: "Assistant IA", words: "assistant ia intelligence artificielle questions" },
@@ -1632,7 +1875,7 @@ const SITE_PAGES = [
 const esc = t => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const norm = t => String(t).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
   .replace(/&/g, "et").replace(/\s+/g, " ").trim();
-const safeUrl = u => (/^https?:\/\//i.test(String(u)) ? String(u) : "#");
+const safeUrl = u => (/^(https?:\/\/|cours\/[\w\-./%]+\.pdf$)/i.test(String(u)) ? String(u) : "#");
 
 function searchCurriculum(q, filiere) {
   const nq = norm(q);
@@ -2594,6 +2837,118 @@ const FICHES = [
     ]
   },
   {
+    id: "pansement", niveau: 2, short: "PANS", title: "Pansement stérile", duree: "10 min",
+    keywords: "pansement sterile plaie compresse serum physiologique asepsie cicatrisation soin plaie dressing",
+    resume: "Réaliser un pansement stérile sur une plaie propre en respectant l'asepsie, du retrait de l'ancien pansement à la traçabilité.",
+    sections: [
+      { t: "Fiche rapide", html: specs([
+          ["Quand", "Plaie post-opératoire, traumatique propre, suture, selon prescription ou protocole"],
+          ["Avant", "Informer le patient, hygiène des mains, matériel vérifié et préparé"],
+          ["Nettoyage", "Sérum physiologique, compresses stériles, du centre vers la périphérie"],
+          ["Séchage", "Par tamponnement, sans frotter"],
+          ["Règle d'or", "Du plus propre au plus sale, une compresse par passage"],
+          ["Après", "Déchets éliminés, hygiène des mains, soin tracé"]
+        ]) },
+      { t: "Définition et indications", html:
+          para("Le pansement protège la plaie, absorbe les écoulements, maintient un milieu favorable à la cicatrisation et limite le risque d'infection. Il se réalise en technique aseptique : tout ce qui touche la plaie doit être stérile.") +
+          ul(["Plaie opératoire ou traumatique propre", "Plaie suturée ou avec points de rapprochement", "Plaie chronique, selon prescription et protocole", "Pansement souillé, humide, décollé ou arrivé à sa date de renouvellement"]) },
+      { t: "Matériel", html:
+          ul(["Chariot nettoyé et désinfecté, à hauteur de taille", "Set de pansement stérile (compresses, pince ou champ), contrôlé", "Sérum physiologique stérile (péremption, ouverture récente)", "Compresses stériles supplémentaires et pansement adapté à la plaie", "Adhésif hypoallergénique ou bande de fixation", "Gants à usage unique propres pour le retrait, gants stériles pour le soin", "Solution hydro-alcoolique, sac à déchets, protection de lit si besoin", "Antiseptique uniquement si prescrit ou prévu par le protocole"]) },
+      { t: "Déroulement pas à pas", html: ol([
+          "<strong>Préparer le chariot</strong> : le nettoyer, rassembler tout le matériel et contrôler les dates de péremption.",
+          "<strong>Informer le patient</strong>, vérifier son identité, préserver son intimité et l'installer confortablement.",
+          "<strong>Hygiène des mains</strong> (friction hydro-alcoolique), mains sèches, sans bijoux ni montre.",
+          "Contrôler le set et le sérum : péremption, emballage intact, indicateur de stérilité.",
+          "Mettre des gants propres, <strong>retirer l'ancien pansement</strong> doucement (au besoin le mouiller au sérum), le jeter dans le sac à déchets et <strong>observer la plaie</strong>.",
+          "Retirer les gants, puis nouvelle <strong>hygiène des mains</strong>.",
+          "Ouvrir le set sur le chariot <strong>en ne touchant que les bords</strong> : l'intérieur du champ reste stérile.",
+          "Enfiler les <strong>gants stériles</strong> sans toucher l'extérieur. Garder les mains au-dessus de la taille.",
+          "<strong>Nettoyer</strong> la plaie au sérum physiologique avec des compresses stériles, du centre vers la périphérie, une compresse neuve à chaque passage.",
+          "<strong>Sécher</strong> en tamponnant avec une compresse stérile, sans frotter.",
+          "<strong>Poser le pansement</strong> stérile en le tenant par les bords, sans toucher la face qui sera contre la plaie, et le centrer sur la plaie.",
+          "<strong>Fixer</strong> sans tendre la peau, en débordant de 2 à 3 cm autour de la plaie. L'adhésif ne touche jamais la plaie.",
+          "Éliminer les déchets, retirer les gants, <strong>hygiène des mains</strong>, installer le patient, puis <strong>tracer</strong> : date, aspect de la plaie, matériel utilisé."
+        ]) },
+      { t: "Surveillance et signes d'alerte", html:
+          para("À chaque pansement, observer la plaie : couleur, taille, écoulement, odeur, état de la peau autour. Prévenir l'infirmier ou le médecin devant :") +
+          ul(["Rougeur qui s'étend, chaleur, gonflement", "Douleur qui augmente", "Écoulement purulent ou mauvaise odeur", "Fièvre ou frissons", "Plaie qui s'ouvre, saigne ou ne se cicatrise pas"]) },
+      { t: "Si le champ est contaminé", html: ul([
+          "Toucher l'intérieur du set, un objet non stérile, la peau ou la tenue : le champ n'est plus stérile",
+          "Emballage abîmé, humide ou périmé : le set se remplace",
+          "En cas de doute, <strong>reprendre avec un nouveau set et de nouveaux gants stériles</strong>"
+        ]) },
+      { t: "Erreurs fréquentes", html: ul([
+          "Oublier l'hygiène des mains entre le retrait et la pose", "Ne pas contrôler le set ni le sérum", "Nettoyer du bord vers le centre ou réutiliser une compresse", "Frotter la plaie au lieu de tamponner", "Souffler sur la plaie pour la sécher", "Toucher la face du pansement qui touche la plaie", "Tendre l'adhésif ou le poser sur la plaie", "Ne pas tracer le soin"
+        ]) + note("À retenir : informer, désinfecter les mains, champ stérile, du centre vers la périphérie, une compresse par passage, tracer.") }
+    ],
+    quiz: [
+      { q: "Comment nettoie-t-on une plaie propre ?", o: ["Du bord vers le centre", "Du centre vers la périphérie, une compresse neuve à chaque passage", "En frottant avec la même compresse", "Avec de l'eau du robinet"], a: 1, e: "On va du plus propre au plus sale, sans réutiliser de compresse." },
+      { q: "Quel produit utilise-t-on en priorité pour nettoyer la plaie ?", o: ["Un antiseptique alcoolisé", "Du sérum physiologique stérile", "De l'eau oxygénée", "Du savon"], a: 1, e: "Sauf prescription ou protocole, on nettoie au sérum physiologique." },
+      { q: "Comment sèche-t-on la plaie ?", o: ["En frottant", "En soufflant dessus", "En tamponnant avec une compresse stérile", "On laisse à l'air libre longtemps"], a: 2, e: "Tamponner protège le tissu fragile et évite la contamination." },
+      { q: "Que fait-on entre le retrait de l'ancien pansement et l'ouverture du set ?", o: ["Rien", "On retire les gants et on fait une hygiène des mains", "On rince les gants", "On ouvre le set avec les mêmes gants"], a: 1, e: "On passe du sale au propre : gants retirés, mains désinfectées." },
+      { q: "Comment ouvre-t-on le set de pansement ?", o: ["En touchant l'intérieur pour le disposer", "En ne touchant que les bords du papier", "Sur le lit du patient", "En le secouant"], a: 1, e: "Seuls les bords extérieurs se touchent : l'intérieur du champ reste stérile." },
+      { q: "Quels gants porte-t-on pour réaliser le soin sur la plaie ?", o: ["Des gants propres non stériles", "Aucun gant", "Des gants stériles", "Des gants de ménage"], a: 2, e: "La technique est aseptique : stérile touche stérile." },
+      { q: "Comment fixe-t-on le pansement ?", o: ["En tendant fortement l'adhésif", "Sans tendre la peau, en débordant de 2 à 3 cm autour de la plaie", "Avec l'adhésif directement sur la plaie", "Sans fixer"], a: 1, e: "Une fixation douce évite les lésions de la peau, l'adhésif ne touche jamais la plaie." },
+      { q: "Quel signe doit alerter après un pansement ?", o: ["Une plaie propre et sèche", "Une rougeur qui s'étend avec une douleur croissante", "Une cicatrice qui se ferme", "Un pansement bien en place"], a: 1, e: "Rougeur, chaleur, douleur croissante, pus ou fièvre font suspecter une infection." }
+    ]
+  },
+  {
+    id: "ecg", niveau: 2, short: "ECG", title: "Électrocardiogramme (ECG)", duree: "10 min",
+    keywords: "ecg electrocardiogramme electrocardiographe electrodes derivations precordiales cardiaque thoracique douleur trace v1 v6",
+    resume: "Réaliser un ECG 12 dérivations : installation du patient, pose des électrodes, enregistrement de qualité et identification du tracé.",
+    sections: [
+      { t: "Fiche rapide", html: specs([
+          ["Quand", "Douleur thoracique, palpitations, malaise, dyspnée, bilan, surveillance"],
+          ["Position", "Allongé sur le dos, détendu, immobile, thorax et membres dégagés"],
+          ["Membres", "Rouge : bras droit · Jaune : bras gauche · Vert : jambe gauche · Noir : jambe droite"],
+          ["Précordiales", "V1 à V6 : repérage au niveau des espaces intercostaux"],
+          ["Réglages", "25 mm/s et 10 mm/mV (calibration standard)"],
+          ["Après", "Tracé identifié et transmis, matériel désinfecté, soin tracé"]
+        ]) },
+      { t: "Définition et indications", html:
+          para("L'électrocardiogramme enregistre l'activité électrique du cœur à travers la peau grâce à des électrodes. Il est indolore et sans danger. L'infirmier réalise l'enregistrement, l'interprétation revient au médecin.") +
+          ul(["Douleur thoracique, palpitations, essoufflement, malaise ou syncope", "Bilan préopératoire ou bilan d'admission", "Surveillance d'un traitement ou d'une pathologie cardiaque"]) +
+          warn("Une douleur thoracique est une urgence : réaliser l'ECG sans retard et prévenir immédiatement le médecin.") },
+      { t: "Matériel", html:
+          ul(["Électrocardiographe avec câble patient, branché et chargé", "Papier thermique en quantité suffisante", "Électrodes autocollantes à usage unique, non périmées, au gel humide", "Rasoir ou tondeuse, compresses, drap de pudeur", "Solution hydro-alcoolique, lingettes désinfectantes pour les câbles"]) },
+      { t: "Placement des électrodes", html:
+          "<h4>Membres</h4>" +
+          ul(["<strong>Rouge</strong> : poignet ou bras droit", "<strong>Jaune</strong> : poignet ou bras gauche", "<strong>Vert</strong> : cheville ou jambe gauche", "<strong>Noir</strong> : cheville ou jambe droite"]) +
+          "<h4>Précordiales (codes couleur IEC)</h4>" +
+          ul(["<strong>V1</strong> (rouge) : 4e espace intercostal, bord droit du sternum", "<strong>V2</strong> (jaune) : 4e espace intercostal, bord gauche du sternum", "<strong>V3</strong> (vert) : entre V2 et V4", "<strong>V4</strong> (marron) : 5e espace intercostal, ligne médio-claviculaire gauche", "<strong>V5</strong> (noir) : à la hauteur de V4, ligne axillaire antérieure", "<strong>V6</strong> (violet) : à la hauteur de V4, ligne axillaire moyenne"]) +
+          note("Les codes couleur peuvent varier selon l'appareil (norme IEC ou AHA). Vérifiez toujours la notice de l'appareil et le protocole du service.") },
+      { t: "Déroulement pas à pas", html: ol([
+          "<strong>Préparer le matériel</strong> : appareil branché, papier, câbles, électrodes neuves.",
+          "<strong>Informer le patient</strong>, vérifier son identité, lui demander de rester immobile et détendu.",
+          "<strong>Hygiène des mains</strong> (friction hydro-alcoolique).",
+          "<strong>Installer</strong> le patient allongé sur le dos, thorax et poignets/chevilles dégagés, pudeur préservée. Éloigner montre et téléphone.",
+          "<strong>Préparer la peau</strong> : tondre ou raser si besoin, nettoyer, sécher.",
+          "Poser les <strong>électrodes des membres</strong> (rouge, jaune, vert, noir).",
+          "Poser les <strong>électrodes précordiales</strong> V1 à V6 en repérant les espaces intercostaux.",
+          "Vérifier les câbles et la <strong>calibration</strong> : 25 mm/s et 10 mm/mV.",
+          "<strong>Enregistrer</strong> : patient immobile, respiration calme, sans parler. Refaire si le tracé est parasité.",
+          "<strong>Identifier le tracé</strong> : nom, prénom, date, heure, symptômes, puis le transmettre au médecin.",
+          "<strong>Retirer</strong> les électrodes, nettoyer la peau, réinstaller le patient, désinfecter les câbles, hygiène des mains, tracer."
+        ]) },
+      { t: "Qualité du tracé", html:
+          para("Un tracé parasité est inexploitable. Les causes les plus fréquentes :") +
+          ul(["Mouvements, toux, parole ou tremblements du patient", "Électrodes sèches, décollées ou posées sur peau grasse ou poilue", "Câbles tendus ou mal branchés", "Objets métalliques, téléphone ou appareils électriques à proximité", "Patient froid ou anxieux (frissons)"]) },
+      { t: "Erreurs fréquentes", html: ul([
+          "Inverser les électrodes des bras", "Placer V1 et V2 trop haut ou V4 à la mauvaise hauteur", "Poser les électrodes sur une peau non préparée", "Régler une vitesse ou une amplitude non standard", "Enregistrer pendant que le patient parle ou bouge", "Oublier d'identifier le tracé", "Réutiliser les électrodes ou ne pas désinfecter les câbles"
+        ]) + note("À retenir : patient allongé et immobile, peau préparée, couleurs au bon endroit, V1 à V6 bien repérées, 25 mm/s, tracé identifié.") }
+    ],
+    quiz: [
+      { q: "Où pose-t-on l'électrode rouge des membres ?", o: ["Poignet ou bras gauche", "Poignet ou bras droit", "Cheville gauche", "Cheville droite"], a: 1, e: "Rouge : bras droit. Jaune : bras gauche. Vert : jambe gauche. Noir : jambe droite." },
+      { q: "Où pose-t-on V1 ?", o: ["4e espace intercostal, bord droit du sternum", "5e espace intercostal gauche", "2e espace intercostal droit", "Sous le mamelon gauche"], a: 0, e: "V1 se place dans le 4e espace intercostal, au bord droit du sternum." },
+      { q: "Quelle est la calibration standard de l'ECG ?", o: ["50 mm/s et 20 mm/mV", "25 mm/s et 10 mm/mV", "10 mm/s et 25 mm/mV", "100 mm/s et 5 mm/mV"], a: 1, e: "La calibration standard est 25 mm/s et 10 mm/mV." },
+      { q: "Comment doit être le patient pendant l'enregistrement ?", o: ["Il parle pour se détendre", "Immobile, respirant calmement, sans parler", "Assis penché en avant", "Debout"], a: 1, e: "Les mouvements et la parole créent des artefacts." },
+      { q: "Pourquoi éloigner montre et téléphone du patient ?", o: ["Pour éviter de les abîmer", "Ils créent des interférences sur le tracé", "Ce n'est pas nécessaire", "Pour gagner de la place"], a: 1, e: "Les objets métalliques et les appareils électriques parasitent le tracé." },
+      { q: "Que faire si le tracé est parasité ?", o: ["Le transmettre quand même", "Chercher la cause (mouvement, électrode, câble) et refaire l'ECG", "Le jeter sans rien dire", "Régler la vitesse à 50 mm/s"], a: 1, e: "Un tracé parasité est inexploitable : on corrige la cause et on refait l'enregistrement." },
+      { q: "Qui interprète l'ECG ?", o: ["L'infirmier seul", "Le médecin", "Le patient", "Le secrétariat"], a: 1, e: "L'infirmier enregistre, le médecin interprète. Une anomalie ou une douleur thoracique doit être signalée tout de suite." },
+      { q: "Que fait-on des électrodes après l'examen ?", o: ["On les garde pour le prochain ECG", "On les retire et on les jette, les câbles sont désinfectés", "On les laisse sur le patient", "On les range sans rien faire"], a: 1, e: "Les électrodes sont à usage unique, les câbles se désinfectent entre deux patients." }
+    ]
+  },
+  {
     id: "glyc", niveau: 2, short: "GLY", title: "Glycémie capillaire", duree: "9 min",
     keywords: "glycemie capillaire glucometre lecteur bandelette autopiqueur diabete hypoglycemie hyperglycemie",
     resume: "Mesurer le taux de sucre dans une goutte de sang au bout du doigt, avec un lecteur de glycémie.",
@@ -2898,10 +3253,126 @@ function renderStages(ficheId = null) {
     <button class="primary-btn" type="button" data-quiz="1">Passer le test</button>
     ${fiche.sections.map((s, i) => `<details class="help-item"${i === 0 ? " open" : ""}><summary>${esc(s.t)}</summary><div class="help-body">${s.html}</div></details>`).join("")}
     <button class="primary-btn" type="button" data-quiz="1">Passer le test</button>
+    <section id="ficheComments" class="cm" data-f="${esc(fiche.id)}"></section>
     ${footer}`;
   addBackButton(inner, "Retour aux fiches", () => renderStages());
   inner.querySelectorAll("[data-quiz]").forEach(b => b.addEventListener("click", () => startQuiz(fiche)));
   window.scrollTo(0, 0);
+  loadComments(fiche.id);
+}
+
+// ===== COMMENTAIRES SOUS LES FICHES (réponses + réactions) =====
+const CM_REACT = [["like", "👍", "J'aime"], ["haha", "😂", "Haha"], ["dislike", "👎", "Je n'aime pas"]];
+async function loadComments(ficheId) {
+  const box = document.getElementById("ficheComments");
+  if (!box || box.dataset.f !== ficheId) return;
+  const title = n => `<h2 class="cm-title">Questions et commentaires${n === null ? "" : " (" + n + ")"}</h2>`;
+  box.innerHTML = title(null) + `<p class="search-hint">Chargement…</p>`;
+  const { data, error } = await db.from("fiche_comments").select("id,user_id,author_name,body,created_at,parent_id")
+    .eq("fiche_id", ficheId).order("created_at", { ascending: true }).limit(300);
+  if (!box.isConnected || box.dataset.f !== ficheId) return;
+  if (error) {
+    console.error("Commentaires :", error);
+    box.innerHTML = title(null) + `<p class="search-hint">Les commentaires ne sont pas encore activés.</p>`;
+    return;
+  }
+  const rows = data || [];
+  let admins = new Set();
+  const ar = await db.from("admins").select("user_id");
+  if (ar.error) console.error("Admins :", ar.error); else admins = new Set((ar.data || []).map(x => x.user_id));
+  if (!box.isConnected || box.dataset.f !== ficheId) return;
+  let reacts = [];
+  if (rows.length) {
+    const r = await db.from("comment_reactions").select("comment_id,user_id,kind").in("comment_id", rows.map(c => c.id));
+    if (r.error) console.error("Réactions :", r.error); else reacts = r.data || [];
+    if (!box.isConnected || box.dataset.f !== ficheId) return;
+  }
+  const me = currentUser ? currentUser.id : null;
+  const isAdmin = !!me && admins.has(me);
+  const fmt = d => new Date(d).toLocaleString("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+  const bar = c => {
+    const mine = reacts.find(x => x.comment_id === c.id && x.user_id === me);
+    return CM_REACT.map(([k, e, l]) => {
+      const n = reacts.filter(x => x.comment_id === c.id && x.kind === k).length;
+      return `<button type="button" class="cm-react${mine && mine.kind === k ? " on" : ""}" data-r="${k}" data-c="${esc(c.id)}" title="${esc(l)}">${e}${n ? " " + n : ""}</button>`;
+    }).join("");
+  };
+  const item = (c, isReply) => `
+    <div class="cm-item${isReply ? " cm-reply" : ""}">
+      <div class="cm-head"><span><strong>${esc(c.author_name || "Étudiant")}</strong>${admins.has(c.user_id) ? ' <span class="cm-badge">Admin</span>' : ""} · ${esc(fmt(c.created_at))}</span>
+        ${me && (c.user_id === me || isAdmin) ? `<button class="cm-del" type="button" data-del="${esc(c.id)}">${c.user_id === me ? "Supprimer" : "Supprimer (admin)"}</button>` : ""}</div>
+      <p class="cm-body">${esc(c.body)}</p>
+      <div class="cm-actions">${bar(c)}<button type="button" class="cm-link" data-reply="${esc(isReply ? c.parent_id : c.id)}" data-to="${esc(c.author_name || "")}">Répondre</button></div>
+    </div>`;
+  const tops = rows.filter(c => !c.parent_id).reverse();
+  const repsOf = id => rows.filter(c => c.parent_id === id);
+
+  const draw = () => {
+    const old = box.querySelector("#cmText");
+    const keep = old ? old.value : "";
+    box.innerHTML = `
+      ${title(rows.length)}
+      ${warn("Ne partagez jamais d'information sur un patient (nom, photo, dossier). Restez respectueux.")}
+      <div class="cm-box">
+        <textarea id="cmText" maxlength="1000" placeholder="Posez une question ou partagez un conseil sur cette fiche…"></textarea>
+        <button class="primary-btn" type="button" id="cmSend">Publier</button>
+        <p class="cm-err" id="cmErr"></p>
+      </div>
+      ${tops.length ? tops.map(c => item(c, false) + repsOf(c.id).map(r => item(r, true)).join("") + `<div class="cm-replybox" data-rb="${esc(c.id)}"></div>`).join("")
+        : `<p class="search-hint">Aucun commentaire pour l'instant. Soyez le premier à poser une question.</p>`}`;
+    box.querySelector("#cmText").value = keep;
+
+    const publish = async (body, parentId, btn, err) => {
+      if (!body) { err.textContent = "Écris un message avant de publier."; return; }
+      btn.disabled = true; err.textContent = "";
+      const row = { fiche_id: ficheId, body };
+      if (parentId) row.parent_id = parentId;
+      const { error: e } = await db.from("fiche_comments").insert(row);
+      if (e) { console.error("Publication :", e); err.textContent = "Impossible de publier pour le moment."; btn.disabled = false; return; }
+      loadComments(ficheId);
+    };
+    const send = box.querySelector("#cmSend"), txt = box.querySelector("#cmText"), err = box.querySelector("#cmErr");
+    send.addEventListener("click", () => publish(txt.value.trim(), null, send, err));
+
+    box.querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", async () => {
+      if (!confirm("Supprimer ce commentaire ? Les réponses seront supprimées aussi.")) return;
+      const { error: e } = await db.from("fiche_comments").delete().eq("id", b.dataset.del);
+      if (e) { console.error("Suppression :", e); return; }
+      loadComments(ficheId);
+    }));
+
+    box.querySelectorAll("[data-r]").forEach(b => b.addEventListener("click", async () => {
+      if (!me) return;
+      const cid = b.dataset.c, kind = b.dataset.r;
+      const mine = reacts.find(x => x.comment_id === cid && x.user_id === me);
+      b.disabled = true;
+      if (mine && mine.kind === kind) {
+        const { error: e } = await db.from("comment_reactions").delete().eq("comment_id", cid).eq("user_id", me);
+        if (e) { console.error("Réaction :", e); b.disabled = false; return; }
+        reacts = reacts.filter(x => x !== mine);
+      } else {
+        const { error: e } = await db.from("comment_reactions").upsert({ comment_id: cid, user_id: me, kind }, { onConflict: "comment_id,user_id" });
+        if (e) { console.error("Réaction :", e); b.disabled = false; return; }
+        reacts = reacts.filter(x => x !== mine); reacts.push({ comment_id: cid, user_id: me, kind });
+      }
+      draw();
+    }));
+
+    box.querySelectorAll("[data-reply]").forEach(b => b.addEventListener("click", () => {
+      const pid = b.dataset.reply, rb = box.querySelector(`[data-rb="${pid}"]`);
+      if (!rb) return;
+      rb.innerHTML = `<div class="cm-box">
+        <textarea maxlength="1000" placeholder="Répondre à ${esc(b.dataset.to)}…"></textarea>
+        <button class="primary-btn" type="button" data-go="1">Envoyer la réponse</button>
+        <button class="cm-link" type="button" data-cancel="1">Annuler</button>
+        <p class="cm-err"></p></div>`;
+      const ta = rb.querySelector("textarea"), go = rb.querySelector("[data-go]"), er = rb.querySelector(".cm-err");
+      ta.focus();
+      go.addEventListener("click", () => publish(ta.value.trim(), pid, go, er));
+      rb.querySelector("[data-cancel]").addEventListener("click", () => { rb.innerHTML = ""; });
+    }));
+  };
+  draw();
 }
 
 function startQuiz(fiche) {
@@ -3239,7 +3710,7 @@ function createStage(container) {
   // Lit et patient
   bx(world, 1.1, 0.3, 2.2, 0x9fb2bb, -2.5, 0.42, -2.4); bx(world, 1.0, 0.18, 2.0, 0xffffff, -2.5, 0.66, -2.4);
   bx(world, 1.02, 0.1, 1.2, 0x7fcfc6, -2.5, 0.78, -1.95); bx(world, 0.6, 0.12, 0.35, 0xf4f4f4, -2.5, 0.79, -3.15);
-  sp(world, 0.12, 0xe0ac84, -2.5, 0.93, -3.1); bx(world, 0.46, 0.1, 0.8, 0x7fcfc6, -2.5, 0.83, -2.7);
+  const oldHead = sp(world, 0.12, 0xe0ac84, -2.5, 0.93, -3.1); const oldBody = bx(world, 0.46, 0.1, 0.8, 0x7fcfc6, -2.5, 0.83, -2.7);
   bx(world, 1.1, 0.9, 0.06, 0xb7c4cb, -2.5, 0.95, -3.55); bx(world, 0.04, 0.35, 1.3, 0xcfd8dc, -1.96, 0.95, -2.3);
   bx(world, 0.8, 0.5, 0.08, 0x20282e, -2.5, 1.95, -3.95); qd(world, 0.7, 0.38, tEcg, -2.5, 1.95, -3.9);
   cy(world, 0.015, 0.015, 2.0, 0xcfd8dc, -1.35, 1.0, -2.0); cy(world, 0.2, 0.2, 0.03, 0x9aa7af, -1.35, 0.015, -2.0);
@@ -3319,7 +3790,9 @@ function createStage(container) {
   const views = {
     main: [[0, 1.55, 2.3], [0, 1.0, -0.4]], hands: [[0, 1.5, 1.75], [0, 1.0, -0.2]],
     table: [[0, 1.42, 1.25], [0, 0.95, -0.1]], enc: [[0.3, 1.55, 1.9], [0.9, 1.45, 0.2]],
-    bin: [[0.8, 1.5, 1.8], [1.6, 0.8, -0.8]]
+    bin: [[0.8, 1.5, 1.8], [1.6, 0.8, -0.8]],
+    arm: [[-1.95, 1.45, -1.75], [-2.2, 0.86, -2.62]], pat: [[-1.6, 1.9, -1.2], [-2.5, 0.85, -2.6]], chest: [[-1.8, 1.85, -2.2], [-2.5, 0.95, -2.75]],
+    machine: [[-1.0, 1.55, -1.5], [-1.5, 1.05, -2.5]], arm2: [[-1.7, 1.5, -2.3], [-2.24, 0.85, -2.91]], bed: [[-0.9, 1.75, -0.3], [-2.4, 0.85, -2.6]]
   };
   let camP = views.main[0].slice(), camL = views.main[1].slice(), camTP = camP.slice(), camTL = camL.slice();
   let moodT = "calm", talking = 0, shakeV = 0, rubbing = false, alive = true, last = 0, ecgT = 0;
@@ -3352,6 +3825,111 @@ function createStage(container) {
     reset: () => { setGlove(hR, false); setGlove(hL, false); rubbing = false; gloveR.vis = true; gloveL.vis = true; paper.vis = false; pack.vis = true; packT.p = TABLE.slice(); packT.r = [0, 0, 0]; pack.pos = packT.p.slice(); pack.rot = [0, 0, 0]; REST(); return 600; }
   };
 
+  // ----- Patient du pansement : avant-bras sur le lit, plaie suturée, ancien pansement, compresses, pansement neuf -----
+  const arm = Ngrp(); attach(world, arm); place(arm, -2.2, 0.8, -2.78); arm.vis = false;
+  cy(arm, 0.05, 0.05, 0.24, 0x7fcfc6, 0, 0, -0.26, { rot: [PI / 2, 0, 0] });
+  cy(arm, 0.042, 0.034, 0.36, 0xe0ac84, 0, 0, 0, { rot: [PI / 2, 0, 0] });
+  sp(arm, 0.04, 0xe0ac84, 0, -0.005, 0.23, { scl: [1, 0.6, 1.3] });
+  const DIRTY = 0xb2483a, CLEAN = 0xd2665a;
+  const wound = bx(arm, 0.06, 0.005, 0.1, DIRTY, 0, 0.041, 0.02);
+  for (let i = 0; i < 5; i++) bx(arm, 0.07, 0.002, 0.004, 0x3a2a2a, 0, 0.045, -0.02 + i * 0.02);
+  const exud = bx(arm, 0.035, 0.003, 0.045, 0xe8c85a, 0.005, 0.047, 0.03);
+  const oldD = Ngrp(); attach(arm, oldD); place(oldD, 0, 0.05, 0.02);
+  bx(oldD, 0.11, 0.012, 0.14, 0xf2efe8, 0, 0, 0); bx(oldD, 0.05, 0.004, 0.06, 0xd9c48a, 0.005, 0.008, 0.01);
+  bx(oldD, 0.12, 0.004, 0.02, 0xe7dcc3, 0, 0.007, -0.07); bx(oldD, 0.12, 0.004, 0.02, 0xe7dcc3, 0, 0.007, 0.07);
+  const newD = Ngrp(); attach(arm, newD); place(newD, 0, 0.05, 0.02); newD.vis = false;
+  bx(newD, 0.12, 0.006, 0.15, 0xe9f1f5, 0, -0.002, 0); bx(newD, 0.09, 0.012, 0.12, 0xffffff, 0, 0.003, 0);
+  const cmp = bx(arm, 0.06, 0.012, 0.06, 0xffffff, 0, 0.052, 0.02); cmp.vis = false;
+  const tape1 = bx(arm, 0.13, 0.004, 0.025, 0xe7dcc3, 0, 0.062, -0.075), tape2 = bx(arm, 0.13, 0.004, 0.025, 0xe7dcc3, 0, 0.062, 0.115);
+  tape1.vis = tape2.vis = false;
+  const padsG = Ngrp(); attach(paper, padsG); padsG.vis = false;
+  [-0.12, -0.04, 0.04].forEach(x => bx(padsG, 0.07, 0.012, 0.07, 0xffffff, x, 0.008, -0.1));
+  cy(padsG, 0.03, 0.03, 0.04, 0xe3f2fb, 0.13, 0.02, -0.1, { alpha: 0.9 });
+  let pansOn = false;
+  const pansWound = () => { newD.vis = cmp.vis = tape1.vis = tape2.vis = false; exud.vis = true; wound.col = hexRGB(DIRTY); };
+  function setPans(on) { pansOn = on; arm.vis = on; padsG.vis = on; oldD.vis = on; pansWound(); }
+  acts.peel = () => { REACH(); at(700, () => { oldD.vis = false; }); at(1300, UP); return 1500; };
+  acts.clean = () => { REACH(); rubbing = true; at(300, () => { cmp.vis = true; }); at(1500, () => { cmp.vis = false; exud.vis = false; wound.col = hexRGB(CLEAN); rubbing = false; UP(); }); return 1900; };
+  acts.dab = () => { REACH(); at(300, () => { cmp.vis = true; }); at(900, () => { cmp.vis = false; }); at(1200, UP); return 1400; };
+  acts.apply = () => { REACH(); at(500, () => { newD.vis = true; }); at(1000, UP); return 1300; };
+  acts.tape = () => { REACH(); at(400, () => { tape1.vis = true; }); at(800, () => { tape2.vis = true; }); at(1200, UP); return 1500; };
+  acts.mainsPans = () => { const a = acts.removeJewelry(); at(a, () => acts.sanitize()); return a + 2900; };
+  acts.donBoth = () => { acts.don1(); at(1400, () => acts.don2()); return 2800; };
+  const baseReset = acts.reset;
+  acts.reset = () => { if (pansOn) pansWound(); if (patOn) patReset(); return baseReset(); };
+
+  // ----- Patient réaliste (ECG, injection IM) : jeu complet, respiration, expressions -----
+  const SK = 0xe0ac84, GOWN = 0x9fd3ea, HAIR = 0x3a2a1e;
+  const pt = Ngrp(); attach(world, pt); place(pt, -2.5, 0.76, -3.18); pt.vis = false; pt.mood = "calm";
+  sp(pt, 0.105, SK, 0, 0.12, 0); sp(pt, 0.108, HAIR, 0, 0.115, -0.035, { scl: [1, 0.9, 1] });
+  sp(pt, 0.012, 0x1b1b1b, -0.04, 0.206, 0.045); sp(pt, 0.012, 0x1b1b1b, 0.04, 0.206, 0.045);
+  bx(pt, 0.016, 0.02, 0.03, SK, 0, 0.215, 0.07);
+  const pBL = bx(pt, 0.035, 0.006, 0.008, HAIR, -0.04, 0.217, 0.03), pBR = bx(pt, 0.035, 0.006, 0.008, HAIR, 0.04, 0.217, 0.03);
+  const pMouth = bx(pt, 0.04, 0.008, 0.008, 0x8a3b3b, 0, 0.185, 0.088);
+  cy(pt, 0.04, 0.045, 0.08, SK, 0, 0.06, 0.13, { rot: [PI / 2, 0, 0] });
+  const pSkin = bx(pt, 0.36, 0.2, 0.55, SK, 0, 0.1, 0.445);
+  const gown = bx(pt, 0.376, 0.208, 0.55, GOWN, 0, 0.102, 0.445);
+  bx(pt, 0.376, 0.178, 0.3, GOWN, 0, 0.09, 0.85);
+  [-1, 1].forEach(sd => {
+    cy(pt, 0.06, 0.05, 0.95, SK, sd * 0.1, 0.06, 1.22, { rot: [PI / 2, 0, 0] });
+    bx(pt, 0.09, 0.05, 0.2, SK, sd * 0.1, 0.04, 1.78);
+    cy(pt, 0.042, 0.036, 0.3, SK, sd * 0.26, 0.05, 0.36, { rot: [PI / 2, 0, 0] });
+    cy(pt, 0.036, 0.03, 0.28, SK, sd * 0.26, 0.045, 0.66, { rot: [PI / 2, 0, 0] });
+    sp(pt, 0.036, SK, sd * 0.26, 0.04, 0.85, { scl: [1, 0.6, 1.4] });
+  });
+  const sleeveR = cy(pt, 0.048, 0.048, 0.2, GOWN, -0.26, 0.05, 0.29, { rot: [PI / 2, 0, 0] });
+  const sleeveL = cy(pt, 0.048, 0.048, 0.2, GOWN, 0.26, 0.05, 0.29, { rot: [PI / 2, 0, 0] });
+  bx(pt, 0.72, 0.1, 0.35, 0x7fcfc6, 0, 0.1, 1.125);
+  // Électrodes (codes couleur IEC) : bras D rouge, bras G jaune, jambe G verte, jambe D noire ; V1 rouge, V2 jaune, V3 vert, V4 marron, V5 noir, V6 violet
+  const elec = (c, x, y, z) => { const e = cy(pt, 0.016, 0.016, 0.008, c, x, y, z); e.vis = false; return e; };
+  const limbEl = [elec(0xd9392b, -0.26, 0.092, 0.77), elec(0xf2c200, 0.26, 0.092, 0.77), elec(0x2fa04a, 0.1, 0.123, 1.55), elec(0x20282e, -0.1, 0.123, 1.55)];
+  const chestEl = [[0xd9392b, -0.03, 0.36], [0xf2c200, 0.03, 0.36], [0x2fa04a, 0.07, 0.4], [0x8b5a2b, 0.1, 0.44], [0x20282e, 0.14, 0.44], [0x7a4cc2, 0.17, 0.44]].map(([c, x, z]) => elec(c, x, 0.204, z));
+  // Site d'injection (deltoïde gauche) : antiseptique, compresse, seringue
+  const spot = cy(pt, 0.035, 0.035, 0.003, 0xd9a066, 0.26, 0.094, 0.27, { alpha: 0.7 }); spot.vis = false;
+  const gauze = bx(pt, 0.05, 0.012, 0.05, 0xffffff, 0.26, 0.098, 0.27); gauze.vis = false;
+  const syr = Ngrp(); attach(pt, syr); place(syr, 0.26, 0.28, 0.27); syr.vis = false;
+  cy(syr, 0.009, 0.009, 0.09, 0xeaf6ff, 0, 0.05, 0, { alpha: 0.9 }); cy(syr, 0.0075, 0.0075, 0.05, 0xfff3b0, 0, 0.035, 0);
+  cy(syr, 0.0016, 0.0016, 0.035, 0xcfd8dc, 0, -0.0175, 0); bx(syr, 0.012, 0.01, 0.012, 0x159c94, 0, 0, 0);
+  const plg = Ngrp(); attach(syr, plg); cy(plg, 0.003, 0.003, 0.07, 0xcfd8dc, 0, 0.125, 0); cy(plg, 0.012, 0.012, 0.003, 0xcfd8dc, 0, 0.162, 0);
+  // Électrocardiographe et tracé
+  const tStrip = canvasTex(256, 150, (c, w, h) => {
+    c.fillStyle = "#fff4f1"; c.fillRect(0, 0, w, h); c.strokeStyle = "#f2b8b0"; c.lineWidth = 1;
+    for (let x = 0; x < w; x += 8) { c.beginPath(); c.moveTo(x, 0); c.lineTo(x, h); c.stroke(); }
+    for (let y = 0; y < h; y += 8) { c.beginPath(); c.moveTo(0, y); c.lineTo(w, y); c.stroke(); }
+    c.strokeStyle = "#222"; c.lineWidth = 2;
+    [30, 75, 120].forEach(y0 => { c.beginPath(); for (let x = 0; x < w; x++) { const ph = (x % 64) / 64; let y = y0;
+      if (ph > 0.1 && ph < 0.2) y -= Math.sin((ph - 0.1) / 0.1 * Math.PI) * 5; else if (ph > 0.3 && ph < 0.33) y += 4; else if (ph >= 0.33 && ph < 0.38) y -= 22; else if (ph >= 0.38 && ph < 0.42) y += 8; else if (ph > 0.55 && ph < 0.72) y -= Math.sin((ph - 0.55) / 0.17 * Math.PI) * 8;
+      if (x) c.lineTo(x, y); else c.moveTo(x, y); } c.stroke(); });
+  });
+  const ecgG = Ngrp(); attach(world, ecgG); ecgG.vis = false;
+  cy(ecgG, 0.03, 0.03, 0.9, 0xaeb9bf, -1.5, 0.45, -2.6); cy(ecgG, 0.25, 0.25, 0.03, 0x9aa7af, -1.5, 0.015, -2.6);
+  bx(ecgG, 0.5, 0.12, 0.35, 0xdfe6ea, -1.5, 0.96, -2.6); bx(ecgG, 0.3, 0.02, 0.16, 0x20282e, -1.5, 1.03, -2.65);
+  const strip = qd(ecgG, 0.34, 0.2, tStrip, -1.5, 1.2, -2.45, { rot: [-0.5, 0, 0] }); strip.vis = false;
+  let patOn = false, curMode = "gants";
+  const patReset = () => {
+    limbEl.concat(chestEl).forEach(e => { e.vis = false; }); strip.vis = false; spot.vis = false; gauze.vis = false; syr.vis = false;
+    plg.pos[1] = 0; pt.mood = "calm"; if (curMode === "im") sleeveL.vis = true;
+  };
+  function setPat(on) { patOn = on; pt.vis = on; oldHead.vis = oldBody.vis = !on; gown.vis = true; sleeveL.vis = sleeveR.vis = true; patReset(); }
+  function setMode(m) { curMode = m; setPans(m === "pans"); setPat(m === "ecg" || m === "im"); ecgG.vis = m === "ecg"; }
+  function patFrame(t) {
+    const b = 1 + Math.sin(t * 1.6) * 0.025, pain = pt.mood === "pain";
+    pSkin.scl[1] = b; gown.scl[1] = b;
+    pBL.rot[1] += ((pain ? -0.5 : 0) - pBL.rot[1]) * 0.2; pBR.rot[1] += ((pain ? 0.5 : 0) - pBR.rot[1]) * 0.2;
+    pMouth.scl[0] += ((pain ? 1.5 : 1) - pMouth.scl[0]) * 0.2; pMouth.scl[1] += ((pain ? 2.2 : 1) - pMouth.scl[1]) * 0.2;
+  }
+  const syrTo = (y, ms) => at(ms, () => { syr.pos[1] = y; });
+  acts.ecgExpose = () => { REACH(); at(600, () => { gown.vis = false; }); at(1200, UP); return 1500; };
+  acts.ecgLimbs = () => { REACH(); limbEl.forEach((e, i) => at(300 + i * 300, () => { e.vis = true; })); at(1700, UP); return 1900; };
+  acts.ecgChest = () => { REACH(); chestEl.forEach((e, i) => at(300 + i * 250, () => { e.vis = true; })); at(2000, UP); return 2200; };
+  acts.ecgRecord = () => { UP(); at(900, () => { strip.vis = true; }); return 1500; };
+  acts.ecgRemove = () => { REACH(); at(500, () => { limbEl.concat(chestEl).forEach(e => { e.vis = false; }); strip.vis = false; }); at(1200, UP); return 1500; };
+  acts.imExpose = () => { REACH(); at(600, () => { sleeveL.vis = false; }); at(1200, UP); return 1500; };
+  acts.imWipe = () => { REACH(); rubbing = true; at(300, () => { spot.vis = true; }); at(1300, () => { rubbing = false; UP(); }); return 1600; };
+  acts.imStab = () => { UP(); syr.vis = true; syr.pos[1] = 0.28; syrTo(0.2, 300); syrTo(0.14, 600); syrTo(0.107, 800); at(850, () => { pt.mood = "pain"; }); return 1300; };
+  acts.imInject = () => { at(300, () => { plg.pos[1] = -0.015; }); at(800, () => { plg.pos[1] = -0.03; }); at(1300, () => { plg.pos[1] = -0.045; }); return 1900; };
+  acts.imWithdraw = () => { syrTo(0.2, 200); at(300, () => { syr.vis = false; gauze.vis = true; pt.mood = "calm"; }); return 900; };
+
   const mood = { calm: [0, 0], happy: [0.25, -0.5], impatient: [-0.22, 0], angry: [-0.5, 0] };
   const resize = () => {
     const dpr = Math.min(window.devicePixelRatio || 1, 2), w = Math.max(2, Math.round(container.clientWidth * dpr)), h = Math.max(2, Math.round(container.clientHeight * dpr));
@@ -3368,6 +3946,7 @@ function createStage(container) {
     [hR, hL].forEach(h => { lerp(h.n.pos, h.tp, k * 1.3); lerp(h.n.rot, h.tr, k * 1.3); });
     if (rubbing) { hR.n.pos[0] += Math.sin(t * 16) * 0.012; hL.n.pos[0] -= Math.sin(t * 16) * 0.012; hR.n.rot[2] = Math.sin(t * 16) * 0.2; hL.n.rot[2] = -Math.sin(t * 16) * 0.2; } else { hR.n.rot[2] *= 0.8; hL.n.rot[2] *= 0.8; }
     lerp(pack.pos, packT.p, k); lerp(pack.rot, packT.r, k); lerp(paper.scl, [1, 1, 1], k);
+    if (patOn) patFrame(t);
     enc.head.rot[0] = Math.sin(t * 1.3) * 0.04; stag.head.rot[0] = Math.sin(t * 1.1 + 1) * 0.04;
     const mm = mood[moodT] || mood.calm;
     enc.bL.rot[2] += (mm[0] * -1 - enc.bL.rot[2]) * 0.15; enc.bR.rot[2] += (mm[0] - enc.bR.rot[2]) * 0.15;
@@ -3388,7 +3967,7 @@ function createStage(container) {
   return {
     cam(name) { const v = views[name] || views.main; camTP = v[0].slice(); camTL = v[1].slice(); },
     act(name) { return (acts[name] || acts.none)(); },
-    mood(m) { moodT = m; }, talk(ms) { talking = ms; }, shake() { shakeV = 0.14; },
+    mode(m) { setMode(m); }, mood(m) { moodT = m; }, talk(ms) { talking = ms; }, shake() { shakeV = 0.14; },
     stop() { alive = false; timers.forEach(clearTimeout); cancelAnimationFrame(raf); const ext = gl.getExtension("WEBGL_lose_context"); if (ext) ext.loseContext(); if (canvas.parentNode) canvas.parentNode.removeChild(canvas); }
   };
 }
@@ -3504,19 +4083,352 @@ const SIM_TEXT = {
     verdict: p => p >= 90 ? "Mzyan bzzaf. Ghadi ndirou sondage 7a9i9i m3ak." : p >= 70 ? "Wakha, walakin khasek tkoun adwa. 3awed 9ra la fiche." : p >= 50 ? "Ma kafich. Ghadi twsskh l champ bzzaf mrat. 3awed 9ra w 3awed." : "Khatir 3la l mrid. N3awdou men lwl."
   }
 };
+// ===== SIMULATION : SONS (scope, ambiance d'hôpital, bruitages des gestes) =====
+const SND = (() => {
+  let ctx = null, master = null, amb = null, far = null, noise = null;
+  let on = true, live = false, room = null, beatTimer = null, oddTimer = null;
+  try { on = localStorage.getItem("ish_snd") !== "0"; } catch (e) { /* ignoré */ }
+
+  function ensure() {
+    if (ctx) { if (ctx.state === "suspended") ctx.resume(); return ctx; }
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    ctx = new AC();
+    master = ctx.createGain(); master.gain.value = 0.9; master.connect(ctx.destination);
+    amb = ctx.createGain(); amb.gain.value = 1; amb.connect(master);
+    far = ctx.createBiquadFilter(); far.type = "lowpass"; far.frequency.value = 1700; far.connect(amb);
+    const len = ctx.sampleRate * 2, buf = ctx.createBuffer(1, len, ctx.sampleRate), d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+    noise = buf;
+    return ctx;
+  }
+  const T = () => ctx.currentTime;
+
+  function tone(freq, t0, dur, vol, type, dest, f2) {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = type || "sine"; o.frequency.setValueAtTime(freq, t0);
+    if (f2) o.frequency.exponentialRampToValueAtTime(f2, t0 + dur);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol, t0 + 0.008);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g); g.connect(dest || amb); o.start(t0); o.stop(t0 + dur + 0.05);
+  }
+  function hiss(t0, dur, vol, type, f, q, f2, dest) {
+    const s = ctx.createBufferSource(), flt = ctx.createBiquadFilter(), g = ctx.createGain();
+    const a = Math.min(0.02, dur / 3);
+    s.buffer = noise; s.loop = true;
+    flt.type = type; flt.frequency.setValueAtTime(f, t0); flt.Q.value = q || 1;
+    if (f2) flt.frequency.exponentialRampToValueAtTime(f2, t0 + dur);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol, t0 + a);
+    g.gain.setValueAtTime(vol, t0 + Math.max(dur - 0.04, a + 0.001));
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    s.connect(flt); flt.connect(g); g.connect(dest || master);
+    s.start(t0, Math.random()); s.stop(t0 + dur + 0.05);
+  }
+
+  // --- Effets sonores ---
+  const sfx = {
+    ok()   { const t = T(); tone(880, t, 0.35, 0.05, "sine", master); tone(1320, t + 0.07, 0.45, 0.035, "sine", master); },
+    bad()  { const t = T(); tone(170, t, 0.28, 0.07, "sawtooth", master); tone(130, t + 0.12, 0.3, 0.06, "sawtooth", master); },
+    alarm(){ const t = T(); for (let i = 0; i < 4; i++) tone(i % 2 ? 1240 : 980, t + i * 0.16, 0.13, 0.08, "square", master); },
+    snap(d){ const t = T() + (d || 0); hiss(t, 0.05, 0.22, "bandpass", 2200, 1.2); hiss(t + 0.03, 0.06, 0.1, "highpass", 4000, 0.7); },
+    stretch(d){ const t = T() + (d || 0); hiss(t, 0.45, 0.1, "bandpass", 500, 2, 1600); hiss(t + 0.05, 0.35, 0.05, "highpass", 3500, 0.7); },
+    crinkle(d, dur){ const t = T() + (d || 0), n = Math.round(dur * 28);
+      for (let i = 0; i < n; i++) hiss(t + Math.random() * dur, 0.02 + Math.random() * 0.03, 0.07 + Math.random() * 0.08, "highpass", 2500 + Math.random() * 3000, 0.8); },
+    rub(d, dur, f){ const t = T() + (d || 0), n = Math.round(dur * 14);
+      for (let i = 0; i < n; i++) hiss(t + i / 14, 0.06, 0.05 + Math.random() * 0.03, "bandpass", f || 2600, 0.9); },
+    pump(d){ const t = T() + (d || 0); tone(320, t, 0.03, 0.08, "square", master); hiss(t + 0.02, 0.14, 0.12, "bandpass", 1800, 0.8); },
+    thud(d){ const t = T() + (d || 0); hiss(t, 0.09, 0.3, "lowpass", 180, 0.7); tone(110, t, 0.14, 0.2, "sine", master, 60); },
+    lid(d){ const t = T() + (d || 0); sfx.thud(d); tone(1800, t, 0.03, 0.04, "square", master); },
+    jewel(d){ const t = T() + (d || 0); tone(3100, t, 0.12, 0.03, "sine", master); tone(2400, t + 0.09, 0.15, 0.03, "sine", master); },
+    rip(d, dur){ const t = T() + (d || 0); for (let i = 0; i < 8; i++) hiss(t + i * dur / 8, dur / 8 * 0.9, 0.09, "highpass", 1800 + i * 250, 0.8); },
+    squish(d, dur){ const t = T() + (d || 0); hiss(t, dur, 0.07, "bandpass", 700, 1.5, 1100); hiss(t + 0.1, dur * 0.8, 0.03, "highpass", 3000, 0.7); },
+    tap(d, n){ const t = T() + (d || 0); for (let i = 0; i < n; i++) hiss(t + i * 0.28, 0.05, 0.06, "bandpass", 1200, 1); },
+    fanfare(good){ const t = T(); (good ? [523, 659, 784, 1046] : [330, 262]).forEach((f, i) => tone(f, t + i * 0.13, 0.5, 0.05, "triangle", master)); }
+  };
+
+  // --- Ambiance : bruit de salle + bip du scope + sons lointains ---
+  function startAmbient() {
+    if (!on || !ctx || room) return;
+    const src = ctx.createBufferSource(), lp = ctx.createBiquadFilter(), g = ctx.createGain();
+    src.buffer = noise; src.loop = true; lp.type = "lowpass"; lp.frequency.value = 260; g.gain.value = 0.05;
+    src.connect(lp); lp.connect(g); g.connect(amb); src.start();
+    const hum = ctx.createOscillator(), hg = ctx.createGain();
+    hum.frequency.value = 50; hg.gain.value = 0.008; hum.connect(hg); hg.connect(amb); hum.start();
+    room = [src, hum];
+    beatTimer = setInterval(() => { if (live && on && ctx) tone(1000, T(), 0.11, 0.07, "sine", amb); }, 1333);
+    const odd = () => {
+      oddTimer = setTimeout(() => {
+        if (!live || !on || !ctx) return;
+        const t = T(), r = Math.random();
+        if (r < 0.4) { tone(659, t, 0.4, 0.05, "sine", far); tone(880, t + 0.2, 0.55, 0.05, "sine", far); }
+        else if (r < 0.75) { tone(2400, t, 0.07, 0.03, "square", far); tone(2400, t + 0.16, 0.07, 0.03, "square", far); }
+        else { tone(1568, t, 0.8, 0.035, "sine", far); }
+        odd();
+      }, 11000 + Math.random() * 13000);
+    };
+    odd();
+  }
+  function stopAmbient() {
+    clearInterval(beatTimer); clearTimeout(oddTimer); beatTimer = oddTimer = null;
+    if (room) { room.forEach(n => { try { n.stop(); } catch (e) { /* ignoré */ } }); room = null; }
+  }
+
+  // --- Actions du geste -> bruitages ---
+  function act(name) {
+    if (!on || !ensure()) return;
+    switch (name) {
+      case "removeJewelry": sfx.jewel(0.5); break;
+      case "sanitize": sfx.pump(0.45); sfx.rub(0.8, 1.7); break;
+      case "inspect": sfx.crinkle(0.15, 0.35); break;
+      case "placeTable": sfx.thud(0.6); break;
+      case "place_bed": case "place_trolley": sfx.thud(0.7); break;
+      case "open": sfx.crinkle(0.45, 1.0); break;
+      case "grab1": case "grab2": sfx.crinkle(0.25, 0.3); break;
+      case "don1": case "don2": sfx.stretch(0.4); sfx.snap(0.75); break;
+      case "adjust": sfx.rub(0, 1.0, 3200); break;
+      case "mainsPans": sfx.jewel(0.5); sfx.pump(1.75); sfx.rub(2.1, 1.7); break;
+      case "ecgExpose": case "imExpose": sfx.crinkle(0.3, 0.6); break;
+      case "ecgLimbs": sfx.tap(0.3, 4); break;
+      case "ecgChest": sfx.tap(0.3, 6); break;
+      case "ecgRecord": sfx.rub(0.9, 2.4, 1800); sfx.snap(3.4); break;
+      case "ecgRemove": sfx.rip(0.5, 0.6); break;
+      case "imWipe": sfx.squish(0.3, 0.9); break;
+      case "imStab": sfx.snap(0.8); break;
+      case "imInject": sfx.squish(0.3, 1.6); break;
+      case "imWithdraw": sfx.snap(0.3); break;
+      case "donBoth": sfx.stretch(0.4); sfx.snap(0.75); sfx.stretch(1.8); sfx.snap(2.15); break;
+      case "peel": sfx.rip(0.2, 0.9); break;
+      case "clean": sfx.squish(0.2, 0.8); sfx.squish(1.0, 0.8); break;
+      case "dab": sfx.tap(0.2, 3); break;
+      case "apply": sfx.crinkle(0.1, 0.3); sfx.tap(0.5, 1); break;
+      case "tape": sfx.rip(0.2, 0.7); sfx.tap(1.0, 1); break;
+      case "remove": sfx.snap(0.7); sfx.snap(1.4); sfx.lid(1.5); break;
+    }
+  }
+  const play = n => { if (on && ensure()) sfx[n](); };
+
+  return {
+    start() { live = true; if (on && ensure()) startAmbient(); },
+    stop() { live = false; stopAmbient(); },
+    toggle() {
+      on = !on;
+      try { localStorage.setItem("ish_snd", on ? "1" : "0"); } catch (e) { /* ignoré */ }
+      if (!on) { stopAmbient(); } else if (live && ensure()) startAmbient();
+      return on;
+    },
+    isOn: () => on,
+    act,
+    ok: () => play("ok"), bad: () => play("bad"), alarm: () => play("alarm"),
+    fanfare: good => { if (on && ensure()) sfx.fanfare(good); }
+  };
+})();
+// ===== SIMULATION : PANSEMENT STÉRILE =====
+const PANS_MEMO = [
+  "Préparer le chariot : nettoyer, rassembler et vérifier tout le matériel",
+  "Informer le patient, vérifier l'identité, préserver l'intimité, installer",
+  "Hygiène des mains : friction hydro-alcoolique, mains sèches, sans bijoux",
+  "Contrôler le set et le sérum physiologique : péremption, intégrité, indicateur de stérilité",
+  "Retirer l'ancien pansement avec des gants propres, doucement, puis le jeter et observer la plaie",
+  "Retirer les gants puis hygiène des mains",
+  "Ouvrir le set sur le chariot en ne touchant que les bords : le champ doit rester stérile",
+  "Enfiler les gants stériles sans toucher l'extérieur",
+  "Nettoyer au sérum physiologique : du centre vers la périphérie, une compresse par passage",
+  "Sécher en tamponnant avec une compresse stérile",
+  "Poser le pansement stérile sans toucher la face contre la plaie",
+  "Fixer sans tendre la peau, en débordant de 2 à 3 cm autour de la plaie",
+  "Éliminer les déchets, retirer les gants, hygiène des mains, tracer le soin"
+];
+const PANS_STEPS = [
+  { id: "chariot", name: "Préparation du chariot", cam: "main", act: "place_trolley", hint: PANS_MEMO[0],
+    say: "Tu prépares un pansement. Que fais-tu avec le chariot ?", ok: "Tout est prêt avant d'entrer : on ne quitte pas le patient en cours de soin.",
+    opts: [{ t: "Je nettoie le chariot, je rassemble tout le matériel (set, sérum physiologique, adhésif, sac à déchets) et je vérifie les péremptions", ok: true },
+      { t: "J'apporte le set et je chercherai le reste pendant le soin", err: "Chercher du matériel en cours de soin oblige à quitter le champ stérile : tout se prépare avant." },
+      { t: "J'utilise le chariot tel quel, il a l'air propre", err: "Le chariot se nettoie avec un détergent-désinfectant avant chaque soin." }] },
+  { id: "patient", name: "Information du patient", cam: "bed", act: "none", hint: PANS_MEMO[1],
+    say: "Tu entres dans la chambre. Qu'est-ce que tu fais en premier ?", ok: "Un patient informé est plus coopérant et moins anxieux.",
+    opts: [{ t: "Je me présente, j'explique le soin, je vérifie l'identité, je ferme la porte et j'installe le patient confortablement", ok: true },
+      { t: "Je commence directement, le patient comprendra", err: "On informe toujours le patient et on vérifie son identité avant tout soin." },
+      { t: "Je n'explique rien pour ne pas l'inquiéter", err: "Le patient a le droit de savoir : l'information le rassure et obtient son accord." }] },
+  { id: "mains", name: "Hygiène des mains", cam: "table", act: "mainsPans", hint: PANS_MEMO[2],
+    say: "Avant de toucher au matériel, tu fais quoi ?", ok: "Mains sèches, sans bijoux, friction complète.",
+    opts: [{ t: "Friction hydro-alcoolique, mains sèches, bijoux et montre retirés", ok: true },
+      { t: "Je mets directement des gants", err: "Les gants ne remplacent jamais l'hygiène des mains." },
+      { t: "Un lavage rapide, je ne sèche pas pour gagner du temps", err: "Des mains humides diluent le produit et favorisent la prolifération des germes." }] },
+  { id: "verif", name: "Contrôle du set et des produits", cam: "hands", act: "inspect", hint: PANS_MEMO[3],
+    say: "Tu prends le set de pansement et le sérum. Que contrôles-tu ?", ok: "Un emballage abîmé ou périmé n'est plus garanti stérile.",
+    opts: [{ t: "La péremption, l'intégrité de l'emballage et l'indicateur de stérilité", ok: true },
+      { t: "Je regarde seulement la marque", err: "La marque ne garantit rien : la date et l'intégrité de l'emballage sont essentielles." },
+      { t: "L'emballage est un peu déchiré, mais ça ira", err: "Un emballage déchiré, humide ou ouvert : le set n'est plus stérile et se remplace." }] },
+  { id: "retirer", name: "Retrait de l'ancien pansement", cam: "arm", act: "peel", hint: PANS_MEMO[4],
+    say: "Le patient a un pansement en place. Comment le retires-tu ?", ok: "Gants propres, geste doux, puis observation de la plaie (aspect, écoulement, signes d'infection).",
+    opts: [{ t: "Avec des gants propres, en décollant doucement, puis je le jette dans le sac à déchets et j'observe la plaie", ok: true },
+      { t: "Je l'arrache d'un coup pour aller vite", err: "Arracher fait mal et abîme la peau : on décolle doucement, au besoin avec du sérum." },
+      { t: "Je le retire à mains nues et je le pose sur le chariot", err: "Contact direct avec les liquides biologiques, et le chariot est contaminé : gants propres et sac à déchets." }] },
+  { id: "mains2", name: "Hygiène des mains après retrait", cam: "table", act: "sanitize", hint: PANS_MEMO[5],
+    say: "L'ancien pansement est jeté. Tu fais quoi avant d'ouvrir le set ?", ok: "On passe du sale au propre : gants retirés, mains désinfectées.",
+    opts: [{ t: "Je retire les gants puis je fais une friction hydro-alcoolique", ok: true },
+      { t: "Je garde les mêmes gants et je continue", err: "Des gants souillés ne se réutilisent pas : ils contaminent le matériel propre." },
+      { t: "Je rince seulement les gants à l'eau", err: "Rincer des gants n'élimine pas les germes : ils se jettent et les mains se désinfectent." }] },
+  { id: "ouvrir", name: "Ouverture du set", cam: "table", act: "open", hint: PANS_MEMO[6],
+    say: "Tu ouvres le set de pansement. Comment ?", ok: "Seuls les bords extérieurs se touchent : l'intérieur du champ reste stérile.",
+    opts: [{ t: "Je pose le set sur le chariot désinfecté et je l'ouvre en ne touchant que les bords du papier", ok: true },
+      { t: "Je touche le contenu pour mieux le disposer", critical: true, err: "Toucher l'intérieur du set à main nue le contamine." },
+      { t: "Je le pose et je l'ouvre sur le lit, près des draps", critical: true, err: "Le lit n'est pas une surface propre : le champ stérile est contaminé." }] },
+  { id: "gants", name: "Gants stériles", cam: "table", act: "donBoth", hint: PANS_MEMO[7],
+    say: "Le champ est prêt. Que mets-tu pour réaliser le soin ?", ok: "Technique aseptique : stérile touche stérile.",
+    opts: [{ t: "Des gants stériles, après une hygiène des mains, sans toucher l'extérieur", ok: true },
+      { t: "Des gants non stériles propres, c'est suffisant", critical: true, err: "Un pansement stérile se réalise avec des gants stériles (ou des pinces stériles)." },
+      { t: "Des gants stériles, puis je remets les mains sous la taille", critical: true, err: "Sous la taille, ce n'est plus stérile : les mains gantées restent visibles, au-dessus de la taille." }] },
+  { id: "nettoyer", name: "Nettoyage de la plaie", cam: "arm", act: "clean", hint: PANS_MEMO[8],
+    say: "Tu nettoies la plaie avec du sérum physiologique. Comment ?", ok: "Du plus propre au plus sale : on n'entraîne jamais les germes vers la plaie.",
+    opts: [{ t: "Du centre vers la périphérie, avec une compresse stérile neuve à chaque passage", ok: true },
+      { t: "Du bord vers le centre avec la même compresse", critical: true, err: "Du bord vers le centre ramène les germes de la peau sur la plaie, et réutiliser une compresse la recontamine." },
+      { t: "Je frotte fort avec un antiseptique alcoolisé sur la plaie ouverte", err: "Un antiseptique alcoolisé agresse les tissus : sauf prescription, on nettoie au sérum physiologique." }] },
+  { id: "secher", name: "Séchage", cam: "arm", act: "dab", hint: PANS_MEMO[9],
+    say: "La plaie est nettoyée. Comment la sèches-tu ?", ok: "Tamponner protège le tissu fragile.",
+    opts: [{ t: "En tamponnant avec une compresse stérile, sans frotter", ok: true },
+      { t: "Je frotte pour bien sécher", err: "Frotter abîme le bourgeonnement et fait saigner la plaie." },
+      { t: "Je souffle dessus pour aller plus vite", critical: true, err: "Souffler projette des micro-organismes de la bouche sur la plaie." }] },
+  { id: "appliquer", name: "Pose du pansement", cam: "arm", act: "apply", hint: PANS_MEMO[10],
+    say: "Tu poses le pansement stérile. Comment ?", ok: "La face qui touche la plaie reste stérile.",
+    opts: [{ t: "Je le prends par les bords, sans toucher la face contre la plaie, et je le centre sur la plaie", ok: true },
+      { t: "Je touche la compresse du bout des doigts nus pour l'ajuster", critical: true, err: "Plus de main nue : toucher la face interne la contamine." },
+      { t: "Je prends un pansement de réserve non stérile, il tient mieux", critical: true, err: "Un pansement non stérile sur une plaie expose à l'infection." }] },
+  { id: "fixer", name: "Fixation", cam: "arm", act: "tape", hint: PANS_MEMO[11],
+    say: "Il faut fixer le pansement. Comment ?", ok: "Fixation douce, large : la peau doit respirer et ne pas être tirée.",
+    opts: [{ t: "Avec un adhésif adapté, sans tendre la peau, en couvrant 2 à 3 cm autour de la plaie", ok: true },
+      { t: "Je serre fortement l'adhésif pour qu'il tienne bien", err: "Tendre l'adhésif provoque des phlyctènes et des lésions de la peau." },
+      { t: "Je fixe avec l'adhésif directement sur la plaie", err: "L'adhésif ne doit jamais toucher la plaie : le pansement la couvre." }] },
+  { id: "fin", name: "Fin de soin", cam: "bin", act: "remove", hint: PANS_MEMO[12],
+    say: "Le soin est terminé. Tu fais quoi ?", ok: "Déchets éliminés, mains désinfectées, soin tracé.",
+    opts: [{ t: "J'élimine les déchets, je retire les gants, je désinfecte mes mains et je note la date et l'aspect de la plaie", ok: true },
+      { t: "Je laisse le matériel utilisé sur le chariot pour la suite", err: "Les déchets s'éliminent tout de suite dans la filière adaptée." },
+      { t: "Je jette tout et je note le soin plus tard", err: "La traçabilité se fait juste après le soin : date, aspect de la plaie, matériel." }] }
+];
+const PANS_TEXT = {
+  fr: {
+    intro: "Bonjour. M. Benali a une plaie au bras à panser. Tu fais un pansement stérile et je te regarde faire. Montre-moi que tu sais.",
+    contam: "Ton champ n'est plus stérile. Nouveau set : on reprend à l'ouverture du set.",
+    verdict: p => p >= 90 ? "Très bien. Je te laisse faire un vrai pansement avec moi." : p >= 70 ? "Correct, mais tu dois être plus rigoureux sur l'asepsie. Relis la fiche." : p >= 50 ? "Insuffisant. Tu aurais infecté la plaie. Reprends la fiche et recommence." : "Dangereux pour le patient. On recommence depuis le début."
+  },
+  dj: {
+    intro: "Salam. Had l mrid 3ndou jerha f dra3 khasha pansement. Khassek tdir pansement stérile, w ana ghadi nchoufek. Werrini bli kat3ref.",
+    contam: "Champ dyalek ma b9ach stérile. Set jdid, n3awdou men fte7 dyal set.",
+    verdict: p => p >= 90 ? "Mzyan bzzaf. Ghadi ndirou pansement 7a9i9i m3ak." : p >= 70 ? "Wakha, walakin khasek tkoun adwa f l'asepsie. 3awed 9ra la fiche." : p >= 50 ? "Ma kafich. Kant'dir l'infection l l jerha. 3awed 9ra w 3awed." : "Khatir 3la l mrid. N3awdou men lwl."
+  }
+};
+const SIM_GANTS = { mode: "gants", key: "sim_gants", title: "Enfilage des gants stériles", fiche: "gants", steps: SIM_STEPS, memo: SIM_MEMO, text: null,
+  situation: "Mise en situation : un patient doit avoir un sondage vésical. Votre encadrant vous observe." };
+const SIM_PANS = { mode: "pans", key: "sim_pans", title: "Pansement stérile", fiche: "pansement", steps: PANS_STEPS, memo: PANS_MEMO, text: PANS_TEXT,
+  situation: "Mise en situation : un patient a une plaie au bras à panser. Votre encadrant vous observe." };
+// ===== SIMULATIONS : ECG et INJECTION INTRAMUSCULAIRE =====
+const mkStep = (id, name, cam, act, hint, say, ok, good, w1, w2) => ({ id, name, cam, act, hint, say, ok,
+  opts: [{ t: good, ok: true }, ...[w1, w2].map(w => ({ t: w[0], err: w[1], critical: !!w[2] }))] });
+const verd = (a, b, c, d) => p => p >= 90 ? a : p >= 70 ? b : p >= 50 ? c : d;
+const ECG_STEPS = [
+  mkStep("materiel", "Préparation du matériel", "main", "inspect", "Vérifier l'appareil (branché, papier, câbles) et préparer électrodes neuves, compresses, drap",
+    "Tu prépares l'électrocardiographe. Que contrôles-tu ?", "Un matériel vérifié évite de quitter le patient pendant l'examen.",
+    "L'appareil (branché, papier, câbles), des électrodes neuves non périmées, compresses et drap", ["Je prends les électrodes du tiroir, même si le gel est sec", "Des électrodes au gel sec donnent un tracé parasité : on les remplace."], ["Je pars sans vérifier l'appareil, je verrai sur place", "Un appareil sans papier ou débranché fait perdre du temps pendant l'urgence."]),
+  mkStep("patient", "Identité et information", "pat", "none", "Vérifier l'identité, expliquer l'examen, demander de rester immobile et détendu",
+    "Tu entres dans la chambre. Que fais-tu en premier ?", "Un patient informé est détendu : le tracé est de meilleure qualité.",
+    "Je me présente, je vérifie l'identité, j'explique que l'examen est indolore et qu'il faut rester immobile", ["Je commence directement, il est déjà au lit", "On vérifie toujours l'identité : un ECG attribué au mauvais patient est dangereux."], ["Je ne lui dis rien pour ne pas l'angoisser", "L'anxiété et les mouvements parasitent le tracé : l'information rassure."]),
+  mkStep("mains", "Hygiène des mains", "table", "sanitize", "Friction hydro-alcoolique avant de toucher le patient",
+    "Avant de toucher le patient, tu fais quoi ?", "L'hygiène des mains protège le patient et le soignant.",
+    "Une friction hydro-alcoolique, mains sèches", ["Rien, je ne fais aucun geste invasif", "Même sans geste invasif, on touche le patient : l'hygiène des mains est obligatoire."], ["Je mets des gants à la place", "Les gants ne remplacent jamais l'hygiène des mains."]),
+  mkStep("installer", "Installation du patient", "pat", "ecgExpose", "Décubitus dorsal, thorax, poignets et chevilles dégagés, retirer les objets métalliques",
+    "Comment installes-tu le patient ?", "Détendu et bien installé, il bouge moins : moins d'artefacts.",
+    "Allongé sur le dos, thorax dégagé (pudeur préservée), bras le long du corps, objets métalliques et téléphone éloignés", ["Assis penché en avant, avec son pull", "Assis ou habillé, le tracé est parasité et les électrodes sont mal posées."], ["Allongé, avec sa montre et son téléphone sur la poitrine", "Les objets métalliques et téléphones créent des interférences sur le tracé."]),
+  mkStep("peau", "Préparation de la peau", "chest", "dab", "Peau propre et sèche, raser ou tondre si nécessaire, frotter légèrement",
+    "Il y a quelques poils et la peau est un peu grasse. Tu fais quoi ?", "Une peau propre et sèche améliore le contact des électrodes.",
+    "Je tonds ou rase la zone si besoin, je nettoie et je sèche en frottant légèrement", ["Je pose les électrodes directement, ça tiendra", "Poils et sébum empêchent le contact : tracé instable, électrodes qui se décollent."], ["Je mouille la peau avec de l'alcool et je pose tout de suite", "L'alcool doit sécher complètement : une peau humide empêche le contact."]),
+  mkStep("membres", "Électrodes des membres", "pat", "ecgLimbs", "Rouge poignet droit, jaune poignet gauche, vert cheville gauche, noir cheville droite",
+    "Tu poses les électrodes des membres. Où vont-elles ?", "Rouge, jaune, vert, noir : droite, gauche, cheville gauche, cheville droite.",
+    "Rouge : poignet droit, jaune : poignet gauche, vert : cheville gauche, noir : cheville droite", ["Rouge au poignet gauche, jaune au poignet droit", "Inverser les électrodes des bras donne un tracé inversé : fausse interprétation.", true], ["Je les place au hasard, l'appareil les reconnaîtra", "L'appareil ne corrige pas les erreurs de pose : chaque électrode a sa place.", true]),
+  mkStep("precordiales", "Électrodes précordiales", "chest", "ecgChest", "V1 4e EIC droit, V2 4e EIC gauche, V4 5e EIC médio-claviculaire, V3 entre V2 et V4, V5 et V6 à la hauteur de V4",
+    "Tu poses V1 à V6. Quelle est la bonne disposition ?", "Un repérage exact est indispensable pour comparer les tracés.",
+    "V1 : 4e espace intercostal droit, V2 : 4e gauche, V4 : 5e médio-claviculaire, V3 entre V2 et V4, V5 et V6 à la hauteur de V4", ["Les six alignées sur une même ligne horizontale", "V4, V5, V6 doivent être à la hauteur de V4 (5e espace), mais V1 et V2 sont plus haut.", true], ["V1 et V2 dans le 2e espace, V4 sous le sein", "Un mauvais repérage décale les tracés et peut faire manquer une anomalie.", true]),
+  mkStep("verif", "Vérification de l'appareil", "machine", "none", "Vérifier les câbles et la calibration : 25 mm/s et 10 mm/mV",
+    "Avant d'enregistrer, que vérifies-tu ?", "La calibration standard permet de comparer le tracé d'un ECG à l'autre.",
+    "Les câbles bien connectés et la calibration standard : 25 mm/s et 10 mm/mV", ["Je règle 50 mm/s et 20 mm/mV pour mieux voir", "Une vitesse ou une amplitude non standard fausse la lecture du tracé."], ["Je ne vérifie rien, l'appareil est prêt", "Une mauvaise connexion ou calibration est impossible à corriger après l'enregistrement."]),
+  mkStep("enregistrer", "Enregistrement", "machine", "ecgRecord", "Patient immobile, respiration calme, sans parler, refaire si le tracé est parasité",
+    "Tu lances l'enregistrement. Que demandes-tu au patient ?", "Un tracé propre commence par un patient immobile et silencieux.",
+    "De rester immobile, de respirer calmement et de ne pas parler pendant l'enregistrement", ["Il peut parler, ça le détend", "Parler et bouger créent des artefacts : le tracé devient ininterprétable."], ["Je n'explique rien et je regarde ailleurs", "On surveille la qualité du tracé et on refait l'ECG s'il est parasité."]),
+  mkStep("identifier", "Identification du tracé", "machine", "none", "Écrire nom, prénom, date, heure et symptômes sur le tracé, puis le transmettre",
+    "Le tracé est sorti. Que fais-tu ?", "Un tracé non identifié ne peut pas être exploité.",
+    "J'inscris nom, prénom, date et heure (et les symptômes) puis je le transmets au médecin", ["Je le donne sans rien inscrire, je m'en souviendrai", "Un tracé sans identification peut être attribué au mauvais patient."], ["Je l'identifierai plus tard, quand j'aurai le temps", "L'identification se fait immédiatement après l'enregistrement."]),
+  mkStep("fin", "Fin de l'examen", "pat", "ecgRemove", "Retirer les électrodes, nettoyer la peau, réinstaller, désinfecter les câbles, hygiène des mains, tracer",
+    "L'examen est terminé. Tu fais quoi ?", "Patient confortable, matériel désinfecté, soin tracé.",
+    "Je retire les électrodes, je nettoie la peau, j'installe le patient, je désinfecte les câbles, hygiène des mains, traçabilité", ["Je laisse les électrodes en place pour le prochain ECG", "Les électrodes se retirent et se jettent : elles ne se réutilisent pas."], ["Je range les câbles sans les désinfecter", "Les câbles se désinfectent entre deux patients."])
+];
+const IM_STEPS = [
+  mkStep("prescription", "Contrôle de la prescription", "main", "none", "Vérifier : bon patient, bon médicament, bonne dose, bonne voie, bon moment, allergies",
+    "Tu dois faire une injection. Que contrôles-tu en premier ?", "Les 5 B évitent les erreurs de médicament.",
+    "La prescription : bon patient, bon médicament, bonne dose, bonne voie, bon moment, et les allergies", ["Le nom du médicament seulement", "Dose, voie, horaire et allergies doivent aussi être vérifiés."], ["Je donne le médicament habituel du service", "Seule la prescription fait foi : on ne donne jamais par habitude."]),
+  mkStep("mains", "Hygiène des mains", "table", "mainsPans", "Retirer bijoux et montre, friction hydro-alcoolique",
+    "Avant de préparer le produit, tu fais quoi ?", "Mains propres, sans bijoux, avant toute préparation.",
+    "Je retire bijoux et montre, puis une friction hydro-alcoolique", ["Je prépare directement avec les mains propres à l'œil", "Des mains visiblement propres ne sont pas désinfectées : friction obligatoire."], ["Je fais seulement un essuyage rapide", "L'essuyage ne désinfecte pas : friction hydro-alcoolique."]),
+  mkStep("prepa", "Préparation du produit", "hands", "inspect", "Contrôler produit, prélever avec l'aiguille de prélèvement, purger, changer d'aiguille IM 21 à 23 G",
+    "Tu prépares le produit. Comment ?", "Aiguille de prélèvement pour aspirer, aiguille neuve pour piquer.",
+    "Je contrôle ampoule et date, j'aspire avec l'aiguille de prélèvement, je change d'aiguille IM (21 à 23 G) et je purge", ["Je pique avec la même aiguille de prélèvement", "Une aiguille émoussée par le prélèvement blesse davantage et peut contaminer le muscle.", true], ["J'aspire sans lire l'étiquette de l'ampoule", "Ne jamais utiliser un produit non vérifié : risque d'erreur grave.", true]),
+  mkStep("patient", "Information du patient", "pat", "none", "Informer, vérifier l'identité, demander allergies et anticoagulants, installer",
+    "Tu arrives auprès du patient. Que fais-tu ?", "Un patient informé et installé se crispe moins.",
+    "Je me présente, je vérifie l'identité, j'explique le soin, je demande les allergies et je l'installe", ["Je pique directement, c'est rapide", "L'information et l'identité sont toujours un préalable : le patient doit consentir."], ["Je ne dis rien pour qu'il ne s'inquiète pas", "Un patient surpris bouge au moment de la piqûre : risque d'accident."]),
+  mkStep("gants", "Gants", "table", "donBoth", "Gants à usage unique après friction hydro-alcoolique",
+    "Tu es prêt auprès du patient. Que portes-tu ?", "Les gants protègent du contact avec le sang.",
+    "Des gants à usage unique, après hygiène des mains", ["Aucun gant, je me suis lavé les mains", "Un risque de contact avec le sang existe : on porte des gants."], ["Des gants déjà utilisés pour un autre soin", "Des gants à usage unique ne se réutilisent jamais."]),
+  mkStep("site", "Choix du site", "arm2", "imExpose", "Deltoïde : 2 à 3 travers de doigt sous l'acromion, peau saine, volume maximal 1 à 2 mL",
+    "Tu injectes 1 mL dans le muscle. Où piques-tu ?", "Le deltoïde convient aux petits volumes (1 à 2 mL).",
+    "Au centre du deltoïde, à 2 ou 3 travers de doigt sous l'acromion, sur une peau saine", ["Au pli du coude", "Le pli du coude est une zone vasculaire, pas un site IM.", true], ["Sur une zone rouge et douloureuse, c'est plus proche de l'os", "Jamais sur une peau lésée, rouge ou inflammatoire : risque d'infection.", true]),
+  mkStep("desinfecter", "Désinfection du site", "arm2", "imWipe", "Antiseptique sur compresse stérile du centre vers l'extérieur, laisser sécher",
+    "Tu désinfectes la peau. Comment ?", "L'antiseptique agit en séchant : pas de précipitation.",
+    "Antiseptique sur compresse stérile, du centre vers l'extérieur, puis laisser sécher", ["Je mouille la peau et je pique tout de suite", "L'antiseptique doit sécher pour agir, et piquer sur une peau mouillée pique davantage."], ["Je repasse la même compresse plusieurs fois, d'un côté à l'autre", "Une compresse réutilisée rapporte les germes : mouvement centrifuge avec compresse neuve."]),
+  mkStep("piquer", "Piqûre", "arm2", "imStab", "Tendre la peau, piquer à 90° d'un geste rapide et franc",
+    "Tu piques. Comment fais-tu ?", "Un geste rapide et franc à 90° diminue la douleur et assure l'injection dans le muscle.",
+    "Je tends la peau, je pique à 90° d'un geste franc et rapide", ["Je pique à 45° lentement", "À 45°, le produit risque d'aller en sous-cutané et le geste lent est plus douloureux."], ["Je pique sans tendre la peau, très doucement", "Une peau non tendue et un geste hésitant augmentent la douleur."]),
+  mkStep("injecter", "Injection", "arm2", "imInject", "Aspirer légèrement si le protocole le prévoit, injecter lentement en surveillant le patient",
+    "L'aiguille est en place. Que fais-tu ?", "Une injection lente est mieux tolérée.",
+    "J'aspire légèrement (selon protocole) puis j'injecte lentement en observant le patient", ["J'injecte tout le produit rapidement pour finir vite", "Une injection rapide est douloureuse et abîme le muscle."], ["Je masse la zone pendant que j'injecte", "On n'effectue aucun geste parasite pendant l'injection : risque de mouvement."]),
+  mkStep("retirer", "Retrait de l'aiguille", "arm2", "imWithdraw", "Retirer d'un geste rapide, comprimer sans masser, ne jamais recapuchonner",
+    "L'injection est terminée. Que fais-tu ?", "On protège la peau, et on ne recapuchonne jamais l'aiguille.",
+    "Je retire l'aiguille d'un geste rapide, je comprime avec une compresse sèche sans masser, sans recapuchonner", ["Je remets le capuchon à deux mains", "Le recapuchonnage est la première cause de piqûre accidentelle : risque d'AES.", true], ["Je masse fortement la zone", "Masser fait diffuser le produit trop vite et peut provoquer un hématome."]),
+  mkStep("dechets", "Élimination et traçabilité", "bin", "remove", "Seringue et aiguille dans le collecteur, retirer les gants, hygiène des mains, tracer",
+    "Le soin est terminé. Que fais-tu ?", "Collecteur, mains propres, soin tracé.",
+    "Seringue et aiguille dans le collecteur, gants retirés, hygiène des mains, traçabilité du soin", ["L'aiguille dans le sac poubelle normal", "Les objets piquants vont dans le collecteur OPCT, jamais au sac normal.", true], ["Je pose la seringue sur le chariot et je la jetterai plus tard", "Une aiguille laissée en vrac expose à une piqûre accidentelle.", true])
+];
+const SIM_ECG = { key: "sim_ecg", mode: "ecg", restartId: "membres", title: "Électrocardiogramme (ECG)", fiche: "ecg", steps: ECG_STEPS, memo: ECG_STEPS.map(s => s.hint),
+  situation: "Mise en situation : M. Idrissi a des douleurs thoraciques. Réalisez un ECG 12 dérivations. Votre encadrant vous observe.",
+  text: { fr: { intro: "Bonjour. M. Idrissi se plaint de douleurs dans la poitrine. Tu réalises un ECG 12 dérivations et je te regarde faire. Montre-moi que tu sais.",
+      contam: "L'ECG est inexploitable : on reprend à la pose des électrodes.",
+      verdict: verd("Très bien. Je te laisse faire un vrai ECG avec moi.", "Correct, mais sois plus rigoureux sur le placement des électrodes.", "Insuffisant. Tes tracés auraient été faux. Reprends la fiche et recommence.", "Dangereux : un ECG faux peut passer à côté d'un infarctus. On recommence.") },
+    dj: { intro: "Salam. Had l mrid 3ndou wja3 f sder. Khassek tdir ECG b 12 dérivations, w ana ghadi nchoufek. Werrini bli kat3ref.",
+      contam: "L'ECG ma b9ach s7i7. N3awdou men 7ett dyal les électrodes.",
+      verdict: verd("Mzyan bzzaf. Ghadi ndirou ECG 7a9i9i m3ak.", "Wakha, walakin khasek tkoun adwa f blasset les électrodes.", "Ma kafich. Tracé dyalek ghadi ykoun ghalet. 3awed 9ra la fiche.", "Khatir 3la l mrid. ECG ghalet i9der ymchi f nefs dyal infarctus. N3awdou.") } } };
+const SIM_IM = { key: "sim_im", mode: "im", restartId: "prepa", title: "Injection intramusculaire", fiche: "im", steps: IM_STEPS, memo: IM_STEPS.map(s => s.hint),
+  situation: "Mise en situation : un patient doit recevoir une injection intramusculaire dans le deltoïde. Votre encadrant vous observe.",
+  text: { fr: { intro: "Bonjour. M. Idrissi doit avoir une injection intramusculaire. Tu prépares et tu injectes, je te regarde faire. Montre-moi que tu sais.",
+      contam: "Faute grave : on reprend à la préparation avec un nouveau matériel.",
+      verdict: verd("Très bien. Je te laisse faire une vraie injection avec moi.", "Correct, mais sois plus rigoureux sur l'asepsie et la sécurité.", "Insuffisant. Tu aurais mis le patient et toi en danger. Reprends la fiche.", "Dangereux pour le patient. On recommence depuis le début.") },
+    dj: { intro: "Salam. Had l mrid khasou injection f l 3ddal. Khassek t7ddr ou tdir l injection, w ana ghadi nchoufek. Werrini bli kat3ref.",
+      contam: "Ghalta khatira. N3awdou men t7dir b matériel jdid.",
+      verdict: verd("Mzyan bzzaf. Ghadi ndirou injection 7a9i9iya m3ak.", "Wakha, walakin khasek tkoun adwa f l'asepsie w sécurité.", "Ma kafich. Kant'khtar l mrid w nta. 3awed 9ra la fiche.", "Khatir 3la l mrid. N3awdou men lwl.") } } };
+let SIMX = SIM_GANTS;
+const simText = st => Object.assign({}, SIM_TEXT[st], SIMX.text ? SIMX.text[st] : {});
 let simStyle = "fr", sim = null, simSeq = 0;
 const SIM_PEN = { normal: 8, critical: 15 };
 const byId = id => document.getElementById(id);
 const pick = a => a[Math.floor(Math.random() * a.length)];
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 function stopSim() {
+  SND.stop();
   if (sim) { sim.alive = false; clearInterval(sim.timer); clearInterval(sim.tw); try { sim.stage.stop(); } catch (e) { /* ignoré */ } sim = null; }
 }
 
 // ---------- Pages ----------
 function renderSimLanding() {
   stopSim();
-  const inner = byId("innerPage"), b = getBest("sim_gants");
+  const inner = byId("innerPage"), b = getBest("sim_gants"), bp = getBest("sim_pans"), be = getBest("sim_ecg"), bi = getBest("sim_im");
   inner.innerHTML = `
     <div class="page-heading">
       <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
@@ -3531,11 +4443,22 @@ function renderSimLanding() {
         <span class="list-sub">Salle de soins en 3D · 14 étapes · encadrant exigeant${b !== null ? " · Meilleur score : " + b + "%" : ""}</span></span>
         <span class="list-arrow">›</span></button>
       <div class="list-row sim-soon"><span class="fiche-num">${ico("hospital")}</span><span class="list-main"><span class="list-title">Sondage vésical</span><span class="list-sub">Bientôt disponible</span></span></div>
-      <div class="list-row sim-soon"><span class="fiche-num">${ico("hospital")}</span><span class="list-main"><span class="list-title">Pansement stérile</span><span class="list-sub">Bientôt disponible</span></span></div>
+      <button class="list-row" type="button" id="simPans">
+        <span class="fiche-num">${ico("hospital")}</span>
+        <span class="list-main"><span class="list-title">Pansement stérile</span>
+        <span class="list-sub">Salle de soins en 3D · 13 étapes · asepsie rigoureuse${bp !== null ? " · Meilleur score : " + bp + "%" : ""}</span></span>
+        <span class="list-arrow">›</span></button>
+      <button class="list-row" type="button" id="simEcg"><span class="fiche-num">${ico("hospital")}</span><span class="list-main"><span class="list-title">Électrocardiogramme (ECG)</span>
+        <span class="list-sub">Patient réaliste · 11 étapes · 12 dérivations${be !== null ? " · Meilleur score : " + be + "%" : ""}</span></span><span class="list-arrow">›</span></button>
+      <button class="list-row" type="button" id="simIm"><span class="fiche-num">${ico("syringe")}</span><span class="list-main"><span class="list-title">Injection intramusculaire</span>
+        <span class="list-sub">Patient réaliste · 11 étapes · deltoïde${bi !== null ? " · Meilleur score : " + bi + "%" : ""}</span></span><span class="list-arrow">›</span></button>
     </div>
     <div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>`;
   addBackButton(inner);
-  byId("simGants").addEventListener("click", renderSimBrief);
+  byId("simGants").addEventListener("click", () => { SIMX = SIM_GANTS; renderSimBrief(); });
+  byId("simPans").addEventListener("click", () => { SIMX = SIM_PANS; renderSimBrief(); });
+  byId("simEcg").addEventListener("click", () => { SIMX = SIM_ECG; renderSimBrief(); });
+  byId("simIm").addEventListener("click", () => { SIMX = SIM_IM; renderSimBrief(); });
   window.scrollTo(0, 0);
 }
 
@@ -3545,12 +4468,12 @@ function renderSimBrief() {
   inner.innerHTML = `
     <div class="page-heading">
       <div class="eyebrow">TP SIMULATION</div>
-      <h1>Enfilage des gants stériles</h1>
-      <p>Mise en situation : un patient doit avoir un sondage vésical. Votre encadrant vous observe.</p>
+      <h1>${SIMX.title}</h1>
+      <p>${SIMX.situation}</p>
     </div>
     <details class="help-item" open>
       <summary>Les étapes à suivre</summary>
-      <div class="help-body">${ol(SIM_MEMO)}${note("Lisez bien ces étapes : pendant la simulation, vous devrez choisir la bonne action à chaque étape, sans la liste devant les yeux.")}</div>
+      <div class="help-body">${ol(SIMX.memo)}${note("Lisez bien ces étapes : pendant la simulation, vous devrez choisir la bonne action à chaque étape, sans la liste devant les yeux.")}</div>
     </details>
     <details class="help-item" open>
       <summary>Comment ça marche</summary>
@@ -3581,7 +4504,7 @@ function startSim() {
   const inner = byId("innerPage");
   inner.innerHTML = `
     <div class="sim-hud">
-      <span id="simStepLbl">Étape 1/${SIM_STEPS.length}</span><span id="simClock">00:00</span>
+      <span id="simStepLbl">Étape 1/${SIMX.steps.length}</span><span id="simClock">00:00</span>
       <div class="sim-pat" title="Patience de l'encadrant"><span id="simPat"></span></div>
       <button class="ghost-btn sim-hintbtn" type="button" id="simHint">Indice</button>
     </div>
@@ -3590,18 +4513,26 @@ function startSim() {
       <div class="sim-dialog"><div class="sim-who" id="simWho">Encadrant</div><div class="sim-say" id="simSay"></div></div>
     </div>
     <div class="sim-panel"><div class="sim-q" id="simQ">Que fais-tu ?</div><div id="simOpts"></div></div>
+    <button class="ghost-btn" type="button" id="simSnd"></button>
     <button class="ghost-btn" type="button" id="simQuit">Quitter la simulation</button>`;
   const view = byId("simView");
   let stage = null;
   try { stage = createStage(view); } catch (e) { stage = null; }
   if (!stage) {
     view.classList.add("no3d");
-    stage = { cam() {}, act() { return 500; }, mood() {}, talk() {}, shake() {}, stop() {} };
+    stage = { cam() {}, act() { return 500; }, mode() {}, mood() {}, talk() {}, shake() {}, stop() {} };
   }
-  sim = { alive: true, idx: 0, mistakes: [], penalty: 0, hints: 0, patience: 100, busy: false, t0: Date.now(), stage, style: simStyle, L: SIM_TEXT[simStyle], tw: null, n1: false, n2: false, hinted: false, restartIdx: SIM_STEPS.findIndex(s => s.id === "ouvrir") };
+  stage.mode(SIMX.mode);
+  const stageAct = stage.act;
+  stage.act = name => { SND.act(name); return stageAct.call(stage, name); };
+  sim = { alive: true, idx: 0, mistakes: [], penalty: 0, hints: 0, patience: 100, busy: false, t0: Date.now(), stage, style: simStyle, L: simText(simStyle), tw: null, n1: false, n2: false, hinted: false, restartIdx: SIMX.steps.findIndex(s => s.id === (SIMX.restartId || "ouvrir")) };
   byId("simQuit").addEventListener("click", () => { stopSim(); renderSimLanding(); });
+  const sndPaint = () => { byId("simSnd").textContent = SND.isOn() ? "🔊 Son : activé" : "🔇 Son : coupé"; };
+  sndPaint();
+  byId("simSnd").addEventListener("click", () => { SND.toggle(); sndPaint(); });
   byId("simHint").addEventListener("click", () => simHint(false));
   sim.timer = setInterval(simTick, 500);
+  SND.start();
   simSay("Encadrant", sim.L.intro, "calm");
   sim.busy = true;
   setTimeout(() => { if (sim && sim.alive) { sim.busy = false; simShowStep(); } }, Math.min(sim.L.intro.length * 22, 3600) + 900);
@@ -3622,10 +4553,10 @@ const simFlash = () => { const f = byId("simFlash"); if (f) { f.classList.add("o
 
 function simShowStep() {
   if (!sim || !sim.alive) return;
-  const st = SIM_STEPS[sim.idx];
+  const st = SIMX.steps[sim.idx];
   sim.n1 = sim.n2 = sim.hinted = false;
   sim.stage.cam(st.cam);
-  byId("simStepLbl").textContent = `Étape ${sim.idx + 1}/${SIM_STEPS.length}`;
+  byId("simStepLbl").textContent = `Étape ${sim.idx + 1}/${SIMX.steps.length}`;
   simSay("Encadrant", st.say, "calm");
   const order = shuffle(st.opts.map((_, i) => i));
   byId("simOpts").innerHTML = order.map(i => `<button class="opt" type="button" data-i="${i}">${esc(st.opts[i].t)}</button>`).join("");
@@ -3634,10 +4565,11 @@ function simShowStep() {
 
 async function simChoose(i, btn) {
   if (!sim || !sim.alive || sim.busy) return;
-  const my = sim, st = SIM_STEPS[sim.idx], o = st.opts[i], L = sim.L;
+  const my = sim, st = SIMX.steps[sim.idx], o = st.opts[i], L = sim.L;
   sim.busy = true;
   if (o.ok) {
     btn.classList.add("right");
+    SND.ok();
     sim.patience = 100;
     simSay("Encadrant", pick(L.praise) + " " + st.ok, "happy");
     const d = sim.stage.act(st.act || "none");
@@ -3645,7 +4577,7 @@ async function simChoose(i, btn) {
     if (sim !== my || !my.alive) return;
     sim.idx++;
     sim.busy = false;
-    if (sim.idx >= SIM_STEPS.length) simFinish(); else simShowStep();
+    if (sim.idx >= SIMX.steps.length) simFinish(); else simShowStep();
     return;
   }
   btn.classList.add("wrong"); btn.disabled = true;
@@ -3653,6 +4585,7 @@ async function simChoose(i, btn) {
   sim.mistakes.push({ n: sim.idx + 1, step: st.name, chose: o.t, err: o.err, right: st.opts.find(x => x.ok).t, critical: crit });
   sim.penalty += crit ? SIM_PEN.critical : SIM_PEN.normal;
   sim.stage.shake(); simFlash();
+  if (crit) SND.alarm(); else SND.bad();
   if (o.wrongAct) sim.stage.act(o.wrongAct);
   simSay("Encadrant", pick(L.scold) + (crit ? " " + L.contam : " " + L.retry), "angry");
   if (Math.random() < 0.6) setTimeout(() => { if (sim === my && my.alive && !byId("simWho").dataset.lock) { /* ambiance */ } }, 100);
@@ -3674,7 +4607,7 @@ async function simChoose(i, btn) {
 
 function simHint(auto) {
   if (!sim || !sim.alive || sim.busy) return;
-  const st = SIM_STEPS[sim.idx];
+  const st = SIMX.steps[sim.idx];
   if (!sim.hinted) { sim.hints++; sim.hinted = true; }
   sim.patience = Math.max(sim.patience, 55);
   simSay("Encadrant", sim.L.hint + " " + st.hint, "impatient");
@@ -3699,7 +4632,7 @@ function simFinish() {
   const mistakes = s.mistakes, hints = s.hints;
   const pct = Math.max(0, 100 - s.penalty);
   stopSim();
-  setBest("sim_gants", pct);
+  setBest(SIMX.key, pct);
   const inner = byId("innerPage");
   const color = pct >= 80 ? "#18a36b" : pct >= 50 ? "#e0a020" : "#d9534f";
   const C = 2 * Math.PI * 52;
@@ -3728,8 +4661,9 @@ function simFinish() {
     <button class="ghost-btn" type="button" id="simFiche">Revoir la fiche technique</button>
     <button class="ghost-btn" type="button" id="simBack">Retour aux simulations</button>`;
   addBackButton(inner, "Retour aux simulations", renderSimLanding);
+  SND.fanfare(pct >= 70);
   byId("simRetry").addEventListener("click", renderSimBrief);
-  byId("simFiche").addEventListener("click", () => { setActiveNav("Stages"); renderStages("gants"); });
+  if (SIMX.fiche) byId("simFiche").addEventListener("click", () => { setActiveNav("Stages"); renderStages(SIMX.fiche); }); else byId("simFiche").remove();
   byId("simBack").addEventListener("click", renderSimLanding);
   window.scrollTo(0, 0);
 }
@@ -4091,6 +5025,9 @@ db.auth.onAuthStateChange((event, session) => {
   }
 });
 
+document.querySelectorAll(".stat-card[data-open]").forEach(c => c.addEventListener("keydown", e => {
+  if (e.key === "Enter" || e.key === " ") { e.preventDefault(); c.click(); }
+}));
 initializeApp();
 </script>
 
