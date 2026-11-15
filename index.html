@@ -1007,6 +1007,16 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .fc-score b{color:var(--navy);font-size:11px}
 .fc-go{position:relative;flex:none;align-self:flex-start;width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:var(--teal-soft);color:var(--teal-dark);font-size:13px;font-weight:800;transition:.3s}
 .fcard:hover .fc-go{background:var(--g1);color:#fff;transform:rotate(45deg)}
+
+/* Médicaments */
+.med-search{display:flex;align-items:center;gap:10px;height:52px;padding:0 16px;margin:6px 0 14px;border-radius:18px;background:#fff;box-shadow:0 10px 28px #0b1f3a0f;color:var(--teal-dark);transition:.25s}
+.med-search:focus-within{box-shadow:0 0 0 4px #14b8a62e,0 14px 34px #14b8a626}
+.med-search input{flex:1;min-width:0;border:0;outline:0;background:transparent;font-size:13px;color:var(--navy)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 14px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--border);background:#fff;color:#5d6f82;border-radius:20px;padding:8px 14px;font-size:11px;font-weight:700;transition:.2s}
+.chip.on{background:linear-gradient(135deg,#0b1f3a,#12385a);border-color:transparent;color:#fff;box-shadow:0 8px 18px #0b1f3a33}
+.med-ul{margin:0;padding-left:18px;font-size:12px;line-height:1.9}
+.module-card:nth-child(9){--g1:#f43f5e;--g2:#fb923c}
 @media(max-width:760px){
  .hero-tag{display:none}
  .sidebar{margin:0;border-radius:0;position:static;max-height:none;top:auto;box-shadow:none}
@@ -1077,6 +1087,8 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
   <symbol id="i-flask" viewBox="0 0 24 24"><path d="M10 2v7.5L4.5 19a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9.5V2M8.5 2h7M7 16h10"/></symbol>
   <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></symbol>
   <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-pill" viewBox="0 0 24 24"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7z"/><path d="m8.5 8.5 7 7"/></symbol>
+  <symbol id="i-wind" viewBox="0 0 24 24"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2M9.6 4.6A2 2 0 1 1 11 8H2M12.6 19.4A2 2 0 1 0 14 16H2"/></symbol>
 </svg>
 
 <!-- AUTHENTICATION -->
@@ -1216,6 +1228,7 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
       <button class="nav-item" data-page="Recherche" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-search"/></svg></span>Recherche</button>
       <button class="nav-item" data-page="Cours" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-book"/></svg></span>Cours</button>
       <button class="nav-item" data-page="Stages" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-hospital"/></svg></span>Stages</button>
+      <button class="nav-item" data-page="Médicaments" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-pill"/></svg></span>Médicaments</button>
       <button class="nav-item" data-page="Résumés" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-file"/></svg></span>Résumés</button>
       <button class="nav-item" data-page="Emploi du temps" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-calendar"/></svg></span>Emploi du temps</button>
       <button class="nav-item" data-page="Règlement intérieur" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-file"/></svg></span>Règlement intérieur</button>
@@ -1295,6 +1308,12 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
               <div class="module-icon"><svg class="ico"><use href="#i-hospital"/></svg></div>
               <h3>Stages</h3>
               <p>Documents de stage, protocoles, fiches techniques et situations cliniques.</p>
+              <span class="module-arrow">↗</span>
+            </button>
+            <button class="module-card" data-open="Médicaments" type="button">
+              <div class="module-icon"><svg class="ico"><use href="#i-pill"/></svg></div>
+              <h3>Médicaments</h3>
+              <p>Médicaments rencontrés en stage : indications, surveillance et précautions.</p>
               <span class="module-arrow">↗</span>
             </button>
 
@@ -1604,6 +1623,7 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
 // =====================================
 const moduleDescriptions = {
   "Cours": "Retrouvez les supports de cours et les documents pédagogiques classés par module et par semestre.",
+  "Médicaments": "Les médicaments rencontrés en stage : indications, surveillance infirmière et précautions.",
   "Stages": "Consultez les documents de stage, les protocoles, les fiches techniques et les situations cliniques.",
   "Résumés": "Accédez aux fiches de révision, synthèses et documents conçus pour faciliter vos révisions.",
   "Emploi du temps": "Retrouvez les plannings, les emplois du temps et les informations relatives à votre organisation académique.",
@@ -1615,6 +1635,7 @@ const moduleDescriptions = {
 const ico = (name, cls = "") => `<svg class="ico${cls ? " " + cls : ""}"><use href="#i-${name}"/></svg>`;
 const moduleIcons = {
   "Cours": ico("book"),
+  "Médicaments": ico("pill"),
   "Stages": ico("hospital"),
   "Résumés": ico("file"),
   "Emploi du temps": ico("calendar"),
@@ -1678,6 +1699,11 @@ function openPage(pageName, arg) {
 
   if (pageName === "Stages") {
     renderStages();
+    return;
+  }
+
+  if (pageName === "Médicaments") {
+    renderMedicaments();
     return;
   }
 
@@ -1894,6 +1920,7 @@ const TYPE_LABEL = { cours: "Cours", resume: "Résumé" };
 const SITE_PAGES = [
   { name: "Cours", words: "cours supports documents modules" },
   { name: "Résumés", words: "resumes fiches revision syntheses" },
+  { name: "Médicaments", words: "medicaments medicament pharmacie paracetamol antibiotique antalgique insuline posologie" },
   { name: "Stages", words: "stage protocoles fiches techniques situations cliniques" },
   { name: "Emploi du temps", words: "planning emploi du temps horaires" },
   { name: "Règlement intérieur", words: "reglement interieur absences retard rattrapage fraude discipline sanctions droits obligations evaluation" },
@@ -3233,6 +3260,200 @@ function shuffle(a) {
 const LEVELS = { 1: "Niveau 1 · Techniques simples", 2: "Niveau 2 · Techniques intermédiaires", 3: "Niveau 3 · Techniques avancées" };
 const ORDERED = [1, 2, 3].flatMap(n => FICHES.filter(f => f.niveau === n));
 let stageCtx = null;
+
+// =====================================
+// MÉDICAMENTS
+// =====================================
+const MED_CATS = ["Antalgiques", "Antibiotiques", "Anticoagulants", "Cœur et reins", "Diabète", "Digestif", "Respiratoire", "Perfusions"];
+const MED_DISCLAIMER = "Informations générales d'aide à l'apprentissage. En stage : ne jamais administrer sans prescription, vérifier le médicament, la dose, la voie, l'heure et l'identité du patient, et suivre le protocole du service (ou le VIDAL).";
+const MEDS = [
+  { id: "paracetamol", name: "Paracétamol", brands: "Doliprane®, Efferalgan®, Perfalgan® (IV)", cat: "Antalgiques", icon: "pill", tag: "PO/IV", g: ["#14b8a6", "#0ea5e9"],
+    classe: "Antalgique (palier 1) et antipyrétique", voies: "Orale (comprimé, sachet, sirop) · IV (perfusion de 15 min) · Rectale",
+    indic: ["Douleur légère à modérée", "Fièvre"],
+    poso: "Adulte de plus de 50 kg : 1 g par prise, intervalle d'au moins 4 h, 3 g/jour conseillés (4 g/jour au maximum). Enfant : dose calculée selon le poids.",
+    surv: ["Vérifier l'heure de la dernière prise et la dose totale des 24 h", "Vérifier qu'aucun autre médicament du patient ne contient du paracétamol", "Évaluer la douleur (EVA) et la température après l'administration"],
+    ci: ["Insuffisance hépatique sévère", "Allergie au paracétamol"],
+    ei: ["Rares aux doses usuelles", "Surdosage : atteinte du foie, à signaler immédiatement"],
+    astuce: "Le surdosage est la principale erreur : cumulez toujours les doses des 24 heures." },
+  { id: "ibuprofene", name: "Ibuprofène", brands: "Advil®, Brufen®", cat: "Antalgiques", icon: "pill", tag: "PO", g: ["#f59e0b", "#f97316"],
+    classe: "Anti-inflammatoire non stéroïdien (AINS)", voies: "Orale",
+    indic: ["Douleur et inflammation", "Fièvre"],
+    poso: "Adulte : 200 à 400 mg par prise, pendant un repas, durée la plus courte possible (1 200 mg/jour au maximum en automédication). Dose selon prescription.",
+    surv: ["Administrer pendant un repas", "Surveiller douleurs d'estomac et selles noires (saignement digestif)", "Surveiller la fonction rénale et l'hydratation chez les patients à risque"],
+    ci: ["Ulcère gastro-duodénal", "Insuffisance rénale ou cardiaque sévère", "Allergie aux AINS ou asthme induit par l'aspirine", "Grossesse (à partir du 6e mois)", "Traitement anticoagulant"],
+    ei: ["Douleurs gastriques, nausées", "Saignement digestif", "Insuffisance rénale aiguë", "Réaction allergique"],
+    astuce: "Ne jamais associer deux AINS (ibuprofène, kétoprofène, aspirine à dose anti-inflammatoire...)." },
+  { id: "tramadol", name: "Tramadol", brands: "Topalgic®, Contramal®", cat: "Antalgiques", icon: "pill", tag: "PO/IV", g: ["#7c5cff", "#a78bfa"],
+    classe: "Antalgique opioïde faible (palier 2)", voies: "Orale · IV (perfusion lente) · IM",
+    indic: ["Douleur modérée à intense"],
+    poso: "Selon prescription : 50 à 100 mg par prise, maximum 400 mg/jour chez l'adulte (à adapter chez la personne âgée et en cas d'insuffisance rénale ou hépatique).",
+    surv: ["Surveiller somnolence, vertiges et fréquence respiratoire", "Prévenir ou traiter la constipation et les nausées", "Surveiller la confusion chez la personne âgée"],
+    ci: ["Épilepsie non contrôlée", "Insuffisance respiratoire sévère", "Association à un IMAO", "Intoxication alcoolique aiguë"],
+    ei: ["Nausées, vomissements, vertiges", "Somnolence, constipation", "Convulsions (abaisse le seuil épileptogène)", "Syndrome sérotoninergique avec certains antidépresseurs"],
+    astuce: "Prévenez le patient : risque de somnolence, pas de conduite." },
+  { id: "morphine", name: "Morphine", brands: "Morphine® (stupéfiant)", cat: "Antalgiques", icon: "syringe", tag: "SC/IV", g: ["#ff7a59", "#ff4d6d"],
+    classe: "Antalgique opioïde fort (palier 3), stupéfiant", voies: "Orale · Sous-cutanée · IV (titration) · PCA",
+    indic: ["Douleur intense (post-opératoire, cancer, infarctus...)"],
+    poso: "Dose strictement individuelle, il n'existe pas de dose standard : suivre la prescription et le protocole de titration du service. Double vérification obligatoire.",
+    surv: ["Fréquence respiratoire (alerte si moins de 10/min)", "Score de sédation et douleur (EVA) à intervalles réguliers", "Nausées et constipation : laxatif systématique prescrit", "Stupéfiant : stockage sécurisé et traçabilité (registre)"],
+    ci: ["Insuffisance respiratoire sévère non ventilée", "Traumatisme crânien avec hypertension intracrânienne", "Allergie connue aux opioïdes"],
+    ei: ["Somnolence, vertiges", "Nausées, vomissements", "Constipation constante", "Dépression respiratoire en cas de surdosage", "Rétention d'urine, démangeaisons"],
+    astuce: "Antidote : naloxone (sur prescription médicale). Somnolence importante ou respiration lente : alerter immédiatement." },
+  { id: "amoxicilline", name: "Amoxicilline", brands: "Clamoxyl®", cat: "Antibiotiques", icon: "pill", tag: "PO/IV", g: ["#10b981", "#84cc16"],
+    classe: "Antibiotique, pénicilline A (bêta-lactamine)", voies: "Orale · IV",
+    indic: ["Angines à streptocoque, otites", "Infections respiratoires et urinaires (selon prescription)"],
+    poso: "Selon prescription (varie selon l'infection, l'âge et le poids). Respecter la durée complète du traitement.",
+    surv: ["Rechercher une allergie aux pénicillines avant la 1re dose", "Surveiller éruption cutanée, urticaire, gonflement du visage", "Surveiller la diarrhée"],
+    ci: ["Allergie aux pénicillines (allergie croisée possible avec les céphalosporines)", "Mononucléose infectieuse (risque d'éruption)"],
+    ei: ["Diarrhée, nausées", "Éruption cutanée", "Réaction allergique grave (choc anaphylactique)"],
+    astuce: "Demandez toujours les allergies. Allergie à la pénicilline : prévenir le prescripteur." },
+  { id: "augmentin", name: "Amoxicilline + acide clavulanique", brands: "Augmentin®", cat: "Antibiotiques", icon: "pill", tag: "PO/IV", g: ["#0d9488", "#22d3ee"],
+    classe: "Antibiotique, pénicilline associée à un inhibiteur de bêta-lactamase", voies: "Orale · IV",
+    indic: ["Infections ORL, respiratoires, urinaires, cutanées (selon prescription)"],
+    poso: "Selon prescription. Par voie orale : à prendre au début d'un repas pour limiter les troubles digestifs.",
+    surv: ["Rechercher une allergie aux pénicillines", "Surveiller diarrhée et éruption cutanée", "Surveiller les signes d'atteinte du foie (jaunisse) en cas de traitement prolongé"],
+    ci: ["Allergie aux pénicillines", "Antécédent d'atteinte du foie avec ce médicament"],
+    ei: ["Diarrhée, nausées", "Éruption cutanée", "Atteinte hépatique (rare)"],
+    astuce: "Plus souvent responsable de diarrhée que l'amoxicilline seule : donnez-le au début du repas." },
+  { id: "ceftriaxone", name: "Ceftriaxone", brands: "Rocéphine®", cat: "Antibiotiques", icon: "syringe", tag: "IV/IM", g: ["#6366f1", "#8b5cf6"],
+    classe: "Antibiotique, céphalosporine de 3e génération", voies: "IV (perfusion) · IM",
+    indic: ["Infections sévères à l'hôpital : pneumonie, méningite, pyélonéphrite, septicémie"],
+    poso: "Selon prescription, souvent une fois par jour.",
+    surv: ["Rechercher une allergie aux bêta-lactamines", "Respecter le solvant prescrit : ne pas mélanger avec une solution contenant du calcium (Ringer)", "En IM : solvant spécifique (souvent avec lidocaïne), à ne jamais injecter en IV", "Perfusion IV d'environ 30 minutes"],
+    ci: ["Allergie aux céphalosporines", "Allergie sévère aux pénicillines (risque croisé)"],
+    ei: ["Diarrhée, nausées", "Éruption cutanée", "Douleur au point d'injection", "Atteinte du foie ou de la vésicule (rare)"],
+    astuce: "Ne jamais injecter la préparation IM (avec lidocaïne) par voie veineuse." },
+  { id: "enoxaparine", name: "Énoxaparine", brands: "Lovenox®", cat: "Anticoagulants", icon: "syringe", tag: "SC", g: ["#ef4444", "#ec4899"],
+    classe: "Anticoagulant, héparine de bas poids moléculaire (HBPM)", voies: "Sous-cutanée",
+    indic: ["Prévention de la maladie thromboembolique (alitement, chirurgie)", "Traitement de la phlébite et de l'embolie pulmonaire"],
+    poso: "Prévention : souvent 4 000 UI (40 mg) une fois par jour. Traitement : dose selon le poids. Toujours selon prescription et fonction rénale.",
+    surv: ["Injecter dans la ceinture abdominale antéro-latérale, en alternant droite et gauche", "Ne pas purger la seringue (la bulle d'air est normale), ne pas aspirer, ne pas masser", "Surveiller les saignements (gencives, urines, selles, hématomes)", "Numération des plaquettes selon prescription"],
+    ci: ["Hémorragie active ou risque hémorragique élevé", "Insuffisance rénale sévère (adaptation de dose)", "Antécédent de thrombopénie induite par l'héparine", "Allergie à l'énoxaparine"],
+    ei: ["Hématomes au point d'injection", "Saignements", "Baisse des plaquettes", "Élévation des transaminases"],
+    astuce: "Gardez le pli cutané pendant toute l'injection et ne purgez pas la bulle d'air." },
+  { id: "furosemide", name: "Furosémide", brands: "Lasilix®", cat: "Cœur et reins", icon: "drop", tag: "PO/IV", g: ["#06b6d4", "#14b8a6"],
+    classe: "Diurétique de l'anse", voies: "Orale · IV lente · IM",
+    indic: ["Œdèmes", "Insuffisance cardiaque, œdème aigu du poumon", "Hypertension artérielle (selon prescription)"],
+    poso: "Selon prescription. En IV : injection lente, jamais rapide.",
+    surv: ["Surveiller diurèse, poids, tension artérielle et pouls", "Ionogramme : surtout le potassium (hypokaliémie) et le sodium", "Signes de déshydratation : soif, vertiges, hypotension", "Administrer de préférence le matin"],
+    ci: ["Anurie", "Hypovolémie, déshydratation", "Hypokaliémie sévère", "Allergie connue au furosémide ou aux sulfamides"],
+    ei: ["Hypokaliémie", "Hypotension orthostatique", "Crampes, déshydratation", "Bourdonnements d'oreille (injection IV trop rapide)"],
+    astuce: "Prévoyez l'accès aux toilettes ou le bassin, et notez la diurèse." },
+  { id: "insuline", name: "Insuline", brands: "NovoRapid®, Actrapid®, Lantus®", cat: "Diabète", icon: "syringe", tag: "SC", g: ["#7c5cff", "#ec4899"],
+    classe: "Hormone hypoglycémiante (rapide, intermédiaire ou lente)", voies: "Sous-cutanée (l'insuline rapide peut aussi être donnée en IV en soins intensifs)",
+    indic: ["Diabète de type 1", "Diabète de type 2 insulino-requérant", "Déséquilibre glycémique aigu"],
+    poso: "Dose individuelle en unités (UI), toujours prescrite en fonction de la glycémie. Double vérification de la dose et du type d'insuline.",
+    surv: ["Contrôler la glycémie capillaire avant l'injection", "Insuline rapide : respecter le délai avec le repas prévu", "Alterner les sites d'injection (abdomen, cuisse, bras) pour éviter les lipodystrophies", "Stylo à insuline : usage strictement individuel, jamais partagé"],
+    ci: ["Hypoglycémie en cours"],
+    ei: ["Hypoglycémie : sueurs, tremblements, faim, vertiges, confusion", "Lipodystrophie aux points d'injection", "Prise de poids"],
+    astuce: "Hypoglycémie (moins de 0,7 g/L ou signes) : resucrage selon le protocole du service (sucre par la bouche si le patient est conscient) et alerte." },
+  { id: "omeprazole", name: "Oméprazole", brands: "Mopral®", cat: "Digestif", icon: "pill", tag: "PO/IV", g: ["#f59e0b", "#fb7185"],
+    classe: "Inhibiteur de la pompe à protons (IPP)", voies: "Orale (gélule) · IV",
+    indic: ["Reflux gastro-œsophagien, ulcère", "Protection de l'estomac (traitement par AINS ou corticoïdes)"],
+    poso: "Selon prescription, souvent 20 mg une fois par jour, le matin avant le repas.",
+    surv: ["Administrer le matin, avant le petit-déjeuner", "Ne pas écraser ni ouvrir la gélule gastro-résistante", "Signaler diarrhée persistante ou douleurs abdominales"],
+    ci: ["Allergie à l'oméprazole ou aux IPP"],
+    ei: ["Maux de tête", "Diarrhée, nausées", "Douleurs abdominales"],
+    astuce: "Gélule gastro-résistante : ne pas écraser, ne pas ouvrir sans avis du pharmacien." },
+  { id: "metoclopramide", name: "Métoclopramide", brands: "Primpéran®", cat: "Digestif", icon: "pill", tag: "PO/IV", g: ["#10b981", "#06b6d4"],
+    classe: "Antiémétique (anti-dopaminergique)", voies: "Orale · IV lente · IM",
+    indic: ["Nausées et vomissements"],
+    poso: "Adulte : 10 mg par prise, jusqu'à 3 fois par jour, durée maximale de 5 jours. Selon prescription.",
+    surv: ["Surveiller somnolence, agitation et mouvements anormaux (spasmes du visage ou du cou)", "En IV : injection lente (au moins 3 minutes)"],
+    ci: ["Obstruction ou perforation digestive", "Hémorragie digestive", "Maladie de Parkinson", "Épilepsie"],
+    ei: ["Somnolence, fatigue", "Troubles du mouvement (syndrome extrapyramidal)", "Diarrhée, agitation"],
+    astuce: "Mouvements anormaux ou raideur : suspendre et alerter le médecin." },
+  { id: "salbutamol", name: "Salbutamol", brands: "Ventoline®", cat: "Respiratoire", icon: "wind", tag: "INH", g: ["#0ea5e9", "#6366f1"],
+    classe: "Bronchodilatateur bêta-2 mimétique de courte durée d'action", voies: "Inhalée (spray avec chambre d'inhalation) · Nébulisation",
+    indic: ["Crise d'asthme, bronchospasme", "BPCO (selon prescription)"],
+    poso: "Spray : 1 à 2 bouffées, à répéter selon la crise et la prescription. Nébulisation selon prescription.",
+    surv: ["Mesurer fréquence respiratoire, SpO₂ et pouls avant et après", "Technique : agiter, expirer, inspirer lentement en déclenchant, retenir son souffle environ 10 secondes", "Utiliser une chambre d'inhalation si possible", "Absence d'amélioration : alerter immédiatement"],
+    ci: ["Pas de contre-indication absolue en urgence", "Prudence : maladie cardiaque, hyperthyroïdie, hypokaliémie"],
+    ei: ["Tremblements, palpitations (tachycardie)", "Maux de tête", "Baisse du potassium à fortes doses"],
+    astuce: "Si la crise ne cède pas, ne pas répéter sans avis médical." },
+  { id: "nacl", name: "Chlorure de sodium 0,9 %", brands: "Sérum physiologique", cat: "Perfusions", icon: "flask", tag: "IV", g: ["#14b8a6", "#6366f1"],
+    classe: "Soluté isotonique (cristalloïde)", voies: "IV (perfusion) · Rinçage de voie veineuse",
+    indic: ["Remplissage vasculaire, hydratation", "Dilution des médicaments", "Rinçage de cathéter"],
+    poso: "Volume et débit (mL/h) prescrits : vérifier la prescription et régler le débit.",
+    surv: ["Surveiller le débit et le point de ponction (rougeur, gonflement)", "Rechercher une surcharge : œdèmes, difficultés à respirer", "Bilan entrées-sorties, poids et ionogramme si perfusion prolongée"],
+    ci: ["Prudence : insuffisance cardiaque ou rénale, œdèmes", "Hypernatrémie, surcharge hydrique"],
+    ei: ["Surcharge hydrique (œdème pulmonaire)", "Excès de sodium ou de chlore si grands volumes"],
+    astuce: "Solution de référence pour diluer, mais vérifiez la compatibilité avec le médicament." },
+  { id: "glucose5", name: "Glucosé 5 %", brands: "Sérum glucosé", cat: "Perfusions", icon: "flask", tag: "IV", g: ["#f59e0b", "#ec4899"],
+    classe: "Soluté d'apport en eau et en glucose", voies: "IV (perfusion)",
+    indic: ["Apport d'eau (déshydratation)", "Véhicule pour certains médicaments"],
+    poso: "Volume et débit prescrits.",
+    surv: ["Surveiller la glycémie, surtout chez le diabétique", "Natrémie : risque d'hyponatrémie si grands volumes", "Débit et point de ponction"],
+    ci: ["Diabète déséquilibré, hyperglycémie", "Œdème cérébral, hyponatrémie, surcharge hydrique"],
+    ei: ["Hyperglycémie", "Hyponatrémie", "Surcharge hydrique"],
+    astuce: "Ne remplit pas le volume sanguin : ne jamais l'utiliser pour un remplissage vasculaire." }
+];
+let medCtx = { q: "", cat: "Tous" };
+const medUl = a => `<ul class="med-ul">${a.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
+
+function renderMedicaments(medId = null) {
+  const inner = document.getElementById("innerPage");
+  const footer = `<div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>`;
+  const m = medId ? MEDS.find(x => x.id === medId) : null;
+
+  if (!m) {
+    inner.innerHTML = `
+      <div class="page-heading">
+        <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
+        <h1>Médicaments</h1>
+        <p>Les médicaments que vous rencontrerez en stage : indications, surveillance et précautions.</p>
+      </div>
+      ${note(esc(MED_DISCLAIMER))}
+      <label class="med-search">${ico("search")}<input id="medQ" type="search" placeholder="Rechercher un médicament, une classe..." autocomplete="off" value="${esc(medCtx.q)}"></label>
+      <div class="chips" id="medChips">${["Tous", ...MED_CATS].map(c => `<button type="button" class="chip${c === medCtx.cat ? " on" : ""}" data-cat="${esc(c)}">${esc(c)}</button>`).join("")}</div>
+      <div id="medGrid"></div>
+      ${footer}`;
+    addBackButton(inner);
+    const grid = inner.querySelector("#medGrid");
+    const draw = () => {
+      const q = norm(medCtx.q);
+      const items = MEDS.filter(x => (medCtx.cat === "Tous" || x.cat === medCtx.cat) &&
+        (!q || norm([x.name, x.brands, x.cat, x.classe, x.indic.join(" ")].join(" ")).includes(q)));
+      grid.innerHTML = items.length ? `<div class="fgrid">${items.map(x => `
+        <button class="fcard" type="button" data-med="${x.id}" style="--g1:${x.g[0]};--g2:${x.g[1]}">
+          <span class="fc-ico">${ico(x.icon)}<em class="fc-tag">${esc(x.tag)}</em></span>
+          <span class="fc-body"><span class="fc-title">${esc(x.name)}</span>
+            <span class="fc-meta"><span class="fc-chip">${esc(x.cat)}</span></span>
+            <span class="fc-score"><small>${esc(x.brands)}</small></span></span>
+          <span class="fc-go">↗</span></button>`).join("")}</div>`
+        : `<div class="resource-panel"><div class="resource-empty"><div class="empty-icon">${ico("pill")}</div><h3>Aucun médicament trouvé</h3><p>Essayez un autre mot (nom, classe ou usage). D'autres médicaments seront ajoutés prochainement.</p></div></div>`;
+      grid.querySelectorAll("[data-med]").forEach(b => b.addEventListener("click", () => renderMedicaments(b.dataset.med)));
+    };
+    draw();
+    inner.querySelector("#medQ").addEventListener("input", e => { medCtx.q = e.target.value; draw(); });
+    inner.querySelectorAll("[data-cat]").forEach(b => b.addEventListener("click", () => {
+      medCtx.cat = b.dataset.cat;
+      inner.querySelectorAll("[data-cat]").forEach(x => x.classList.toggle("on", x === b));
+      draw();
+    }));
+    window.scrollTo(0, 0);
+    return;
+  }
+
+  const sec = (t, body) => `<details class="help-item" open><summary>${esc(t)}</summary><div class="help-body">${body}</div></details>`;
+  inner.innerHTML = `
+    <div class="page-heading">
+      <div class="eyebrow">MÉDICAMENTS › ${esc(m.cat.toUpperCase())}</div>
+      <h1>${esc(m.name)}</h1>
+      <p>${esc(m.classe)}</p>
+    </div>
+    <div class="fiche-meta"><span class="badge">${esc(m.brands)}</span><span class="badge gray">${esc(m.voies)}</span></div>
+    ${note(esc(MED_DISCLAIMER))}
+    ${sec("Indications", medUl(m.indic))}
+    ${sec("Posologie usuelle", `<p>${esc(m.poso)}</p>`)}
+    ${sec("Surveillance infirmière", medUl(m.surv))}
+    ${sec("Contre-indications et précautions", medUl(m.ci))}
+    ${sec("Effets indésirables", medUl(m.ei))}
+    <div class="warn"><strong>À retenir :</strong> ${esc(m.astuce)}</div>
+    ${footer}`;
+  addBackButton(inner, "Retour aux médicaments", () => renderMedicaments());
+  window.scrollTo(0, 0);
+}
 
 const FICHE_STYLE = {
   id: ["syringe", "#14b8a6", "#0ea5e9"], sc: ["syringe", "#7c5cff", "#a78bfa"], im: ["syringe", "#f59e0b", "#f97316"], iv: ["syringe", "#ff7a59", "#ff4d6d"],
