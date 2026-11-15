@@ -1017,6 +1017,15 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .chip.on{background:linear-gradient(135deg,#0b1f3a,#12385a);border-color:transparent;color:#fff;box-shadow:0 8px 18px #0b1f3a33}
 .med-ul{margin:0;padding-left:18px;font-size:12px;line-height:1.9}
 .module-card:nth-child(9){--g1:#f43f5e;--g2:#fb923c}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:5px;margin:2px 0 12px;border-radius:16px;background:#e9eff5}
+.seg button{border:0;background:transparent;color:#6b7c8f;border-radius:12px;padding:11px 8px;font-size:12px;font-weight:800;transition:.2s}
+.seg button b{margin-left:6px;padding:2px 7px;border-radius:20px;background:#fff;color:var(--teal-dark);font-size:10px}
+.seg button.on{background:#fff;color:var(--navy);box-shadow:0 6px 16px #0b1f3a14}
+.nat-row{align-items:center}
+.nat-ico{flex:none;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#14b8a6,#6366f1)}
+.nat-ico .ico{width:19px;height:19px}
+.nat-badge{flex:none;padding:5px 10px;border-radius:20px;background:var(--teal-soft);color:var(--teal-dark);font-size:10px;font-weight:800}
+.nat-row .fc-meta{margin-top:6px}
 @media(max-width:760px){
  .hero-tag{display:none}
  .sidebar{margin:0;border-radius:0;position:static;max-height:none;top:auto;box-shadow:none}
@@ -3388,7 +3397,13 @@ const MEDS = [
     ei: ["Hyperglycémie", "Hyponatrémie", "Surcharge hydrique"],
     astuce: "Ne remplit pas le volume sanguin : ne jamais l'utiliser pour un remplissage vasculaire." }
 ];
-let medCtx = { q: "", cat: "Tous" };
+let medCtx = { q: "", cat: "Tous", tab: "fiches", form: "Tous" };
+// Liste nationale (LNME 2019) : nom (DCI) | formes disponibles. Retranscrite à partir du PDF officiel.
+const MED_FORMS = { c: "Comprimé / gélule", i: "Injectable", s: "Sirop / buvable", u: "Suppositoire", t: "Crème / pommade", o: "Collyre / oreille", h: "Inhalation", g: "Gynécologique", a: "Autre" };
+const LNME = "ABACAVIR|c;ABACAVIR + LAMIVUDINE|c;ACENOCOUMAROL|c;ACETAZOLAMIDE|c;ACETYL SALICYLATE (SEL)|s;ACETYL SALICYLATE DE LYSINE|s;ACICLOVIR|cist;ACIDE ACETYLSALICYLIQUE|c;ACIDE ALENDRONIQUE|c;ACIDE FOLIQUE|c;ACIDE FUSIDIQUE|ct;ACIDE GADOTERIQUE|i;ACIDE IBANDRONIQUE|i;ACIDE TRANEXAMIQUE|ci;ACIDE ZOLEDRONIQUE|i;ACTINOMYCINE|i;ADALIMUMAB|i;ALBENDAZOLE|cs;ALBUMINE HUMAINE|i;ALLOPURINOL|c;ALPHACALCIDOL|c;ALPRAZOLAM|c;AMBROXOL|s;AMIKACINE|i;AMIODARONE|ci;AMISULPRIDE|c;AMITRIPTYLINE|cs;AMLODIPINE|c;AMOXICILLINE|ci;AMOXICILLINE + ACIDE CLAVULANIQUE|cis;AMPHOTERICINE B|is;AMPHOTERICINE B LIPOSOMALE|i;AMPICILLINE|i;ANASTROZOLE|c;ANTIHEMORROIDAIRE|tu;ANTIMONIATE DE MEGLUMINE|i;ANTITOXINE BOTULIQUE EQUINE|i;ARTEMETHER + UMEFANTRINE|c;ARTESUNATE|i;ARTICAINE (CHLORHYDRATE)|i;ATAZANAVIR + RITONAVIR|c;ATOVAQUONE + PROGUANIL|c;ATROPINE|i;AZATHIOPRINE|c;AZITHROMYCINE|cos;BARYUM (SULFATE)|s;BECLOMETASONE|h;BEDAQUILINE|c;BENZATHINE BENZYLPENICILLINE|i;BENZOATE DE BENZYL + SULFIRAM|t;BENZYLPENICILLINE|i;BETAMETHASONE|ist;BETAMETHASONE + ACIDE SALICYLIQUE|t;BETAMETHASONE DIPROPIONATE|t;BETASITOSTEROL|t;BEVACIZUMAB|i;BICTEGRAVIR + TENOFOVIR + EMTRICITABINE|c;BISACODYL|c;BISOPROLOL|c;BLEOMYCINE|i;BUDESONIDE|h;BUPIVACAINE|i;BUPRENORPHINE|c;CAFEINE CITRATE|i;CALCIPOTRIOL + BETAMETHASONE|t;CALCIUM CARBONATE|s;CALCIUM GLUCONATE|i;CAPECITABINE|c;CAPREOMYCINE|i;CAPTOPRIL|c;CARBAMAZEPINE|cs;CARBIMAZOLE|c;CARBOCISTEINE|s;CARBOPLATINE|i;CARVEDILOL|c;CEFACLOR|c;CEFAZOLINE|i;CEFIPIME|i;CEFIXIME|c;CEFTAZIDIME|i;CEFTRIAXONE|i;CEFUROXIME|i;CETUXIMAB|i;CHARBON ACTIF|a;CHARBON ACTIF OU VEGETAL SIMPLE OU ASSOCIE|c;CHLORHEXIDINE (DIGLUCONATE)|a;CHLOROQUINE|c;CHLORPROMAZINE|ci;CHLORTETRACYCLINE|t;CHOLECALCIFEROL|i;CHOLECALCIFEROL (VIT D3) + CARBONATE DE CALCIUM|c;CICLOSPORINE|c;CIPROFLOXACINE|cio;CISATRACURIUM|i;CISPLATINE|i;CLARITHROMYCINE|c;CLOBAZAM|c;CLOBETASOL|t;CLOFAZIMINE|c;CLOMIFENE|c;CLOMIPRAMINE|c;CLOPIDOGREL|c;CLOTRIMAZOLE|ct;CLOZAPINE|c;CODEINE CAMPHOSULFONATE|cs;CODEINE OU CODETHYLINE OU PHOLCODINE|s;COLCHICINE|c;COLISTINE|i;COLLARGOL|t;CYCLOPENTOLATE|o;CYCLOPHOSPHAMIDE|i;CYCLOSERINE|c;CYTARABINE|i;DACARBAZINE|i;DACLATASVIR|c;DANTROLENE|i;DAPSONE + OXALATE DE FER|c;DARUNAVIR|c;DAUNORUBICINE|i;DEFERASIROX|c;DEFERIPRONE|c;DELANAMID|c;DESLORATADINE|cs;DEXAMETHASONE|cit;DEXTROMETHORPHANE (BROMHYDRATE)|s;DIAZEPAM|ci;DICLOFENAC|ciu;DIGOXINE|cs;DILTIAZEM LP|c;DIOSMECTITE|s;DIOSMINE|c;DIOXYDE DE CARBONE MEDICAL|a;DOBUTAMINE|i;DOCETAXEL|i;DOLUTEGRAVIR|c;DOMPERIDONE|s;DOPAMINE|i;DOXORUBICINE|i;DOXYCYCLINE|cs;EAU POUR PREPARATION INJECTABLE|i;ECONAZOLE|gt;EFAVIRENZ|c;ELBASVIR + GRAZOPREVIR|c;ENALAPRIL|c;ENOXAPARINE|i;EOSINE SODIQUE AQUEUSE|a;EPHEDRINE|i;EPINEPHRINE (ADRENALINE)|i;EPIRUBICINE|i;EPOETINE|i;ERTAPENEME|i;ERYTHROMYCINE|cs;ERYTHROMYCINE ALCOOLISEE|t;ESCITALOPRAM|c;ETAMBUTOL|c;ETAMSYLATE|ci;ETANERCEPT|i;ETHINYLOESTRADIOL + PROGESTATIF|c;ETHIONAMIDE|c;ETOMIDATE|i;ETONOGESTREL|a;ETOPOSIDE|ci;ETRAVIRINE|c;FACTEUR ANTIHEMOPHILIQUE VIII|a;FENTANYL|ci;FER (SELS FERREUX)|ci;FILGRASTIM|i;FLUCLOXACILLINE|ci;FLUCONAZOLE|ci;FLUCYTOSINE|ci;FLUDARABINE|c;FLUMAZENIL|i;FLUORESCEINE SODIQUE|i;FLUOXETINE|c;FLUPHENAZINE DECANOATE|i;FLUTICASONE|h;FLUTICASONE + SALMETEROL|h;FOLINATE DE CALCIUM|i;FOMEPIZOLE|i;FORMOTEROL LP|s;FUROSEMIDE|ci;GABAPENTINE|c;GANCICLOVIR|i;GEMCITABINE|i;GENTAMICINE|io;GLICLAZIDE|c;GLIMEPIRIDE|c;GLUCAGON|i;GLUCOSE|i;GLUCOSE + CHLORURE DE SODIUM|i;GRISEOFULVINE|cst;HALOPERIDOL|is;HALOTHANE|s;HEPARINATE DE SODIUM|i;HYDROCHLOROTHIAZIDE|c;HYDROCORTISONE|cit;HYDROXIDE FERRIQUE|s;HYDROXOCOBALAMINE|i;HYDROXYCARBAMIDE|c;HYDROXYCHLOROQUINE|c;HYDROXYDE D'ALUMINIUM ET DE MAGNESIUM|s;HYDROXYDE FERRIQUE|s;HYDROXYZINE|ci;HYOSCINE BUTYLE BROMURE|ci;IBUPROFENE|cs;IFOSFAMIDE|i;IMATINIB|c;IMIPENEM + CILASTATINE|i;IMMUNOGLOBULINE HUMAINE ANTI-D|i;IMMUNOGLOBULINES HUMAINES|i;INDAPAMIDE|c;INDOMETACINE|o;INFLIXIMAB|i;INSULINE GLARGINE OU DETEMIR|i;INSULINE HUMAINE A ACTION INTERMEDIAIRE MIXTE|i;INSULINE HUMAINE A ACTION INTERMEDIAIRE SIMPLE|i;INSULINE HUMAINE A ACTION RAPIDE|i;INTERFERON BETA|i;IOPROMIDE OU EQUIVALENT|i;IPRATROPIUM (BROMURE)|h;IRBESARTAN|c;IRINOTECAN|i;ISOFLURANE|h;ISONIAZIDE|c;ISOSORBIDE (DI-NITRATE)|c;ISOSORBIDE (MONO-NITRATE)|c;ISOTRETINOINE|c;KANAMYCINE|i;KETAMINE|i;KETOPROFENE|ci;L-ASPARAGINASE|i;L-CARNITINE|i;LACTULOSE|s;LAMIVUDINE|cs;LAMOTRIGINE|c;LATANOPROST|o;LETROZOLE|c;LEVODOPA + BENSERAZIDE|c;LEVOFLOXACINE|ci;LEVOFOLINATE DE CALCIUM|i;LEVOMEPROMAZINE|ci;LEVONORGESTREL|c;LEVOTHYROXINE SODIQUE|c;LIDOCAINE|ist;LIDOCAINE (CHLORHYDRATE) OU MEPIVACAINE|i;LIDOCAINE + EPINEPHRINE (ADRENALINE)|i;LIDOCAINE DE CONTACT|a;LIDOCAINE OU TETRACAINE (CHLORHYDRATE) + CETRIMIDE|h;LINEZOLIDE|c;LISPRO OU ASPARTE OU GLULISINE|i;LITHIUM (CARBONATE)|c;LOPERAMIDE|c;LOPINAVIR + RITONAVIR|cs;LORATADINE|cs;LORAZEPAM|c;LOSARTAN|c;MACROGOL|s;MAGNESIUM SULFATE|i;MANNITOL|i;MEBENDAZOLE|c;MEDROXYPROGESTERONE ACETATE|ci;MELPHALAN|i;MEQUITAZINE|s;MERCAPTOPURINE|c;MESALAZINE|csu;MESNA|i;METFORMINE|c;METHADONE (CHLORHYDRATE)|cs;METHOTREXATE|ci;METHYLDOPA|c;METHYLERGOMETRINE|i;METHYLPREDNISOLONE|i;METHYLTHIONINIUM (CHLORURE)|i;METOCLOPRAMIDE|cisu;METOPIMAZINE|su;METRONIDAZOLE|cgis;MICONAZOLE|t;MIDAZOLAM|i;MIRTAZAPINE|c;MISOPROSTOL|c;MORPHINE|ci;MOXIFLOXACINE|ci;MUPIROCINE|t;N-ACETYLCYSTEINE|i;NADROPARINE|i;NALOXONE (CHLORHYDRATE)|i;NEFOPAM|i;NEOMYCINE + POLYMYXINE + DEXAMETHASONE|t;NEOSTIGMINE|i;NEVIRAPINE|cs;NICARDIPINE|ci;NICLOSAMIDE|c;NIFEDIPINE|c;NIFUROXAZIDE|cs;NITROFURANTOINE|c;NITROXOLINE|c;NORADRENALINE|i;NORETHISTERONE (ENANTHATE)|i;NYSTATINE|cs;OCTREOTIDE|i;OFLOXACINE|co;OLANZAPINE|c;OMEPRAZOLE|ci;ONDANSETRON|ci;OSELTAMIVIR|c;OXALIPLATINE|i;OXYBUPROCAINE|o;OXYGENE MEDICAL|h;OXYTETRACYCLINE + DEXAMETHASONE POMMADE|t;OXYTOCINE|i;PACLITAXEL|i;PANITUMUMAB|i;PARA-AMINO-SALICYLATE SODIQUE|s;PARACETAMOL|cisu;PARACETAMOL + CODEINE|c;PAROXETINE|c;PEGFILGRASTIM|i;PEROXYDE DE BENZOYLE|t;PHENOBARBITAL|ci;PHENOXYMETHYLPENICILLINE|cs;PHENYTOINE|c;PHYTOMENADIONE|i;PILOCARPINE|o;PIPOTHIAZINE (PALMITATE)|i;POLYVIDONE IODEE|t;POTASSIUM (CHLORURE)|ci;POTASSIUM (GLUCONATE)|s;PRALIDOXIME (METHYLSULFATE)|i;PRAZIQUANTEL|c;PREDNISOLONE|cs;PREGABALINE|c;PRIMAQUINE|c;PROGESTATIF PUR (MICRODOSE)|c;PROGESTERONE|c;PROMETHAZINE|i;PROPOFOL|i;PROPRANOLOL|ci;PROTAMINE (SULFATE)|i;PROTHIONAMIDE|c;PROTOXYDE D'AZOTE MEDICAL|h;PYRANTEL|cs;PYRAZINAMIDE|c;PYRIDOSTIGMINE|c;PYRIDOXINE|c;PYRIDOXINE (VIT B6)|c;RALTEGRAVIR|c;RAMIPRIL|c;RANITIDINE|ci;RIBAVIRINE|c;RIFABUTINE|c;RIFAMPICINE|cs;RIFAMPICINE + CLOFAZIMINE + DDS|c;RIFAMPICINE + DDS|c;RIFAMPICINE + ISONIAZIDE|c;RIFAMPICINE + ISONIAZIDE + ETHAMBUTOL|c;RIFAMPICINE + ISONIAZIDE + PYRAZINAMIDE (RHZ)|c;RISPERIDONE|c;RITONAVIR|c;RITUXIMAB|i;ROCURONIUM BROMURE|i;SALBUTAMOL|hi;SECUKINUMAB|i;SERTRALINE|c;SERUM ANTI-TETANIQUE|i;SERUM ANTIVIPERIN|i;SEVELAMER|c;SEVOFLURANE|h;SIMVASTATINE|c;SODIUM BICARBONATE|i;SODIUM CHLORURE|i;SOFOSBUVIR|c;SOFOSBUVIR + VELPATASVIR|c;SPECTINOMYCINE|i;SPIRAMYCINE|cs;SPIRAMYCINE + METRONIDAZOLE|c;SPIRONOLACTONE|c;STREPTOKINASE|i;STREPTOMYCINE|i;SUCCIMER|c;SUFENTANIL|i;SUGAMMADEX|i;SULFADIAZINE ARGENTIQUE|t;SULFAMETHOXAZOLE + TRIMETHOPRIME|cs;SULFASALAZINE|c;SULPROSTONE|i;TAMOXIFENE|c;TEMOZOLOMIDE|c;TENECTEPLASE|i;TENOFOVIR + DOLUTEGRAVIR|c;TENOFOVIR ALAFENAMIDE + EMTRICITABINE|c;TENOFOVIR DISOPROXIL + EMTRICITABINE|c;TENOFOVIR DISOPROXIL FUMARATE|c;TERBINAFINE|ct;TESTOSTERONE|i;TETRACYCLINE|c;THALIDOMIDE|c;THIAMINE (VIT B1)|c;THIAMINE + PYRIDOXINE + CYANOCOBALAMINE|c;THIAMPHENICOL|ci;THIOCOLCHICOSIDE|i;TIEMONIUM SIMPLE|isu;TIGECYCLINE|i;TIMOLOL|o;TINZAPARINE|i;TIOTROPIUM|c;TOBRAMYCINE|o;TOBRAMYCINE + DEXAMETHASONE|o;TOCILIZUMAB|i;TRAMADOL|cisu;TRAMADOL + PARACETAMOL|c;TRASTUZUMAB|i;TRETINOINE|t;TRIHEXYPHENIDYLE|c;TRIMEBUTINE|cs;TRINITRINE|h;TROLAMINE|t;TROPICAMIDE|o;TUBERCULINE|i;ULIPRISTAL (ACETATE)|c;VACCIN ANTI-BCG (TUBERCULOSE)|i;VACCIN ANTI-DTC|i;VACCIN ANTI-DTC-HIB-HB (PENTAVALENT)|i;VACCIN ANTI-PNEUMOCOCCIQUE|i;VACCIN ANTI-POLIO INACTIVE|i;VACCIN ANTI-POLIO ORAL|s;VACCIN ANTIGRIPPAL|i;VACCIN ANTIRABIQUE|i;VACCIN ANTITETANIQUE ADULTE|i;VACCIN CONTRE FIEVRE JAUNE|i;VACCIN CONTRE L'HEPATITE B|i;VACCIN CONTRE LA ROUGEOLE ET LA RUBEOLE|i;VALPROATE DE SODIUM|cs;VANCOMYCINE|i;VASELINE OFFICINALE BLANCHE|t;VENLAFAXINE|c;VINBLASTINE|i;VINCRISTINE|i;VINORELBINE|ci;VITAMINE A|c;VORICONAZOLE|ci;XYLOMETAZOLINE|h;ZIDOVUDINE|s;ZIDOVUDINE + LAMIVUDINE|c;ZINC|c;ZINC (SULFATE)|c".split(";").map(x => { const [n, f] = x.split("|"); return { n, f }; });
+const LNME_LINK = { "PARACETAMOL": "paracetamol", "IBUPROFENE": "ibuprofene", "TRAMADOL": "tramadol", "MORPHINE": "morphine", "AMOXICILLINE": "amoxicilline", "AMOXICILLINE + ACIDE CLAVULANIQUE": "augmentin", "CEFTRIAXONE": "ceftriaxone", "ENOXAPARINE": "enoxaparine", "FUROSEMIDE": "furosemide", "OMEPRAZOLE": "omeprazole", "METOCLOPRAMIDE": "metoclopramide", "SALBUTAMOL": "salbutamol", "SODIUM CHLORURE": "nacl", "GLUCOSE": "glucose5" };
+const medLinkId = n => LNME_LINK[n] || (n.startsWith("INSULINE") ? "insuline" : null);
+const medTitle = n => { const t = n.toLowerCase(); return t.charAt(0).toUpperCase() + t.slice(1); };
 const medUl = a => `<ul class="med-ul">${a.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
 
 function renderMedicaments(medId = null) {
@@ -3401,36 +3416,52 @@ function renderMedicaments(medId = null) {
       <div class="page-heading">
         <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
         <h1>Médicaments</h1>
-        <p>Les médicaments que vous rencontrerez en stage : indications, surveillance et précautions.</p>
+        <p>Les médicaments que vous rencontrerez en stage : fiches détaillées et liste nationale des médicaments essentiels.</p>
       </div>
       ${note(esc(MED_DISCLAIMER))}
+      <div class="seg" id="medTabs">
+        <button type="button" data-tab="fiches">Fiches détaillées <b>${MEDS.length}</b></button>
+        <button type="button" data-tab="nat">Liste nationale <b>${LNME.length}</b></button>
+      </div>
       <label class="med-search">${ico("search")}<input id="medQ" type="search" placeholder="Rechercher un médicament, une classe..." autocomplete="off" value="${esc(medCtx.q)}"></label>
-      <div class="chips" id="medChips">${["Tous", ...MED_CATS].map(c => `<button type="button" class="chip${c === medCtx.cat ? " on" : ""}" data-cat="${esc(c)}">${esc(c)}</button>`).join("")}</div>
+      <div class="chips" id="medChips"></div>
       <div id="medGrid"></div>
       ${footer}`;
     addBackButton(inner);
-    const grid = inner.querySelector("#medGrid");
+    const grid = inner.querySelector("#medGrid"), chips = inner.querySelector("#medChips");
+    const open = id => renderMedicaments(id);
     const draw = () => {
-      const q = norm(medCtx.q);
-      const items = MEDS.filter(x => (medCtx.cat === "Tous" || x.cat === medCtx.cat) &&
-        (!q || norm([x.name, x.brands, x.cat, x.classe, x.indic.join(" ")].join(" ")).includes(q)));
-      grid.innerHTML = items.length ? `<div class="fgrid">${items.map(x => `
-        <button class="fcard" type="button" data-med="${x.id}" style="--g1:${x.g[0]};--g2:${x.g[1]}">
-          <span class="fc-ico">${ico(x.icon)}<em class="fc-tag">${esc(x.tag)}</em></span>
-          <span class="fc-body"><span class="fc-title">${esc(x.name)}</span>
-            <span class="fc-meta"><span class="fc-chip">${esc(x.cat)}</span></span>
-            <span class="fc-score"><small>${esc(x.brands)}</small></span></span>
-          <span class="fc-go">↗</span></button>`).join("")}</div>`
-        : `<div class="resource-panel"><div class="resource-empty"><div class="empty-icon">${ico("pill")}</div><h3>Aucun médicament trouvé</h3><p>Essayez un autre mot (nom, classe ou usage). D'autres médicaments seront ajoutés prochainement.</p></div></div>`;
-      grid.querySelectorAll("[data-med]").forEach(b => b.addEventListener("click", () => renderMedicaments(b.dataset.med)));
+      const nat = medCtx.tab === "nat", q = norm(medCtx.q);
+      inner.querySelectorAll("#medTabs [data-tab]").forEach(b => b.classList.toggle("on", b.dataset.tab === medCtx.tab));
+      inner.querySelector("#medQ").placeholder = nat ? "Rechercher dans la liste nationale (ex : paracétamol)..." : "Rechercher un médicament, une classe...";
+      const chipList = nat ? [["Tous", "Tous"], ...Object.entries(MED_FORMS)] : ["Tous", ...MED_CATS].map(c => [c, c]);
+      const cur = nat ? medCtx.form : medCtx.cat;
+      chips.innerHTML = chipList.map(([v, l]) => `<button type="button" class="chip${v === cur ? " on" : ""}" data-chip="${esc(v)}">${esc(l)}</button>`).join("");
+      chips.querySelectorAll("[data-chip]").forEach(b => b.addEventListener("click", () => { if (nat) medCtx.form = b.dataset.chip; else medCtx.cat = b.dataset.chip; draw(); }));
+      if (nat) {
+        const items = LNME.filter(x => (medCtx.form === "Tous" || x.f.includes(medCtx.form)) && (!q || norm(x.n).includes(q)));
+        grid.innerHTML = `<p class="search-hint">${items.length} médicament${items.length > 1 ? "s" : ""} · Source : Nomenclature nationale des médicaments essentiels (LNME, éd. 2019). Liste retranscrite automatiquement : en cas de doute, référez-vous au document officiel.</p>` +
+          (items.length ? `<div class="list">${items.map(x => {
+            const id = medLinkId(x.n), forms = x.f.split("").map(c => `<span class="fc-chip">${esc(MED_FORMS[c])}</span>`).join("");
+            return `<${id ? `button type="button" data-med="${id}"` : "div"} class="list-row nat-row"><span class="nat-ico">${ico("pill")}</span><span class="list-main"><span class="list-title">${esc(LNME_LINK[x.n] ? (MEDS.find(z => z.id === id) || {}).name || medTitle(x.n) : medTitle(x.n))}</span><span class="fc-meta">${forms}</span></span>${id ? '<span class="nat-badge">Fiche</span><span class="list-arrow">›</span>' : ""}</${id ? "button" : "div"}>`;
+          }).join("")}</div>` : `<div class="resource-panel"><div class="resource-empty"><div class="empty-icon">${ico("pill")}</div><h3>Aucun résultat</h3><p>Essayez un autre nom (DCI).</p></div></div>`);
+      } else {
+        const items = MEDS.filter(x => (medCtx.cat === "Tous" || x.cat === medCtx.cat) &&
+          (!q || norm([x.name, x.brands, x.cat, x.classe, x.indic.join(" ")].join(" ")).includes(q)));
+        grid.innerHTML = items.length ? `<div class="fgrid">${items.map(x => `
+          <button class="fcard" type="button" data-med="${x.id}" style="--g1:${x.g[0]};--g2:${x.g[1]}">
+            <span class="fc-ico">${ico(x.icon)}<em class="fc-tag">${esc(x.tag)}</em></span>
+            <span class="fc-body"><span class="fc-title">${esc(x.name)}</span>
+              <span class="fc-meta"><span class="fc-chip">${esc(x.cat)}</span></span>
+              <span class="fc-score"><small>${esc(x.brands)}</small></span></span>
+            <span class="fc-go">↗</span></button>`).join("")}</div>`
+          : `<div class="resource-panel"><div class="resource-empty"><div class="empty-icon">${ico("pill")}</div><h3>Aucun médicament trouvé</h3><p>Essayez un autre mot, ou cherchez dans la liste nationale.</p></div></div>`;
+      }
+      grid.querySelectorAll("[data-med]").forEach(b => b.addEventListener("click", () => open(b.dataset.med)));
     };
     draw();
     inner.querySelector("#medQ").addEventListener("input", e => { medCtx.q = e.target.value; draw(); });
-    inner.querySelectorAll("[data-cat]").forEach(b => b.addEventListener("click", () => {
-      medCtx.cat = b.dataset.cat;
-      inner.querySelectorAll("[data-cat]").forEach(x => x.classList.toggle("on", x === b));
-      draw();
-    }));
+    inner.querySelectorAll("#medTabs [data-tab]").forEach(b => b.addEventListener("click", () => { medCtx.tab = b.dataset.tab; draw(); }));
     window.scrollTo(0, 0);
     return;
   }
