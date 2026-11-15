@@ -1825,15 +1825,31 @@ const TIMETABLES = [
       Jeudi: [{ kind: "stage", h: "08H30 – 12H30", t: "Stage discontinu" }, { kind: "cours", h: "14H00 – 16H00", t: "PAS 1", p: "Mme LGHAZI" }, { kind: "cours", h: "16H00 – 18H00", t: "Soins en chirurgie", p: "Mme MAGOURI" }],
       Vendredi: [{ kind: "stage", h: "08H30 – 16H30", t: "Stage continu" }],
       Samedi: []
+    } },
+  { f: "INP", s: "S3", start: "2026-11-16", annee: "2026-2027", filiere: "Soins Infirmiers", option: "Infirmier en néonatologie et pédiatrie (INP)", room: "Salle 2",
+    days: {
+      Lundi: [{ kind: "stage", h: "08H00 – 16H00", t: "Stage continu" }],
+      Mardi: [{ kind: "cours", h: "08H00 – 12H00", t: "Physiopathologie de la grossesse", p: "Mme SAMIHA" }],
+      Mercredi: [{ kind: "ferie", h: "Toute la journée", t: "Jour férié" }],
+      Jeudi: [{ kind: "stage", h: "08H00 – 16H00", t: "Stage continu" }],
+      Vendredi: [{ kind: "stage", h: "08H00 – 16H00", t: "Stage continu" }],
+      Samedi: []
     } }
 ];
 let ttSel = "S1";
+let ttFil = null;
+const TT_FIL_LABEL = { IP: "Infirmier polyvalent", INP: "Néonatologie et pédiatrie" };
 const ttDate = (iso, add = 0) => { const [y, m, d] = iso.split("-").map(Number); return new Date(y, m - 1, d + add); };
 const ttIso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
 
 function renderTimetable() {
   const inner = document.getElementById("innerPage");
-  const list = TIMETABLES.filter(x => x.f === "IP");
+  const filsAll = [...new Set(TIMETABLES.map(x => x.f))];
+  if (!ttFil) {
+    const pm = currentUser && currentUser.user_metadata || {}, pf = rgNorm(String(pm.filiere || "") + " " + String(pm.parcours || ""));
+    ttFil = (/\binp\b|neonat|pediatr/.test(pf) && filsAll.includes("INP")) ? "INP" : filsAll[0];
+  }
+  const list = TIMETABLES.filter(x => x.f === ttFil);
   const tt = list.find(x => x.s === ttSel) || list[0];
   ttSel = tt.s;
   const fmt = (d, o) => d.toLocaleDateString("fr-FR", o);
@@ -1845,6 +1861,7 @@ function renderTimetable() {
       <h1>Emploi du temps</h1>
       <p>${esc(moduleDescriptions["Emploi du temps"] || "")}</p>
     </div>
+    ${filsAll.length > 1 ? `<div class="tt-chips">${filsAll.map(f => `<button type="button" class="tt-chip${f === ttFil ? " on" : ""}" data-f="${esc(f)}">${esc(TT_FIL_LABEL[f] || f)}</button>`).join("")}</div>` : ""}
     <div class="tt-chips">${list.map(x => `<button type="button" class="tt-chip${x.s === tt.s ? " on" : ""}" data-s="${esc(x.s)}">Semestre ${esc(x.s.slice(1))}</button>`).join("")}</div>
     <div class="tt-info">
       <strong>Semaine du ${esc(fmt(from, { day: "numeric", month: "long" }))} au ${esc(fmt(to, { day: "numeric", month: "long", year: "numeric" }))}</strong>
@@ -1863,6 +1880,7 @@ function renderTimetable() {
     <p class="search-hint">Emploi du temps de l'ISPITS Errachidia. En cas de modification, référez-vous à l'affichage de l'institut.</p>
     <div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>`;
   inner.querySelectorAll("[data-s]").forEach(b => b.addEventListener("click", () => { ttSel = b.dataset.s; renderTimetable(); }));
+  inner.querySelectorAll("[data-f]").forEach(b => b.addEventListener("click", () => { ttFil = b.dataset.f; const l = TIMETABLES.filter(x => x.f === ttFil); if (!l.some(x => x.s === ttSel)) ttSel = l[0].s; renderTimetable(); }));
   addBackButton(inner);
   window.scrollTo(0, 0);
 }
@@ -2424,8 +2442,8 @@ function buildSearchIndex() {
   MEDS.forEach(m => add("Médicaments", m.name, m.brands || "", allStrings(Object.entries(m).filter(([k]) => !["id", "icon", "tag", "g", "name", "brands"].includes(k)).map(e => e[1])).join(" "), () => { openPage("Médicaments"); renderMedicaments(m.id); }));
   REGLEMENT.chapters.forEach(c => c.arts.forEach(a => add("Règlement intérieur", "Article " + a.n, "Chapitre " + c.n + " · " + c.t, a.p.join(" "), () => { openPage("Règlement intérieur"); renderReglement(a.n); })));
   TIMETABLES.forEach(tt => TT_DAYS.forEach((day, i) => (tt.days[day] || []).forEach(c => add("Emploi du temps", c.t,
-    "Semestre " + tt.s.slice(1) + " · " + day + " " + ttDate(tt.start, i).toLocaleDateString("fr-FR", { day: "numeric", month: "short" }) + " · " + c.h, c.p || "",
-    () => { openPage("Emploi du temps"); ttSel = tt.s; renderTimetable(); }))));
+    tt.f + " · Semestre " + tt.s.slice(1) + " · " + day + " " + ttDate(tt.start, i).toLocaleDateString("fr-FR", { day: "numeric", month: "short" }) + " · " + c.h, c.p || "",
+    () => { openPage("Emploi du temps"); ttFil = tt.f; ttSel = tt.s; renderTimetable(); }))));
   ATLAS_INFO.forEach(i => add("Atlas d'anatomie", i.name, (ATLAS_LAYERS.find(l => l[0] === i.layer) || [0, i.layer])[1], i.desc, () => { openPage("Atlas anatomie"); renderAtlas(i.id); }));
   [SIM_GANTS, SIM_PANS, SIM_ECG, SIM_IM].forEach(sim => sim.steps.forEach(st => add("Simulations", sim.title, st.name,
     allStrings([st.say, st.hint, st.ok, st.opts]).join(" "), () => { openPage("TP Simulation"); SIMX = sim; renderSimBrief(); })));
@@ -3637,7 +3655,7 @@ let stageCtx = null;
 // =====================================
 // MÉDICAMENTS
 // =====================================
-const MED_CATS = ["Antalgiques", "Antibiotiques", "Anticoagulants", "Cœur et reins", "Urgences", "Anesthésie", "Diabète", "Corticoïdes", "Digestif", "Respiratoire", "Allergie", "Obstétrique", "Perfusions"];
+const MED_CATS = ["Antalgiques", "Antibiotiques", "Anticoagulants", "Cœur et reins", "Urgences", "Anesthésie", "Diabète", "Corticoïdes", "Digestif", "Respiratoire", "Allergie", "Obstétrique", "Neurologie", "Psychiatrie", "Endocrinologie", "Vaccins", "Antiseptiques", "Perfusions"];
 const MED_DISCLAIMER = "Informations générales d'aide à l'apprentissage. En stage : ne jamais administrer sans prescription, vérifier le médicament, la dose, la voie, l'heure et l'identité du patient, et suivre le protocole du service (ou le VIDAL).";
 const MEDS = [
   { id: "paracetamol", name: "Paracétamol", brands: "Doliprane®, Efferalgan®, Perfalgan® (IV)", cat: "Antalgiques", icon: "pill", tag: "PO/IV", g: ["#14b8a6", "#0ea5e9"],
@@ -4079,7 +4097,175 @@ const MEDS = [
     surv: ["Évaluer l'efficacité sur les symptômes (éternuements, démangeaisons)", "Prudence en cas d'insuffisance hépatique sévère", "Signaler somnolence ou maux de tête"],
     ci: ["Allergie à la loratadine"],
     ei: ["Maux de tête", "Bouche sèche", "Somnolence (rare)", "Fatigue"],
-    astuce: "Moins sédatif que les anciens antihistaminiques, mais prévenir le patient en cas de conduite." }
+    astuce: "Moins sédatif que les anciens antihistaminiques, mais prévenir le patient en cas de conduite." },
+  { id: "flucloxacilline", name: "Flucloxacilline (cloxacilline)", brands: "Floxapen® (selon disponibilité)", cat: "Antibiotiques", icon: "syringe", tag: "PO/IV", g: ["#10b981", "#84cc16"],
+    classe: "Antibiotique, pénicilline M (antistaphylococcique)", voies: "Orale · IV",
+    indic: ["Infections à staphylocoque sensible à la méticilline (peau, tissus mous, os, articulations)"],
+    poso: "Selon prescription : par exemple 500 mg à 1 g toutes les 6 heures par voie orale (à distance des repas) ; doses plus élevées en IV pour les infections sévères.",
+    surv: ["Rechercher une allergie aux bêta-lactamines avant la première dose", "Voie orale : prendre à jeun, une heure avant ou deux heures après le repas", "IV : veine irritante, surveiller phlébite et point de perfusion", "Surveiller diarrhée et signes d'atteinte du foie (jaunisse) en traitement prolongé"],
+    ci: ["Allergie aux pénicillines", "Antécédent d'atteinte hépatique avec ce médicament"],
+    ei: ["Diarrhée, nausées", "Éruption cutanée, urticaire", "Phlébite (IV)", "Atteinte du foie (rare)"],
+    astuce: "Antibiotique ciblé sur le staphylocoque : respecter la durée prescrite." },
+  { id: "ampicilline", name: "Ampicilline", brands: "Ampicilline injectable", cat: "Antibiotiques", icon: "syringe", tag: "IV/IM", g: ["#0d9488", "#22d3ee"],
+    classe: "Antibiotique, aminopénicilline (bêta-lactamine)", voies: "IV · IM · Orale",
+    indic: ["Infections ORL, respiratoires, urinaires, digestives sensibles", "Méningite et septicémie à germes sensibles (par exemple Listeria, selon prescription)"],
+    poso: "Selon prescription : souvent 1 à 2 g toutes les 4 à 6 heures par voie IV, selon l'infection et la fonction rénale.",
+    surv: ["Rechercher une allergie aux bêta-lactamines avant la première dose", "IV : injection lente ou perfusion, selon la préparation prescrite", "Surveiller éruption cutanée et diarrhée", "Adapter la dose en insuffisance rénale (sur prescription)"],
+    ci: ["Allergie aux pénicillines", "Mononucléose infectieuse (risque d'éruption)"],
+    ei: ["Diarrhée, nausées", "Éruption cutanée", "Réaction allergique grave (rare)"],
+    astuce: "Préparer juste avant l'administration : la solution ne se conserve pas." },
+  { id: "ceftazidime", name: "Ceftazidime", brands: "Fortum®", cat: "Antibiotiques", icon: "syringe", tag: "IV/IM", g: ["#6366f1", "#8b5cf6"],
+    classe: "Antibiotique, céphalosporine de 3e génération active sur le pyocyanique", voies: "IV (perfusion) · IM",
+    indic: ["Infections graves à Pseudomonas et à Gram négatif", "Infections de l'hôpital, patient neutropénique (selon prescription)"],
+    poso: "Selon prescription : souvent 1 à 2 g toutes les 8 heures, adapté à la fonction rénale.",
+    surv: ["Rechercher une allergie aux bêta-lactamines avant la première dose", "Surveiller la fonction rénale (adapter la dose si insuffisance rénale)", "Surveiller confusion ou convulsions (doses élevées en insuffisance rénale)", "Surveiller diarrhée"],
+    ci: ["Allergie aux céphalosporines", "Allergie sévère aux pénicillines (risque croisé)"],
+    ei: ["Diarrhée, nausées", "Éruption cutanée", "Douleur au point d'injection", "Troubles neurologiques en cas d'accumulation (insuffisance rénale)"],
+    astuce: "Sans adaptation en insuffisance rénale, le risque de confusion et de convulsions augmente." },
+  { id: "amikacine", name: "Amikacine", brands: "Amiklin®", cat: "Antibiotiques", icon: "syringe", tag: "IV/IM", g: ["#f59e0b", "#ef4444"],
+    classe: "Antibiotique, aminoside", voies: "IV (perfusion) · IM",
+    indic: ["Infections sévères à germes Gram négatif résistants (souvent en association)"],
+    poso: "Selon prescription : dose calculée en mg/kg selon le poids (souvent en une injection par jour, perfusion de 30 minutes).",
+    surv: ["Surveiller créatinine, diurèse et hydratation", "Surveiller audition et équilibre (bourdonnements, vertiges)", "Dosage sanguin résiduel selon prescription", "Prudence en association avec diurétiques de l'anse ou autres médicaments toxiques pour le rein"],
+    ci: ["Allergie aux aminosides", "Myasthénie", "Insuffisance rénale sévère (adaptation de dose)"],
+    ei: ["Atteinte des reins (néphrotoxicité)", "Atteinte de l'oreille interne (surdité, vertiges)", "Faiblesse musculaire"],
+    astuce: "Toxicité rénale et auditive : signaler tout bourdonnement, vertige ou baisse de la diurèse." },
+  { id: "methylprednisolone", name: "Méthylprednisolone", brands: "Solumédrol®", cat: "Corticoïdes", icon: "flask", tag: "IV/IM", g: ["#f43f5e", "#fb923c"],
+    classe: "Corticoïde injectable d'action rapide", voies: "IV · IM",
+    indic: ["Poussées sévères de maladies inflammatoires et auto-immunes", "Allergie sévère, asthme aigu grave (en complément)", "Œdème et compression de la moelle (selon prescription)"],
+    poso: "Dose très variable selon l'indication (de 40 mg à 1 g par jour) : toujours selon prescription. IV lente pour les doses modérées, perfusion pour les fortes doses.",
+    surv: ["Surveiller glycémie, tension artérielle, poids", "Surveiller signes d'infection, humeur, sommeil", "IV : injection lente (au moins 3 minutes) ; forte dose : perfusion de 30 à 60 minutes", "Ne jamais arrêter brutalement un traitement prolongé"],
+    ci: ["Infection non contrôlée (hors indication spécifique)", "Vaccins vivants (forte dose ou traitement prolongé)", "Prudence : diabète, hypertension, ulcère, psychose"],
+    ei: ["Hyperglycémie", "Rétention d'eau, hypertension", "Insomnie, excitation", "Troubles du rythme (bolus rapide de forte dose)"],
+    astuce: "Fortes doses : perfusion lente et surveillance du scope selon protocole." },
+  { id: "dopamine", name: "Dopamine", brands: "Ampoule (50 mg)", cat: "Urgences", icon: "pulse", tag: "IV", g: ["#ef4444", "#f97316"],
+    classe: "Catécholamine (vasopresseur et inotrope)", voies: "IV (perfusion continue au pousse-seringue)",
+    indic: ["Choc avec hypotension (cardiogénique ou septique, selon protocole)", "Bradycardie résistante (selon prescription)"],
+    poso: "Dose en µg/kg/min, calculée selon le poids et le protocole du service, adaptée à la tension artérielle et à la diurèse. Réglage du débit sous responsabilité médicale.",
+    surv: ["Surveillance continue : scope, tension artérielle, fréquence cardiaque, diurèse", "Voie veineuse de bon calibre, surveiller le point de perfusion (extravasation = nécrose)", "Vérifier la concentration de la seringue et le débit (double vérification)", "Ne pas interrompre brutalement"],
+    ci: ["Phéochromocytome", "Tachyarythmie non corrigée", "Fibrillation ventriculaire"],
+    ei: ["Tachycardie, arythmies", "Hypertension", "Nausées, maux de tête", "Nécrose si extravasation"],
+    astuce: "Une extravasation peut abîmer la peau : surveillez la voie en continu et prévenez le médecin." },
+  { id: "dobutamine", name: "Dobutamine", brands: "Ampoule (250 mg)", cat: "Urgences", icon: "pulse", tag: "IV", g: ["#ec4899", "#8b5cf6"],
+    classe: "Catécholamine inotrope (augmente la force du cœur)", voies: "IV (perfusion continue au pousse-seringue)",
+    indic: ["Insuffisance cardiaque aiguë, choc cardiogénique"],
+    poso: "Dose en µg/kg/min (souvent 2,5 à 20), calculée selon le poids, adaptée à la réponse clinique. Prescription et réglage du débit médicaux.",
+    surv: ["Surveillance continue : scope, tension artérielle, fréquence cardiaque", "Surveiller douleur thoracique, palpitations, arythmies", "Vérifier la concentration et le débit (double vérification)", "Ne pas interrompre brutalement ni administrer en bolus"],
+    ci: ["Sténose aortique serrée ou cardiomyopathie obstructive", "Allergie aux sulfites (selon préparation)", "Tachyarythmie non contrôlée"],
+    ei: ["Tachycardie, arythmies", "Palpitations, maux de tête", "Hypertension ou hypotension", "Nausées"],
+    astuce: "Ne pas mélanger avec des solutions alcalines (bicarbonate) dans la même ligne." },
+  { id: "haloperidol", name: "Halopéridol", brands: "Haldol®", cat: "Psychiatrie", icon: "pill", tag: "PO/IM", g: ["#6366f1", "#0ea5e9"],
+    classe: "Neuroleptique (antipsychotique)", voies: "Orale (gouttes, comprimé) · IM",
+    indic: ["Agitation aiguë, états psychotiques", "Délire et agitation chez le sujet âgé (avec prudence)", "Nausées et vomissements rebelles (selon prescription)"],
+    poso: "Agitation aiguë (adulte) : par exemple 5 mg IM, à répéter selon prescription ; 2,5 mg chez la personne âgée. Selon prescription uniquement.",
+    surv: ["Surveiller conscience, tension artérielle et pouls", "Surveiller raideur, tremblements, mouvements anormaux (syndrome extrapyramidal)", "Rechercher fièvre élevée avec rigidité musculaire (syndrome malin des neuroleptiques) : urgence", "ECG si possible (allongement du QT)"],
+    ci: ["Maladie de Parkinson", "Coma, dépression du système nerveux central", "Allongement du QT connu", "Allergie à l'halopéridol"],
+    ei: ["Somnolence, tremblements, raideur", "Mouvements involontaires (dyskinésies)", "Hypotension orthostatique", "Allongement du QT, troubles du rythme"],
+    astuce: "Fièvre avec rigidité musculaire : arrêter et alerter immédiatement." },
+  { id: "phenobarbital", name: "Phénobarbital", brands: "Gardénal®", cat: "Neurologie", icon: "pill", tag: "PO/IV", g: ["#8b5cf6", "#6366f1"],
+    classe: "Barbiturique anticonvulsivant", voies: "Orale · IV lente · IM",
+    indic: ["Épilepsie (crises généralisées et partielles)", "État de mal épileptique (selon protocole)"],
+    poso: "Selon prescription : dose d'entretien souvent 50 à 150 mg par jour par voie orale ; état de mal : dose de charge IV selon protocole.",
+    surv: ["Surveiller conscience, fréquence respiratoire, tension artérielle", "IV : injection lente, matériel de ventilation à proximité", "Demander les autres médicaments (nombreuses interactions : il diminue l'effet de beaucoup d'autres)", "Ne jamais arrêter brutalement"],
+    ci: ["Insuffisance respiratoire sévère", "Porphyrie", "Insuffisance hépatique ou rénale sévère", "Allergie aux barbituriques"],
+    ei: ["Somnolence, ralentissement", "Dépression respiratoire (IV)", "Éruption cutanée", "Dépendance, troubles de la mémoire"],
+    astuce: "Arrêt brutal : risque de crises convulsives." },
+  { id: "carbamazepine", name: "Carbamazépine", brands: "Tégrétol®", cat: "Neurologie", icon: "pill", tag: "PO", g: ["#0d9488", "#14b8a6"],
+    classe: "Antiépileptique", voies: "Orale",
+    indic: ["Épilepsie partielle et généralisée", "Névralgie du trijumeau", "Troubles de l'humeur (selon prescription)"],
+    poso: "Selon prescription : début à faible dose (par exemple 200 mg par jour) augmentée progressivement ; dose d'entretien souvent 400 à 1 200 mg par jour en 2 à 3 prises.",
+    surv: ["Surveiller éruption cutanée (alerter immédiatement : risque de réaction grave)", "Surveiller vertiges, double vision, troubles de l'équilibre", "Bilan : sodium, numération des globules, fonction hépatique selon prescription", "Vérifier les interactions (nombreux médicaments)", "Ne jamais arrêter brutalement"],
+    ci: ["Bloc auriculo-ventriculaire", "Atteinte de la moelle osseuse, porphyrie", "Association à certains médicaments (IMAO)", "Allergie à la carbamazépine ou aux antidépresseurs tricycliques"],
+    ei: ["Vertiges, somnolence, double vision", "Nausées", "Hyponatrémie", "Éruption cutanée, atteinte grave de la peau (rare)", "Baisse des globules"],
+    astuce: "Éruption cutanée au début du traitement : arrêt et avis médical sans attendre." },
+  { id: "valproate", name: "Valproate de sodium", brands: "Dépakine®", cat: "Neurologie", icon: "pill", tag: "PO/IV", g: ["#f59e0b", "#fb7185"],
+    classe: "Antiépileptique", voies: "Orale · IV",
+    indic: ["Épilepsie généralisée et partielle", "Troubles de l'humeur (bipolarité, selon prescription)"],
+    poso: "Selon prescription : dose calculée selon le poids (souvent 20 à 30 mg/kg/jour), en 2 prises.",
+    surv: ["Surveiller la fonction hépatique et les plaquettes selon prescription", "Signaler fatigue intense, vomissements, douleurs abdominales, jaunisse", "Surveiller tremblements et prise de poids", "Femme en âge de procréer : contraception efficace obligatoire (risque de malformations)"],
+    ci: ["Grossesse (sauf absence d'alternative)", "Maladie du foie, antécédent d'hépatite grave", "Maladie mitochondriale", "Allergie au valproate"],
+    ei: ["Nausées, tremblements", "Prise de poids, chute de cheveux", "Atteinte du foie, pancréatite (rares)", "Baisse des plaquettes"],
+    astuce: "Risque majeur de malformations et de troubles du développement du bébé en cas de grossesse." },
+  { id: "chlorpromazine", name: "Chlorpromazine", brands: "Largactil®", cat: "Psychiatrie", icon: "pill", tag: "PO/IM", g: ["#ec4899", "#8b5cf6"],
+    classe: "Neuroleptique sédatif (phénothiazine)", voies: "Orale · IM",
+    indic: ["Agitation, états psychotiques", "Hoquet rebelle, nausées rebelles (selon prescription)"],
+    poso: "Selon prescription : par exemple 25 à 100 mg par voie IM ou orale, plusieurs fois par jour selon l'état clinique.",
+    surv: ["IM : patient allongé, surveiller la tension artérielle (risque de chute brutale)", "Surveiller conscience, pouls, tension artérielle", "Surveiller raideur, tremblements, mouvements anormaux", "Protéger la peau du soleil"],
+    ci: ["Glaucome à angle fermé", "Rétention urinaire, adénome de la prostate", "Coma, dépression respiratoire", "Allergie aux phénothiazines"],
+    ei: ["Somnolence", "Hypotension orthostatique", "Bouche sèche, constipation, rétention d'urine", "Sensibilité de la peau au soleil", "Mouvements anormaux"],
+    astuce: "Après une injection IM, laisser le patient allongé 30 minutes puis le lever progressivement." },
+  { id: "levothyroxine", name: "Lévothyroxine", brands: "Levothyrox®", cat: "Endocrinologie", icon: "pill", tag: "PO", g: ["#14b8a6", "#6366f1"],
+    classe: "Hormone thyroïdienne de synthèse", voies: "Orale",
+    indic: ["Hypothyroïdie", "Traitement après chirurgie de la thyroïde"],
+    poso: "Selon prescription : dose individuelle (souvent environ 1,6 µg/kg/jour), à adapter selon la TSH.",
+    surv: ["Prendre le matin à jeun, 30 minutes avant le petit-déjeuner, avec de l'eau", "Espacer d'au moins 4 heures de calcium, fer, antiacides", "Contrôle de la TSH 6 à 8 semaines après tout changement de dose", "Signaler palpitations, tremblements, amaigrissement, nervosité (surdosage)"],
+    ci: ["Hyperthyroïdie non traitée", "Angor instable, infarctus récent", "Insuffisance surrénale non traitée"],
+    ei: ["Palpitations, tremblements, nervosité (surdosage)", "Amaigrissement, diarrhée", "Troubles du sommeil", "Chez la personne âgée : douleur thoracique"],
+    astuce: "Traitement à vie en général : ne pas arrêter ni changer de marque sans avis médical." },
+  { id: "tranexamique", name: "Acide tranexamique", brands: "Exacyl®", cat: "Urgences", icon: "drop", tag: "IV/PO", g: ["#ef4444", "#ec4899"],
+    classe: "Antifibrinolytique (arrête les saignements)", voies: "IV lente · Orale",
+    indic: ["Hémorragie traumatique ou chirurgicale", "Hémorragie du post-partum", "Saignements gynécologiques abondants (selon prescription)"],
+    poso: "Hémorragie : 1 g en IV lente sur 10 minutes, à répéter selon protocole, le plus tôt possible. Autres indications selon prescription.",
+    surv: ["IV lente (environ 1 mL par minute) : une injection rapide peut faire chuter la tension artérielle", "Surveiller saignement, tension artérielle, pouls", "Rechercher signes de thrombose (douleur d'un mollet, essoufflement)", "Adapter la dose en insuffisance rénale (sur prescription)"],
+    ci: ["Thrombose veineuse ou artérielle active", "Antécédent de convulsions", "Allergie à l'acide tranexamique", "Hématurie d'origine rénale (prudence)"],
+    ei: ["Nausées, diarrhée", "Hypotension (injection rapide)", "Convulsions (fortes doses)", "Thrombose (rare)"],
+    astuce: "Plus il est donné tôt après le début d'un saignement important, plus il est efficace." },
+  { id: "ipratropium", name: "Ipratropium (bromure)", brands: "Atrovent®", cat: "Respiratoire", icon: "wind", tag: "INH", g: ["#0ea5e9", "#6366f1"],
+    classe: "Bronchodilatateur anticholinergique inhalé", voies: "Nébulisation · Aérosol-doseur",
+    indic: ["Crise d'asthme aiguë (en association avec le salbutamol)", "BPCO, bronchospasme (selon prescription)"],
+    poso: "Nébulisation : en général 0,5 mg à répéter selon la gravité, selon prescription ou protocole d'urgence.",
+    surv: ["Mesurer fréquence respiratoire, SpO₂, pouls avant et après", "Nébulisation avec masque : protéger les yeux du brouillard (glaucome, vue floue)", "Surveiller bouche sèche et rétention d'urine", "Absence d'amélioration : alerter"],
+    ci: ["Allergie à l'ipratropium ou à l'atropine", "Glaucome à angle fermé (prudence)", "Rétention urinaire, adénome de la prostate (prudence)"],
+    ei: ["Bouche sèche", "Toux, irritation", "Vision floue si contact avec les yeux", "Palpitations (rares)"],
+    astuce: "Utiliser un masque bien ajusté ou un embout buccal pour éviter le contact avec les yeux." },
+  { id: "beclometasone", name: "Béclométasone", brands: "Bécotide® (selon disponibilité)", cat: "Respiratoire", icon: "wind", tag: "INH", g: ["#10b981", "#06b6d4"],
+    classe: "Corticoïde inhalé (traitement de fond de l'asthme)", voies: "Inhalée (aérosol-doseur)",
+    indic: ["Traitement de fond de l'asthme persistant", "BPCO (selon prescription)"],
+    poso: "Selon prescription : souvent 1 à 2 bouffées de 250 µg, deux fois par jour (à adapter).",
+    surv: ["Utiliser une chambre d'inhalation si possible", "Rincer la bouche après chaque prise (limite le muguet et l'enrouement)", "Ne traite pas la crise aiguë : un bronchodilatateur d'action rapide est nécessaire", "Vérifier la technique d'inhalation"],
+    ci: ["Allergie à la béclométasone", "Crise d'asthme aiguë (non adapté)"],
+    ei: ["Raucité de la voix, enrouement", "Candidose buccale (muguet)", "Toux à l'inhalation", "Retard de croissance (forte dose chez l'enfant)"],
+    astuce: "Effet progressif : le patient doit continuer le traitement même sans symptômes." },
+  { id: "fluconazole", name: "Fluconazole", brands: "Triflucan®", cat: "Antibiotiques", icon: "pill", tag: "PO/IV", g: ["#f59e0b", "#ec4899"],
+    classe: "Antifongique (azolé)", voies: "Orale · IV",
+    indic: ["Candidoses (bouche, œsophage, vagin, systémiques)", "Cryptococcose et mycoses profondes (selon prescription)"],
+    poso: "Selon prescription : de 50 à 400 mg par jour selon l'infection ; candidose vaginale : 150 mg en prise unique.",
+    surv: ["Surveiller la fonction hépatique en traitement prolongé", "Vérifier les interactions (anticoagulants, antiépileptiques, médicaments qui allongent le QT)", "Perfusion IV : respecter le débit prescrit", "Éviter pendant la grossesse sans avis médical"],
+    ci: ["Allergie aux azolés", "Association à des médicaments qui allongent le QT (sauf avis médical)", "Grossesse (en général éviter)"],
+    ei: ["Nausées, maux de tête", "Éruption cutanée", "Élévation des transaminases", "Allongement du QT (rare)"],
+    astuce: "Nombreuses interactions médicamenteuses : toujours vérifier la liste des traitements du patient." },
+  { id: "aciclovir", name: "Aciclovir", brands: "Zovirax®", cat: "Antibiotiques", icon: "syringe", tag: "PO/IV", g: ["#6366f1", "#14b8a6"],
+    classe: "Antiviral (herpès, zona, varicelle)", voies: "Orale · IV (perfusion) · Locale",
+    indic: ["Herpès (labial, génital, encéphalite)", "Zona et varicelle (selon prescription)"],
+    poso: "Selon prescription : orale 200 à 800 mg plusieurs fois par jour ; IV 5 à 10 mg/kg toutes les 8 heures en perfusion d'au moins 1 heure.",
+    surv: ["Bien hydrater le patient (risque de cristaux dans les reins)", "IV : perfusion lente, jamais en bolus, surveiller le point de perfusion (irritant)", "Surveiller créatinine et diurèse", "Surveiller confusion, tremblements (surtout en insuffisance rénale)"],
+    ci: ["Allergie à l'aciclovir ou au valaciclovir", "Insuffisance rénale sévère (adaptation de dose)"],
+    ei: ["Nausées, maux de tête", "Atteinte des reins (IV)", "Phlébite au point de perfusion", "Confusion, tremblements (doses élevées)"],
+    astuce: "Hydratation importante : l'aciclovir peut abîmer les reins s'il est administré sans boire assez." },
+  { id: "vat", name: "Vaccin antitétanique (VAT)", brands: "Vaccin antitétanique adulte", cat: "Vaccins", icon: "syringe", tag: "IM", g: ["#14b8a6", "#6366f1"],
+    classe: "Vaccin contre le tétanos (anatoxine tétanique)", voies: "IM profonde (deltoïde)",
+    indic: ["Prévention du tétanos (vaccination et rappels)", "Prévention après une plaie, selon le statut vaccinal"],
+    poso: "Dose habituelle : 0,5 mL en IM. Schéma et rappels selon le calendrier national de vaccination et le statut du patient ; en cas de plaie, la conduite (vaccin et parfois sérum) est décidée par le médecin.",
+    surv: ["Rechercher l'état vaccinal (carnet) et toute allergie avant la vaccination", "Injection IM profonde dans le deltoïde, matériel d'urgence disponible", "Surveiller le patient 15 à 30 minutes après la vaccination", "Noter lot, date et site d'injection dans le carnet", "Conserver entre +2 °C et +8 °C, ne pas congeler"],
+    ci: ["Réaction allergique grave à une dose précédente ou à un composant", "Fièvre aiguë importante (reporter la vaccination)"],
+    ei: ["Douleur, rougeur ou gonflement au point d'injection", "Fièvre légère, fatigue", "Réaction allergique grave (très rare)"],
+    astuce: "Plaie à risque : le statut vaccinal décide si un rappel ou un sérum antitétanique est nécessaire." },
+  { id: "povidone", name: "Povidone iodée", brands: "Bétadine®", cat: "Antiseptiques", icon: "drop", tag: "Local", g: ["#f59e0b", "#ef4444"],
+    classe: "Antiseptique à base d'iode", voies: "Cutanée · Muqueuse (selon présentation)",
+    indic: ["Désinfection de la peau avant injection, ponction, chirurgie", "Désinfection des plaies, lavage chirurgical des mains (solution moussante)"],
+    poso: "Solution dermique (jaune ou rouge, 10 %) : appliquer sur peau propre et laisser sécher avant le geste ; solution moussante (4 %) pour le lavage des mains ou de la peau. Selon protocole du service.",
+    surv: ["Respecter le temps de contact et laisser sécher complètement", "Ne pas mélanger avec un autre antiseptique", "Rechercher allergie à l'iode et troubles thyroïdiens", "Éviter chez le nouveau-né et la femme enceinte ou allaitante sauf avis médical"],
+    ci: ["Allergie à l'iode ou à la povidone", "Hyperthyroïdie ou troubles de la thyroïde (usage répété)", "Nouveau-né (en pratique, éviter)"],
+    ei: ["Irritation, brûlure de la peau", "Réaction allergique", "Coloration brune de la peau et du linge", "Troubles thyroïdiens (usage répété sur de grandes surfaces)"],
+    astuce: "Laisser sécher la peau avant le geste : l'antiseptique agit pendant le séchage." },
+  { id: "chlorhexidine", name: "Chlorhexidine", brands: "Chlorhexidine® · Biseptine®", cat: "Antiseptiques", icon: "drop", tag: "Local", g: ["#0ea5e9", "#14b8a6"],
+    classe: "Antiseptique (biguanide)", voies: "Cutanée",
+    indic: ["Désinfection de la peau et des plaies", "Antisepsie avant geste (solution alcoolique, selon protocole)"],
+    poso: "Solution à 0,5 % (aqueuse ou alcoolique) : appliquer sur peau propre, laisser sécher. Selon protocole du service.",
+    surv: ["Rincer abondamment le savon avant d'appliquer (certains savons inactivent la chlorhexidine)", "Ne pas utiliser sur les yeux, l'oreille moyenne ou le cerveau", "Solution alcoolique : attention au feu (électrocautère)", "Laisser sécher avant le geste"],
+    ci: ["Allergie à la chlorhexidine", "Application dans l'œil ou l'oreille moyenne", "Peau lésée étendue (selon présentation)"],
+    ei: ["Irritation, rougeur de la peau", "Réaction allergique (rare mais grave)", "Brûlure si usage alcoolique avec électrocautère"],
+    astuce: "Ne pas mélanger avec du savon ordinaire et ne jamais l'appliquer dans l'œil." }
 ];
 const BRANDS = [
   { n: "Doliprane", p: "comprimé 500 mg / 1 g", m: "paracetamol", l: "Sanofi", c: "Paracétamol 500 mg ou 1 g" },
@@ -4142,14 +4328,28 @@ const BRANDS = [
   { n: "Adalate", p: "capsule · comprimé à libération prolongée", m: "nifedipine", l: "Bayer", c: "Nifédipine" },
   { n: "Duphalac", p: "solution buvable (sirop · sachet)", m: "lactulose", l: "", c: "Lactulose" },
   { n: "Syntocinon", p: "solution injectable 5 / 10 UI", m: "oxytocine", l: "", c: "Oxytocine" },
-  { n: "Clarityne", p: "comprimé 10 mg · sirop", m: "loratadine", l: "", c: "Loratadine 10 mg" }
+  { n: "Clarityne", p: "comprimé 10 mg · sirop", m: "loratadine", l: "", c: "Loratadine 10 mg" },
+  { n: "Fortum", p: "poudre pour injection IV / IM", m: "ceftazidime", l: "", c: "Ceftazidime" },
+  { n: "Amiklin", p: "solution injectable", m: "amikacine", l: "", c: "Amikacine (sulfate)" },
+  { n: "Solumédrol", p: "poudre et solvant pour injection IV / IM", m: "methylprednisolone", l: "Pfizer", c: "Méthylprednisolone (succinate)" },
+  { n: "Haldol", p: "solution buvable · solution injectable", m: "haloperidol", l: "Janssen", c: "Halopéridol" },
+  { n: "Gardénal", p: "comprimé · solution injectable", m: "phenobarbital", l: "Sanofi", c: "Phénobarbital" },
+  { n: "Tégrétol", p: "comprimé · comprimé LP · suspension buvable", m: "carbamazepine", l: "Novartis", c: "Carbamazépine" },
+  { n: "Dépakine", p: "comprimé · sirop · solution injectable", m: "valproate", l: "Sanofi", c: "Valproate de sodium" },
+  { n: "Largactil", p: "comprimé · solution injectable", m: "chlorpromazine", l: "Sanofi", c: "Chlorpromazine" },
+  { n: "Levothyrox", p: "comprimé (plusieurs dosages)", m: "levothyroxine", l: "Merck", c: "Lévothyroxine sodique" },
+  { n: "Exacyl", p: "comprimé · solution injectable 500 mg/5 mL", m: "tranexamique", l: "Sanofi", c: "Acide tranexamique" },
+  { n: "Atrovent", p: "solution pour nébulisation · aérosol-doseur", m: "ipratropium", l: "Boehringer Ingelheim", c: "Ipratropium (bromure)" },
+  { n: "Triflucan", p: "gélule · solution pour perfusion", m: "fluconazole", l: "Pfizer", c: "Fluconazole" },
+  { n: "Zovirax", p: "comprimé · suspension buvable · poudre pour perfusion · crème", m: "aciclovir", l: "GSK", c: "Aciclovir" },
+  { n: "Bétadine", p: "solution dermique 10 % · solution moussante 4 %", m: "povidone", l: "", c: "Povidone iodée" }
 ];
 const BRAND_NOTE = "Marques et présentations commercialisées au Maroc, relevées dans des répertoires publics (liste non exhaustive). La composition indiquée est celle de la substance active : vérifiez toujours la boîte ou la notice.";
 let medCtx = { q: "", cat: "Tous", tab: "fiches", form: "Tous" };
 // Liste nationale (LNME 2019) : nom (DCI) | formes disponibles. Retranscrite à partir du PDF officiel.
 const MED_FORMS = { c: "Comprimé / gélule", i: "Injectable", s: "Sirop / buvable", u: "Suppositoire", t: "Crème / pommade", o: "Collyre / oreille", h: "Inhalation", g: "Gynécologique", a: "Autre" };
 const LNME = "ABACAVIR|c;ABACAVIR + LAMIVUDINE|c;ACENOCOUMAROL|c;ACETAZOLAMIDE|c;ACETYL SALICYLATE (SEL)|s;ACETYL SALICYLATE DE LYSINE|s;ACICLOVIR|cist;ACIDE ACETYLSALICYLIQUE|c;ACIDE ALENDRONIQUE|c;ACIDE FOLIQUE|c;ACIDE FUSIDIQUE|ct;ACIDE GADOTERIQUE|i;ACIDE IBANDRONIQUE|i;ACIDE TRANEXAMIQUE|ci;ACIDE ZOLEDRONIQUE|i;ACTINOMYCINE|i;ADALIMUMAB|i;ALBENDAZOLE|cs;ALBUMINE HUMAINE|i;ALLOPURINOL|c;ALPHACALCIDOL|c;ALPRAZOLAM|c;AMBROXOL|s;AMIKACINE|i;AMIODARONE|ci;AMISULPRIDE|c;AMITRIPTYLINE|cs;AMLODIPINE|c;AMOXICILLINE|ci;AMOXICILLINE + ACIDE CLAVULANIQUE|cis;AMPHOTERICINE B|is;AMPHOTERICINE B LIPOSOMALE|i;AMPICILLINE|i;ANASTROZOLE|c;ANTIHEMORROIDAIRE|tu;ANTIMONIATE DE MEGLUMINE|i;ANTITOXINE BOTULIQUE EQUINE|i;ARTEMETHER + UMEFANTRINE|c;ARTESUNATE|i;ARTICAINE (CHLORHYDRATE)|i;ATAZANAVIR + RITONAVIR|c;ATOVAQUONE + PROGUANIL|c;ATROPINE|i;AZATHIOPRINE|c;AZITHROMYCINE|cos;BARYUM (SULFATE)|s;BECLOMETASONE|h;BEDAQUILINE|c;BENZATHINE BENZYLPENICILLINE|i;BENZOATE DE BENZYL + SULFIRAM|t;BENZYLPENICILLINE|i;BETAMETHASONE|ist;BETAMETHASONE + ACIDE SALICYLIQUE|t;BETAMETHASONE DIPROPIONATE|t;BETASITOSTEROL|t;BEVACIZUMAB|i;BICTEGRAVIR + TENOFOVIR + EMTRICITABINE|c;BISACODYL|c;BISOPROLOL|c;BLEOMYCINE|i;BUDESONIDE|h;BUPIVACAINE|i;BUPRENORPHINE|c;CAFEINE CITRATE|i;CALCIPOTRIOL + BETAMETHASONE|t;CALCIUM CARBONATE|s;CALCIUM GLUCONATE|i;CAPECITABINE|c;CAPREOMYCINE|i;CAPTOPRIL|c;CARBAMAZEPINE|cs;CARBIMAZOLE|c;CARBOCISTEINE|s;CARBOPLATINE|i;CARVEDILOL|c;CEFACLOR|c;CEFAZOLINE|i;CEFIPIME|i;CEFIXIME|c;CEFTAZIDIME|i;CEFTRIAXONE|i;CEFUROXIME|i;CETUXIMAB|i;CHARBON ACTIF|a;CHARBON ACTIF OU VEGETAL SIMPLE OU ASSOCIE|c;CHLORHEXIDINE (DIGLUCONATE)|a;CHLOROQUINE|c;CHLORPROMAZINE|ci;CHLORTETRACYCLINE|t;CHOLECALCIFEROL|i;CHOLECALCIFEROL (VIT D3) + CARBONATE DE CALCIUM|c;CICLOSPORINE|c;CIPROFLOXACINE|cio;CISATRACURIUM|i;CISPLATINE|i;CLARITHROMYCINE|c;CLOBAZAM|c;CLOBETASOL|t;CLOFAZIMINE|c;CLOMIFENE|c;CLOMIPRAMINE|c;CLOPIDOGREL|c;CLOTRIMAZOLE|ct;CLOZAPINE|c;CODEINE CAMPHOSULFONATE|cs;CODEINE OU CODETHYLINE OU PHOLCODINE|s;COLCHICINE|c;COLISTINE|i;COLLARGOL|t;CYCLOPENTOLATE|o;CYCLOPHOSPHAMIDE|i;CYCLOSERINE|c;CYTARABINE|i;DACARBAZINE|i;DACLATASVIR|c;DANTROLENE|i;DAPSONE + OXALATE DE FER|c;DARUNAVIR|c;DAUNORUBICINE|i;DEFERASIROX|c;DEFERIPRONE|c;DELANAMID|c;DESLORATADINE|cs;DEXAMETHASONE|cit;DEXTROMETHORPHANE (BROMHYDRATE)|s;DIAZEPAM|ci;DICLOFENAC|ciu;DIGOXINE|cs;DILTIAZEM LP|c;DIOSMECTITE|s;DIOSMINE|c;DIOXYDE DE CARBONE MEDICAL|a;DOBUTAMINE|i;DOCETAXEL|i;DOLUTEGRAVIR|c;DOMPERIDONE|s;DOPAMINE|i;DOXORUBICINE|i;DOXYCYCLINE|cs;EAU POUR PREPARATION INJECTABLE|i;ECONAZOLE|gt;EFAVIRENZ|c;ELBASVIR + GRAZOPREVIR|c;ENALAPRIL|c;ENOXAPARINE|i;EOSINE SODIQUE AQUEUSE|a;EPHEDRINE|i;EPINEPHRINE (ADRENALINE)|i;EPIRUBICINE|i;EPOETINE|i;ERTAPENEME|i;ERYTHROMYCINE|cs;ERYTHROMYCINE ALCOOLISEE|t;ESCITALOPRAM|c;ETAMBUTOL|c;ETAMSYLATE|ci;ETANERCEPT|i;ETHINYLOESTRADIOL + PROGESTATIF|c;ETHIONAMIDE|c;ETOMIDATE|i;ETONOGESTREL|a;ETOPOSIDE|ci;ETRAVIRINE|c;FACTEUR ANTIHEMOPHILIQUE VIII|a;FENTANYL|ci;FER (SELS FERREUX)|ci;FILGRASTIM|i;FLUCLOXACILLINE|ci;FLUCONAZOLE|ci;FLUCYTOSINE|ci;FLUDARABINE|c;FLUMAZENIL|i;FLUORESCEINE SODIQUE|i;FLUOXETINE|c;FLUPHENAZINE DECANOATE|i;FLUTICASONE|h;FLUTICASONE + SALMETEROL|h;FOLINATE DE CALCIUM|i;FOMEPIZOLE|i;FORMOTEROL LP|s;FUROSEMIDE|ci;GABAPENTINE|c;GANCICLOVIR|i;GEMCITABINE|i;GENTAMICINE|io;GLICLAZIDE|c;GLIMEPIRIDE|c;GLUCAGON|i;GLUCOSE|i;GLUCOSE + CHLORURE DE SODIUM|i;GRISEOFULVINE|cst;HALOPERIDOL|is;HALOTHANE|s;HEPARINATE DE SODIUM|i;HYDROCHLOROTHIAZIDE|c;HYDROCORTISONE|cit;HYDROXIDE FERRIQUE|s;HYDROXOCOBALAMINE|i;HYDROXYCARBAMIDE|c;HYDROXYCHLOROQUINE|c;HYDROXYDE D'ALUMINIUM ET DE MAGNESIUM|s;HYDROXYDE FERRIQUE|s;HYDROXYZINE|ci;HYOSCINE BUTYLE BROMURE|ci;IBUPROFENE|cs;IFOSFAMIDE|i;IMATINIB|c;IMIPENEM + CILASTATINE|i;IMMUNOGLOBULINE HUMAINE ANTI-D|i;IMMUNOGLOBULINES HUMAINES|i;INDAPAMIDE|c;INDOMETACINE|o;INFLIXIMAB|i;INSULINE GLARGINE OU DETEMIR|i;INSULINE HUMAINE A ACTION INTERMEDIAIRE MIXTE|i;INSULINE HUMAINE A ACTION INTERMEDIAIRE SIMPLE|i;INSULINE HUMAINE A ACTION RAPIDE|i;INTERFERON BETA|i;IOPROMIDE OU EQUIVALENT|i;IPRATROPIUM (BROMURE)|h;IRBESARTAN|c;IRINOTECAN|i;ISOFLURANE|h;ISONIAZIDE|c;ISOSORBIDE (DI-NITRATE)|c;ISOSORBIDE (MONO-NITRATE)|c;ISOTRETINOINE|c;KANAMYCINE|i;KETAMINE|i;KETOPROFENE|ci;L-ASPARAGINASE|i;L-CARNITINE|i;LACTULOSE|s;LAMIVUDINE|cs;LAMOTRIGINE|c;LATANOPROST|o;LETROZOLE|c;LEVODOPA + BENSERAZIDE|c;LEVOFLOXACINE|ci;LEVOFOLINATE DE CALCIUM|i;LEVOMEPROMAZINE|ci;LEVONORGESTREL|c;LEVOTHYROXINE SODIQUE|c;LIDOCAINE|ist;LIDOCAINE (CHLORHYDRATE) OU MEPIVACAINE|i;LIDOCAINE + EPINEPHRINE (ADRENALINE)|i;LIDOCAINE DE CONTACT|a;LIDOCAINE OU TETRACAINE (CHLORHYDRATE) + CETRIMIDE|h;LINEZOLIDE|c;LISPRO OU ASPARTE OU GLULISINE|i;LITHIUM (CARBONATE)|c;LOPERAMIDE|c;LOPINAVIR + RITONAVIR|cs;LORATADINE|cs;LORAZEPAM|c;LOSARTAN|c;MACROGOL|s;MAGNESIUM SULFATE|i;MANNITOL|i;MEBENDAZOLE|c;MEDROXYPROGESTERONE ACETATE|ci;MELPHALAN|i;MEQUITAZINE|s;MERCAPTOPURINE|c;MESALAZINE|csu;MESNA|i;METFORMINE|c;METHADONE (CHLORHYDRATE)|cs;METHOTREXATE|ci;METHYLDOPA|c;METHYLERGOMETRINE|i;METHYLPREDNISOLONE|i;METHYLTHIONINIUM (CHLORURE)|i;METOCLOPRAMIDE|cisu;METOPIMAZINE|su;METRONIDAZOLE|cgis;MICONAZOLE|t;MIDAZOLAM|i;MIRTAZAPINE|c;MISOPROSTOL|c;MORPHINE|ci;MOXIFLOXACINE|ci;MUPIROCINE|t;N-ACETYLCYSTEINE|i;NADROPARINE|i;NALOXONE (CHLORHYDRATE)|i;NEFOPAM|i;NEOMYCINE + POLYMYXINE + DEXAMETHASONE|t;NEOSTIGMINE|i;NEVIRAPINE|cs;NICARDIPINE|ci;NICLOSAMIDE|c;NIFEDIPINE|c;NIFUROXAZIDE|cs;NITROFURANTOINE|c;NITROXOLINE|c;NORADRENALINE|i;NORETHISTERONE (ENANTHATE)|i;NYSTATINE|cs;OCTREOTIDE|i;OFLOXACINE|co;OLANZAPINE|c;OMEPRAZOLE|ci;ONDANSETRON|ci;OSELTAMIVIR|c;OXALIPLATINE|i;OXYBUPROCAINE|o;OXYGENE MEDICAL|h;OXYTETRACYCLINE + DEXAMETHASONE POMMADE|t;OXYTOCINE|i;PACLITAXEL|i;PANITUMUMAB|i;PARA-AMINO-SALICYLATE SODIQUE|s;PARACETAMOL|cisu;PARACETAMOL + CODEINE|c;PAROXETINE|c;PEGFILGRASTIM|i;PEROXYDE DE BENZOYLE|t;PHENOBARBITAL|ci;PHENOXYMETHYLPENICILLINE|cs;PHENYTOINE|c;PHYTOMENADIONE|i;PILOCARPINE|o;PHLOROGLUCINOL + TRIMETHYLPHLOROGLUCINOL|iu;PIPOTHIAZINE (PALMITATE)|i;POLYVIDONE IODEE|t;POTASSIUM (CHLORURE)|ci;POTASSIUM (GLUCONATE)|s;PRALIDOXIME (METHYLSULFATE)|i;PRAZIQUANTEL|c;PREDNISOLONE|cs;PREGABALINE|c;PRIMAQUINE|c;PROGESTATIF PUR (MICRODOSE)|c;PROGESTERONE|c;PROMETHAZINE|i;PROPOFOL|i;PROPRANOLOL|ci;PROTAMINE (SULFATE)|i;PROTHIONAMIDE|c;PROTOXYDE D'AZOTE MEDICAL|h;PYRANTEL|cs;PYRAZINAMIDE|c;PYRIDOSTIGMINE|c;PYRIDOXINE|c;PYRIDOXINE (VIT B6)|c;RALTEGRAVIR|c;RAMIPRIL|c;RANITIDINE|ci;RIBAVIRINE|c;RIFABUTINE|c;RIFAMPICINE|cs;RIFAMPICINE + CLOFAZIMINE + DDS|c;RIFAMPICINE + DDS|c;RIFAMPICINE + ISONIAZIDE|c;RIFAMPICINE + ISONIAZIDE + ETHAMBUTOL|c;RIFAMPICINE + ISONIAZIDE + PYRAZINAMIDE (RHZ)|c;RISPERIDONE|c;RITONAVIR|c;RITUXIMAB|i;ROCURONIUM BROMURE|i;SALBUTAMOL|hi;SECUKINUMAB|i;SERTRALINE|c;SERUM ANTI-TETANIQUE|i;SERUM ANTIVIPERIN|i;SEVELAMER|c;SEVOFLURANE|h;SIMVASTATINE|c;SODIUM BICARBONATE|i;SODIUM CHLORURE|i;SOFOSBUVIR|c;SOFOSBUVIR + VELPATASVIR|c;SPECTINOMYCINE|i;SPIRAMYCINE|cs;SPIRAMYCINE + METRONIDAZOLE|c;SPIRONOLACTONE|c;STREPTOKINASE|i;STREPTOMYCINE|i;SUCCIMER|c;SUFENTANIL|i;SUGAMMADEX|i;SULFADIAZINE ARGENTIQUE|t;SULFAMETHOXAZOLE + TRIMETHOPRIME|cs;SULFASALAZINE|c;SULPROSTONE|i;TAMOXIFENE|c;TEMOZOLOMIDE|c;TENECTEPLASE|i;TENOFOVIR + DOLUTEGRAVIR|c;TENOFOVIR ALAFENAMIDE + EMTRICITABINE|c;TENOFOVIR DISOPROXIL + EMTRICITABINE|c;TENOFOVIR DISOPROXIL FUMARATE|c;TERBINAFINE|ct;TESTOSTERONE|i;TETRACYCLINE|c;THALIDOMIDE|c;THIAMINE (VIT B1)|c;THIAMINE + PYRIDOXINE + CYANOCOBALAMINE|c;THIAMPHENICOL|ci;THIOCOLCHICOSIDE|i;TIEMONIUM SIMPLE|isu;TIGECYCLINE|i;TIMOLOL|o;TINZAPARINE|i;TIOTROPIUM|c;TOBRAMYCINE|o;TOBRAMYCINE + DEXAMETHASONE|o;TOCILIZUMAB|i;TRAMADOL|cisu;TRAMADOL + PARACETAMOL|c;TRASTUZUMAB|i;TRETINOINE|t;TRIHEXYPHENIDYLE|c;TRIMEBUTINE|cs;TRINITRINE|h;TROLAMINE|t;TROPICAMIDE|o;TUBERCULINE|i;ULIPRISTAL (ACETATE)|c;VACCIN ANTI-BCG (TUBERCULOSE)|i;VACCIN ANTI-DTC|i;VACCIN ANTI-DTC-HIB-HB (PENTAVALENT)|i;VACCIN ANTI-PNEUMOCOCCIQUE|i;VACCIN ANTI-POLIO INACTIVE|i;VACCIN ANTI-POLIO ORAL|s;VACCIN ANTIGRIPPAL|i;VACCIN ANTIRABIQUE|i;VACCIN ANTITETANIQUE ADULTE|i;VACCIN CONTRE FIEVRE JAUNE|i;VACCIN CONTRE L'HEPATITE B|i;VACCIN CONTRE LA ROUGEOLE ET LA RUBEOLE|i;VALPROATE DE SODIUM|cs;VANCOMYCINE|i;VASELINE OFFICINALE BLANCHE|t;VENLAFAXINE|c;VINBLASTINE|i;VINCRISTINE|i;VINORELBINE|ci;VITAMINE A|c;VORICONAZOLE|ci;XYLOMETAZOLINE|h;ZIDOVUDINE|s;ZIDOVUDINE + LAMIVUDINE|c;ZINC|c;ZINC (SULFATE)|c".split(";").map(x => { const [n, f] = x.split("|"); return { n, f }; });
-const LNME_LINK = { "PARACETAMOL": "paracetamol", "IBUPROFENE": "ibuprofene", "TRAMADOL": "tramadol", "MORPHINE": "morphine", "AMOXICILLINE": "amoxicilline", "AMOXICILLINE + ACIDE CLAVULANIQUE": "augmentin", "CEFTRIAXONE": "ceftriaxone", "ENOXAPARINE": "enoxaparine", "FUROSEMIDE": "furosemide", "OMEPRAZOLE": "omeprazole", "METOCLOPRAMIDE": "metoclopramide", "SALBUTAMOL": "salbutamol", "SODIUM CHLORURE": "nacl", "GLUCOSE": "glucose5", "KETOPROFENE": "ketoprofene", "DICLOFENAC": "diclofenac", "ACIDE ACETYLSALICYLIQUE": "aspirine", "ACETYL SALICYLATE DE LYSINE": "aspirine", "PHLOROGLUCINOL + TRIMETHYLPHLOROGLUCINOL": "phloroglucinol", "AMLODIPINE": "amlodipine", "CAPTOPRIL": "captopril", "BISOPROLOL": "bisoprolol", "AMIODARONE": "amiodarone", "EPINEPHRINE (ADRENALINE)": "adrenaline", "ATROPINE": "atropine", "CIPROFLOXACINE": "ciprofloxacine", "GENTAMICINE": "gentamicine", "METRONIDAZOLE": "metronidazole", "AZITHROMYCINE": "azithromycine", "METFORMINE": "metformine", "GLICLAZIDE": "gliclazide", "DEXAMETHASONE": "dexamethasone", "HYDROCORTISONE": "hydrocortisone", "DIAZEPAM": "diazepam", "NALOXONE (CHLORHYDRATE)": "naloxone", "HEPARINATE DE SODIUM": "heparine", "GLUCAGON": "glucagon", "MIDAZOLAM": "midazolam", "KETAMINE": "ketamine", "LIDOCAINE": "lidocaine", "MAGNESIUM SULFATE": "magnesium", "PROPOFOL": "propofol", "ONDANSETRON": "ondansetron", "PREDNISOLONE": "prednisolone", "SPIRONOLACTONE": "spironolactone", "ENALAPRIL": "enalapril", "NIFEDIPINE": "nifedipine", "CEFAZOLINE": "cefazoline", "VANCOMYCINE": "vancomycine", "POTASSIUM (CHLORURE)": "kcl", "NORADRENALINE": "noradrenaline", "FENTANYL": "fentanyl", "LACTULOSE": "lactulose", "OXYTOCINE": "oxytocine", "LORATADINE": "loratadine" };
+const LNME_LINK = { "PARACETAMOL": "paracetamol", "IBUPROFENE": "ibuprofene", "TRAMADOL": "tramadol", "MORPHINE": "morphine", "AMOXICILLINE": "amoxicilline", "AMOXICILLINE + ACIDE CLAVULANIQUE": "augmentin", "CEFTRIAXONE": "ceftriaxone", "ENOXAPARINE": "enoxaparine", "FUROSEMIDE": "furosemide", "OMEPRAZOLE": "omeprazole", "METOCLOPRAMIDE": "metoclopramide", "SALBUTAMOL": "salbutamol", "SODIUM CHLORURE": "nacl", "GLUCOSE": "glucose5", "KETOPROFENE": "ketoprofene", "DICLOFENAC": "diclofenac", "ACIDE ACETYLSALICYLIQUE": "aspirine", "ACETYL SALICYLATE DE LYSINE": "aspirine", "PHLOROGLUCINOL + TRIMETHYLPHLOROGLUCINOL": "phloroglucinol", "AMLODIPINE": "amlodipine", "CAPTOPRIL": "captopril", "BISOPROLOL": "bisoprolol", "AMIODARONE": "amiodarone", "EPINEPHRINE (ADRENALINE)": "adrenaline", "ATROPINE": "atropine", "CIPROFLOXACINE": "ciprofloxacine", "GENTAMICINE": "gentamicine", "METRONIDAZOLE": "metronidazole", "AZITHROMYCINE": "azithromycine", "METFORMINE": "metformine", "GLICLAZIDE": "gliclazide", "DEXAMETHASONE": "dexamethasone", "HYDROCORTISONE": "hydrocortisone", "DIAZEPAM": "diazepam", "NALOXONE (CHLORHYDRATE)": "naloxone", "HEPARINATE DE SODIUM": "heparine", "GLUCAGON": "glucagon", "MIDAZOLAM": "midazolam", "KETAMINE": "ketamine", "LIDOCAINE": "lidocaine", "MAGNESIUM SULFATE": "magnesium", "PROPOFOL": "propofol", "ONDANSETRON": "ondansetron", "PREDNISOLONE": "prednisolone", "SPIRONOLACTONE": "spironolactone", "ENALAPRIL": "enalapril", "NIFEDIPINE": "nifedipine", "CEFAZOLINE": "cefazoline", "VANCOMYCINE": "vancomycine", "POTASSIUM (CHLORURE)": "kcl", "NORADRENALINE": "noradrenaline", "FENTANYL": "fentanyl", "LACTULOSE": "lactulose", "OXYTOCINE": "oxytocine", "LORATADINE": "loratadine", "FLUCLOXACILLINE": "flucloxacilline", "AMPICILLINE": "ampicilline", "CEFTAZIDIME": "ceftazidime", "AMIKACINE": "amikacine", "METHYLPREDNISOLONE": "methylprednisolone", "DOPAMINE": "dopamine", "DOBUTAMINE": "dobutamine", "HALOPERIDOL": "haloperidol", "PHENOBARBITAL": "phenobarbital", "CARBAMAZEPINE": "carbamazepine", "VALPROATE DE SODIUM": "valproate", "CHLORPROMAZINE": "chlorpromazine", "LEVOTHYROXINE SODIQUE": "levothyroxine", "ACIDE TRANEXAMIQUE": "tranexamique", "IPRATROPIUM (BROMURE)": "ipratropium", "BECLOMETASONE": "beclometasone", "FLUCONAZOLE": "fluconazole", "ACICLOVIR": "aciclovir", "VACCIN ANTITETANIQUE ADULTE": "vat", "POLYVIDONE IODEE": "povidone", "CHLORHEXIDINE (DIGLUCONATE)": "chlorhexidine" };
 const medLinkId = n => LNME_LINK[n] || (n.startsWith("INSULINE") ? "insuline" : null);
 const medTitle = n => { const t = n.toLowerCase(); return t.charAt(0).toUpperCase() + t.slice(1); };
 const medUl = a => `<ul class="med-ul">${a.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
