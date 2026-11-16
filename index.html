@@ -1092,6 +1092,9 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .mx-stats b{display:block;font-family:'Outfit',sans-serif;font-size:22px;color:var(--navy)}.mx-stats span{font-size:12px;color:var(--muted)}
 .mx-bar{display:grid;grid-template-columns:minmax(120px,1.3fr) 2fr 24px;gap:8px;align-items:center;font-size:12px;color:var(--navy);margin:5px 0}
 .mx-bar i{display:block;height:8px;background:#e8edf2;border-radius:6px;overflow:hidden}.mx-bar u{display:block;height:100%;background:var(--teal);border-radius:6px}.mx-bar b{text-align:right}
+.mx-warn{background:#fff4e5;border:1px solid #f0c27a;border-radius:12px;padding:12px 14px;margin:0 0 14px;font-size:13px;line-height:1.6;color:#6a4b12}
+.mx-warn.red{background:#fdecea;border-color:#e8a29b;color:#7a1f16}.mx-warn ul{margin:6px 0 0;padding-left:18px}
+.mx-img{display:block;max-width:100%;border-radius:12px;margin-top:8px}
 </style>
 </head>
 
@@ -2374,7 +2377,76 @@ Enceinte|7amla|État d'une femme qui porte un enfant.|Grossesse
 Accouchement|wilada|Naissance de l'enfant.|Grossesse
 Règles|dora|Saignement mensuel du cycle menstruel.|Grossesse
 Allaitement|rda3a|Alimentation du nouveau-né par le lait de sa mère.|Grossesse
-Césarienne|9aysaria|Accouchement par une incision chirurgicale de l'abdomen et de l'utérus.|Grossesse`.split("\n").map(l => { const [fr, dj, def, cat] = l.split("|"); return { fr, dj, def, cat }; });
+Césarienne|9aysaria|Accouchement par une incision chirurgicale de l'abdomen et de l'utérus.|Grossesse
+Tachycardie|9alb kaydeq b sor3a|Fréquence cardiaque supérieure à 100 battements par minute au repos.|Symptômes
+Bradycardie|9alb kaydeq b bot2|Fréquence cardiaque inférieure à 60 battements par minute.|Symptômes
+Apnée|tawa9of nfas|Arrêt de la respiration.|Symptômes
+Cyanose|lon azra9 f jild w chfayef|Coloration bleutée de la peau due à un manque d'oxygène.|Symptômes
+Hématurie|dem f boul|Présence de sang dans les urines.|Symptômes
+Hémoptysie|so3al b dem|Crachat de sang venant des poumons.|Symptômes
+Hématémèse|tqeyya2 dem|Vomissement de sang.|Symptômes
+Épistaxis|nzif f lmankhar|Saignement de nez.|Symptômes
+Polyurie|bzaf dyal boul|Émission excessive d'urine.|Symptômes
+Dysurie|wja3 mnin kayboul|Douleur ou difficulté à uriner.|Symptômes
+Oligurie|boul qlil|Diminution du volume d'urine émis.|Symptômes
+Anurie|ma kayboulch|Absence d'urine.|Symptômes
+Dysphagie|s3ouba f lbel3|Difficulté à avaler.|Symptômes
+Ascite|lma f lkerch|Accumulation de liquide dans l'abdomen.|Symptômes
+Convulsions|tchnnoj|Contractions musculaires involontaires et brusques.|Symptômes
+Coma|ghyboba|Perte profonde de conscience, sans réponse aux stimulations.|Symptômes
+Paralysie|chlal|Perte de la capacité de bouger un muscle.|Symptômes
+Hypoxie|na9s f l'oxijin|Manque d'oxygène dans les tissus.|Symptômes
+Hypotension orthostatique|dwkha mnin kat'wa9ef|Baisse de la tension en passant à la position debout.|Symptômes
+Ischémie|na9s f dem f 3odw|Apport sanguin insuffisant dans un organe.|Symptômes
+Déshydratation|jfaf|Perte excessive d'eau et de sels minéraux.|Symptômes
+Embolie pulmonaire|jalta f rria|Obstruction d'une artère du poumon par un caillot.|Pathologies
+Thrombose (phlébite)|jalta f lwarid|Formation d'un caillot dans une veine.|Pathologies
+Insuffisance cardiaque|d3f f l9alb|Incapacité du cœur à pomper assez de sang.|Pathologies
+Angine de poitrine|wja3 f sder 3end l'effort|Douleur thoracique due à un manque d'oxygène du cœur.|Pathologies
+Œdème aigu du poumon|lma f rria|Accumulation brutale de liquide dans les poumons.|Pathologies
+BPCO|marad dyal rria mzmen|Maladie chronique des bronches, souvent liée au tabac.|Pathologies
+Tuberculose|sel|Infection bactérienne contagieuse touchant surtout les poumons.|Pathologies
+Hépatite|iltihab f kbda|Inflammation du foie.|Pathologies
+Cirrhose|tlif f kbda|Fibrose avancée et irréversible du foie.|Pathologies
+Appendicite|iltihab f zayda dodiya|Inflammation de l'appendice.|Pathologies
+Péritonite|iltihab f ghcha2 lkerch|Inflammation du péritoine, souvent grave.|Pathologies
+Gastro-entérite|iltihab f m3ida w lma3i|Infection digestive avec diarrhée et vomissements.|Pathologies
+Ulcère gastrique|jer7 f m3ida|Plaie de la paroi de l'estomac.|Pathologies
+Hernie|fte9|Passage d'un organe à travers une paroi qui le contient.|Pathologies
+Pyélonéphrite|iltihab f lkoula|Infection du rein.|Pathologies
+Cystite|iltihab f mtana|Infection de la vessie.|Pathologies
+Épilepsie|sra3|Maladie avec crises convulsives répétées.|Pathologies
+Méningite|iltihab f ghcha2 lmokh|Inflammation des méninges, urgence médicale.|Pathologies
+Hypothyroïdie|na9s f ghodda dar9iya|Production insuffisante d'hormones thyroïdiennes.|Pathologies
+Arthrose|wja3 f lmfassel (roumatizm)|Usure du cartilage des articulations.|Pathologies
+Ostéoporose|hchacha f l3dem|Fragilité des os due à une perte de densité osseuse.|Pathologies
+Gale|jreb|Maladie parasitaire de la peau, très contagieuse, avec démangeaisons.|Pathologies
+Leucémie|sartan dyal dem|Cancer des cellules du sang.|Pathologies
+Septicémie|tsemmom f dem|Infection généralisée à partir du sang.|Pathologies
+Choc anaphylactique|7sassiya khatira|Réaction allergique grave et brutale, menace vitale.|Pathologies
+Artère|chryan|Vaisseau qui part du cœur et transporte le sang vers les organes.|Anatomie
+Veine|wrid|Vaisseau qui ramène le sang vers le cœur.|Anatomie
+Diaphragme|7ijab 7ajiz|Muscle respiratoire qui sépare le thorax de l'abdomen.|Anatomie
+Œsophage|mri2|Tube qui conduit les aliments de la gorge à l'estomac.|Anatomie
+Rate|ta7al|Organe qui filtre le sang et participe à l'immunité.|Anatomie
+Vésicule biliaire|mrara|Petite poche qui stocke la bile.|Anatomie
+Intestin|lma3i|Partie du tube digestif qui absorbe les nutriments et l'eau.|Anatomie
+Sondage vésical|sonda f mtana|Introduction d'une sonde dans la vessie, en conditions stériles.|Soins
+Oxygénothérapie|oxijin|Administration d'oxygène à un patient.|Soins
+Intubation|7ett anbub f l9sba|Mise en place d'un tube dans la trachée pour ventiler.|Soins
+Hémodialyse|tasfiya dyal dem|Épuration du sang par un rein artificiel.|Soins
+Biopsie|akhd 3ayna mn tissu|Prélèvement d'un petit fragment de tissu pour l'analyser.|Examens
+Endoscopie|fa7s b camera|Examen de l'intérieur d'un organe avec une caméra.|Examens
+Radiographie|radio|Image des os et organes avec des rayons X.|Examens
+Électrocardiogramme (ECG)|tasjil dyal l9alb|Enregistrement de l'activité électrique du cœur.|Examens
+Antibiotique|antibiotik|Médicament qui détruit les bactéries (inefficace contre les virus).|Médicaments
+Antalgique|mossakkin|Médicament contre la douleur.|Médicaments
+Anticoagulant|mmiye3 dyal dem|Médicament qui fluidifie le sang et évite les caillots.|Médicaments
+Diurétique|dwa kaybouwwel|Médicament qui augmente l'élimination d'urine.|Médicaments
+Antipyrétique|dwa dyal skhana|Médicament qui fait baisser la fièvre.|Médicaments
+Vaccin|tel9i7|Préparation qui stimule l'immunité contre une maladie.|Médicaments
+Pré-éclampsie|dghta 3aliya f l7amal|Hypertension de la grossesse avec protéines dans les urines, risque de convulsions.|Grossesse
+Fausse couche|tsqat|Arrêt spontané de la grossesse avant 22 semaines d'aménorrhée.|Grossesse`.split("\n").map(l => { const [fr, dj, def, cat] = l.split("|"); return { fr, dj, def, cat }; });
 
 function renderDico() {
   const cats = ["Tous", ...new Set(DICO.map(d => d.cat))];
@@ -2484,51 +2556,102 @@ function renderConcours() {
 // ---------- 4. Carnet de stage intelligent ----------
 const CARNET_COMP = ["Hygiène et asepsie", "Prise de constantes", "Injections et perfusions", "Pansements et plaies", "Prélèvements", "Administration des médicaments", "Communication avec le patient", "Éducation thérapeutique", "Transmissions et dossier", "Gestion des urgences"];
 function renderCarnet() {
-  const key = "ish_carnet_" + mxUid(), d = lsGet(key, { e: [], o: [] }), save = () => lsSet(key, d), today = new Date().toISOString().slice(0, 10);
-  const inner = mxPage("Carnet de stage", "Notez vos activités, difficultés, compétences acquises et objectifs. Le carnet analyse votre progression.", `
+  const key = "ish_carnet_" + mxUid(), d = Object.assign({ e: [], o: [], c: [], h: [], n: [] }, lsGet(key, {})), today = new Date().toISOString().slice(0, 10);
+  const save = () => { try { localStorage.setItem(key, JSON.stringify(d)); return true; } catch (e) { return false; } };
+  const comps = () => CARNET_COMP.filter(c => !d.h.includes(c)).concat(d.c);
+  let img = null;
+  const inner = mxPage("Carnet de stage", "Votre carnet personnel : vous choisissez vos objectifs, vos compétences et vos notes.", `
+    <div class="mx-warn"><strong>Secret professionnel</strong> : n'écrivez jamais le nom d'un patient, son numéro de dossier ni aucune information qui permet de l'identifier. <em>Mamnou3 tektb smiyat l'mardha wla chi ma3loumat 3lihom.</em></div>
     <div id="cnStats"></div>
+    <div class="mx-card"><h3>Mes objectifs</h3><p class="search-hint">Vous définissez vous-même vos objectifs de stage. Aucun objectif n'est imposé.</p>
+      <div class="mx-row"><input id="cnObjT" type="text" placeholder="Ex : réaliser 5 prises de tension seul"><button class="primary-btn" type="button" id="cnObjAdd">Ajouter</button></div><div id="cnObjList"></div></div>
     <div class="mx-card"><h3>Nouvelle activité</h3>
       <div class="mx-row"><label>Date<input id="cnDate" type="date" value="${today}"></label><label>Service ou lieu de stage<input id="cnLieu" type="text" placeholder="Ex : Médecine, Urgences…"></label></div>
       <label class="mx-block">Activités réalisées<textarea id="cnAct" rows="3" placeholder="Ex : prise des constantes, pansement d'une plaie opératoire…"></textarea></label>
-      <label class="mx-block">Difficultés rencontrées<textarea id="cnDif" rows="2" placeholder="Ex : difficulté à repérer la veine, stress devant le patient…"></textarea></label>
-      <div class="mx-block">Compétences pratiquées</div><div class="mx-chk" id="cnComp">${CARNET_COMP.map((c, i) => `<label class="mx-check"><input type="checkbox" data-k="${i}"> ${esc(c)}</label>`).join("")}</div>
+      <label class="mx-block">Difficultés rencontrées<textarea id="cnDif" rows="2" placeholder="Ex : difficulté à repérer la veine, stress…"></textarea></label>
+      <div class="mx-block">Compétences pratiquées (vous pouvez ajouter ou retirer les vôtres)</div><div class="mx-chk" id="cnComp"></div>
+      <div class="mx-row"><input id="cnNewComp" type="text" placeholder="Ajouter votre propre compétence"><button class="tt-chip" type="button" id="cnCompAdd">Ajouter</button></div>
       <div class="mx-block">Objectifs atteints aujourd'hui</div><div class="mx-chk" id="cnObjPick"></div>
       <button class="primary-btn" type="button" id="cnAdd">Enregistrer dans le carnet</button><p class="cm-err" id="cnErr"></p></div>
-    <div id="cnBody"></div>
-    <p class="search-hint">Votre carnet est enregistré sur cet appareil. Utilisez « Copier le résumé » pour le partager avec votre encadrant.</p>`);
+    <div id="cnAnalysis"></div>
+    <div class="mx-card"><h3>Mes notes</h3>
+      <div class="mx-warn red"><strong>Photos et secret professionnel</strong><ul>
+        <li>Ne photographiez jamais un patient, même de dos ou en partie.</li>
+        <li>Jamais de nom, bracelet, étiquette, dossier, ordonnance, écran ou planning avec des noms.</li>
+        <li>Possible : un schéma, du matériel seul, vos propres annotations, avec l'accord du service.</li>
+        <li>Beaucoup d'établissements interdisent les photos : demandez à votre encadrant. <em>Ila chekkiti, ma tsawwarch.</em></li></ul></div>
+      <label class="mx-block">Titre (facultatif)<input id="ntT" type="text"></label>
+      <label class="mx-block">Note<textarea id="ntX" rows="4" placeholder="Points à retenir, rappel d'une technique, question à poser à l'encadrant…"></textarea></label>
+      <label class="mx-check"><input type="checkbox" id="ntOk"> Je confirme que la photo ne montre aucun patient, aucun visage, aucun nom ni aucun dossier, et que le service m'y autorise.</label>
+      <div class="mx-row"><button class="tt-chip" type="button" id="ntPhoto" disabled>Ajouter une photo (facultatif)</button><input id="ntFile" type="file" accept="image/*" hidden></div>
+      <div id="ntPrev"></div>
+      <button class="primary-btn" type="button" id="ntAdd">Enregistrer la note</button><p class="cm-err" id="ntErr"></p><div id="cnNoteList"></div></div>
+    <div id="cnHist"></div>
+    <p class="search-hint">Votre carnet est enregistré sur cet appareil uniquement. Utilisez « Copier le résumé » pour le partager avec votre encadrant.</p>`);
   const $ = id => inner.querySelector("#" + id);
   const stop = new Set("dans pour avec cette comme leur mais plus tout très aussi être avoir fait faire suis sont était mon mes pas sur par une des les que qui nous vous elle".split(" "));
-  const pickObj = () => { $("cnObjPick").innerHTML = d.o.length ? d.o.map(o => `<label class="mx-check"><input type="checkbox" data-o="${esc(o.id)}"> ${esc(o.t)}</label>`).join("") : `<span class="search-hint">Ajoutez d'abord vos objectifs plus bas.</span>`; };
+  const drawComp = () => {
+    const keep = [...inner.querySelectorAll("#cnComp :checked")].map(c => c.dataset.k);
+    $("cnComp").innerHTML = comps().map(c => `<label class="mx-check"><input type="checkbox" data-k="${esc(c)}" ${keep.includes(c) ? "checked" : ""}> ${esc(c)} <button type="button" class="cm-del" data-crm="${esc(c)}" title="Retirer de ma liste">×</button></label>`).join("") +
+      (d.h.length ? `<button type="button" class="dx-link" id="cnReset">Remettre les compétences retirées</button>` : "");
+    inner.querySelectorAll("[data-crm]").forEach(b => b.addEventListener("click", e => { e.preventDefault(); const c = b.dataset.crm; if (CARNET_COMP.includes(c)) d.h.push(c); else d.c = d.c.filter(x => x !== c); save(); drawComp(); draw(); }));
+    const r = $("cnReset"); if (r) r.addEventListener("click", () => { d.h = []; save(); drawComp(); draw(); });
+  };
+  const drawObj = () => {
+    const keep = [...inner.querySelectorAll("#cnObjPick :checked")].map(c => c.dataset.o);
+    $("cnObjList").innerHTML = d.o.length ? d.o.map(o => `<label class="mx-check"><input type="checkbox" data-od="${esc(o.id)}" ${o.ok ? "checked" : ""}> ${esc(o.t)} <button type="button" class="cm-del" data-orm="${esc(o.id)}">Supprimer</button></label>`).join("") : `<span class="search-hint">Aucun objectif pour l'instant : ajoutez le vôtre.</span>`;
+    $("cnObjPick").innerHTML = d.o.length ? d.o.map(o => `<label class="mx-check"><input type="checkbox" data-o="${esc(o.id)}" ${keep.includes(o.id) ? "checked" : ""}> ${esc(o.t)}</label>`).join("") : `<span class="search-hint">Ajoutez d'abord vos objectifs.</span>`;
+    inner.querySelectorAll("[data-od]").forEach(c => c.addEventListener("change", () => { d.o.find(o => o.id === c.dataset.od).ok = c.checked; save(); drawObj(); draw(); }));
+    inner.querySelectorAll("[data-orm]").forEach(b => b.addEventListener("click", e => { e.preventDefault(); d.o = d.o.filter(o => o.id !== b.dataset.orm); save(); drawObj(); draw(); }));
+  };
   const draw = () => {
-    const comp = CARNET_COMP.map(c => ({ c, n: d.e.filter(x => x.k.includes(c)).length })), max = Math.max(1, ...comp.map(x => x.n));
+    const cl = comps(), comp = cl.map(c => ({ c, n: d.e.filter(x => x.k.includes(c)).length })), max = Math.max(1, ...comp.map(x => x.n));
     const week = d.e.filter(x => (Date.now() - new Date(x.date)) / 864e5 <= 7), freq = {};
     d.e.forEach(x => (x.d || "").toLowerCase().split(/[^a-zàâçéèêëîïôûùüÿœ]+/).filter(w => w.length > 4 && !stop.has(w)).forEach(w => { freq[w] = (freq[w] || 0) + 1; }));
     const rec = Object.entries(freq).filter(([, n]) => n >= 2).sort((a, b) => b[1] - a[1]).slice(0, 5).map(x => x[0]), weak = comp.filter(x => !x.n).map(x => x.c), oks = d.o.filter(x => x.ok).length;
     const summary = `Résumé de la semaine\nActivités enregistrées : ${week.length}\nCompétences pratiquées : ${[...new Set(week.flatMap(x => x.k))].join(", ") || "aucune"}\nDifficultés : ${week.map(x => x.d).filter(Boolean).join(" | ") || "aucune"}\nObjectifs atteints : ${oks}/${d.o.length}`;
-    $("cnStats").innerHTML = `<div class="mx-stats"><div><b>${d.e.length}</b><span>Activités</span></div><div><b>${comp.filter(x => x.n).length}/${CARNET_COMP.length}</b><span>Compétences</span></div><div><b>${oks}/${d.o.length}</b><span>Objectifs</span></div></div>`;
-    $("cnBody").innerHTML = `
-      <div class="mx-card"><h3>Mes objectifs</h3><div class="mx-row"><input id="cnObjT" type="text" placeholder="Ex : réaliser 5 prises de tension seul"><button class="primary-btn" type="button" id="cnObjAdd">Ajouter</button></div>
-        ${d.o.map(o => `<label class="mx-check"><input type="checkbox" data-od="${esc(o.id)}" ${o.ok ? "checked" : ""}> ${esc(o.t)} <button type="button" class="cm-del" data-orm="${esc(o.id)}">Supprimer</button></label>`).join("")}</div>
-      <div class="mx-card"><h3>Compétences et analyse</h3>${comp.map(x => `<div class="mx-bar"><span>${esc(x.c)}</span><i><u style="width:${x.n / max * 100}%"></u></i><b>${x.n}</b></div>`).join("")}
-        <div class="mx-res">${weak.length ? `<strong>À travailler :</strong> ${esc(weak.slice(0, 4).join(", "))}. Demandez à votre encadrant des occasions de les pratiquer.` : "<strong>Toutes les compétences ont été pratiquées.</strong> Continuez à consolider."}${rec.length ? `<br><strong>Mots récurrents dans vos difficultés :</strong> ${esc(rec.join(", "))}. Pensez à en parler avec l'encadrant ou à revoir la fiche technique correspondante.` : ""}</div>
-        <button class="tt-chip" type="button" id="cnCopy">Copier le résumé de la semaine</button></div>
-      <div class="mx-card"><h3>Historique</h3>${d.e.length ? [...d.e].sort((a, b) => b.date.localeCompare(a.date)).map(x => `<div class="cm-item"><div class="cm-head"><span><strong>${esc(new Date(x.date).toLocaleDateString("fr-FR", { day: "numeric", month: "short" }))}</strong> · ${esc(x.lieu || "")}</span><button class="cm-del" type="button" data-del="${esc(x.id)}">Supprimer</button></div>
-        <p class="cm-body">${esc(x.a || "")}</p>${x.d ? `<p class="cm-body"><em>Difficultés :</em> ${esc(x.d)}</p>` : ""}<p class="search-hint">${esc(x.k.join(" · "))}${x.ob && x.ob.length ? " · Objectifs : " + esc(x.ob.join(", ")) : ""}</p></div>`).join("") : `<div class="search-hint">Aucune activité enregistrée.</div>`}</div>`;
-    $("cnObjAdd").addEventListener("click", () => { const t = $("cnObjT").value.trim(); if (!t) return; d.o.push({ id: "o" + Date.now(), t, ok: false }); save(); draw(); pickObj(); });
-    inner.querySelectorAll("[data-od]").forEach(c => c.addEventListener("change", () => { d.o.find(o => o.id === c.dataset.od).ok = c.checked; save(); draw(); }));
-    inner.querySelectorAll("[data-orm]").forEach(b => b.addEventListener("click", e => { e.preventDefault(); d.o = d.o.filter(o => o.id !== b.dataset.orm); save(); draw(); pickObj(); }));
-    inner.querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", () => { if (confirm("Supprimer cette activité ?")) { d.e = d.e.filter(x => x.id !== b.dataset.del); save(); draw(); } }));
+    $("cnStats").innerHTML = `<div class="mx-stats"><div><b>${d.e.length}</b><span>Activités</span></div><div><b>${comp.filter(x => x.n).length}/${cl.length}</b><span>Compétences</span></div><div><b>${oks}/${d.o.length}</b><span>Objectifs</span></div></div>`;
+    $("cnAnalysis").innerHTML = `<div class="mx-card"><h3>Mes compétences</h3>${comp.length ? comp.map(x => `<div class="mx-bar"><span>${esc(x.c)}</span><i><u style="width:${x.n / max * 100}%"></u></i><b>${x.n}</b></div>`).join("") : `<span class="search-hint">Ajoutez vos compétences dans « Nouvelle activité ».</span>`}
+      <div class="mx-res">${weak.length ? `<strong>Pas encore pratiquées :</strong> ${esc(weak.slice(0, 4).join(", "))}. Vous pouvez en parler avec votre encadrant.` : d.e.length ? "<strong>Toutes vos compétences ont été pratiquées.</strong>" : "Enregistrez une activité pour voir votre progression."}${rec.length ? `<br><strong>Mots récurrents dans vos difficultés :</strong> ${esc(rec.join(", "))}.` : ""}</div>
+      <button class="tt-chip" type="button" id="cnCopy">Copier le résumé de la semaine</button></div>`;
     $("cnCopy").addEventListener("click", () => { try { navigator.clipboard.writeText(summary); $("cnCopy").textContent = "Résumé copié"; } catch (e) { prompt("Copiez ce résumé :", summary); } });
+    $("cnNoteList").innerHTML = d.n.length ? [...d.n].reverse().map(n => `<div class="cm-item"><div class="cm-head"><span><strong>${esc(n.t || "Note")}</strong> · ${esc(new Date(n.date).toLocaleDateString("fr-FR", { day: "numeric", month: "short" }))}</span><button class="cm-del" type="button" data-ndel="${esc(n.id)}">Supprimer</button></div>
+      <p class="cm-body">${esc(n.x || "")}</p>${n.img ? `<img class="mx-img" alt="Photo de la note" src="${n.img}">` : ""}</div>`).join("") : "";
+    $("cnHist").innerHTML = `<div class="mx-card"><h3>Historique des activités</h3>${d.e.length ? [...d.e].sort((a, b) => b.date.localeCompare(a.date)).map(x => `<div class="cm-item"><div class="cm-head"><span><strong>${esc(new Date(x.date).toLocaleDateString("fr-FR", { day: "numeric", month: "short" }))}</strong> · ${esc(x.lieu || "")}</span><button class="cm-del" type="button" data-del="${esc(x.id)}">Supprimer</button></div>
+      <p class="cm-body">${esc(x.a || "")}</p>${x.d ? `<p class="cm-body"><em>Difficultés :</em> ${esc(x.d)}</p>` : ""}<p class="search-hint">${esc(x.k.join(" · "))}${x.ob && x.ob.length ? " · Objectifs : " + esc(x.ob.join(", ")) : ""}</p></div>`).join("") : `<div class="search-hint">Aucune activité enregistrée.</div>`}</div>`;
+    inner.querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", () => { if (confirm("Supprimer cette activité ?")) { d.e = d.e.filter(x => x.id !== b.dataset.del); save(); draw(); } }));
+    inner.querySelectorAll("[data-ndel]").forEach(b => b.addEventListener("click", () => { if (confirm("Supprimer cette note ?")) { d.n = d.n.filter(x => x.id !== b.dataset.ndel); save(); draw(); } }));
   };
+  const shrink = file => new Promise((res, rej) => {
+    const fr = new FileReader();
+    fr.onload = () => { const im = new Image(); im.onload = () => { const k = Math.min(1, 800 / Math.max(im.width, im.height)), c = document.createElement("canvas"); c.width = Math.round(im.width * k); c.height = Math.round(im.height * k); c.getContext("2d").drawImage(im, 0, 0, c.width, c.height); res(c.toDataURL("image/jpeg", 0.6)); }; im.onerror = rej; im.src = fr.result; };
+    fr.onerror = rej; fr.readAsDataURL(file);
+  });
+  $("cnObjAdd").addEventListener("click", () => { const t = $("cnObjT").value.trim(); if (!t) return; d.o.push({ id: "o" + Date.now(), t, ok: false }); $("cnObjT").value = ""; save(); drawObj(); draw(); });
+  $("cnCompAdd").addEventListener("click", () => { const t = $("cnNewComp").value.trim(); if (!t || comps().some(c => c.toLowerCase() === t.toLowerCase())) return; d.c.push(t); $("cnNewComp").value = ""; save(); drawComp(); draw(); });
   $("cnAdd").addEventListener("click", () => {
-    const a = $("cnAct").value.trim(), k = [...inner.querySelectorAll("[data-k]:checked")].map(c => CARNET_COMP[+c.dataset.k]);
+    const a = $("cnAct").value.trim(), k = [...inner.querySelectorAll("#cnComp [data-k]:checked")].map(c => c.dataset.k);
     if (!a) { $("cnErr").textContent = "Décrivez au moins une activité."; return; }
     $("cnErr").textContent = "";
-    const ob = [...inner.querySelectorAll("[data-o]:checked")].map(c => { const o = d.o.find(x => x.id === c.dataset.o); if (o) o.ok = true; return o ? o.t : ""; }).filter(Boolean);
+    const ob = [...inner.querySelectorAll("#cnObjPick [data-o]:checked")].map(c => { const o = d.o.find(x => x.id === c.dataset.o); if (o) o.ok = true; return o ? o.t : ""; }).filter(Boolean);
     d.e.push({ id: "e" + Date.now(), date: $("cnDate").value || today, lieu: $("cnLieu").value.trim(), a, d: $("cnDif").value.trim(), k, ob });
-    save(); ["cnAct", "cnDif"].forEach(i => { $(i).value = ""; }); inner.querySelectorAll("[data-k]").forEach(c => { c.checked = false; }); draw(); pickObj();
+    save(); ["cnAct", "cnDif"].forEach(i => { $(i).value = ""; }); drawComp(); drawObj(); inner.querySelectorAll("#cnComp [data-k]").forEach(c => { c.checked = false; }); draw();
   });
-  pickObj(); draw();
+  $("ntOk").addEventListener("change", () => { $("ntPhoto").disabled = !$("ntOk").checked; if (!$("ntOk").checked) { img = null; $("ntPrev").innerHTML = ""; } });
+  $("ntPhoto").addEventListener("click", () => $("ntFile").click());
+  $("ntFile").addEventListener("change", async () => {
+    const f = $("ntFile").files[0]; if (!f) return;
+    try { img = await shrink(f); $("ntPrev").innerHTML = `<img class="mx-img" alt="Aperçu" src="${img}"><p class="search-hint">Vérifiez que la photo ne montre aucun patient ni information d'identité.</p>`; } catch (e) { img = null; $("ntErr").textContent = "Impossible de lire cette image."; }
+    $("ntFile").value = "";
+  });
+  $("ntAdd").addEventListener("click", () => {
+    const x = $("ntX").value.trim(), t = $("ntT").value.trim();
+    if (!x && !img) { $("ntErr").textContent = "Écrivez une note ou ajoutez une photo."; return; }
+    d.n.push({ id: "n" + Date.now(), date: today, t, x, img });
+    if (!save()) { d.n.pop(); $("ntErr").textContent = "Espace de stockage plein : supprimez des notes avec photo."; return; }
+    $("ntErr").textContent = ""; $("ntX").value = ""; $("ntT").value = ""; img = null; $("ntPrev").innerHTML = ""; $("ntOk").checked = false; $("ntPhoto").disabled = true; draw();
+  });
+  drawComp(); drawObj(); draw();
 }
 
 // ---------- 5. Cas cliniques interactifs ----------
