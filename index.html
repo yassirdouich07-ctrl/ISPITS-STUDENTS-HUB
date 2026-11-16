@@ -1128,6 +1128,46 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 @media(max-width:760px){
   body .sidebar{height:100vh;height:100dvh;bottom:auto;overscroll-behavior:contain;padding-bottom:calc(22px + env(safe-area-inset-bottom,0px))}
 }
+
+/* ===== MOBILE : barre de navigation fixe en bas + interface plus compacte ===== */
+.bnav{display:none}
+@media(max-width:760px){
+  .bnav{display:flex;position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:60;height:64px;padding:6px;gap:2px;border-radius:22px;background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border:1px solid #ffffffb0;box-shadow:0 12px 34px #0b1f3a33,0 2px 6px #0b1f3a14}
+  .bnav button{flex:1;min-width:0;padding:0;border:0;background:transparent;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:10.5px;font-weight:700;color:#718094;-webkit-tap-highlight-color:transparent;transition:.2s}
+  .bnav button .ico{width:22px;height:22px}
+  .bnav button.active{color:#0d9488;background:var(--teal-soft)}
+  body.kb-open .bnav,body.menu-open .bnav{display:none}
+  body .main-content{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+  body .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))}
+
+  /* En-tête + recherche */
+  body .welcome-row{margin-bottom:14px}
+  body .welcome-row h1{line-height:1.2}
+  body .welcome-row p{font-size:13px;line-height:1.5}
+  body .home-search{margin-bottom:16px}
+  body .home-search button{position:relative;flex:none;width:46px;height:40px;padding:0;font-size:0!important}
+  body .home-search button:after{content:"";position:absolute;inset:0;margin:auto;width:20px;height:20px;background:#fff;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") center/contain no-repeat}
+
+  /* Hero plus compact */
+  body .hero-banner{padding:20px 18px;border-radius:22px;margin-bottom:16px}
+  body .hero-banner h2{font-size:20px;line-height:1.25;margin-bottom:6px}
+  body .hero-banner p{font-size:13px;line-height:1.55}
+
+  /* Cartes statistiques */
+  body .stats-grid{gap:10px;margin-bottom:22px}
+  body .stat-card{padding:14px}
+  body .stat-label{padding-right:30px;line-height:1.35;font-size:12px}
+
+  /* Ressources : 2 colonnes */
+  body .modules-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  body .module-card{min-height:0;padding:14px 14px 46px;border-radius:20px}
+  body .module-card:last-child:nth-child(odd){grid-column:1/-1}
+  body .module-icon{width:42px;height:42px;border-radius:13px;margin-bottom:10px}
+  body .module-icon .ico{width:20px;height:20px}
+  body .module-card h3{font-size:14px;margin-bottom:4px}
+  body .module-card p{font-size:11px;line-height:1.45;padding-right:0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  body .module-arrow{right:12px;bottom:12px;width:28px;height:28px;font-size:14px}
+}
 </style>
 </head>
 
@@ -1520,6 +1560,14 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
       </div>
     </section>
   </div>
+
+  <nav class="bnav" id="bnav" aria-label="Navigation principale">
+    <button type="button" data-bn="Accueil"><svg class="ico"><use href="#i-home"/></svg><span>Accueil</span></button>
+    <button type="button" data-bn="Recherche"><svg class="ico"><use href="#i-search"/></svg><span>Recherche</span></button>
+    <button type="button" data-bn="Cours"><svg class="ico"><use href="#i-book"/></svg><span>Cours</span></button>
+    <button type="button" data-bn="Stages"><svg class="ico"><use href="#i-hospital"/></svg><span>Stages</span></button>
+    <button type="button" data-bn="__menu"><svg class="ico"><use href="#i-layers"/></svg><span>Menu</span></button>
+  </nav>
 </main>
 
 <!-- MODAL (profil / sécurité) -->
@@ -7389,6 +7437,41 @@ db.auth.onAuthStateChange((event, session) => {
 document.querySelectorAll(".stat-card[data-open]").forEach(c => c.addEventListener("keydown", e => {
   if (e.key === "Enter" || e.key === " ") { e.preventDefault(); c.click(); }
 }));
+// Barre de navigation mobile fixe (en bas)
+(() => { try {
+  const bar = document.getElementById("bnav"), side = document.getElementById("sidebar");
+  if (!bar || !side) return;
+  const mq = window.matchMedia("(max-width:760px)");
+  const main = ["Accueil", "Recherche", "Cours", "Stages"];
+  bar.addEventListener("click", e => {
+    const b = e.target.closest("button[data-bn]"); if (!b) return;
+    if (b.dataset.bn === "__menu") { side.classList.toggle("open"); return; }
+    const t = side.querySelector('.nav-item[data-page="' + b.dataset.bn + '"]');
+    if (t) t.click();
+  });
+  const sync = () => {
+    const act = side.querySelector(".nav-item.active");
+    const page = act ? act.dataset.page : "Accueil";
+    const open = side.classList.contains("open");
+    bar.querySelectorAll("button[data-bn]").forEach(b => {
+      const k = b.dataset.bn;
+      b.classList.toggle("active", k === "__menu" ? (open || !main.includes(page)) : (!open && k === page));
+    });
+  };
+  new MutationObserver(sync).observe(side, { attributes: true, attributeFilter: ["class"], subtree: true });
+  sync();
+  const typing = el => el && (el.tagName === "TEXTAREA" || el.tagName === "SELECT" || (el.tagName === "INPUT" && !/^(checkbox|radio|range|button|submit|file)$/i.test(el.type)));
+  document.addEventListener("focusin", e => { if (typing(e.target)) document.body.classList.add("kb-open"); });
+  document.addEventListener("focusout", () => document.body.classList.remove("kb-open"));
+  const inp = document.getElementById("homeSearchInput");
+  if (inp) {
+    const full = inp.placeholder;
+    const set = () => { inp.placeholder = mq.matches ? "Rechercher un cours, une fiche…" : full; };
+    set();
+    if (mq.addEventListener) mq.addEventListener("change", set);
+  }
+} catch (err) { console.error(err); } })();
+
 initializeApp();
 </script>
 
