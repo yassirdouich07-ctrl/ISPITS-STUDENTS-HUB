@@ -1095,6 +1095,29 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .mx-warn{background:#fff4e5;border:1px solid #f0c27a;border-radius:12px;padding:12px 14px;margin:0 0 14px;font-size:13px;line-height:1.6;color:#6a4b12}
 .mx-warn.red{background:#fdecea;border-color:#e8a29b;color:#7a1f16}.mx-warn ul{margin:6px 0 0;padding-left:18px}
 .mx-img{display:block;max-width:100%;border-radius:12px;margin-top:8px}
+
+/* ===== CARNET DE STAGE (style Keep) ===== */
+.kp-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 14px}
+.kp-take{flex:1;min-width:220px;text-align:left;background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px 16px;color:var(--muted);font:inherit;box-shadow:var(--shadow)}
+.kp-quick{display:flex;gap:8px;flex-wrap:wrap}.kp-quick button{border:1px solid var(--border);background:#fff;border-radius:999px;padding:9px 14px;font:inherit;font-size:13px;font-weight:600;color:var(--navy)}
+.kp-stats4{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.kp-grid{column-count:2;column-gap:12px;margin:6px 0 16px}@media(min-width:900px){.kp-grid{column-count:3}}
+.kp-card{break-inside:avoid;margin:0 0 12px;border:1px solid #e3e9ef;border-radius:16px;padding:12px 14px;box-shadow:0 1px 3px rgba(16,43,70,.08);cursor:pointer;transition:box-shadow .2s,transform .2s;display:block;overflow:hidden}
+.kp-card:hover{box-shadow:0 6px 18px rgba(16,43,70,.16);transform:translateY(-1px)}
+.kp-img{display:block;width:calc(100% + 28px);max-width:none;margin:-12px -14px 10px;border-radius:0}
+.kp-top{display:flex;justify-content:space-between;align-items:center;margin:0 0 6px}.kp-type{color:#fff;font-size:10px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;padding:2px 9px;border-radius:999px}
+.kp-card h4{margin:2px 0 4px;font-family:'Outfit',sans-serif;font-size:16px;color:var(--navy);word-break:break-word}.kp-card p{margin:0 0 6px;font-size:14px;line-height:1.55;color:var(--text);white-space:pre-wrap;word-break:break-word;display:-webkit-box;-webkit-line-clamp:9;-webkit-box-orient:vertical;overflow:hidden}
+.kp-ic{border:0;background:transparent;color:#7b8c9b;padding:4px;border-radius:50%;line-height:0;cursor:pointer}.kp-ic.on{color:var(--teal-dark);background:#ffffffaa}
+.kp-chk{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--navy);margin:6px 0}
+.kp-lvl{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.kp-lvl button{border:1px solid #c9d6e0;background:#ffffffaa;border-radius:999px;padding:4px 10px;font:inherit;font-size:12px;color:var(--navy)}.kp-lvl button.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.kp-labs{display:flex;gap:5px;flex-wrap:wrap;margin:6px 0}.kp-labs span{font-size:11px;background:#00000010;border-radius:999px;padding:2px 8px;color:var(--navy)}
+.kp-foot2{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#6b7c8e;margin-top:4px}.kp-foot{margin:4px 0 8px}.kp-empty{column-span:all;padding:24px;text-align:center}
+.kp-modal{position:fixed;inset:0;z-index:90;background:rgba(8,20,40,.55);display:flex;align-items:flex-end;justify-content:center;backdrop-filter:blur(2px)}
+.kp-sheet{width:min(580px,100%);max-height:94vh;overflow:auto;border-radius:22px 22px 0 0;padding:16px;box-shadow:0 -10px 40px rgba(0,0,0,.25)}@media(min-width:700px){.kp-modal{align-items:center}.kp-sheet{border-radius:22px}}
+.kp-types{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}.kp-tchip{border:1px solid #c9d6e0;background:#ffffffb0;border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;font-weight:600;color:var(--navy)}.kp-tchip.on{background:var(--c);border-color:var(--c);color:#fff}
+.kp-sheet input[type=text],.kp-sheet textarea{width:100%;box-sizing:border-box;border:0;background:#ffffff90;border-radius:10px;padding:10px 12px;font:inherit;margin:0 0 8px}.kp-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:18px}.kp-body{resize:vertical;line-height:1.55}
+.kp-colors{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.kp-colors button{width:26px;height:26px;border-radius:50%;border:2px solid #cdd8e1;cursor:pointer}.kp-colors button.on{border-color:var(--navy);box-shadow:0 0 0 2px #fff inset}
+.kp-photo{margin:8px 0}.kp-actions{display:flex;gap:10px;align-items:center;margin-top:8px}
 </style>
 </head>
 
@@ -1445,7 +1468,7 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
             <button class="module-card" data-open="Carnet de stage" type="button">
               <div class="module-icon"><svg class="ico"><use href="#i-file"/></svg></div>
               <h3>Carnet de stage</h3>
-              <p>Notez vos activités, difficultés, compétences et objectifs de stage.</p>
+              <p>Vos notes de stage avec photos, difficultés, objectifs et compétences, à votre façon.</p>
               <span class="module-arrow">↗</span>
             </button>
 
@@ -1748,7 +1771,7 @@ const moduleDescriptions = {
   "Dictionnaire médical": "Termes de santé en français et en darija pour mieux comprendre.",
   "Calculatrices": "IMC, débit de perfusion, date d'accouchement et semaines de grossesse.",
   "Préparation concours": "QCM d'entraînement et plan de révision pour les concours et le master.",
-  "Carnet de stage": "Notez vos activités, difficultés, compétences et objectifs de stage.",
+  "Carnet de stage": "Vos notes de stage avec photos, difficultés, objectifs et compétences, à votre façon.",
   "Cas cliniques": "Situations de soins interactives : prenez les bonnes décisions.",
   "Atlas anatomie": "Explorez le corps humain en 3D : squelette, muscles, organes, vaisseaux et nerfs, sous tous les angles.",
   "Règlement intérieur": "Consultez le règlement intérieur des ISPITS : absences, évaluations, rattrapage, discipline et droits de l'étudiant.",
@@ -2553,105 +2576,136 @@ function renderConcours() {
   drawTh(); drawPlan();
 }
 
-// ---------- 4. Carnet de stage intelligent ----------
-const CARNET_COMP = ["Hygiène et asepsie", "Prise de constantes", "Injections et perfusions", "Pansements et plaies", "Prélèvements", "Administration des médicaments", "Communication avec le patient", "Éducation thérapeutique", "Transmissions et dossier", "Gestion des urgences"];
+// ---------- 4. Carnet de stage (style Google Keep) ----------
+const KP_COLORS = { w: "#ffffff", r: "#fde2e0", o: "#ffe9cc", y: "#fff6bf", g: "#dff5df", t: "#d3f1ec", b: "#dcebfb", p: "#eadcf8", k: "#fbdcec" };
+const KP_TYPES = { note: ["Note", "#5f7c8a"], diff: ["Difficulté", "#d9392b"], obj: ["Objectif", "#2f80ed"], comp: ["Compétence", "#159c94"] };
+const KP_LEVELS = ["Observé", "Avec aide", "Autonome"];
+const KP_HINT = { note: "Votre note…", diff: "Décrivez la difficulté rencontrée (sans nom de patient)…", obj: "Décrivez votre objectif…", comp: "Ce que vous savez faire, et dans quelles situations…" };
+const KP_ICO = { pin: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l-1 6 3 3v2H7v-2l3-3z"/><path d="M12 14v7"/></svg>', del: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>' };
 function renderCarnet() {
-  const key = "ish_carnet_" + mxUid(), d = Object.assign({ e: [], o: [], c: [], h: [], n: [] }, lsGet(key, {})), today = new Date().toISOString().slice(0, 10);
+  const uidKey = mxUid(), key = "ish_carnet2_" + uidKey, today = new Date().toISOString().slice(0, 10), mk = () => "n" + Date.now() + Math.random().toString(36).slice(2, 6);
+  let d = lsGet(key, null);
   const save = () => { try { localStorage.setItem(key, JSON.stringify(d)); return true; } catch (e) { return false; } };
-  const comps = () => CARNET_COMP.filter(c => !d.h.includes(c)).concat(d.c);
-  let img = null;
-  const inner = mxPage("Carnet de stage", "Votre carnet personnel : vous choisissez vos objectifs, vos compétences et vos notes.", `
-    <div class="mx-warn"><strong>Secret professionnel</strong> : n'écrivez jamais le nom d'un patient, son numéro de dossier ni aucune information qui permet de l'identifier. <em>Mamnou3 tektb smiyat l'mardha wla chi ma3loumat 3lihom.</em></div>
-    <div id="cnStats"></div>
-    <div class="mx-card"><h3>Mes objectifs</h3><p class="search-hint">Vous définissez vous-même vos objectifs de stage. Aucun objectif n'est imposé.</p>
-      <div class="mx-row"><input id="cnObjT" type="text" placeholder="Ex : réaliser 5 prises de tension seul"><button class="primary-btn" type="button" id="cnObjAdd">Ajouter</button></div><div id="cnObjList"></div></div>
-    <div class="mx-card"><h3>Nouvelle activité</h3>
-      <div class="mx-row"><label>Date<input id="cnDate" type="date" value="${today}"></label><label>Service ou lieu de stage<input id="cnLieu" type="text" placeholder="Ex : Médecine, Urgences…"></label></div>
-      <label class="mx-block">Activités réalisées<textarea id="cnAct" rows="3" placeholder="Ex : prise des constantes, pansement d'une plaie opératoire…"></textarea></label>
-      <label class="mx-block">Difficultés rencontrées<textarea id="cnDif" rows="2" placeholder="Ex : difficulté à repérer la veine, stress…"></textarea></label>
-      <div class="mx-block">Compétences pratiquées (vous pouvez ajouter ou retirer les vôtres)</div><div class="mx-chk" id="cnComp"></div>
-      <div class="mx-row"><input id="cnNewComp" type="text" placeholder="Ajouter votre propre compétence"><button class="tt-chip" type="button" id="cnCompAdd">Ajouter</button></div>
-      <div class="mx-block">Objectifs atteints aujourd'hui</div><div class="mx-chk" id="cnObjPick"></div>
-      <button class="primary-btn" type="button" id="cnAdd">Enregistrer dans le carnet</button><p class="cm-err" id="cnErr"></p></div>
-    <div id="cnAnalysis"></div>
-    <div class="mx-card"><h3>Mes notes</h3>
-      <div class="mx-warn red"><strong>Photos et secret professionnel</strong><ul>
-        <li>Ne photographiez jamais un patient, même de dos ou en partie.</li>
-        <li>Jamais de nom, bracelet, étiquette, dossier, ordonnance, écran ou planning avec des noms.</li>
-        <li>Possible : un schéma, du matériel seul, vos propres annotations, avec l'accord du service.</li>
-        <li>Beaucoup d'établissements interdisent les photos : demandez à votre encadrant. <em>Ila chekkiti, ma tsawwarch.</em></li></ul></div>
-      <label class="mx-block">Titre (facultatif)<input id="ntT" type="text"></label>
-      <label class="mx-block">Note<textarea id="ntX" rows="4" placeholder="Points à retenir, rappel d'une technique, question à poser à l'encadrant…"></textarea></label>
-      <label class="mx-check"><input type="checkbox" id="ntOk"> Je confirme que la photo ne montre aucun patient, aucun visage, aucun nom ni aucun dossier, et que le service m'y autorise.</label>
-      <div class="mx-row"><button class="tt-chip" type="button" id="ntPhoto" disabled>Ajouter une photo (facultatif)</button><input id="ntFile" type="file" accept="image/*" hidden></div>
-      <div id="ntPrev"></div>
-      <button class="primary-btn" type="button" id="ntAdd">Enregistrer la note</button><p class="cm-err" id="ntErr"></p><div id="cnNoteList"></div></div>
-    <div id="cnHist"></div>
-    <p class="search-hint">Votre carnet est enregistré sur cet appareil uniquement. Utilisez « Copier le résumé » pour le partager avec votre encadrant.</p>`);
+  if (!d) {
+    d = { notes: [] };
+    const old = lsGet("ish_carnet_" + uidKey, null);   // reprise de l'ancien carnet
+    if (old) {
+      (old.e || []).forEach(x => { d.notes.push({ id: mk(), type: "note", title: "Activité" + (x.lieu ? " · " + x.lieu : ""), body: x.a || "", color: "w", pin: false, ts: x.date, lieu: x.lieu || "", labels: x.k || [], img: null });
+        if (x.d) d.notes.push({ id: mk(), type: "diff", title: "Difficulté", body: x.d, color: "r", pin: false, ts: x.date, lieu: x.lieu || "", labels: [], img: null, done: false }); });
+      (old.o || []).forEach(o => d.notes.push({ id: mk(), type: "obj", title: o.t, body: "", color: "b", pin: false, ts: today, labels: [], img: null, done: !!o.ok }));
+      (old.n || []).forEach(n => d.notes.push({ id: mk(), type: "note", title: n.t || "Note", body: n.x || "", color: "y", pin: false, ts: n.date, labels: [], img: n.img || null }));
+      (old.c || []).forEach(c => d.notes.push({ id: mk(), type: "comp", title: c, body: "", color: "t", pin: false, ts: today, labels: [], img: null, level: 0 }));
+      save();
+    }
+  }
+  let filter = "all", label = null, q = "";
+  const inner = mxPage("Carnet de stage", "Vos notes de stage, comme dans Keep : photos, difficultés, objectifs et compétences à votre façon.", `
+    <div class="mx-warn"><strong>Secret professionnel</strong> : n'écrivez jamais le nom d'un patient, son dossier ni aucune information qui permet de l'identifier. <em>Mamnou3 tektb smiyat l'mardha wla chi ma3loumat 3lihom.</em></div>
+    <div class="kp-bar"><button type="button" class="kp-take" id="kpNew">Prendre une note…</button>
+      <div class="kp-quick"><button type="button" data-q="diff">Difficulté</button><button type="button" data-q="obj">Objectif</button><button type="button" data-q="comp">Compétence</button><button type="button" data-q="photo">Photo</button></div></div>
+    <div id="kpStats"></div>
+    <input id="kpSearch" class="rg-search" type="search" placeholder="Rechercher dans mes notes…" autocomplete="off">
+    <div class="tt-chips" id="kpFilters"></div><div class="tt-chips" id="kpLabels"></div>
+    <div class="kp-grid" id="kpGrid"></div>
+    <div class="kp-foot"><button class="tt-chip" type="button" id="kpCopy">Copier le résumé pour l'encadrant</button></div>
+    <p class="search-hint">Votre carnet est enregistré sur cet appareil uniquement. Les photos ne sont pas incluses dans le résumé.</p>`);
   const $ = id => inner.querySelector("#" + id);
-  const stop = new Set("dans pour avec cette comme leur mais plus tout très aussi être avoir fait faire suis sont était mon mes pas sur par une des les que qui nous vous elle".split(" "));
-  const drawComp = () => {
-    const keep = [...inner.querySelectorAll("#cnComp :checked")].map(c => c.dataset.k);
-    $("cnComp").innerHTML = comps().map(c => `<label class="mx-check"><input type="checkbox" data-k="${esc(c)}" ${keep.includes(c) ? "checked" : ""}> ${esc(c)} <button type="button" class="cm-del" data-crm="${esc(c)}" title="Retirer de ma liste">×</button></label>`).join("") +
-      (d.h.length ? `<button type="button" class="dx-link" id="cnReset">Remettre les compétences retirées</button>` : "");
-    inner.querySelectorAll("[data-crm]").forEach(b => b.addEventListener("click", e => { e.preventDefault(); const c = b.dataset.crm; if (CARNET_COMP.includes(c)) d.h.push(c); else d.c = d.c.filter(x => x !== c); save(); drawComp(); draw(); }));
-    const r = $("cnReset"); if (r) r.addEventListener("click", () => { d.h = []; save(); drawComp(); draw(); });
-  };
-  const drawObj = () => {
-    const keep = [...inner.querySelectorAll("#cnObjPick :checked")].map(c => c.dataset.o);
-    $("cnObjList").innerHTML = d.o.length ? d.o.map(o => `<label class="mx-check"><input type="checkbox" data-od="${esc(o.id)}" ${o.ok ? "checked" : ""}> ${esc(o.t)} <button type="button" class="cm-del" data-orm="${esc(o.id)}">Supprimer</button></label>`).join("") : `<span class="search-hint">Aucun objectif pour l'instant : ajoutez le vôtre.</span>`;
-    $("cnObjPick").innerHTML = d.o.length ? d.o.map(o => `<label class="mx-check"><input type="checkbox" data-o="${esc(o.id)}" ${keep.includes(o.id) ? "checked" : ""}> ${esc(o.t)}</label>`).join("") : `<span class="search-hint">Ajoutez d'abord vos objectifs.</span>`;
-    inner.querySelectorAll("[data-od]").forEach(c => c.addEventListener("change", () => { d.o.find(o => o.id === c.dataset.od).ok = c.checked; save(); drawObj(); draw(); }));
-    inner.querySelectorAll("[data-orm]").forEach(b => b.addEventListener("click", e => { e.preventDefault(); d.o = d.o.filter(o => o.id !== b.dataset.orm); save(); drawObj(); draw(); }));
-  };
+  const when = n => { const t = new Date(n.ts); return isNaN(t) ? "" : t.toLocaleDateString("fr-FR", { day: "numeric", month: "short" }); };
+  const summary = () => { const g = t => d.notes.filter(n => n.type === t);
+    return `Résumé du carnet de stage\nDifficultés en cours : ${g("diff").filter(n => !n.done).map(n => n.title || n.body.slice(0, 60)).join(" | ") || "aucune"}\nObjectifs : ${g("obj").filter(n => n.done).length}/${g("obj").length} atteints\n${g("obj").map(n => `- [${n.done ? "x" : " "}] ${n.title || n.body}`).join("\n")}\nCompétences :\n${g("comp").map(n => `- ${n.title || n.body} : ${KP_LEVELS[n.level || 0]}`).join("\n") || "aucune"}`; };
   const draw = () => {
-    const cl = comps(), comp = cl.map(c => ({ c, n: d.e.filter(x => x.k.includes(c)).length })), max = Math.max(1, ...comp.map(x => x.n));
-    const week = d.e.filter(x => (Date.now() - new Date(x.date)) / 864e5 <= 7), freq = {};
-    d.e.forEach(x => (x.d || "").toLowerCase().split(/[^a-zàâçéèêëîïôûùüÿœ]+/).filter(w => w.length > 4 && !stop.has(w)).forEach(w => { freq[w] = (freq[w] || 0) + 1; }));
-    const rec = Object.entries(freq).filter(([, n]) => n >= 2).sort((a, b) => b[1] - a[1]).slice(0, 5).map(x => x[0]), weak = comp.filter(x => !x.n).map(x => x.c), oks = d.o.filter(x => x.ok).length;
-    const summary = `Résumé de la semaine\nActivités enregistrées : ${week.length}\nCompétences pratiquées : ${[...new Set(week.flatMap(x => x.k))].join(", ") || "aucune"}\nDifficultés : ${week.map(x => x.d).filter(Boolean).join(" | ") || "aucune"}\nObjectifs atteints : ${oks}/${d.o.length}`;
-    $("cnStats").innerHTML = `<div class="mx-stats"><div><b>${d.e.length}</b><span>Activités</span></div><div><b>${comp.filter(x => x.n).length}/${cl.length}</b><span>Compétences</span></div><div><b>${oks}/${d.o.length}</b><span>Objectifs</span></div></div>`;
-    $("cnAnalysis").innerHTML = `<div class="mx-card"><h3>Mes compétences</h3>${comp.length ? comp.map(x => `<div class="mx-bar"><span>${esc(x.c)}</span><i><u style="width:${x.n / max * 100}%"></u></i><b>${x.n}</b></div>`).join("") : `<span class="search-hint">Ajoutez vos compétences dans « Nouvelle activité ».</span>`}
-      <div class="mx-res">${weak.length ? `<strong>Pas encore pratiquées :</strong> ${esc(weak.slice(0, 4).join(", "))}. Vous pouvez en parler avec votre encadrant.` : d.e.length ? "<strong>Toutes vos compétences ont été pratiquées.</strong>" : "Enregistrez une activité pour voir votre progression."}${rec.length ? `<br><strong>Mots récurrents dans vos difficultés :</strong> ${esc(rec.join(", "))}.` : ""}</div>
-      <button class="tt-chip" type="button" id="cnCopy">Copier le résumé de la semaine</button></div>`;
-    $("cnCopy").addEventListener("click", () => { try { navigator.clipboard.writeText(summary); $("cnCopy").textContent = "Résumé copié"; } catch (e) { prompt("Copiez ce résumé :", summary); } });
-    $("cnNoteList").innerHTML = d.n.length ? [...d.n].reverse().map(n => `<div class="cm-item"><div class="cm-head"><span><strong>${esc(n.t || "Note")}</strong> · ${esc(new Date(n.date).toLocaleDateString("fr-FR", { day: "numeric", month: "short" }))}</span><button class="cm-del" type="button" data-ndel="${esc(n.id)}">Supprimer</button></div>
-      <p class="cm-body">${esc(n.x || "")}</p>${n.img ? `<img class="mx-img" alt="Photo de la note" src="${n.img}">` : ""}</div>`).join("") : "";
-    $("cnHist").innerHTML = `<div class="mx-card"><h3>Historique des activités</h3>${d.e.length ? [...d.e].sort((a, b) => b.date.localeCompare(a.date)).map(x => `<div class="cm-item"><div class="cm-head"><span><strong>${esc(new Date(x.date).toLocaleDateString("fr-FR", { day: "numeric", month: "short" }))}</strong> · ${esc(x.lieu || "")}</span><button class="cm-del" type="button" data-del="${esc(x.id)}">Supprimer</button></div>
-      <p class="cm-body">${esc(x.a || "")}</p>${x.d ? `<p class="cm-body"><em>Difficultés :</em> ${esc(x.d)}</p>` : ""}<p class="search-hint">${esc(x.k.join(" · "))}${x.ob && x.ob.length ? " · Objectifs : " + esc(x.ob.join(", ")) : ""}</p></div>`).join("") : `<div class="search-hint">Aucune activité enregistrée.</div>`}</div>`;
-    inner.querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", () => { if (confirm("Supprimer cette activité ?")) { d.e = d.e.filter(x => x.id !== b.dataset.del); save(); draw(); } }));
-    inner.querySelectorAll("[data-ndel]").forEach(b => b.addEventListener("click", () => { if (confirm("Supprimer cette note ?")) { d.n = d.n.filter(x => x.id !== b.dataset.ndel); save(); draw(); } }));
+    const c = t => d.notes.filter(n => n.type === t), od = c("obj").filter(n => n.done).length, au = c("comp").filter(n => n.level === 2).length;
+    $("kpStats").innerHTML = `<div class="mx-stats kp-stats4"><div><b>${d.notes.length}</b><span>Notes</span></div><div><b>${c("diff").filter(n => !n.done).length}</b><span>Difficultés en cours</span></div><div><b>${od}/${c("obj").length}</b><span>Objectifs atteints</span></div><div><b>${au}/${c("comp").length}</b><span>Compétences autonomes</span></div></div>`;
+    $("kpFilters").innerHTML = [["all", "Tout"], ["note", "Notes"], ["diff", "Difficultés"], ["obj", "Objectifs"], ["comp", "Compétences"]].map(([k, l]) => `<button type="button" class="tt-chip${filter === k ? " on" : ""}" data-f="${k}">${l}</button>`).join("");
+    const labels = [...new Set(d.notes.flatMap(n => n.labels || []))];
+    $("kpLabels").innerHTML = labels.map(l => `<button type="button" class="tt-chip kp-lab${label === l ? " on" : ""}" data-l="${esc(l)}">${esc(l)}</button>`).join("");
+    const words = norm(q).split(" ").filter(Boolean);
+    const rows = d.notes.filter(n => (filter === "all" || n.type === filter) && (!label || (n.labels || []).includes(label)) && words.every(w => norm((n.title || "") + " " + (n.body || "") + " " + (n.labels || []).join(" ") + " " + (n.lieu || "")).includes(w)))
+      .sort((a, b) => (b.pin ? 1 : 0) - (a.pin ? 1 : 0) || String(b.ts).localeCompare(String(a.ts)));
+    $("kpGrid").innerHTML = rows.length ? rows.map(n => {
+      const t = KP_TYPES[n.type] || KP_TYPES.note;
+      return `<div class="kp-card" style="background:${KP_COLORS[n.color] || "#fff"}" data-id="${esc(n.id)}">
+        ${n.img ? `<img class="kp-img" alt="Photo de la note" src="${n.img}">` : ""}
+        <div class="kp-top"><span class="kp-type" style="background:${t[1]}">${esc(t[0])}</span><button type="button" class="kp-ic${n.pin ? " on" : ""}" data-act="pin" aria-label="Épingler">${KP_ICO.pin}</button></div>
+        ${n.title ? `<h4>${esc(n.title)}</h4>` : ""}${n.body ? `<p>${esc(n.body)}</p>` : ""}
+        ${n.type === "obj" ? `<label class="kp-chk"><input type="checkbox" data-act="done" ${n.done ? "checked" : ""}> Objectif atteint</label>` : ""}
+        ${n.type === "diff" ? `<label class="kp-chk"><input type="checkbox" data-act="done" ${n.done ? "checked" : ""}> Difficulté résolue</label>` : ""}
+        ${n.type === "comp" ? `<div class="kp-lvl">${KP_LEVELS.map((l, i) => `<button type="button" class="${(n.level || 0) === i ? "on" : ""}" data-act="lvl" data-i="${i}">${l}</button>`).join("")}</div>` : ""}
+        ${(n.labels || []).length ? `<div class="kp-labs">${n.labels.map(l => `<span>${esc(l)}</span>`).join("")}</div>` : ""}
+        <div class="kp-foot2"><span>${esc(when(n))}${n.lieu ? " · " + esc(n.lieu) : ""}</span><button type="button" class="kp-ic" data-act="del" aria-label="Supprimer">${KP_ICO.del}</button></div></div>`; }).join("")
+      : `<div class="search-hint kp-empty">${d.notes.length ? "Aucune note ne correspond." : "Votre carnet est vide. Touchez « Prendre une note… » pour commencer."}</div>`;
   };
   const shrink = file => new Promise((res, rej) => {
     const fr = new FileReader();
-    fr.onload = () => { const im = new Image(); im.onload = () => { const k = Math.min(1, 800 / Math.max(im.width, im.height)), c = document.createElement("canvas"); c.width = Math.round(im.width * k); c.height = Math.round(im.height * k); c.getContext("2d").drawImage(im, 0, 0, c.width, c.height); res(c.toDataURL("image/jpeg", 0.6)); }; im.onerror = rej; im.src = fr.result; };
+    fr.onload = () => { const im = new Image(); im.onload = () => { const k = Math.min(1, 800 / Math.max(im.width, im.height)), cv = document.createElement("canvas"); cv.width = Math.round(im.width * k); cv.height = Math.round(im.height * k); cv.getContext("2d").drawImage(im, 0, 0, cv.width, cv.height); res(cv.toDataURL("image/jpeg", 0.6)); }; im.onerror = rej; im.src = fr.result; };
     fr.onerror = rej; fr.readAsDataURL(file);
   });
-  $("cnObjAdd").addEventListener("click", () => { const t = $("cnObjT").value.trim(); if (!t) return; d.o.push({ id: "o" + Date.now(), t, ok: false }); $("cnObjT").value = ""; save(); drawObj(); draw(); });
-  $("cnCompAdd").addEventListener("click", () => { const t = $("cnNewComp").value.trim(); if (!t || comps().some(c => c.toLowerCase() === t.toLowerCase())) return; d.c.push(t); $("cnNewComp").value = ""; save(); drawComp(); draw(); });
-  $("cnAdd").addEventListener("click", () => {
-    const a = $("cnAct").value.trim(), k = [...inner.querySelectorAll("#cnComp [data-k]:checked")].map(c => c.dataset.k);
-    if (!a) { $("cnErr").textContent = "Décrivez au moins une activité."; return; }
-    $("cnErr").textContent = "";
-    const ob = [...inner.querySelectorAll("#cnObjPick [data-o]:checked")].map(c => { const o = d.o.find(x => x.id === c.dataset.o); if (o) o.ok = true; return o ? o.t : ""; }).filter(Boolean);
-    d.e.push({ id: "e" + Date.now(), date: $("cnDate").value || today, lieu: $("cnLieu").value.trim(), a, d: $("cnDif").value.trim(), k, ob });
-    save(); ["cnAct", "cnDif"].forEach(i => { $(i).value = ""; }); drawComp(); drawObj(); inner.querySelectorAll("#cnComp [data-k]").forEach(c => { c.checked = false; }); draw();
+  // --- Éditeur (nouvelle note ou modification) ---
+  const edit = (note, preset) => {
+    const isNew = !note;
+    const n = note ? JSON.parse(JSON.stringify(note)) : { id: mk(), type: preset === "photo" ? "note" : (preset || "note"), title: "", body: "", color: "w", pin: false, labels: [], lieu: "", img: null, done: false, level: 0, ts: new Date().toISOString() };
+    const ov = document.createElement("div"); ov.className = "kp-modal"; document.body.appendChild(ov);
+    let ok = false;
+    const close = () => ov.remove();
+    const sync = () => { const v = id => ov.querySelector("#" + id); n.title = v("kpT").value.trim(); n.body = v("kpB").value.trim(); n.lieu = v("kpLieu").value.trim(); n.labels = v("kpLab").value.split(",").map(x => x.trim()).filter(Boolean); };
+    const paint = () => {
+      ov.innerHTML = `<div class="kp-sheet" style="background:${KP_COLORS[n.color]}">
+        <div class="kp-types">${Object.entries(KP_TYPES).map(([k, t]) => `<button type="button" class="kp-tchip${n.type === k ? " on" : ""}" data-t="${k}" style="--c:${t[1]}">${esc(t[0])}</button>`).join("")}</div>
+        <input id="kpT" class="kp-title" type="text" placeholder="Titre" value="${esc(n.title)}">
+        <textarea id="kpB" class="kp-body" rows="6" placeholder="${esc(KP_HINT[n.type])}">${esc(n.body)}</textarea>
+        ${n.type === "obj" ? `<label class="kp-chk"><input type="checkbox" id="kpDone" ${n.done ? "checked" : ""}> Objectif atteint</label>` : ""}
+        ${n.type === "diff" ? `<label class="kp-chk"><input type="checkbox" id="kpDone" ${n.done ? "checked" : ""}> Difficulté résolue</label><p class="search-hint">Pensez à en parler avec votre encadrant.</p>` : ""}
+        ${n.type === "comp" ? `<div class="kp-lvl">${KP_LEVELS.map((l, i) => `<button type="button" class="${(n.level || 0) === i ? "on" : ""}" data-lv="${i}">${l}</button>`).join("")}</div>` : ""}
+        <input id="kpLieu" type="text" placeholder="Service ou lieu de stage (facultatif)" value="${esc(n.lieu)}">
+        <input id="kpLab" type="text" placeholder="Étiquettes séparées par des virgules (facultatif)" value="${esc((n.labels || []).join(", "))}">
+        <div class="kp-colors">${Object.entries(KP_COLORS).map(([k, c]) => `<button type="button" class="${n.color === k ? "on" : ""}" data-c="${k}" style="background:${c}" aria-label="Couleur"></button>`).join("")}</div>
+        <div class="kp-photo">${n.img ? `<img class="kp-img" alt="Photo" src="${n.img}"><button type="button" class="tt-chip" id="kpRmImg">Retirer la photo</button>` : `
+          <div class="mx-warn red"><strong>Photo et secret professionnel</strong><ul><li>Ne photographiez jamais un patient, même de dos ou en partie.</li><li>Jamais de nom, bracelet, étiquette, dossier, ordonnance, écran ou planning avec des noms.</li><li>Possible : schéma, matériel seul, vos annotations, avec l'accord du service. <em>Ila chekkiti, ma tsawwarch.</em></li></ul></div>
+          <label class="kp-chk"><input type="checkbox" id="kpOk" ${ok ? "checked" : ""}> Je confirme que la photo ne montre aucun patient ni information d'identité, et que le service m'y autorise.</label>
+          <button type="button" class="tt-chip" id="kpPhoto" ${ok ? "" : "disabled"}>Ajouter une photo</button><input id="kpFile" type="file" accept="image/*" hidden>`}</div>
+        <p class="cm-err" id="kpErr"></p>
+        <div class="kp-actions"><button type="button" class="primary-btn" id="kpSave">Enregistrer</button><button type="button" class="tt-chip" id="kpCancel">Annuler</button></div></div>`;
+      ov.querySelectorAll("[data-t]").forEach(b => b.addEventListener("click", () => { sync(); n.type = b.dataset.t; paint(); }));
+      ov.querySelectorAll("[data-c]").forEach(b => b.addEventListener("click", () => { sync(); n.color = b.dataset.c; paint(); }));
+      ov.querySelectorAll("[data-lv]").forEach(b => b.addEventListener("click", () => { sync(); n.level = +b.dataset.lv; paint(); }));
+      const dn = ov.querySelector("#kpDone"); if (dn) dn.addEventListener("change", () => { n.done = dn.checked; });
+      const okc = ov.querySelector("#kpOk"); if (okc) okc.addEventListener("change", () => { ok = okc.checked; ov.querySelector("#kpPhoto").disabled = !ok; });
+      const ph = ov.querySelector("#kpPhoto"); if (ph) ph.addEventListener("click", () => ov.querySelector("#kpFile").click());
+      const fi = ov.querySelector("#kpFile"); if (fi) fi.addEventListener("change", async () => { const f = fi.files[0]; if (!f) return; sync(); try { n.img = await shrink(f); paint(); } catch (e) { ov.querySelector("#kpErr").textContent = "Impossible de lire cette image."; } });
+      const rm = ov.querySelector("#kpRmImg"); if (rm) rm.addEventListener("click", () => { sync(); n.img = null; ok = false; paint(); });
+      ov.querySelector("#kpCancel").addEventListener("click", close);
+      ov.querySelector("#kpSave").addEventListener("click", () => {
+        sync();
+        if (!n.title && !n.body && !n.img) { ov.querySelector("#kpErr").textContent = "Écrivez quelque chose ou ajoutez une photo."; return; }
+        const before = JSON.stringify(d);
+        if (isNew) d.notes.push(n); else d.notes = d.notes.map(x => x.id === n.id ? n : x);
+        if (!save()) { d = JSON.parse(before); ov.querySelector("#kpErr").textContent = "Espace de stockage plein : supprimez des notes avec photo."; return; }
+        close(); draw();
+      });
+    };
+    ov.addEventListener("click", e => { if (e.target === ov) { sync(); close(); } });
+    paint();
+    if (preset === "photo") { ok = false; }
+  };
+  $("kpNew").addEventListener("click", () => edit(null));
+  inner.querySelectorAll("[data-q]").forEach(b => b.addEventListener("click", () => edit(null, b.dataset.q)));
+  $("kpSearch").addEventListener("input", e => { q = e.target.value; draw(); });
+  $("kpFilters").addEventListener("click", e => { const b = e.target.closest("[data-f]"); if (b) { filter = b.dataset.f; draw(); } });
+  $("kpLabels").addEventListener("click", e => { const b = e.target.closest("[data-l]"); if (b) { label = label === b.dataset.l ? null : b.dataset.l; draw(); } });
+  $("kpGrid").addEventListener("click", e => {
+    const card = e.target.closest(".kp-card"); if (!card) return;
+    const n = d.notes.find(x => x.id === card.dataset.id), act = e.target.closest("[data-act]");
+    if (!n) return;
+    if (!act) { edit(n); return; }
+    const a = act.dataset.act;
+    if (a === "pin") n.pin = !n.pin;
+    else if (a === "done") n.done = act.checked;
+    else if (a === "lvl") n.level = +act.dataset.i;
+    else if (a === "del") { if (!confirm("Supprimer cette note ?")) return; d.notes = d.notes.filter(x => x.id !== n.id); }
+    save(); draw();
   });
-  $("ntOk").addEventListener("change", () => { $("ntPhoto").disabled = !$("ntOk").checked; if (!$("ntOk").checked) { img = null; $("ntPrev").innerHTML = ""; } });
-  $("ntPhoto").addEventListener("click", () => $("ntFile").click());
-  $("ntFile").addEventListener("change", async () => {
-    const f = $("ntFile").files[0]; if (!f) return;
-    try { img = await shrink(f); $("ntPrev").innerHTML = `<img class="mx-img" alt="Aperçu" src="${img}"><p class="search-hint">Vérifiez que la photo ne montre aucun patient ni information d'identité.</p>`; } catch (e) { img = null; $("ntErr").textContent = "Impossible de lire cette image."; }
-    $("ntFile").value = "";
-  });
-  $("ntAdd").addEventListener("click", () => {
-    const x = $("ntX").value.trim(), t = $("ntT").value.trim();
-    if (!x && !img) { $("ntErr").textContent = "Écrivez une note ou ajoutez une photo."; return; }
-    d.n.push({ id: "n" + Date.now(), date: today, t, x, img });
-    if (!save()) { d.n.pop(); $("ntErr").textContent = "Espace de stockage plein : supprimez des notes avec photo."; return; }
-    $("ntErr").textContent = ""; $("ntX").value = ""; $("ntT").value = ""; img = null; $("ntPrev").innerHTML = ""; $("ntOk").checked = false; $("ntPhoto").disabled = true; draw();
-  });
-  drawComp(); drawObj(); draw();
+  $("kpCopy").addEventListener("click", () => { const t = summary(); try { navigator.clipboard.writeText(t); $("kpCopy").textContent = "Résumé copié"; } catch (e) { prompt("Copiez ce résumé :", t); } });
+  draw();
 }
 
 // ---------- 5. Cas cliniques interactifs ----------
