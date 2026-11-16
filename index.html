@@ -2136,11 +2136,20 @@ const TIMETABLES = [
       Jeudi: [{ kind: "stage", h: "08H00 – 16H00", t: "Stage continu" }],
       Vendredi: [{ kind: "stage", h: "08H00 – 16H00", t: "Stage continu" }],
       Samedi: []
+    } },
+  { f: "IAR", s: "S3", start: "2026-11-16", annee: "2026-2027", filiere: "Soins Infirmiers", option: "Infirmier en anesthésie réanimation (IAR)", room: "Salle 6",
+    days: {
+      Lundi: [{ kind: "stage", h: "08H00 – 14H00", t: "Stage discontinu" }, { kind: "cours", h: "14H00 – 18H00", t: "M234 · Pathologies médicales et maladies transmissibles", p: "Dr. CHAMS-EDDINE" }],
+      Mardi: [{ kind: "stage", h: "08H00 – 14H00", t: "Stage discontinu" }, { kind: "cours", h: "14H00 – 18H00", t: "M231 · Déroulement d'anesthésie et anesthésie ambulatoire", p: "M. DIOUAN" }],
+      Mercredi: [{ kind: "ferie", h: "Toute la journée", t: "Jour férié" }],
+      Jeudi: [{ kind: "stage", h: "08H00 – 16H00", t: "Stage continu" }],
+      Vendredi: [{ kind: "stage", h: "08H00 – 16H00", t: "Stage continu" }],
+      Samedi: []
     } }
 ];
 let ttSel = "S1";
 let ttFil = null;
-const TT_FIL_LABEL = { IP: "Infirmier polyvalent", INP: "Néonatologie et pédiatrie" };
+const TT_FIL_LABEL = { IP: "Infirmier polyvalent", INP: "Néonatologie et pédiatrie", IAR: "Anesthésie réanimation" };
 const ttDate = (iso, add = 0) => { const [y, m, d] = iso.split("-").map(Number); return new Date(y, m - 1, d + add); };
 const ttIso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
 
