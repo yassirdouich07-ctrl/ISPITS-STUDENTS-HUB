@@ -1189,6 +1189,33 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .stat-card:nth-child(5) .stat-icon{background:linear-gradient(135deg,#0ea5e9,#6366f1)}
 @media(min-width:761px){.stats-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
 @media(max-width:760px){.stats-grid .stat-card:last-child:nth-child(odd){grid-column:1/-1}}
+
+/* ===== Calculatrices (version pro) ===== */
+.cx-tabs{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 12px;margin:0 -2px;scrollbar-width:none}
+.cx-tabs::-webkit-scrollbar{display:none}
+.cx-tab{flex:none;border:1px solid var(--border);background:#fff;color:var(--navy);padding:9px 16px;border-radius:999px;font-weight:700;font-size:13px;-webkit-tap-highlight-color:transparent}
+.cx-tab.on{background:linear-gradient(135deg,#0d9488,#14b8a6);color:#fff;border-color:transparent;box-shadow:0 8px 18px #0d948833}
+.cx-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:14px;align-items:start}
+.mx-card.cx-card{padding:0;margin:0;overflow:hidden;border-radius:20px}
+.cx-head{display:flex;align-items:center;gap:12px;padding:16px 16px 12px}
+.cx-ico{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;flex:none;color:#fff;background:linear-gradient(135deg,var(--g1),var(--g2));box-shadow:0 8px 18px color-mix(in srgb,var(--g1) 35%,transparent)}
+.cx-head h3{margin:0;font-size:16px;line-height:1.25}
+.cx-head p{margin:2px 0 0;font-size:12px;color:var(--muted)}
+.cx-body{padding:0 16px 16px}
+.cx-in{position:relative;display:block}
+.cx-in em{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-style:normal;font-size:11px;font-weight:700;color:var(--muted);pointer-events:none;max-width:70px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mx-card .cx-in input[type=number]{padding-right:62px}
+.cx-out{margin-top:6px;border-radius:16px;background:linear-gradient(180deg,#f1f8f7,#e8f4f2);padding:14px}
+.cx-empty{font-size:13px;color:var(--muted)}
+.cx-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.cx-tile{background:#fff;border-radius:13px;padding:11px 12px;box-shadow:0 2px 8px #0b1f3a0d;min-width:0}
+.cx-tile b{display:block;font-family:'Outfit',sans-serif;font-size:21px;line-height:1.15;color:var(--navy);overflow-wrap:anywhere}
+.cx-tile b small{font-size:11px;font-weight:700;color:var(--muted);margin-left:4px}
+.cx-tile span{display:block;margin-top:3px;font-size:11px;color:var(--muted);line-height:1.3}
+.cx-badge{display:inline-block;margin-top:10px;padding:6px 12px;border-radius:12px;font-size:12px;font-weight:800;line-height:1.35}
+.cx-badge.ok{background:#e0f5e8;color:#17703a}.cx-badge.warn{background:#fff0d6;color:#8a5a00}.cx-badge.bad{background:#fde4e1;color:#a3281c}.cx-badge.info{background:#e1effd;color:#1c5a9c}
+.cx-note{margin:10px 0 0;font-size:11.5px;line-height:1.5;color:var(--muted)}
+.cx-formula{border-top:1px dashed var(--border);padding-top:10px;margin-top:12px}
 </style>
 </head>
 
@@ -1529,7 +1556,7 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
             <button class="module-card" data-open="Calculatrices" type="button">
               <div class="module-icon"><svg class="ico"><use href="#i-spark"/></svg></div>
               <h3>Calculatrices</h3>
-              <p>IMC, débit de perfusion, date d'accouchement et semaines de grossesse.</p>
+              <p>Doses, perfusion, LDL, fonction rénale, Glasgow, Apgar, grossesse et plus.</p>
               <span class="module-arrow">↗</span>
             </button>
 
@@ -1853,7 +1880,7 @@ const moduleDescriptions = {
   "Résumés": "Accédez aux fiches de révision, synthèses et documents conçus pour faciliter vos révisions.",
   "Emploi du temps": "Retrouvez les plannings, les emplois du temps et les informations relatives à votre organisation académique.",
   "Dictionnaire médical": "Termes de santé en français et en darija pour mieux comprendre.",
-  "Calculatrices": "IMC, débit de perfusion, date d'accouchement et semaines de grossesse.",
+  "Calculatrices": "Doses, perfusion, LDL, fonction rénale, Glasgow, Apgar, grossesse et plus.",
   "Préparation concours": "QCM d'entraînement et plan de révision pour les concours et le master.",
   "Carnet de stage": "Vos notes de stage avec photos, difficultés, objectifs et compétences, à votre façon.",
   "Cas cliniques": "Situations de soins interactives : prenez les bonnes décisions.",
@@ -2574,45 +2601,187 @@ function renderDico() {
   draw();
 }
 
-// ---------- 2. Calculatrices médicales ----------
+// ---------- 2. Calculatrices médicales (version pro) ----------
+const CX_FMT = (x, d = 1) => Number.isFinite(x) ? x.toLocaleString("fr-FR", { maximumFractionDigits: d }) : "—";
+const CX_POS = x => Number.isFinite(x) && x > 0;
+const CX_CV = {
+  glyc: ["Glycémie", "g/L", "mmol/L", 5.55],
+  chol: ["Cholestérol total", "g/L", "mmol/L", 2.586],
+  tg: ["Triglycérides", "g/L", "mmol/L", 1.14],
+  creat: ["Créatinine", "mg/L", "µmol/L", 8.84],
+  uree: ["Urée", "g/L", "mmol/L", 16.65]
+};
+const CX_GLASGOW = {
+  y: [["4", "4 · Spontanée"], ["3", "3 · À la demande"], ["2", "2 · À la douleur"], ["1", "1 · Aucune"]],
+  v: [["5", "5 · Orientée"], ["4", "4 · Confuse"], ["3", "3 · Mots inappropriés"], ["2", "2 · Sons incompréhensibles"], ["1", "1 · Aucune"]],
+  m: [["6", "6 · Obéit aux ordres"], ["5", "5 · Oriente la douleur"], ["4", "4 · Évitement"], ["3", "3 · Flexion anormale"], ["2", "2 · Extension"], ["1", "1 · Aucune"]]
+};
+const CX_APGAR = [
+  ["fc", "Fréquence cardiaque", [["2", "2 · ≥ 100/min"], ["1", "1 · < 100/min"], ["0", "0 · Absente"]]],
+  ["re", "Respiration", [["2", "2 · Cri vigoureux"], ["1", "1 · Lente, irrégulière"], ["0", "0 · Absente"]]],
+  ["to", "Tonus", [["2", "2 · Mouvements actifs"], ["1", "1 · Flexion légère"], ["0", "0 · Hypotonie"]]],
+  ["ra", "Réactivité", [["2", "2 · Cri, toux"], ["1", "1 · Grimace"], ["0", "0 · Aucune"]]],
+  ["co", "Coloration", [["2", "2 · Rose partout"], ["1", "1 · Extrémités bleues"], ["0", "0 · Pâle / cyanosé"]]]
+];
+const CX = [
+  { cat: "Général", id: "imc", ic: "user", g: ["#14b8a6", "#0ea5e9"], title: "IMC, surface corporelle, poids idéal", desc: "Corpulence selon la classification OMS",
+    fields: [{ k: "p", l: "Poids", u: "kg", step: "0.1" }, { k: "t", l: "Taille", u: "cm", step: "1" }, { k: "s", l: "Sexe", sel: [["h", "Homme"], ["f", "Femme"]] }],
+    formula: "IMC = poids ÷ taille² · Surface corporelle (Mosteller) = √(poids × taille ÷ 3600) · Poids idéal (Lorentz).",
+    calc(v) {
+      if (!CX_POS(v.p) || !CX_POS(v.t)) return null;
+      const m = v.t / 100, i = v.p / (m * m);
+      const b = i < 18.5 ? ["Maigreur", "warn"] : i < 25 ? ["Corpulence normale", "ok"] : i < 30 ? ["Surpoids", "warn"] : i < 35 ? ["Obésité modérée (classe I)", "bad"] : i < 40 ? ["Obésité sévère (classe II)", "bad"] : ["Obésité massive (classe III)", "bad"];
+      const sc = Math.sqrt(v.p * v.t / 3600), id = v.s === "f" ? v.t - 100 - (v.t - 150) / 2.5 : v.t - 100 - (v.t - 150) / 4;
+      return { tiles: [["IMC", CX_FMT(i), "kg/m²"], ["Surface corporelle", CX_FMT(sc, 2), "m²"], ["Poids idéal", CX_FMT(id, 0), "kg"]], badge: b };
+    } },
+  { cat: "Général", id: "pam", ic: "heart", g: ["#ef4444", "#f97316"], title: "Pression artérielle moyenne", desc: "PAM et pression pulsée",
+    fields: [{ k: "s", l: "Systolique (PAS)", u: "mmHg", step: "1" }, { k: "d", l: "Diastolique (PAD)", u: "mmHg", step: "1" }],
+    formula: "PAM = (PAS + 2 × PAD) ÷ 3 · Pression pulsée = PAS − PAD.",
+    calc(v) {
+      if (!CX_POS(v.s) || !CX_POS(v.d)) return null;
+      if (v.d >= v.s) return { tiles: [], badge: ["La diastolique doit être inférieure à la systolique.", "warn"] };
+      const m = (v.s + 2 * v.d) / 3;
+      const b = m < 65 ? ["PAM basse : risque d'hypoperfusion, prévenir l'équipe", "bad"] : m < 70 ? ["PAM à la limite basse", "warn"] : m <= 100 ? ["PAM dans la zone habituelle (70 à 100)", "ok"] : ["PAM élevée", "warn"];
+      return { tiles: [["PAM", CX_FMT(m, 0), "mmHg"], ["Pression pulsée", CX_FMT(v.s - v.d, 0), "mmHg"]], badge: b };
+    } },
+  { cat: "Général", id: "gcs", ic: "pulse", g: ["#7c5cff", "#a78bfa"], title: "Score de Glasgow", desc: "Évaluation de la conscience (3 à 15)",
+    fields: [{ k: "y", l: "Ouverture des yeux (Y)", sel: CX_GLASGOW.y, def: "4" }, { k: "v", l: "Réponse verbale (V)", sel: CX_GLASGOW.v, def: "5" }, { k: "m", l: "Réponse motrice (M)", sel: CX_GLASGOW.m, def: "6" }],
+    formula: "Score = Y + V + M. Un score ≤ 8 impose une alerte immédiate.",
+    calc(v) {
+      const y = +v.y, vv = +v.v, m = +v.m, t = y + vv + m;
+      const b = t === 15 ? ["Conscience normale", "ok"] : t >= 13 ? ["Trouble léger de la conscience", "warn"] : t >= 9 ? ["Trouble modéré : surveillance rapprochée", "warn"] : ["Coma grave (≤ 8) : alerter immédiatement", "bad"];
+      return { tiles: [["Score de Glasgow", t + "/15", ""], ["Détail", `Y${y} V${vv} M${m}`, ""]], badge: b };
+    } },
+  { cat: "Perfusion et doses", id: "perf", ic: "drop", g: ["#0ea5e9", "#6366f1"], title: "Débit de perfusion", desc: "mL/h et gouttes par minute",
+    fields: [{ k: "v", l: "Volume", u: "mL", step: "1" }, { k: "h", l: "Durée", u: "h", step: "1", opt: true }, { k: "m", l: "Minutes", u: "min", step: "1", opt: true },
+      { k: "f", l: "Gouttes par mL", sel: [["20", "20 · perfuseur standard"], ["15", "15 · transfuseur"], ["60", "60 · microperfuseur"]] }],
+    formula: "Gouttes/min = volume × gouttes par mL ÷ durée en minutes.",
+    calc(v) {
+      const h = Number.isFinite(v.h) ? v.h : 0, mi = Number.isFinite(v.m) ? v.m : 0, d = h + mi / 60;
+      if (!CX_POS(v.v) || !(d > 0)) return null;
+      const f = +v.f, g = v.v * f / (d * 60);
+      return { tiles: [["Débit", CX_FMT(v.v / d), "mL/h"], ["Gouttes", CX_FMT(g, 0), "gttes/min"], ["1 goutte toutes les", CX_FMT(60 / g), "s"]] };
+    } },
+  { cat: "Perfusion et doses", id: "dose", ic: "syringe", g: ["#ff7a59", "#ff4d6d"], title: "Dose selon le poids", desc: "Dose en mg et volume à prélever",
+    fields: [{ k: "p", l: "Poids", u: "kg", step: "0.1" }, { k: "d", l: "Dose prescrite", u: "mg/kg", step: "0.01" }, { k: "c", l: "Concentration (facultatif)", u: "mg/mL", step: "0.01", opt: true }],
+    formula: "Dose (mg) = poids × dose en mg/kg · Volume (mL) = dose ÷ concentration.",
+    calc(v) {
+      if (!CX_POS(v.p) || !CX_POS(v.d)) return null;
+      const dose = v.p * v.d, t = [["Dose par prise", CX_FMT(dose, 2), "mg"]];
+      if (CX_POS(v.c)) t.push(["Volume à prélever", CX_FMT(dose / v.c, 2), "mL"]);
+      return { tiles: t, note: "Vérifiez toujours la dose avec la prescription et la dose maximale du médicament." };
+    } },
+  { cat: "Perfusion et doses", id: "pse", ic: "gauge", g: ["#f59e0b", "#f97316"], title: "Pousse-seringue électrique", desc: "Débit en mL/h selon µg/kg/min",
+    fields: [{ k: "p", l: "Poids", u: "kg", step: "0.1" }, { k: "d", l: "Dose prescrite", u: "µg/kg/min", step: "0.01" }, { k: "q", l: "Produit dans la seringue", u: "mg", step: "0.1" }, { k: "v", l: "Volume total", u: "mL", step: "1" }],
+    formula: "Débit (mL/h) = dose (µg/kg/min) × poids × 60 ÷ concentration (µg/mL).",
+    calc(v) {
+      if (!CX_POS(v.p) || !CX_POS(v.d) || !CX_POS(v.q) || !CX_POS(v.v)) return null;
+      const c = v.q / v.v;
+      return { tiles: [["Concentration", CX_FMT(c, 2), "mg/mL"], ["Débit à afficher", CX_FMT(v.d * v.p * 60 / (c * 1000), 2), "mL/h"]], note: "Double vérification du calcul avec un collègue avant de lancer." };
+    } },
+  { cat: "Perfusion et doses", id: "hydr", ic: "drop", g: ["#06b6d4", "#14b8a6"], title: "Besoin hydrique de l'enfant", desc: "Règle de Holliday-Segar (4-2-1)",
+    fields: [{ k: "p", l: "Poids de l'enfant", u: "kg", step: "0.1" }],
+    formula: "10 premiers kg : 100 mL/kg · 10 à 20 kg : +50 mL/kg · au-delà de 20 kg : +20 mL/kg (par 24 h).",
+    calc(v) {
+      if (!CX_POS(v.p)) return null;
+      const p = v.p, j = p <= 10 ? p * 100 : p <= 20 ? 1000 + (p - 10) * 50 : 1500 + (p - 20) * 20;
+      return { tiles: [["Besoin sur 24 h", CX_FMT(j, 0), "mL"], ["Débit horaire", CX_FMT(j / 24), "mL/h"]], note: "Besoin de base : à adapter selon la fièvre, les pertes et la prescription." };
+    } },
+  { cat: "Perfusion et doses", id: "diur", ic: "flask", g: ["#eab308", "#f59e0b"], title: "Diurèse horaire", desc: "Débit urinaire en mL/kg/h",
+    fields: [{ k: "v", l: "Volume urinaire", u: "mL", step: "1" }, { k: "h", l: "Durée", u: "h", step: "0.5" }, { k: "p", l: "Poids", u: "kg", step: "0.1" }],
+    formula: "Diurèse = volume ÷ (poids × durée en heures).",
+    calc(v) {
+      if (!(v.v >= 0) || !CX_POS(v.h) || !CX_POS(v.p)) return null;
+      const r = v.v / (v.p * v.h);
+      return { tiles: [["Diurèse", CX_FMT(r, 2), "mL/kg/h"], ["Volume par heure", CX_FMT(v.v / v.h, 0), "mL/h"]], badge: r < 0.5 ? ["Oligurie chez l'adulte (< 0,5 mL/kg/h) : prévenir l'équipe", "bad"] : ["Diurèse conservée chez l'adulte (≥ 0,5 mL/kg/h)", "ok"], note: "Chez l'enfant, le seuil est plus élevé (environ 1 mL/kg/h)." };
+    } },
+  { cat: "Biologie", id: "ldl", ic: "flask", g: ["#ec4899", "#7c5cff"], title: "LDL-cholestérol (Friedewald)", desc: "Calcul à partir du bilan lipidique",
+    fields: [{ k: "u", l: "Unité du bilan", sel: [["g", "g/L"], ["m", "mmol/L"]] }, { k: "ct", l: "Cholestérol total", u: "", step: "0.01" }, { k: "hdl", l: "HDL-cholestérol", u: "", step: "0.01" }, { k: "tg", l: "Triglycérides", u: "", step: "0.01" }],
+    formula: "LDL = CT − HDL − TG ÷ 5 (g/L) ou TG ÷ 2,2 (mmol/L). Valable si les triglycérides < 3,4 g/L (3,9 mmol/L).",
+    calc(v) {
+      if (!CX_POS(v.ct) || !CX_POS(v.hdl) || !(v.tg >= 0) || !Number.isFinite(v.tg)) return null;
+      const g = v.u === "g", ldl = v.ct - v.hdl - v.tg / (g ? 5 : 2.2), un = g ? "g/L" : "mmol/L", nh = v.ct - v.hdl, ratio = v.ct / v.hdl;
+      const t = [];
+      if (v.tg > (g ? 3.4 : 3.9) || ldl < 0) return { tiles: [["Non-HDL", CX_FMT(nh, 2), un], ["CT / HDL", CX_FMT(ratio), ""]], badge: ["Friedewald non valable (TG trop élevés) : demander un LDL dosé directement", "bad"] };
+      t.push(["LDL calculé", CX_FMT(ldl, 2), un], ["Équivalent", CX_FMT(g ? ldl * 2.586 : ldl / 2.586, 2), g ? "mmol/L" : "g/L"], ["Non-HDL", CX_FMT(nh, 2), un], ["CT / HDL", CX_FMT(ratio), ""]);
+      return { tiles: t, badge: ["L'objectif de LDL dépend du risque cardiovasculaire du patient", "info"] };
+    } },
+  { cat: "Biologie", id: "dfg", ic: "flask", g: ["#10b981", "#0ea5e9"], title: "Fonction rénale", desc: "Clairance de la créatinine et DFG",
+    fields: [{ k: "a", l: "Âge", u: "ans", step: "1" }, { k: "p", l: "Poids", u: "kg", step: "0.1" }, { k: "s", l: "Sexe", sel: [["h", "Homme"], ["f", "Femme"]] },
+      { k: "cu", l: "Unité de créatinine", sel: [["u", "µmol/L"], ["m", "mg/L"]] }, { k: "c", l: "Créatinine", u: "", step: "0.1" }],
+    formula: "Cockcroft-Gault : (140 − âge) × poids × k ÷ créatinine (µmol/L), k = 1,23 (homme) ou 1,04 (femme). CKD-EPI 2021 pour le DFG.",
+    calc(v) {
+      if (!CX_POS(v.a) || !CX_POS(v.p) || !CX_POS(v.c) || v.a >= 140) return null;
+      const f = v.s === "f", cu = v.cu === "m" ? v.c * 8.84 : v.c, mg = cu / 88.4;
+      const cg = (140 - v.a) * v.p * (f ? 1.04 : 1.23) / cu;
+      const k = f ? 0.7 : 0.9, al = f ? -0.241 : -0.302;
+      const e = 142 * Math.pow(Math.min(mg / k, 1), al) * Math.pow(Math.max(mg / k, 1), -1.2) * Math.pow(0.9938, v.a) * (f ? 1.012 : 1);
+      const b = e >= 90 ? ["G1 : DFG normal ou élevé", "ok"] : e >= 60 ? ["G2 : légèrement diminué", "ok"] : e >= 45 ? ["G3a : modérément diminué", "warn"] : e >= 30 ? ["G3b : moyennement à sévèrement diminué", "warn"] : e >= 15 ? ["G4 : sévèrement diminué", "bad"] : ["G5 : insuffisance rénale terminale", "bad"];
+      return { tiles: [["Clairance (Cockcroft-Gault)", CX_FMT(cg, 0), "mL/min"], ["DFG (CKD-EPI 2021)", CX_FMT(e, 0), "mL/min/1,73 m²"]], badge: b, note: "Estimation : l'adaptation des doses relève de la prescription." };
+    } },
+  { cat: "Biologie", id: "conv", ic: "layers", g: ["#6366f1", "#0ea5e9"], title: "Conversion d'unités", desc: "Résultats d'analyses",
+    fields: [{ k: "e", l: "Examen", sel: Object.keys(CX_CV).map(k => [k, CX_CV[k][0]]) }, { k: "d", l: "Sens", sel: [["a", "Unité usuelle → unité SI"], ["b", "Unité SI → unité usuelle"]] }, { k: "x", l: "Valeur", u: "", step: "0.01" }],
+    formula: "Glycémie ×5,55 · Cholestérol ×2,586 · Triglycérides ×1,14 · Créatinine ×8,84 · Urée ×16,65 (usuelle → SI).",
+    calc(v) {
+      if (!CX_POS(v.x)) return null;
+      const c = CX_CV[v.e]; if (!c) return null;
+      const a = v.d !== "b";
+      return { tiles: [[`${c[0]} (${a ? c[2] : c[1]})`, CX_FMT(a ? v.x * c[3] : v.x / c[3], 2), a ? c[2] : c[1]]], note: `${CX_FMT(v.x, 2)} ${a ? c[1] : c[2]} équivaut à ${CX_FMT(a ? v.x * c[3] : v.x / c[3], 2)} ${a ? c[2] : c[1]}.` };
+    } },
+  { cat: "Maternité", id: "dpa", ic: "calendar", g: ["#ec4899", "#f43f5e"], title: "Grossesse : DPA, SA et SG", desc: "Date probable d'accouchement",
+    fields: [{ k: "dd", l: "Premier jour des dernières règles", date: true }, { k: "cy", l: "Durée du cycle", u: "jours", step: "1", def: "28" }, { k: "rf", l: "Date de référence", date: true, today: true }],
+    formula: "Règle de Naegele : DDR + 280 jours (40 SA), ajustée si le cycle n'est pas de 28 jours.",
+    empty: "Entrez la date des dernières règles.",
+    calc(v) {
+      if (!v.dd || !v.rf) return null;
+      const cy = v.cy > 0 ? v.cy : 28, D = new Date(v.dd + "T00:00:00Z"), R = new Date(v.rf + "T00:00:00Z"), days = Math.round((R - D) / 864e5);
+      if (days < 0) return { tiles: [], badge: ["La date de référence est avant la DDR.", "warn"] };
+      const dpa = new Date(D.getTime() + (280 + cy - 28) * 864e5), sa = Math.floor(days / 7), j = days % 7;
+      const stade = sa < 14 ? "1er trimestre" : sa < 28 ? "2e trimestre" : "3e trimestre";
+      const b = sa < 37 ? [stade + " · avant terme", "warn"] : sa < 41 ? [stade + " · à terme", "ok"] : [stade + " · terme dépassé : surveillance renforcée", "bad"];
+      return { tiles: [["DPA", dpa.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }), ""], ["Aménorrhée", `${sa} SA + ${j} j`, ""], ["Grossesse (conception)", "≈ " + Math.max(0, sa - 2), "sem."]], badge: b, note: days > 301 ? "Plus de 43 SA : vérifiez les dates." : "" };
+    } },
+  { cat: "Maternité", id: "apgar", ic: "heart", g: ["#f59e0b", "#ec4899"], title: "Score d'Apgar", desc: "Adaptation du nouveau-né (0 à 10)",
+    fields: CX_APGAR.map(([k, l, sel]) => ({ k, l, sel, def: "2" })),
+    formula: "Évalué à 1, 5 et 10 minutes de vie. Score = somme des 5 critères.",
+    calc(v) {
+      const t = CX_APGAR.reduce((s, a) => s + (+v[a[0]] || 0), 0);
+      const b = t >= 7 ? ["Bonne adaptation (≥ 7)", "ok"] : t >= 4 ? ["Adaptation difficile : assistance nécessaire", "warn"] : ["Détresse vitale : réanimation immédiate", "bad"];
+      return { tiles: [["Score d'Apgar", t + "/10", ""]], badge: b };
+    } }
+];
 function renderCalc() {
-  const today = new Date().toISOString().slice(0, 10);
-  const inner = mxPage("Calculatrices médicales", "IMC, débit de perfusion, date probable d'accouchement et semaines d'aménorrhée.", `
-    <div class="mx-card"><h3>Indice de masse corporelle (IMC)</h3>
-      <div class="mx-row"><label>Poids (kg)<input id="imcP" type="number" min="1" step="0.1" inputmode="decimal"></label><label>Taille (cm)<input id="imcT" type="number" min="30" step="1" inputmode="decimal"></label></div>
-      <div class="mx-res" id="imcR">Entrez le poids et la taille.</div></div>
-    <div class="mx-card"><h3>Débit de perfusion</h3>
-      <div class="mx-row"><label>Volume (mL)<input id="pfV" type="number" min="1" step="1" inputmode="decimal"></label><label>Durée (heures)<input id="pfD" type="number" min="0.1" step="0.1" inputmode="decimal"></label>
-      <label>Gouttes par mL<select id="pfF"><option value="20">20 (perfuseur standard)</option><option value="15">15 (transfuseur)</option><option value="60">60 (microperfuseur)</option></select></label></div>
-      <div class="mx-res" id="pfR">Entrez le volume et la durée.</div></div>
-    <div class="mx-card"><h3>Grossesse : DPA, SA et SG</h3>
-      <div class="mx-row"><label>Premier jour des dernières règles (DDR)<input id="gD" type="date"></label><label>Durée du cycle (jours)<input id="gC" type="number" min="21" max="45" value="28"></label><label>Date de référence<input id="gR" type="date" value="${today}"></label></div>
-      <div class="mx-res" id="gRes">Entrez la date des dernières règles.</div></div>
+  const today = new Date().toISOString().slice(0, 10), cats = [...new Set(CX.map(c => c.cat))];
+  let cat = cats[0];
+  const inner = mxPage("Calculatrices médicales", "Outils de calcul pour le stage : perfusion, doses, biologie, conscience et maternité.", `
+    <div class="cx-tabs" id="cxTabs"></div><div class="cx-grid" id="cxGrid"></div>
     <p class="search-hint">Outils d'aide au calcul : vérifiez toujours avec la prescription et le protocole du service.</p>`);
-  const $ = id => inner.querySelector("#" + id), on = (ids, fn) => ids.forEach(i => $(i).addEventListener("input", fn));
-  on(["imcP", "imcT"], () => {
-    const p = +$("imcP").value, t = +$("imcT").value / 100;
-    if (!(p > 0 && t > 0)) { $("imcR").textContent = "Entrez le poids et la taille."; return; }
-    const v = p / (t * t), c = v < 18.5 ? "Maigreur" : v < 25 ? "Corpulence normale" : v < 30 ? "Surpoids" : v < 35 ? "Obésité modérée (classe I)" : v < 40 ? "Obésité sévère (classe II)" : "Obésité massive (classe III)";
-    $("imcR").innerHTML = `<strong>IMC : ${v.toFixed(1)} kg/m²</strong><br>${c} (classification OMS)`;
-  });
-  on(["pfV", "pfD", "pfF"], () => {
-    const v = +$("pfV").value, d = +$("pfD").value, f = +$("pfF").value;
-    if (!(v > 0 && d > 0)) { $("pfR").textContent = "Entrez le volume et la durée."; return; }
-    const g = v * f / (d * 60);
-    $("pfR").innerHTML = `<strong>${(v / d).toFixed(1)} mL/h</strong><br><strong>${Math.round(g)} gouttes/min</strong> (1 goutte toutes les ${(60 / g).toFixed(1)} s)<br><small>Gouttes/min = volume × gouttes par mL ÷ durée en minutes</small>`;
-  });
-  on(["gD", "gC", "gR"], () => {
-    const dd = $("gD").value, rf = $("gR").value, cy = +$("gC").value || 28;
-    if (!dd || !rf) { $("gRes").textContent = "Entrez la date des dernières règles."; return; }
-    const D = new Date(dd + "T00:00:00Z"), Rf = new Date(rf + "T00:00:00Z"), days = Math.round((Rf - D) / 864e5);
-    const fmt = d => d.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
-    const dpa = new Date(D.getTime() + (280 + cy - 28) * 864e5);
-    if (days < 0) { $("gRes").textContent = "La date de référence est avant la DDR."; return; }
-    const sa = Math.floor(days / 7), j = days % 7;
-    const stade = sa < 14 ? "1er trimestre" : sa < 28 ? "2e trimestre" : "3e trimestre", terme = sa < 37 ? "avant terme (prématurité si accouchement)" : sa < 41 ? "à terme" : "terme dépassé : surveillance renforcée selon le protocole";
-    $("gRes").innerHTML = `<strong>DPA : ${esc(fmt(dpa))}</strong><br>Aménorrhée : <strong>${sa} SA + ${j} j</strong><br>Grossesse (depuis la conception) : environ <strong>${Math.max(0, sa - 2)} semaines</strong><br>${stade} · ${terme}${days > 301 ? "<br><small>Plus de 43 SA : vérifiez les dates.</small>" : ""}<br><small>Règle de Naegele : DDR + 280 jours (40 SA), ajustée si le cycle n'est pas de 28 jours.</small>`;
-  });
+  const tabs = inner.querySelector("#cxTabs"), grid = inner.querySelector("#cxGrid");
+  const fieldHtml = f => {
+    if (f.sel) return `<label>${esc(f.l)}<select data-k="${f.k}">${f.sel.map(o => `<option value="${esc(o[0])}"${String(o[0]) === String(f.def) ? " selected" : ""}>${esc(o[1])}</option>`).join("")}</select></label>`;
+    if (f.date) return `<label>${esc(f.l)}<input type="date" data-k="${f.k}" value="${f.today ? today : ""}"></label>`;
+    return `<label>${esc(f.l)}<span class="cx-in"><input type="number" data-k="${f.k}" inputmode="decimal" step="${f.step || "any"}" min="0" value="${f.def || ""}">${f.u ? `<em>${esc(f.u)}</em>` : ""}</span></label>`;
+  };
+  const cardHtml = c => `<div class="mx-card cx-card" data-c="${c.id}" style="--g1:${c.g[0]};--g2:${c.g[1]}">
+    <div class="cx-head"><span class="cx-ico">${ico(c.ic)}</span><div><h3>${esc(c.title)}</h3><p>${esc(c.desc)}</p></div></div>
+    <div class="cx-body"><div class="mx-row">${c.fields.map(fieldHtml).join("")}</div><div class="cx-out"></div><p class="cx-note cx-formula">${esc(c.formula)}</p></div></div>`;
+  const update = card => {
+    const c = CX.find(x => x.id === card.dataset.c), v = {};
+    c.fields.forEach(f => { const el = card.querySelector(`[data-k="${f.k}"]`); v[f.k] = (f.sel || f.date) ? el.value : parseFloat(el.value); });
+    const r = c.calc(v), out = card.querySelector(".cx-out");
+    if (!r) { out.innerHTML = `<div class="cx-empty">${esc(c.empty || "Remplissez les champs pour afficher le résultat.")}</div>`; return; }
+    out.innerHTML = (r.tiles && r.tiles.length ? `<div class="cx-tiles">${r.tiles.map(t => `<div class="cx-tile"><b>${esc(t[1])}${t[2] ? `<small>${esc(t[2])}</small>` : ""}</b><span>${esc(t[0])}</span></div>`).join("")}</div>` : "")
+      + (r.badge ? `<span class="cx-badge ${r.badge[1]}">${esc(r.badge[0])}</span>` : "") + (r.note ? `<p class="cx-note">${esc(r.note)}</p>` : "");
+  };
+  const draw = () => {
+    tabs.innerHTML = cats.map(t => `<button type="button" class="cx-tab${t === cat ? " on" : ""}" data-cat="${esc(t)}">${esc(t)}</button>`).join("");
+    tabs.querySelectorAll("[data-cat]").forEach(b => b.addEventListener("click", () => { cat = b.dataset.cat; draw(); }));
+    grid.innerHTML = CX.filter(c => c.cat === cat).map(cardHtml).join("");
+    grid.querySelectorAll("[data-c]").forEach(update);
+  };
+  const onChange = e => { const card = e.target.closest("[data-c]"); if (card) update(card); };
+  grid.addEventListener("input", onChange); grid.addEventListener("change", onChange);
+  draw();
 }
 
 // ---------- 3. Préparation aux concours (Master) ----------
@@ -2920,7 +3089,7 @@ const SITE_PAGES = [
   { name: "Stages", words: "stage protocoles fiches techniques situations cliniques" },
   { name: "Emploi du temps", words: "planning emploi du temps horaires" },
   { name: "Dictionnaire médical", words: "dictionnaire medical termes vocabulaire darija francais traduction mots" },
-  { name: "Calculatrices", words: "calculatrice imc debit perfusion gouttes date accouchement dpa semaines amenorrhee grossesse" },
+  { name: "Calculatrices", words: "calculatrice imc debit perfusion gouttes date accouchement dpa semaines amenorrhee grossesse ldl cholesterol friedewald creatinine clairance dfg glasgow apgar pam pression arterielle dose mg kg pousse seringue pse hydratation diurese conversion glycemie" },
   { name: "Préparation concours", words: "concours master preparation qcm revision entrainement" },
   { name: "Carnet de stage", words: "carnet stage activites difficultes competences objectifs suivi" },
   { name: "Cas cliniques", words: "cas clinique cliniques situations urgence decisions simulation" },
