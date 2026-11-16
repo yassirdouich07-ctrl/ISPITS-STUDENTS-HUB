@@ -1216,6 +1216,75 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .cx-badge.ok{background:#e0f5e8;color:#17703a}.cx-badge.warn{background:#fff0d6;color:#8a5a00}.cx-badge.bad{background:#fde4e1;color:#a3281c}.cx-badge.info{background:#e1effd;color:#1c5a9c}
 .cx-note{margin:10px 0 0;font-size:11.5px;line-height:1.5;color:var(--muted)}
 .cx-formula{border-top:1px dashed var(--border);padding-top:10px;margin-top:12px}
+
+/* ===== Terminologie médicale ===== */
+.tm-h{margin:0 0 6px;font-size:17px}
+.tm-how ol{margin:8px 0;padding-left:20px;font-size:13px;line-height:1.7}
+.tm-ex{margin:8px 0 0;padding:10px 12px;border-radius:12px;background:var(--teal-soft);font-size:13px;line-height:1.6}
+.tm-row{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:16px;padding:12px 14px;margin-bottom:8px}
+.tm-el{flex:none;min-width:84px;max-width:128px;font-family:'Outfit',sans-serif;font-weight:800;font-size:16px;color:#0d9488;overflow-wrap:anywhere}
+.tm-el.tm-w{color:var(--navy)}
+.tm-info{min-width:0}
+.tm-info strong{display:block;font-size:14px;color:var(--navy);line-height:1.35}
+.tm-info span{display:block;margin-top:2px;font-size:12px;color:var(--muted);line-height:1.45}
+#tmList{margin:12px 0}
+.tm-modes{display:grid;gap:8px;margin:12px 0}
+.tm-mode{text-align:left;border:1px solid var(--border);background:#fff;border-radius:14px;padding:11px 14px;display:flex;flex-direction:column;gap:2px}
+.tm-mode strong{font-size:14px;color:var(--navy)}
+.tm-mode span{font-size:12px;color:var(--muted)}
+.tm-mode em{font-style:normal;font-size:11px;font-weight:800;color:#0d9488}
+.tm-mode.on{border-color:#14b8a6;background:var(--teal-soft);box-shadow:0 0 0 2px #14b8a633}
+.tm-end{text-align:center}
+.tm-score{font-family:'Outfit',sans-serif;font-size:44px;font-weight:800;color:#0d9488;line-height:1.1}
+.tm-end .primary-btn,.tm-end .ghost-btn{width:100%;margin-top:10px}
+.ghost-btn{border:1px solid var(--border);background:#fff;color:var(--navy);border-radius:14px;padding:12px 16px;font-weight:700}
+
+/* ===== Flashcards ===== */
+.fl-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 14px}
+.fl-summary div{background:#fff;border:1px solid var(--border);border-radius:14px;padding:10px;text-align:center}
+.fl-summary b{display:block;font-family:'Outfit',sans-serif;font-size:22px;color:var(--navy)}
+.fl-summary span{font-size:11px;color:var(--muted)}
+.fl-decks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.fl-deck{display:flex;gap:14px;align-items:center;text-align:left;background:#fff;border:1px solid var(--border);border-radius:20px;padding:16px;box-shadow:0 8px 22px #0b1f3a0d}
+.fl-deck-t{min-width:0;flex:1;display:block}
+.fl-deck-t strong{display:block;font-size:16px;color:var(--navy)}
+.fl-deck-t small{display:block;font-size:12px;color:var(--muted);margin:2px 0 8px}
+.fl-deck-t em{display:block;margin-top:6px;font-style:normal;font-size:11px;color:var(--muted)}
+.fl-bar{display:block;height:6px;border-radius:6px;background:#e6edf3;overflow:hidden}
+.fl-bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--g1),var(--g2))}
+.fl-link{border:0;background:transparent;color:#0d9488;font-weight:800;font-size:13px;padding:6px 2px;margin-bottom:6px}
+.fl-reset{display:block;margin:12px auto 0;color:var(--muted);font-weight:600;font-size:12px}
+.fl-groups{margin:10px 0 14px}
+.fl-top{display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:700;color:var(--muted)}
+.fl-card{position:relative;min-height:300px;margin:12px 0;background:#fff;border:1px solid var(--border);border-radius:24px;padding:42px 20px 22px;box-shadow:0 14px 34px #0b1f3a14;display:flex;flex-direction:column;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;animation:fcIn .25s ease}
+.fl-card:focus-visible{outline:3px solid #14b8a655}
+.fl-tag{position:absolute;top:14px;left:18px;right:18px;font-size:11px;font-weight:800;letter-spacing:.04em;color:#0d9488;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fl-q{font-family:'Outfit',sans-serif;font-size:22px;line-height:1.35;text-align:center;color:var(--navy);overflow-wrap:anywhere}
+.fl-q small{display:block;margin-top:8px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--muted);line-height:1.5}
+.fl-q-s{font-size:15px;text-align:left;padding-bottom:10px;margin-bottom:12px;border-bottom:1px dashed var(--border)}
+.fl-hint{display:block;text-align:center;margin-top:22px;font-size:12px;color:var(--muted)}
+.fl-back{display:none}
+.fl-card.flip .fl-front{display:none}
+.fl-card.flip .fl-back{display:block;animation:fcIn .25s ease;justify-self:stretch}
+.fl-card.flip{justify-content:flex-start}
+.fl-a{font-size:14px;line-height:1.65;color:var(--text)}
+.fl-a p{margin:0 0 8px}
+.fl-a h4{margin:10px 0 4px;font-size:12px;color:#0d9488;text-transform:uppercase;letter-spacing:.04em}
+.fl-a ul,.fl-a ol{margin:0;padding-left:20px}
+.fl-a li{margin-bottom:3px}
+.fl-ex{color:var(--muted);font-size:13px}
+.fl-dj{display:inline-block;margin-top:4px;padding:6px 12px;border-radius:12px;background:var(--teal-soft);font-weight:700;color:#0d6f66}
+.fl-dj span{font-size:10px;text-transform:uppercase;letter-spacing:.05em;margin-right:6px;color:var(--muted)}
+.fl-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fl-actions[hidden]{display:none}
+.fl-btn{border:0;border-radius:16px;padding:15px;font-weight:800;font-size:15px;color:#fff}
+.fl-btn.again{background:linear-gradient(135deg,#f97316,#ef4444)}
+.fl-btn.ok{background:linear-gradient(135deg,#0d9488,#14b8a6)}
+@keyframes fcIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media(max-width:760px){.fl-card{min-height:280px;padding:40px 16px 18px}.fl-q{font-size:20px}}
+@media(max-width:760px){.fl-actions{position:sticky;bottom:calc(86px + env(safe-area-inset-bottom,0px));z-index:5;padding-top:6px}}
+.module-card:nth-child(10){--g1:#f59e0b;--g2:#ec4899}
+.module-card:nth-child(11){--g1:#8b5cf6;--g2:#06b6d4}
 </style>
 </head>
 
@@ -1425,6 +1494,8 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
       <button class="nav-item" data-page="Règlement intérieur" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-file"/></svg></span>Règlement intérieur</button>
       <button class="nav-item" data-page="Atlas anatomie" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-layers"/></svg></span>Atlas anatomie</button>
       <button class="nav-item" data-page="Dictionnaire médical" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-book"/></svg></span>Dictionnaire médical</button>
+      <button class="nav-item" data-page="Terminologie médicale" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-cap"/></svg></span>Terminologie médicale</button>
+      <button class="nav-item" data-page="Flashcards" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-layers"/></svg></span>Flashcards</button>
       <button class="nav-item" data-page="Calculatrices" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-spark"/></svg></span>Calculatrices</button>
       <button class="nav-item" data-page="Préparation concours" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-check"/></svg></span>Préparation concours</button>
       <button class="nav-item" data-page="Carnet de stage" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-file"/></svg></span>Carnet de stage</button>
@@ -1550,6 +1621,20 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
               <div class="module-icon"><svg class="ico"><use href="#i-book"/></svg></div>
               <h3>Dictionnaire médical</h3>
               <p>Termes de santé en français et en darija pour mieux comprendre.</p>
+              <span class="module-arrow">↗</span>
+            </button>
+
+            <button class="module-card" data-open="Terminologie médicale" type="button">
+              <div class="module-icon"><svg class="ico"><use href="#i-cap"/></svg></div>
+              <h3>Terminologie médicale</h3>
+              <p>Préfixes, suffixes et racines, avec quiz pour vous tester.</p>
+              <span class="module-arrow">↗</span>
+            </button>
+
+            <button class="module-card" data-open="Flashcards" type="button">
+              <div class="module-icon"><svg class="ico"><use href="#i-layers"/></svg></div>
+              <h3>Flashcards</h3>
+              <p>Révisez modules, médicaments et fiches avec la répétition espacée.</p>
               <span class="module-arrow">↗</span>
             </button>
 
@@ -1880,6 +1965,8 @@ const moduleDescriptions = {
   "Résumés": "Accédez aux fiches de révision, synthèses et documents conçus pour faciliter vos révisions.",
   "Emploi du temps": "Retrouvez les plannings, les emplois du temps et les informations relatives à votre organisation académique.",
   "Dictionnaire médical": "Termes de santé en français et en darija pour mieux comprendre.",
+  "Terminologie médicale": "Préfixes, suffixes et racines pour comprendre les termes médicaux, avec quiz.",
+  "Flashcards": "Révisez modules, médicaments, fiches techniques et terminologie avec la répétition espacée.",
   "Calculatrices": "Doses, perfusion, LDL, fonction rénale, Glasgow, Apgar, grossesse et plus.",
   "Préparation concours": "QCM d'entraînement et plan de révision pour les concours et le master.",
   "Carnet de stage": "Vos notes de stage avec photos, difficultés, objectifs et compétences, à votre façon.",
@@ -1898,6 +1985,8 @@ const moduleIcons = {
   "Résumés": ico("file"),
   "Emploi du temps": ico("calendar"),
   "Dictionnaire médical": ico("book"),
+  "Terminologie médicale": ico("cap"),
+  "Flashcards": ico("layers"),
   "Calculatrices": ico("spark"),
   "Préparation concours": ico("check"),
   "Carnet de stage": ico("file"),
@@ -2439,7 +2528,7 @@ function mxPlay(box, steps, head, onEnd) {
       box.querySelectorAll(".mx-opt").forEach(x => { x.disabled = true; });
       box.querySelector(`[data-k="${s.opts.indexOf(good)}"]`).classList.add("good");
       if (o.ok) score++; else b.classList.add("bad");
-      box.querySelector("#mxFb").innerHTML = `<div class="mx-fb ${o.ok ? "good" : "bad"}"><strong>${o.ok ? "Bonne décision" : "Pas tout à fait"}</strong><p>${esc(o.fb)}</p>${o.ok ? "" : `<p><strong>À retenir :</strong> ${esc(good.fb)}</p>`}</div><button type="button" class="primary-btn" id="mxNext">${i + 1 < steps.length ? "Suivant" : "Voir le résultat"}</button>`;
+      box.querySelector("#mxFb").innerHTML = `<div class="mx-fb ${o.ok ? "good" : "bad"}"><strong>${(s.lab || ["Bonne décision", "Pas tout à fait"])[o.ok ? 0 : 1]}</strong><p>${esc(o.fb)}</p>${o.ok ? "" : `<p><strong>À retenir :</strong> ${esc(good.fb)}</p>`}</div><button type="button" class="primary-btn" id="mxNext">${i + 1 < steps.length ? "Suivant" : "Voir le résultat"}</button>`;
       box.querySelector("#mxNext").addEventListener("click", () => { i++; if (i < steps.length) show(); else onEnd(score, steps.length); });
     }));
   };
@@ -2784,6 +2873,467 @@ function renderCalc() {
   draw();
 }
 
+// ---------- 2 bis. Terminologie médicale + Flashcards ----------
+// Types : P = préfixe, S = suffixe, R = racine. Format : type|élément|sens|exemple
+const TM_RAW = `P|a- / an-|absence, privation|apnée (absence de respiration)
+P|anti-|contre|antibiotique (contre les bactéries)
+P|bi-|deux|bilatéral (des deux côtés)
+P|brady-|lent|bradycardie (cœur lent)
+P|dys-|difficulté, trouble|dyspnée (difficulté à respirer)
+P|endo-|à l'intérieur|endocarde (paroi interne du cœur)
+P|épi-|sur, au-dessus|épigastre (au-dessus de l'estomac)
+P|exo-|à l'extérieur|exogène (d'origine externe)
+P|hémi-|moitié|hémiplégie (paralysie d'une moitié du corps)
+P|hétéro-|différent|hétérogène (de nature différente)
+P|hyper-|excès, augmentation|hypertension (pression trop élevée)
+P|hypo-|insuffisance, diminution|hypoglycémie (sucre trop bas)
+P|inter-|entre|intercostal (entre les côtes)
+P|intra-|à l'intérieur de|intraveineuse (dans une veine)
+P|iso-|égal|isotonique (même tonicité)
+P|macro-|grand|macrocéphalie (tête anormalement grande)
+P|micro-|petit|microcéphalie (tête anormalement petite)
+P|mono-|un seul|monoplégie (paralysie d'un seul membre)
+P|multi-|plusieurs|multipare (plusieurs accouchements)
+P|néo-|nouveau|néonatal (relatif au nouveau-né)
+P|oligo-|peu, insuffisance|oligurie (peu d'urine)
+P|pan-|tout, ensemble|pancytopénie (diminution de toutes les cellules sanguines)
+P|para-|à côté de, le long de|paravertébral (à côté de la colonne)
+P|péri-|autour|péricarde (enveloppe autour du cœur)
+P|poly-|nombreux, beaucoup|polyurie (beaucoup d'urine)
+P|post-|après|postopératoire (après l'opération)
+P|pré-|avant|prénatal (avant la naissance)
+P|sub- / sous-|sous, en dessous|sublingual (sous la langue)
+P|supra-|au-dessus|supraventriculaire (au-dessus des ventricules)
+P|tachy-|rapide|tachycardie (cœur rapide)
+P|trans-|à travers|transcutané (à travers la peau)
+S|-ite|inflammation|appendicite (inflammation de l'appendice)
+S|-ose|état, maladie non inflammatoire (souvent dégénérative)|arthrose (usure de l'articulation)
+S|-pathie|maladie|cardiopathie (maladie du cœur)
+S|-algie|douleur|céphalalgie (douleur de la tête)
+S|-émie|sang (présence dans le sang)|glycémie (sucre dans le sang)
+S|-urie|urine|hématurie (sang dans les urines)
+S|-ectomie|ablation chirurgicale|appendicectomie (ablation de l'appendice)
+S|-tomie|incision, ouverture chirurgicale|laparotomie (ouverture de l'abdomen)
+S|-stomie|abouchement à la peau, création d'un orifice|colostomie (côlon abouché à la peau)
+S|-plastie|réparation chirurgicale|rhinoplastie (réparation du nez)
+S|-scopie|examen visuel|coloscopie (examen visuel du côlon)
+S|-graphie|enregistrement, représentation par l'image|radiographie (image par rayons X)
+S|-gramme|tracé, image obtenue|électrocardiogramme (tracé du cœur)
+S|-logie|étude, science|cardiologie (étude du cœur)
+S|-rragie|écoulement abondant|hémorragie (écoulement de sang)
+S|-rrhée|écoulement|diarrhée (écoulement de selles liquides)
+S|-pnée|respiration|dyspnée (difficulté à respirer)
+S|-pénie|diminution|leucopénie (baisse des globules blancs)
+S|-cytose|augmentation du nombre de cellules|leucocytose (hausse des globules blancs)
+S|-mégalie|augmentation de volume|hépatomégalie (gros foie)
+S|-malacie|ramollissement|ostéomalacie (ramollissement des os)
+S|-sclérose|durcissement|artériosclérose (durcissement des artères)
+S|-lyse|destruction, dissolution|hémolyse (destruction des globules rouges)
+S|-thérapie|traitement|kinésithérapie (traitement par le mouvement)
+S|-plégie|paralysie|hémiplégie (paralysie d'une moitié du corps)
+S|-phagie|manger, avaler|dysphagie (difficulté à avaler)
+S|-phobie|peur anormale|claustrophobie (peur des lieux clos)
+S|-trophie|nutrition, développement|atrophie (diminution de volume)
+S|-ome|tumeur|lipome (tumeur de graisse)
+S|-cèle|hernie, tuméfaction|hydrocèle (épanchement d'eau)
+S|-centèse|ponction|amniocentèse (ponction du liquide amniotique)
+S|-pexie|fixation chirurgicale|mastopexie (remontée des seins)
+S|-rraphie|suture|herniorraphie (suture d'une hernie)
+S|-ectasie|dilatation|bronchectasie (dilatation des bronches)
+S|-lithiase|présence de calculs|cholélithiase (calculs de la vésicule)
+R|cardi(o)-|cœur|cardiologie
+R|angi(o)-|vaisseau|angiographie
+R|artér(io)-|artère|artériosclérose
+R|phléb(o)-|veine|phlébite
+R|hém(o)- / hémat(o)-|sang|hématome
+R|leuc(o)-|blanc|leucocyte
+R|érythr(o)-|rouge|érythrocyte (globule rouge)
+R|gastr(o)-|estomac|gastrite
+R|entér(o)-|intestin grêle|entérite
+R|col(o)-|côlon|colite
+R|hépat(o)-|foie|hépatite
+R|cholécyst(o)-|vésicule biliaire|cholécystectomie
+R|pancréat(o)-|pancréas|pancréatite
+R|néphr(o)- / rén(o)-|rein|néphropathie
+R|cyst(o)-|vessie|cystite
+R|pneum(o)- / pulmon(o)-|poumon|pneumonie
+R|bronch(o)-|bronches|bronchite
+R|laryng(o)-|larynx|laryngite
+R|rhin(o)-|nez|rhinite
+R|ot(o)-|oreille|otite
+R|ophtalm(o)-|œil|ophtalmologie
+R|cérébr(o)- / encéphal(o)-|cerveau, encéphale|encéphalite
+R|neur(o)-|nerf|neuropathie
+R|myél(o)-|moelle (épinière ou osseuse)|myélite
+R|ost(éo)-|os|ostéoporose
+R|arthr(o)-|articulation|arthrite
+R|my(o)-|muscle|myalgie
+R|derm(o)- / dermat(o)-|peau|dermatite
+R|cyt(o)-|cellule|cytologie
+R|hist(o)-|tissu|histologie
+R|hystér(o)- / métr(o)-|utérus|hystérectomie
+R|mast(o)- / mamm(o)-|sein|mastectomie
+R|thyr(o)-|thyroïde|thyroïdectomie
+R|thromb(o)-|caillot, plaquette|thrombose
+R|glyc(o)-|sucre, glucose|glycémie
+R|lip(o)-|graisse|lipome
+R|céphal(o)-|tête|céphalalgie
+R|rachi(o)-|colonne vertébrale|rachianesthésie
+R|splén(o)-|rate|splénomégalie
+R|gynéc(o)-|femme|gynécologie`;
+const TM_ITEMS = TM_RAW.split("\n").map(l => { const [type, el, sens, ex] = l.split("|"); return { type, el, sens, ex }; });
+const TM_LABEL = { P: "Préfixes", S: "Suffixes", R: "Racines" };
+const TM_SING = { P: "préfixe", S: "suffixe", R: "racine" };
+const TM_ART = { P: "le préfixe", S: "le suffixe", R: "la racine" };
+const TM_QUEL = { P: "Quel préfixe", S: "Quel suffixe", R: "Quelle racine" };
+// Format : mot|décomposition|sens
+const TM_MOTS_RAW = `gastrite|gastr- (estomac) + -ite (inflammation)|Inflammation de la muqueuse de l'estomac
+hépatite|hépat- (foie) + -ite (inflammation)|Inflammation du foie
+néphrite|néphr- (rein) + -ite (inflammation)|Inflammation du rein
+cystite|cyst- (vessie) + -ite (inflammation)|Inflammation de la vessie
+arthrite|arthr- (articulation) + -ite (inflammation)|Inflammation d'une articulation
+dermatite|dermat- (peau) + -ite (inflammation)|Inflammation de la peau
+bronchite|bronch- (bronches) + -ite (inflammation)|Inflammation des bronches
+appendicite|appendic- (appendice) + -ite (inflammation)|Inflammation de l'appendice
+méningite|méning- (méninges) + -ite (inflammation)|Inflammation des méninges
+otite|ot- (oreille) + -ite (inflammation)|Inflammation de l'oreille
+rhinite|rhin- (nez) + -ite (inflammation)|Inflammation de la muqueuse du nez
+laryngite|laryng- (larynx) + -ite (inflammation)|Inflammation du larynx
+phlébite|phléb- (veine) + -ite (inflammation)|Inflammation d'une veine
+colite|col- (côlon) + -ite (inflammation)|Inflammation du côlon
+pancréatite|pancréat- (pancréas) + -ite (inflammation)|Inflammation du pancréas
+gastrectomie|gastr- (estomac) + -ectomie (ablation)|Ablation de tout ou partie de l'estomac
+appendicectomie|appendic- (appendice) + -ectomie (ablation)|Ablation de l'appendice
+cholécystectomie|cholécyst- (vésicule biliaire) + -ectomie (ablation)|Ablation de la vésicule biliaire
+thyroïdectomie|thyroïd- (thyroïde) + -ectomie (ablation)|Ablation de la thyroïde
+hystérectomie|hystér- (utérus) + -ectomie (ablation)|Ablation de l'utérus
+mastectomie|mast- (sein) + -ectomie (ablation)|Ablation du sein
+néphrectomie|néphr- (rein) + -ectomie (ablation)|Ablation d'un rein
+splénectomie|splén- (rate) + -ectomie (ablation)|Ablation de la rate
+laparotomie|lapar- (abdomen) + -tomie (incision)|Ouverture chirurgicale de l'abdomen
+trachéotomie|trachée + -tomie (incision)|Incision de la trachée pour créer un orifice respiratoire
+colostomie|col- (côlon) + -stomie (abouchement à la peau)|Abouchement du côlon à la peau
+gastroscopie|gastr- (estomac) + -scopie (examen visuel)|Examen visuel de l'estomac avec un endoscope
+coloscopie|col- (côlon) + -scopie (examen visuel)|Examen visuel du côlon avec un endoscope
+bronchoscopie|bronch- (bronches) + -scopie (examen visuel)|Examen visuel des bronches
+céphalalgie|céphal- (tête) + -algie (douleur)|Douleur de la tête (mal de tête)
+névralgie|névr- (nerf) + -algie (douleur)|Douleur sur le trajet d'un nerf
+arthralgie|arthr- (articulation) + -algie (douleur)|Douleur articulaire
+myalgie|my- (muscle) + -algie (douleur)|Douleur musculaire
+hypoglycémie|hypo- (diminution) + glyc- (sucre) + -émie (sang)|Taux de sucre dans le sang trop bas
+hyperglycémie|hyper- (excès) + glyc- (sucre) + -émie (sang)|Taux de sucre dans le sang trop élevé
+hématurie|hémat- (sang) + -urie (urine)|Présence de sang dans les urines
+polyurie|poly- (beaucoup) + -urie (urine)|Émission excessive d'urine
+anurie|an- (absence) + -urie (urine)|Absence d'émission d'urine
+oligurie|oligo- (peu) + -urie (urine)|Diminution du volume d'urine
+cardiopathie|cardi- (cœur) + -pathie (maladie)|Maladie du cœur
+néphropathie|néphr- (rein) + -pathie (maladie)|Maladie du rein
+neuropathie|neur- (nerf) + -pathie (maladie)|Maladie des nerfs
+hépatomégalie|hépat- (foie) + -mégalie (augmentation de volume)|Augmentation du volume du foie
+splénomégalie|splén- (rate) + -mégalie (augmentation de volume)|Augmentation du volume de la rate
+cardiomégalie|cardi- (cœur) + -mégalie (augmentation de volume)|Augmentation du volume du cœur
+dyspnée|dys- (difficulté) + -pnée (respiration)|Difficulté à respirer
+apnée|a- (absence) + -pnée (respiration)|Arrêt de la respiration
+tachypnée|tachy- (rapide) + -pnée (respiration)|Respiration anormalement rapide
+bradypnée|brady- (lent) + -pnée (respiration)|Respiration anormalement lente
+tachycardie|tachy- (rapide) + -cardie (cœur)|Rythme cardiaque anormalement rapide
+bradycardie|brady- (lent) + -cardie (cœur)|Rythme cardiaque anormalement lent
+hémiplégie|hémi- (moitié) + -plégie (paralysie)|Paralysie d'une moitié du corps
+paraplégie|para- (deux côtés symétriques) + -plégie (paralysie)|Paralysie des deux membres inférieurs
+tétraplégie|tétra- (quatre) + -plégie (paralysie)|Paralysie des quatre membres
+hémorragie|hémo- (sang) + -rragie (écoulement abondant)|Écoulement abondant de sang hors des vaisseaux
+leucopénie|leuco- (blanc) + -pénie (diminution)|Diminution du nombre de globules blancs
+thrombopénie|thrombo- (plaquette) + -pénie (diminution)|Diminution du nombre de plaquettes
+thrombose|thromb- (caillot) + -ose (état)|Formation d'un caillot dans un vaisseau
+radiographie|radio- (rayons) + -graphie (image)|Image obtenue grâce aux rayons X
+électrocardiogramme|électro- + cardio- (cœur) + -gramme (tracé)|Tracé de l'activité électrique du cœur
+amniocentèse|amnios + -centèse (ponction)|Ponction du liquide amniotique
+hémolyse|hémo- (sang) + -lyse (destruction)|Destruction des globules rouges
+kinésithérapie|kinési- (mouvement) + -thérapie (traitement)|Traitement par le mouvement
+cardiologie|cardio- (cœur) + -logie (étude)|Spécialité qui étudie le cœur
+dysphagie|dys- (difficulté) + -phagie (avaler)|Difficulté à avaler
+atrophie|a- (privation) + -trophie (nutrition)|Diminution de volume d'un tissu ou d'un organe
+hypertension|hyper- (excès) + tension|Pression artérielle trop élevée
+hypotension|hypo- (insuffisance) + tension|Pression artérielle trop basse`;
+const TM_MOTS = TM_MOTS_RAW.split("\n").map(l => { const [mot, dec, sens] = l.split("|"); return { mot, dec, sens }; });
+
+// Cartes de cours par module (S1). Pour en ajouter : [ "Nom EXACT du module", "Question", "Réponse" ]
+const FC_MODULES = [
+  ["Anatomie et physiologie", "Quelles sont les 3 couches de la paroi du cœur ?", "Endocarde (interne), myocarde (muscle) et épicarde (externe). Le cœur est enveloppé par le péricarde."],
+  ["Anatomie et physiologie", "Quel est le trajet de la petite circulation (circulation pulmonaire) ?", "Ventricule droit → artères pulmonaires → poumons (hématose) → veines pulmonaires → oreillette gauche."],
+  ["Anatomie et physiologie", "Quelle valve sépare l'oreillette gauche du ventricule gauche ?", "La valve mitrale (bicuspide)."],
+  ["Anatomie et physiologie", "Combien de vertèbres compte-t-on et comment sont-elles réparties ?", "33 vertèbres : 7 cervicales, 12 thoraciques, 5 lombaires, 5 sacrées (soudées) et 4 coccygiennes (soudées)."],
+  ["Anatomie et physiologie", "Quel est le rôle des alvéoles pulmonaires ?", "Les échanges gazeux (hématose) : l'oxygène passe dans le sang et le dioxyde de carbone est éliminé."],
+  ["Anatomie et physiologie", "Quelle est l'unité fonctionnelle du rein ?", "Le néphron (glomérule + tubule) : filtration, réabsorption et sécrétion pour former l'urine."],
+  ["Anatomie et physiologie", "Où se fait l'essentiel de l'absorption des nutriments ?", "Dans l'intestin grêle (duodénum, jéjunum, iléon), grâce aux villosités intestinales."],
+  ["Anatomie et physiologie", "Quel est le rôle des globules rouges, des globules blancs et des plaquettes ?", "Globules rouges : transport de l'oxygène (hémoglobine). Globules blancs : défense immunitaire. Plaquettes : coagulation."],
+  ["Anatomie et physiologie", "Quelles hormones du pancréas régulent la glycémie ?", "L'insuline (fait baisser la glycémie) et le glucagon (la fait monter)."],
+  ["Anatomie et physiologie", "Qu'est-ce que l'homéostasie ?", "Le maintien de l'équilibre du milieu intérieur (température, pH, glycémie...) malgré les variations extérieures."],
+  ["Sémiologie et terminologie médicale", "Quelle est la fréquence cardiaque normale de repos chez l'adulte ?", "60 à 100 battements par minute."],
+  ["Sémiologie et terminologie médicale", "Quelle est la fréquence respiratoire normale de l'adulte ?", "12 à 20 cycles par minute."],
+  ["Sémiologie et terminologie médicale", "Quelle est la température normale et à partir de quand parle-t-on de fièvre ?", "Normale : environ 36,5 à 37,5 °C. Fièvre : température supérieure ou égale à 38 °C."],
+  ["Sémiologie et terminologie médicale", "Quelle est la différence entre un symptôme et un signe ?", "Symptôme : ressenti rapporté par le patient (ex. douleur). Signe : constaté par le soignant (ex. fièvre, souffle, rougeur)."],
+  ["Sémiologie et terminologie médicale", "Quels sont les 4 temps de l'examen clinique ?", "Inspection, palpation, percussion, auscultation."],
+  ["Sémiologie et terminologie médicale", "Comment définit-on l'hypertension artérielle chez l'adulte ?", "Pression systolique ≥ 140 mmHg et/ou diastolique ≥ 90 mmHg, confirmée par plusieurs mesures."],
+  ["Sémiologie et terminologie médicale", "Que signifient dyspnée, tachypnée et apnée ?", "Dyspnée : difficulté à respirer. Tachypnée : respiration rapide. Apnée : arrêt de la respiration."],
+  ["Sémiologie et terminologie médicale", "Quelle est la différence entre diagnostic, pronostic et étiologie ?", "Diagnostic : identification de la maladie. Pronostic : évolution prévisible. Étiologie : cause de la maladie."],
+  ["Sémiologie et terminologie médicale", "Quelle est la différence entre une maladie aiguë et chronique ?", "Aiguë : début brutal et durée courte. Chronique : évolue sur une longue durée (plusieurs mois ou années)."],
+  ["Sémiologie et terminologie médicale", "Quels caractères note-t-on en prenant le pouls ?", "La fréquence, le rythme (régulier ou non) et l'amplitude (pouls bien frappé ou filant)."],
+  ["Droit et déontologie", "Qu'est-ce que le secret professionnel ?", "L'obligation de ne pas divulguer les informations confidentielles connues dans l'exercice de la profession. Sa violation est sanctionnée par la loi."],
+  ["Droit et déontologie", "Qu'est-ce que le consentement éclairé ?", "L'accord ou le refus du patient après une information claire, loyale et adaptée sur son état, les soins proposés et leurs risques."],
+  ["Droit et déontologie", "Quels sont les 4 principes de l'éthique biomédicale ?", "Autonomie, bienfaisance, non-malfaisance et justice."],
+  ["Droit et déontologie", "Quels sont les types de responsabilité du soignant ?", "Civile (réparer un dommage), pénale (infraction) et disciplinaire/administrative (manquement aux règles de la profession)."],
+  ["Droit et déontologie", "Qu'est-ce que la non-assistance à personne en danger ?", "Le fait de s'abstenir volontairement de porter secours à une personne en péril, alors qu'on pouvait le faire sans risque."],
+  ["Droit et déontologie", "Que faut-il éviter sur les réseaux sociaux pendant le stage ?", "Publier des photos, noms ou situations permettant d'identifier un patient ou un service : c'est une atteinte à la confidentialité."],
+  ["Droit et déontologie", "Qu'est-ce qu'une faute professionnelle ?", "Un manquement aux règles de l'art, à la prudence, à la diligence ou aux obligations de la profession."],
+  ["Droit et déontologie", "Obligation de moyens ou de résultat : que doit le soignant ?", "Une obligation de moyens : mettre en œuvre tous les soins appropriés, sans pouvoir garantir la guérison."],
+  ["Psychologie et sociologie", "Quels sont les 5 niveaux de la pyramide de Maslow ?", "Besoins physiologiques, sécurité, appartenance et amour, estime, accomplissement de soi."],
+  ["Psychologie et sociologie", "Quelles sont les étapes du deuil selon Kübler-Ross ?", "Déni, colère, marchandage, dépression, acceptation."],
+  ["Psychologie et sociologie", "Quelle différence entre empathie et sympathie ?", "Empathie : comprendre ce que ressent l'autre en gardant la bonne distance. Sympathie : partager ses émotions."],
+  ["Psychologie et sociologie", "Qu'est-ce qu'un mécanisme de défense ? Donnez des exemples.", "Un processus inconscient qui protège de l'angoisse : déni, régression, projection, refoulement, rationalisation."],
+  ["Psychologie et sociologie", "Qu'est-ce que la socialisation ?", "Le processus d'apprentissage des normes, valeurs et rôles de la société. Primaire : famille. Secondaire : école, travail, pairs."],
+  ["Psychologie et sociologie", "En quoi consiste l'écoute active ?", "Être attentif, reformuler, respecter les silences, poser des questions ouvertes, sans juger ni interrompre."],
+  ["Psychologie et sociologie", "Quels sont les stades du développement de l'enfant selon Piaget ?", "Sensori-moteur (0-2 ans), préopératoire (2-7 ans), opératoire concret (7-11 ans), opératoire formel (dès 12 ans)."],
+  ["Psychologie et sociologie", "Quelles sont les 3 phases du stress selon Selye ?", "Alarme, résistance, épuisement."],
+  ["SIB1", "Quels sont les 5 moments de l'hygiène des mains (OMS) ?", "Avant le contact patient, avant un geste aseptique, après un risque d'exposition à un liquide biologique, après le contact patient, après le contact avec l'environnement du patient."],
+  ["SIB1", "Combien de temps dure une friction hydro-alcoolique ?", "Environ 30 secondes, jusqu'au séchage complet des mains."],
+  ["SIB1", "Quelle est la règle des 5 B avant d'administrer un médicament ?", "Bon patient, bon médicament, bonne dose, bonne voie, bon moment (heure)."],
+  ["SIB1", "Quelles sont les principales constantes vitales ?", "Température, pouls, fréquence respiratoire, pression artérielle et saturation en oxygène (SpO₂). On y associe la douleur, la conscience et la diurèse selon le cas."],
+  ["SIB1", "Quelles sont les précautions standard ?", "Hygiène des mains, port de gants, masque et protection selon le risque, gestion des déchets et des objets piquants, désinfection du matériel, prévention des accidents d'exposition au sang."],
+  ["SIB1", "Que faire après un accident d'exposition au sang (AES) ?", "Nettoyer à l'eau et au savon, rincer, désinfecter (au moins 5 min), sans presser ni frotter. Prévenir l'encadrant, consulter rapidement (idéalement dans les 4 h) et déclarer l'accident."],
+  ["SIB1", "Quel est l'angle d'injection selon la voie ?", "Intramusculaire : 90°. Sous-cutanée : 45° (ou 90° avec un pli cutané). Intradermique : 5 à 15°. Intraveineuse : 15 à 30°."],
+  ["SIB1", "Dans quelle position place-t-on un patient inconscient qui respire ?", "En position latérale de sécurité (PLS) : elle libère les voies aériennes et évite l'inhalation des vomissements."],
+  ["SIB1", "Que vérifie-t-on avant d'administrer un médicament ?", "L'identité du patient, la prescription, les allergies, la date de péremption, la dose, la voie et l'heure."],
+  ["SIB1", "Où jette-t-on une aiguille usagée ?", "Directement dans le collecteur pour objets piquants et tranchants, sans la recapuchonner."],
+  ["Microbiologie, parasitologie et examen de laboratoire", "Quelle est la couleur des bactéries Gram positif et Gram négatif ?", "Gram positif : violet. Gram négatif : rose ou rouge."],
+  ["Microbiologie, parasitologie et examen de laboratoire", "Quelle est la différence entre une bactérie et un virus ?", "La bactérie est une cellule autonome, sensible aux antibiotiques. Le virus est un parasite intracellulaire, insensible aux antibiotiques."],
+  ["Microbiologie, parasitologie et examen de laboratoire", "Quelles sont les formes principales des bactéries ?", "Coque (sphérique), bacille (bâtonnet), spirille ou spirochète (spiralée), vibrion (en virgule)."],
+  ["Microbiologie, parasitologie et examen de laboratoire", "Quels sont les principaux modes de transmission des infections ?", "Contact (direct ou indirect), gouttelettes, voie aérienne, voie digestive (féco-orale), sang et voie sexuelle, vecteurs."],
+  ["Microbiologie, parasitologie et examen de laboratoire", "Quelle différence entre stérilisation, désinfection et antisepsie ?", "Stérilisation : destruction de tous les micro-organismes du matériel. Désinfection : sur surfaces et matériel. Antisepsie : sur la peau et les tissus vivants."],
+  ["Microbiologie, parasitologie et examen de laboratoire", "Quel parasite cause le paludisme et par quoi est-il transmis ?", "Plasmodium, transmis par la piqûre de l'anophèle femelle."],
+  ["Microbiologie, parasitologie et examen de laboratoire", "Comment réalise-t-on un bon recueil d'urines pour un ECBU ?", "Après toilette intime et lavage des mains, recueillir le milieu de jet (premier jet éliminé), dans un flacon stérile, à acheminer rapidement au laboratoire."],
+  ["Microbiologie, parasitologie et examen de laboratoire", "Qu'est-ce qu'une infection nosocomiale ?", "Une infection contractée au cours d'une hospitalisation ou de soins, apparaissant en général 48 heures ou plus après l'admission."],
+  ["Microbiologie, parasitologie et examen de laboratoire", "À quoi sert un antibiogramme ?", "À tester la sensibilité d'une bactérie aux antibiotiques pour choisir le traitement adapté."],
+  ["Langue & communication et informatique", "Quels sont les éléments du schéma de la communication ?", "Émetteur, message, canal, récepteur, code et rétroaction (feed-back)."],
+  ["Langue & communication et informatique", "Qu'est-ce que la reformulation ?", "Redire avec ses propres mots ce que l'autre a exprimé, pour vérifier qu'on a bien compris."],
+  ["Langue & communication et informatique", "Communication verbale ou non verbale : quelle différence ?", "Verbale : les mots, oraux ou écrits. Non verbale : regard, gestes, posture, ton de la voix, distance."],
+  ["Langue & communication et informatique", "Quelle différence entre la mémoire vive (RAM) et le disque dur ?", "La RAM est temporaire et s'efface à l'extinction. Le disque dur conserve les fichiers de façon permanente."],
+  ["Langue & communication et informatique", "Comment créer un mot de passe robuste ?", "Long (12 caractères ou plus), mélangeant majuscules, minuscules, chiffres et symboles, unique pour chaque compte, sans information personnelle."],
+  ["Langue & communication et informatique", "Quelles sont les extensions des fichiers Word, Excel et PowerPoint ?", ".docx (Word), .xlsx (Excel), .pptx (PowerPoint)."]
+];
+
+// ---------- Terminologie médicale : apprendre + quiz ----------
+function tmStep(q, right, others) {
+  const seen = new Set([right.t]), d = [];
+  shuffle(others).forEach(o => { if (d.length < 3 && !seen.has(o.t)) { seen.add(o.t); d.push(o); } });
+  return { q, lab: ["Bonne réponse", "Pas tout à fait"],
+    opts: shuffle([{ ...right, ok: true }, ...d.map(o => ({ ...o, ok: false }))]) };
+}
+const TM_MODES = [
+  { id: "sens", t: "Sens d'un élément", d: "Que signifie ce préfixe, suffixe ou cette racine ?" },
+  { id: "element", t: "Trouver l'élément", d: "Quel élément correspond à ce sens ?" },
+  { id: "mot", t: "Sens d'un mot", d: "Décomposez le mot pour trouver sa définition." },
+  { id: "terme", t: "Trouver le terme", d: "Quel mot médical correspond à cette définition ?" },
+  { id: "dico", t: "Définitions du dictionnaire", d: "Retrouvez le terme à partir de sa définition." },
+  { id: "darija", t: "Français → darija", d: "Traduisez les termes de santé en darija." },
+  { id: "mixte", t: "Examen mixte", d: "15 questions de tous les types." }
+];
+function tmBuild(kind, x) {
+  if (kind === "sens") {
+    const o = TM_ITEMS.filter(i => i.type === x.type && i.el !== x.el);
+    return tmStep(`Que signifie ${TM_ART[x.type]} « ${x.el} » ?`, { t: x.sens, fb: `« ${x.el} » signifie « ${x.sens} ». Exemple : ${x.ex}.` }, o.map(i => ({ t: i.sens, fb: `Cette définition correspond à « ${i.el} ».` })));
+  }
+  if (kind === "element") {
+    const o = TM_ITEMS.filter(i => i.type === x.type && i.el !== x.el);
+    return tmStep(`${TM_QUEL[x.type]} signifie « ${x.sens} » ?`, { t: x.el, fb: `« ${x.el} » signifie « ${x.sens} ». Exemple : ${x.ex}.` }, o.map(i => ({ t: i.el, fb: `« ${i.el} » signifie « ${i.sens} ».` })));
+  }
+  const tail = w => w.slice(-4);
+  if (kind === "mot" || kind === "terme") {
+    const o = TM_MOTS.filter(m => m.mot !== x.mot), near = o.filter(m => tail(m.mot) === tail(x.mot)), pool = near.length >= 3 ? near : o;
+    if (kind === "mot") return tmStep(`Que signifie « ${x.mot} » ?`, { t: x.sens, fb: `${x.mot} = ${x.dec} → ${x.sens}.` }, pool.map(m => ({ t: m.sens, fb: `Cette définition correspond à « ${m.mot} ».` })));
+    return tmStep(`Quel terme désigne : « ${x.sens} » ?`, { t: x.mot, fb: `${x.mot} = ${x.dec} → ${x.sens}.` }, pool.map(m => ({ t: m.mot, fb: `« ${m.mot} » désigne : ${m.sens.charAt(0).toLowerCase() + m.sens.slice(1)}.` })));
+  }
+  if (kind === "dico") {
+    const o = DICO.filter(d => d.fr !== x.fr), same = o.filter(d => d.cat === x.cat), pool = same.length >= 3 ? same : o;
+    return tmStep(`Quel terme correspond à : « ${x.def} » ?`, { t: x.fr, fb: `${x.fr} (en darija : ${x.dj}).` }, pool.map(d => ({ t: d.fr, fb: `« ${d.fr} » : ${d.def}` })));
+  }
+  const o = DICO.filter(d => d.dj !== x.dj);
+  return tmStep(`Comment dit-on « ${x.fr} » en darija ?`, { t: x.dj, fb: `${x.fr} se dit « ${x.dj} » en darija.` }, o.map(d => ({ t: d.dj, fb: `« ${d.dj} » veut dire « ${d.fr} ».` })));
+}
+function tmQuestions(mode) {
+  const pools = { sens: TM_ITEMS, element: TM_ITEMS, mot: TM_MOTS, terme: TM_MOTS, dico: DICO, darija: DICO };
+  if (mode !== "mixte") return shuffle(pools[mode]).slice(0, 10).map(x => tmBuild(mode, x));
+  const kinds = shuffle(Object.keys(pools)), sh = {}; kinds.forEach(k => { sh[k] = shuffle(pools[k]); });
+  return Array.from({ length: 15 }, (_, i) => { const k = kinds[i % kinds.length]; return tmBuild(k, sh[k][Math.floor(i / kinds.length)]); });
+}
+function renderTermino() {
+  let tab = "learn", kind = "P", mode = "sens";
+  const inner = mxPage("Terminologie médicale", "Préfixes, suffixes et racines : comprenez n'importe quel terme médical, puis testez-vous.", `<div class="cx-tabs" id="tmTabs"></div><div id="tmBody"></div>`);
+  const tabs = inner.querySelector("#tmTabs"), body = inner.querySelector("#tmBody");
+  const drawTabs = () => {
+    tabs.innerHTML = [["learn", "Apprendre"], ["quiz", "Quiz"]].map(([k, t]) => `<button type="button" class="cx-tab${k === tab ? " on" : ""}" data-t="${k}">${t}</button>`).join("");
+    tabs.querySelectorAll("[data-t]").forEach(b => b.addEventListener("click", () => { tab = b.dataset.t; drawTabs(); tab === "learn" ? learn() : quiz(); }));
+  };
+  const learn = () => {
+    const kinds = [["P", "Préfixes"], ["S", "Suffixes"], ["R", "Racines"], ["M", "Mots décomposés"]];
+    body.innerHTML = `<div class="mx-card tm-how"><h3>Comment décomposer un mot médical ?</h3>
+      <ol><li>Repérez le <strong>suffixe</strong> (la fin du mot) : il donne le type (inflammation, ablation, douleur...).</li>
+      <li>Repérez la <strong>racine</strong> (au milieu) : l'organe ou le tissu concerné.</li>
+      <li>Repérez le <strong>préfixe</strong> (au début) : excès, manque, rapidité, position...</li></ol>
+      <p class="tm-ex"><strong>Gastro-entérite</strong> = gastr(o) <em>estomac</em> + entér(o) <em>intestin</em> + -ite <em>inflammation</em>.</p></div>
+      <div class="tt-chips" id="tmKinds">${kinds.map(([k, t]) => `<button type="button" class="tt-chip${k === kind ? " on" : ""}" data-k="${k}">${t}</button>`).join("")}</div>
+      <div class="mx-card"><input type="text" id="tmQ" placeholder="Rechercher un élément, un mot ou un sens" autocomplete="off"></div>
+      <div id="tmList"></div>
+      <button type="button" class="primary-btn" id="tmFc">Réviser en flashcards</button>`;
+    const list = body.querySelector("#tmList"), qi = body.querySelector("#tmQ");
+    const norm = x => (x || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const draw = () => {
+      const q = norm(qi.value.trim());
+      const rows = kind === "M" ? TM_MOTS.filter(m => !q || norm(m.mot + " " + m.sens + " " + m.dec).includes(q)).map(m => `<div class="tm-row"><div class="tm-el tm-w">${esc(m.mot)}</div><div class="tm-info"><strong>${esc(m.sens)}</strong><span>${esc(m.dec)}</span></div></div>`)
+        : TM_ITEMS.filter(i => i.type === kind && (!q || norm(i.el + " " + i.sens + " " + i.ex).includes(q))).map(i => `<div class="tm-row"><div class="tm-el">${esc(i.el)}</div><div class="tm-info"><strong>${esc(i.sens)}</strong><span>Ex. ${esc(i.ex)}</span></div></div>`);
+      list.innerHTML = rows.length ? rows.join("") : `<p class="search-hint">Aucun résultat.</p>`;
+    };
+    qi.addEventListener("input", draw);
+    body.querySelectorAll("#tmKinds [data-k]").forEach(b => b.addEventListener("click", () => { kind = b.dataset.k; body.querySelectorAll("#tmKinds .tt-chip").forEach(x => x.classList.toggle("on", x === b)); draw(); }));
+    body.querySelector("#tmFc").addEventListener("click", () => openPage("Flashcards"));
+    draw();
+  };
+  const quiz = () => {
+    body.innerHTML = `<div class="mx-card"><h3 class="tm-h">Quiz de terminologie</h3><p class="search-hint">Choisissez un thème : 10 questions (15 pour l'examen mixte).</p>
+      <div class="tm-modes" id="tmModes"></div><button type="button" class="primary-btn" id="tmGo">Lancer le quiz</button></div><div id="tmBox"></div>`;
+    const modes = body.querySelector("#tmModes");
+    const drawModes = () => {
+      modes.innerHTML = TM_MODES.map(m => { const b = getBest("termino_" + m.id); return `<button type="button" class="tm-mode${m.id === mode ? " on" : ""}" data-m="${m.id}"><strong>${esc(m.t)}</strong><span>${esc(m.d)}</span>${b !== null ? `<em>Meilleur score : ${b}%</em>` : ""}</button>`; }).join("");
+      modes.querySelectorAll("[data-m]").forEach(b => b.addEventListener("click", () => { mode = b.dataset.m; drawModes(); }));
+    };
+    drawModes();
+    body.querySelector("#tmGo").addEventListener("click", () => {
+      const box = body.querySelector("#tmBox"), label = TM_MODES.find(m => m.id === mode).t;
+      body.querySelector(".mx-card").classList.add("hidden");
+      mxPlay(box, tmQuestions(mode), label, (sc, n) => {
+        const pct = Math.round(sc / n * 100); setBest("termino_" + mode, pct);
+        box.innerHTML = `<div class="mx-card tm-end"><div class="tm-score">${pct}%</div><h3 class="tm-h">${sc} bonne${sc > 1 ? "s" : ""} réponse${sc > 1 ? "s" : ""} sur ${n}</h3>
+          <p class="search-hint">${pct >= 80 ? "Excellent, vous maîtrisez ce thème." : pct >= 50 ? "Bien, encore un peu de révision." : "Révisez la rubrique « Apprendre » puis réessayez."}</p>
+          <button type="button" class="primary-btn" id="tmAgain">Rejouer</button><button type="button" class="ghost-btn" id="tmLearn">Revoir le cours</button></div>`;
+        box.querySelector("#tmAgain").addEventListener("click", quiz);
+        box.querySelector("#tmLearn").addEventListener("click", () => { tab = "learn"; drawTabs(); learn(); });
+      });
+    });
+  };
+  drawTabs(); learn();
+}
+
+// ---------- Flashcards (répétition espacée) ----------
+const FC_DAYS = [0, 1, 3, 7, 21];
+const FC_DECKS = [
+  { id: "modules", t: "Modules", d: "Questions de cours par module", ic: "book", g: ["#14b8a6", "#0ea5e9"] },
+  { id: "meds", t: "Médicaments", d: "Classes, indications, surveillance", ic: "pill", g: ["#7c5cff", "#a78bfa"] },
+  { id: "fiches", t: "Fiches techniques", d: "Gestes, étapes, matériel et erreurs", ic: "syringe", g: ["#ff7a59", "#ff4d6d"] },
+  { id: "termes", t: "Terminologie médicale", d: "Dictionnaire, préfixes, suffixes, racines", ic: "cap", g: ["#f59e0b", "#ec4899"] }
+];
+const fcHash = s => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); };
+let FC_CACHE = null;
+function fcCards() {
+  if (FC_CACHE) return FC_CACHE;
+  const out = { modules: [], meds: [], fiches: [], termes: [] };
+  const li = a => `<ul>${a.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
+  FC_MODULES.forEach(([g, q, a]) => out.modules.push({ id: "mod:" + fcHash(q), g, k: "Question", q: esc(q), a: esc(a) }));
+  MEDS.forEach(m => {
+    const nm = esc(m.name), g = m.cat;
+    out.meds.push({ id: "med:" + m.id + ":a", g, k: "Médicament", q: `<strong>${nm}</strong>${m.brands ? `<small>${esc(m.brands)}</small>` : ""}`,
+      a: (m.classe ? `<h4>Classe</h4><p>${esc(m.classe)}</p>` : "") + (m.indic && m.indic.length ? `<h4>Indications</h4>${li(m.indic)}` : "") + (m.voies ? `<h4>Voies</h4><p>${esc(m.voies)}</p>` : "") });
+    if (m.surv && m.surv.length) out.meds.push({ id: "med:" + m.id + ":s", g, k: "Surveillance", q: `Surveillance infirmière : <strong>${nm}</strong>`, a: li(m.surv) });
+    if (m.ci && m.ci.length) out.meds.push({ id: "med:" + m.id + ":c", g, k: "Contre-indications", q: `Contre-indications : <strong>${nm}</strong>`, a: li(m.ci) });
+    if (m.astuce) out.meds.push({ id: "med:" + m.id + ":t", g, k: "À retenir", q: `À retenir : <strong>${nm}</strong>`, a: esc(m.astuce) });
+  });
+  const dp = new DOMParser(), firstList = (html, tag) => { const d = dp.parseFromString("<body>" + html + "</body>", "text/html"), e = d.querySelector(tag); return e ? e.outerHTML : ""; };
+  FICHES.forEach(f => {
+    const g = f.short || f.title, ttl = esc(f.title);
+    if (f.resume) out.fiches.push({ id: "fi:" + f.id + ":r", g, k: "Définition", q: `Qu'est-ce que : <strong>${ttl}</strong> ?`, a: esc(f.resume) });
+    (f.sections || []).forEach(sec => {
+      const t = sec.t || "";
+      if (/Fiche rapide/i.test(t)) {
+        dp.parseFromString("<body>" + sec.html + "</body>", "text/html").querySelectorAll(".spec-row").forEach(r => {
+          const k = r.querySelector("span"), v = r.querySelector("strong");
+          if (k && v) out.fiches.push({ id: "fi:" + f.id + ":sp:" + fcHash(k.textContent), g, k: "Fiche rapide", q: `${ttl} : <strong>${esc(k.textContent)}</strong> ?`, a: v.innerHTML });
+        });
+      } else {
+        const rule = /pas à pas/i.test(t) ? ["ol", "Étapes"] : /^Matériel/i.test(t) ? ["ul", "Matériel"] : /Erreurs/i.test(t) ? ["ul", "Erreurs fréquentes"] : /Complications/i.test(t) ? ["ul", "Complications"] : null;
+        if (rule) { const h = firstList(sec.html, rule[0]); if (h) out.fiches.push({ id: "fi:" + f.id + ":" + fcHash(t), g, k: rule[1], q: `${rule[1]} : <strong>${ttl}</strong>`, a: h }); }
+      }
+    });
+  });
+  DICO.forEach(d => out.termes.push({ id: "dic:" + fcHash(d.fr), g: d.cat, k: "Terme", q: `<strong>${esc(d.fr)}</strong>`, a: `<p>${esc(d.def)}</p><div class="fl-dj"><span>Darija</span> ${esc(d.dj)}</div>` }));
+  TM_ITEMS.forEach(t => out.termes.push({ id: "tm:" + fcHash(t.type + t.el), g: TM_LABEL[t.type], k: TM_SING[t.type].replace(/^./, c => c.toUpperCase()), q: `<strong>${esc(t.el)}</strong>`, a: `<p>${esc(t.sens)}</p><p class="fl-ex">Ex. ${esc(t.ex)}</p>` }));
+  TM_MOTS.forEach(m => out.termes.push({ id: "mot:" + fcHash(m.mot), g: "Mots décomposés", k: "Décomposer", q: `<strong>${esc(m.mot)}</strong>`, a: `<p>${esc(m.sens)}</p><p class="fl-ex">${esc(m.dec)}</p>` }));
+  FC_CACHE = out; return out;
+}
+function renderFlashcards() {
+  const key = "ish_fc_" + mxUid(), now = () => Date.now();
+  const inner = mxPage("Flashcards", "Révisez avec la répétition espacée : les cartes difficiles reviennent plus souvent.", `<div id="fcBox"></div>`);
+  const box = inner.querySelector("#fcBox"), all = fcCards();
+  const st = () => lsGet(key, {});
+  const isDue = (c, s) => !s[c.id] || s[c.id].d <= now();
+  const stats = (cards, s) => ({ total: cards.length, mastered: cards.filter(c => s[c.id] && s[c.id].b >= 3).length, fresh: cards.filter(c => !s[c.id]).length, due: cards.filter(c => s[c.id] && s[c.id].d <= now()).length });
+  const home = () => {
+    const s = st(), tot = FC_DECKS.reduce((a, d) => { const x = stats(all[d.id], s); return { m: a.m + x.mastered, d: a.d + x.due + x.fresh, n: a.n + x.total }; }, { m: 0, d: 0, n: 0 });
+    box.innerHTML = `<div class="fl-summary"><div><b>${tot.n}</b><span>cartes</span></div><div><b>${tot.m}</b><span>maîtrisées</span></div><div><b>${tot.d}</b><span>à réviser</span></div></div>
+      <div class="fl-decks">${FC_DECKS.map(d => { const x = stats(all[d.id], s), p = x.total ? Math.round(x.mastered / x.total * 100) : 0;
+        return `<button type="button" class="fl-deck" data-d="${d.id}" style="--g1:${d.g[0]};--g2:${d.g[1]}"><span class="cx-ico">${ico(d.ic)}</span><span class="fl-deck-t"><strong>${esc(d.t)}</strong><small>${esc(d.d)}</small><span class="fl-bar"><i style="width:${p}%"></i></span><em>${x.total} cartes · ${x.due + x.fresh} à réviser · ${p}% maîtrisé</em></span></button>`; }).join("")}</div>`;
+    box.querySelectorAll("[data-d]").forEach(b => b.addEventListener("click", () => setup(b.dataset.d, "")));
+  };
+  const setup = (deckId, group) => {
+    const deck = FC_DECKS.find(d => d.id === deckId), cards = all[deckId], s = st();
+    const groups = [...new Set(cards.map(c => c.g))], sel = group ? cards.filter(c => c.g === group) : cards, x = stats(sel, s);
+    box.innerHTML = `<button type="button" class="fl-link" id="fcHome">← Tous les decks</button>
+      <div class="mx-card"><h3 class="tm-h">${esc(deck.t)}</h3>
+      <div class="tt-chips fl-groups"><button type="button" class="tt-chip${group ? "" : " on"}" data-g="">Tout (${cards.length})</button>${groups.map(g => `<button type="button" class="tt-chip${g === group ? " on" : ""}" data-g="${esc(g)}">${esc(g)} (${cards.filter(c => c.g === g).length})</button>`).join("")}</div>
+      <div class="fl-summary"><div><b>${x.fresh}</b><span>nouvelles</span></div><div><b>${x.due}</b><span>à revoir</span></div><div><b>${x.mastered}</b><span>maîtrisées</span></div></div>
+      <button type="button" class="primary-btn" id="fcGo">${x.due + x.fresh ? "Commencer (20 cartes max)" : "Réviser quand même"}</button>
+      <button type="button" class="fl-link fl-reset" id="fcReset">Réinitialiser la progression de cette sélection</button></div>`;
+    box.querySelector("#fcHome").addEventListener("click", home);
+    box.querySelectorAll("[data-g]").forEach(b => b.addEventListener("click", () => setup(deckId, b.dataset.g)));
+    box.querySelector("#fcGo").addEventListener("click", () => session(deckId, group, !(x.due + x.fresh)));
+    box.querySelector("#fcReset").addEventListener("click", () => { if (confirm("Effacer la progression de cette sélection ?")) { const z = st(); sel.forEach(c => delete z[c.id]); lsSet(key, z); setup(deckId, group); } });
+  };
+  const session = (deckId, group, force) => {
+    const cards = all[deckId].filter(c => !group || c.g === group), s = st();
+    const due = shuffle(cards.filter(c => s[c.id] && s[c.id].d <= now())).sort((a, b) => s[a.id].b - s[b.id].b), fresh = shuffle(cards.filter(c => !s[c.id]));
+    const queue = (force ? shuffle(cards) : [...due, ...fresh]).slice(0, 20), total = queue.length, seen = new Set(), res = { ok: 0, again: 0 };
+    let i = 0;
+    const grade = ok => {
+      const c = queue[i], z = st(), e = z[c.id] || { b: 0, d: 0, n: 0 }, first = !seen.has(c.id);
+      e.n++; e.b = ok ? Math.min(e.b + (z[c.id] ? 1 : 2), 4) : 0; e.d = ok ? now() + FC_DAYS[e.b] * 864e5 : now(); z[c.id] = e; lsSet(key, z);
+      if (first) { seen.add(c.id); ok ? res.ok++ : res.again++; }
+      if (!ok) queue.splice(Math.min(i + 4, queue.length), 0, c);
+      i++; show();
+    };
+    const show = () => {
+      if (i >= queue.length) {
+        box.innerHTML = `<div class="mx-card tm-end"><div class="tm-score">${res.ok}/${total}</div><h3 class="tm-h">Série terminée</h3><p class="search-hint">${res.ok} carte${res.ok > 1 ? "s" : ""} réussie${res.ok > 1 ? "s" : ""} du premier coup, ${res.again} à revoir. Les cartes difficiles reviendront bientôt.</p>
+          <button type="button" class="primary-btn" id="fcNext">Nouvelle série</button><button type="button" class="ghost-btn" id="fcBack">Changer de deck</button></div>`;
+        box.querySelector("#fcNext").addEventListener("click", () => setup(deckId, group)); box.querySelector("#fcBack").addEventListener("click", home); return;
+      }
+      const c = queue[i];
+      box.innerHTML = `<div class="fl-top"><button type="button" class="fl-link" id="fcQuit">✕ Quitter</button><span>${Math.min(i + 1, queue.length)} / ${queue.length}</span></div>
+        <div class="quiz-progress"><span style="width:${i / queue.length * 100}%"></span></div>
+        <div class="fl-card" id="fcCard" role="button" tabindex="0" aria-label="Retourner la carte"><span class="fl-tag">${esc(c.k)} · ${esc(c.g)}</span>
+          <div class="fl-front"><div class="fl-q">${c.q}</div><span class="fl-hint">Touchez pour voir la réponse</span></div>
+          <div class="fl-back"><div class="fl-q fl-q-s">${c.q}</div><div class="fl-a">${c.a}</div></div></div>
+        <div class="fl-actions" id="fcAct" hidden><button type="button" class="fl-btn again" id="fcAgain">À revoir</button><button type="button" class="fl-btn ok" id="fcOk">Je savais</button></div>`;
+      const card = box.querySelector("#fcCard"), act = box.querySelector("#fcAct");
+      const flip = () => { card.classList.add("flip"); act.hidden = false; };
+      card.addEventListener("click", flip); card.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
+      box.querySelector("#fcAgain").addEventListener("click", () => grade(false)); box.querySelector("#fcOk").addEventListener("click", () => grade(true));
+      box.querySelector("#fcQuit").addEventListener("click", () => setup(deckId, group));
+    };
+    if (!total) { setup(deckId, group); return; }
+    show();
+  };
+  home();
+}
+
+
 // ---------- 3. Préparation aux concours (Master) ----------
 const CONC = [
   ["Anatomie et physiologie", "Combien de lobes possède le poumon droit ?", ["2", "3", "4", "5"], 1, "Le poumon droit a 3 lobes, le gauche 2 car il laisse la place au cœur."],
@@ -3005,7 +3555,7 @@ function renderCas(id = null) {
   };
   if (id && CAS.find(c => c.id === id)) play(CAS.find(c => c.id === id)); else list();
 }
-const NEW_PAGES = { "Dictionnaire médical": () => renderDico(), "Calculatrices": () => renderCalc(), "Préparation concours": () => renderConcours(), "Carnet de stage": () => renderCarnet(), "Cas cliniques": () => renderCas() };
+const NEW_PAGES = { "Dictionnaire médical": () => renderDico(), "Terminologie médicale": () => renderTermino(), "Flashcards": () => renderFlashcards(), "Calculatrices": () => renderCalc(), "Préparation concours": () => renderConcours(), "Carnet de stage": () => renderCarnet(), "Cas cliniques": () => renderCas() };
 
 function addBackButton(inner, label = "Retour au dashboard", handler = showHome) {
   const btn = document.createElement("button");
@@ -3088,6 +3638,8 @@ const SITE_PAGES = [
   { name: "Médicaments", words: "medicaments medicament pharmacie paracetamol antibiotique antalgique insuline posologie" },
   { name: "Stages", words: "stage protocoles fiches techniques situations cliniques" },
   { name: "Emploi du temps", words: "planning emploi du temps horaires" },
+  { name: "Terminologie médicale", words: "terminologie prefixe suffixe racine etymologie decomposer mots medicaux quiz" },
+  { name: "Flashcards", words: "flashcards cartes revision memoriser repetition espacee modules medicaments fiches termes" },
   { name: "Dictionnaire médical", words: "dictionnaire medical termes vocabulaire darija francais traduction mots" },
   { name: "Calculatrices", words: "calculatrice imc debit perfusion gouttes date accouchement dpa semaines amenorrhee grossesse ldl cholesterol friedewald creatinine clairance dfg glasgow apgar pam pression arterielle dose mg kg pousse seringue pse hydratation diurese conversion glycemie" },
   { name: "Préparation concours", words: "concours master preparation qcm revision entrainement" },
