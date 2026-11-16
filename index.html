@@ -1184,6 +1184,11 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .fil-group-head small{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;color:var(--muted);background:var(--teal-soft);padding:3px 9px;border-radius:20px;white-space:nowrap}
 .fil-group .choice-sub{line-height:1.35;text-align:center}
 @media(max-width:760px){.fil-group .choice-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.fil-group .choice-code{font-size:21px}}
+
+/* ===== Carte "Options disponibles" ===== */
+.stat-card:nth-child(5) .stat-icon{background:linear-gradient(135deg,#0ea5e9,#6366f1)}
+@media(min-width:761px){.stats-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media(max-width:760px){.stats-grid .stat-card:last-child:nth-child(odd){grid-column:1/-1}}
 </style>
 </head>
 
@@ -1441,6 +1446,10 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
             <div class="stat-card" data-open="Cours" role="button" tabindex="0" aria-label="Ouvrir Cours">
               <div class="stat-top"><div class="stat-icon"><svg class="ico"><use href="#i-layers"/></svg></div><div class="stat-number" id="statFilieres">9</div></div>
               <div class="stat-label">Filières disponibles</div>
+            </div>
+            <div class="stat-card" data-open="Cours" role="button" tabindex="0" aria-label="Ouvrir Cours">
+              <div class="stat-top"><div class="stat-icon"><svg class="ico"><use href="#i-compass"/></svg></div><div class="stat-number" id="statOptions">20</div></div>
+              <div class="stat-label">Options disponibles</div>
             </div>
             <div class="stat-card" data-open="Stages" role="button" tabindex="0" aria-label="Ouvrir Stages">
               <div class="stat-top"><div class="stat-icon"><svg class="ico"><use href="#i-hospital"/></svg></div><div class="stat-number" id="statFiches">—</div></div>
@@ -1724,7 +1733,8 @@ function setGreeting() {
 
 function setStats() {
   const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-  set("statFilieres", FILIERES.length);
+  set("statFilieres", FILIERE_GROUPS.length);
+  set("statOptions", FILIERES.length);
   set("statFiches", FICHES.length);
   set("statDocs", RESOURCES.length || "—");
 }
