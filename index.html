@@ -1177,6 +1177,13 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
   body .profile-btn:active .avatar{transform:scale(.94)}
   body .topbar{padding-right:16px}
 }
+
+/* ===== Filières par groupes ===== */
+.fil-group{margin-bottom:22px}
+.fil-group-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 2px 10px;padding-left:12px;border-left:4px solid var(--teal);font-family:'Outfit',sans-serif;font-weight:800;font-size:15px;color:var(--navy)}
+.fil-group-head small{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;color:var(--muted);background:var(--teal-soft);padding:3px 9px;border-radius:20px;white-space:nowrap}
+.fil-group .choice-sub{line-height:1.35;text-align:center}
+@media(max-width:760px){.fil-group .choice-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.fil-group .choice-code{font-size:21px}}
 </style>
 </head>
 
@@ -2833,7 +2840,43 @@ function addBackButton(inner, label = "Retour au dashboard", handler = showHome)
 // =====================================
 // COURS / RÉSUMÉS : filières → semestres → modules → sous-modules → documents
 // =====================================
-const FILIERES = ["IP", "ISM", "ISFSC", "INP", "LABO", "TRX", "SF", "AS", "IAR"];
+// Filières organisées par groupe (comme le tableau officiel). Pour ajouter une option : une ligne { code, name } dans le bon groupe.
+// Les modules d'un nouveau code s'ajoutent ensuite dans CURRICULUM (voir plus bas).
+const FILIERE_GROUPS = [
+  { name: "Soins Infirmiers", options: [
+    { code: "IP", name: "Infirmier polyvalent" },
+    { code: "ISM", name: "Infirmier en santé mentale" },
+    { code: "IAR", name: "Infirmier en anesthésie réanimation" },
+    { code: "ISUSI", name: "Infirmier en soins d'urgence et soins intensifs" },
+    { code: "ISFSC", name: "Infirmier en santé communautaire" },
+    { code: "INP", name: "Infirmier en néonatologie" }
+  ] },
+  { name: "Sage-Femme", options: [
+    { code: "SF", name: "Sage-femme" }
+  ] },
+  { name: "Techniques de Santé", options: [
+    { code: "LABO", name: "Laboratoire" },
+    { code: "SEN", name: "Santé et environnement" },
+    { code: "TRX", name: "Radiologie" },
+    { code: "DN", name: "Diététique / Nutrition" },
+    { code: "PP", name: "Préparateur en pharmacie" },
+    { code: "MB", name: "Maintenance biomédicale" },
+    { code: "SS", name: "Statistiques sanitaires" }
+  ] },
+  { name: "Rééducation et Réhabilitation", options: [
+    { code: "OPR", name: "Orthoprothésie" },
+    { code: "KIN", name: "Kinésithérapie / Physiothérapie" },
+    { code: "OPH", name: "Orthophonie" },
+    { code: "OPT", name: "Orthoptie" },
+    { code: "PSM", name: "Psychomotricité" }
+  ] },
+  { name: "Assistance Médico-Sociale", options: [
+    { code: "AS", name: "Assistant social" }
+  ] }
+];
+const FILIERES = FILIERE_GROUPS.flatMap(g => g.options.map(o => o.code));
+const FILIERE_NAMES = {};
+FILIERE_GROUPS.forEach(g => g.options.forEach(o => { FILIERE_NAMES[o.code] = o.name; }));
 const SEMESTRES = ["S1", "S2", "S3", "S4", "S5", "S6"];
 
 // Modules communs à IP, ISM, ISFSC, INP et IAR (S1). "subs" = sous-modules.
@@ -2961,14 +3004,16 @@ function renderBrowser(section, filiere = null, semestre = null, module = null, 
 
   if (!filiere) {
     subtitle = `Choisissez votre filière pour accéder aux ${sec}.`;
-    body = `<div class="choice-grid">${FILIERES.map(f =>
-      `<button class="choice-card" type="button" data-fil="${f}"><span class="choice-code">${f}</span><span class="choice-sub">6 semestres</span></button>`
-    ).join("")}</div>`;
+    body = FILIERE_GROUPS.map(g =>
+      `<div class="fil-group"><div class="fil-group-head"><span>${esc(g.name)}</span><small>${g.options.length} option${g.options.length > 1 ? "s" : ""}</small></div><div class="choice-grid">${g.options.map(o =>
+        `<button class="choice-card" type="button" data-fil="${o.code}"><span class="choice-code">${o.code}</span><span class="choice-sub">${esc(o.name)}</span></button>`
+      ).join("")}</div></div>`
+    ).join("");
     back = ["Retour au dashboard", showHome];
   } else if (!semestre) {
     eyebrow = `${SEC} › ${filiere}`;
     title = filiere;
-    subtitle = "Choisissez un semestre.";
+    subtitle = (FILIERE_NAMES[filiere] ? FILIERE_NAMES[filiere] + " · " : "") + "Choisissez un semestre.";
     body = `<div class="choice-grid">${SEMESTRES.map((x, i) =>
       `<button class="choice-card" type="button" data-sem="${x}"><span class="choice-code">${x}</span><span class="choice-sub">Semestre ${i + 1}</span></button>`
     ).join("")}</div>`;
