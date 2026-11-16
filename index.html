@@ -1285,6 +1285,28 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 @media(max-width:760px){.fl-actions{position:sticky;bottom:calc(86px + env(safe-area-inset-bottom,0px));z-index:5;padding-top:6px}}
 .module-card:nth-child(10){--g1:#f59e0b;--g2:#ec4899}
 .module-card:nth-child(11){--g1:#8b5cf6;--g2:#06b6d4}
+.el-hero{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:var(--radius);padding:16px;margin:0 0 14px}
+.el-lvl{flex:none;width:52px;height:52px;border-radius:50%;background:var(--teal);display:grid;place-items:center;font-size:24px;font-weight:800}
+.el-hmain{flex:1;min-width:0}.el-hmain small{opacity:.8;font-size:12px}
+.el-bar{height:8px;border-radius:99px;background:rgba(255,255,255,.2);margin:6px 0;overflow:hidden}.el-bar i{display:block;height:100%;background:#ffd166;border-radius:99px;transition:width .2s linear}
+.el-bar.t{background:#e8edf2;margin:10px 0}.el-bar.t i{background:var(--teal)}
+.el-streak{text-align:center;font-weight:800;font-size:18px}.el-streak small{display:block;font-size:11px;font-weight:500;opacity:.8}
+.el-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:0 0 12px}
+.el-theme,.el-badge{display:flex;flex-direction:column;gap:3px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px;font:inherit;color:var(--navy);text-align:left;cursor:pointer;box-shadow:var(--shadow)}
+.el-theme span,.el-badge span{font-size:28px}.el-theme small,.el-badge small{color:var(--muted);font-size:12px}
+.el-badge{cursor:default;opacity:.45;filter:grayscale(1)}.el-badge.on{opacity:1;filter:none;border-color:#ffd166;background:#fffaf0}
+.el-daily{display:flex;align-items:center;gap:12px;width:100%;background:linear-gradient(135deg,#ff9f1c,#ff6b35);color:#fff;border:0;border-radius:14px;padding:14px;font:inherit;font-size:22px;text-align:left;margin:0 0 12px;cursor:pointer}
+.el-daily span{display:flex;flex-direction:column;font-size:16px}.el-daily small{font-size:12px;opacity:.9}
+.el-game,.el-end{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.el-top{display:flex;justify-content:space-between;font-weight:600;color:var(--navy);font-size:14px}
+.el-q{margin:8px 0 12px;color:var(--navy)}
+.el-opt{display:block;width:100%;text-align:left;border:2px solid #dbe3ea;background:#fff;border-radius:12px;padding:12px 14px;margin:8px 0;font:inherit;color:var(--navy);cursor:pointer}
+.el-opt.ok{border-color:#22a06b;background:#e8f8f0}.el-opt.ko{border-color:#d64545;background:#fdeded}
+.el-exp{font-size:14px;margin:10px 0;color:var(--text)}
+.el-end{text-align:center}.el-big{font-size:56px}.el-gain{font-size:26px;font-weight:800;color:var(--teal);margin:4px 0}.el-up{font-weight:700;color:#ff6b35}.el-new{background:#fffaf0;border-radius:10px;padding:8px}
+.el-rank{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.el-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border)}.el-row.me{background:var(--teal-soft)}
+.el-row b{width:28px;text-align:center}.el-row span{flex:1;min-width:0;font-weight:600;color:var(--navy)}.el-row small{display:block;font-weight:400;color:var(--muted);font-size:12px}.el-row em{font-style:normal;font-weight:800;color:var(--teal-dark)}
 </style>
 </head>
 
@@ -1493,6 +1515,7 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
       <button class="nav-item" data-page="Emploi du temps" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-calendar"/></svg></span>Emploi du temps</button>
       <button class="nav-item" data-page="Règlement intérieur" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-file"/></svg></span>Règlement intérieur</button>
       <button class="nav-item" data-page="Atlas anatomie" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-layers"/></svg></span>Atlas anatomie</button>
+      <button class="nav-item" data-page="E-learning" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-spark"/></svg></span>E-learning</button>
       <button class="nav-item" data-page="Dictionnaire médical" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-book"/></svg></span>Dictionnaire médical</button>
       <button class="nav-item" data-page="Terminologie médicale" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-cap"/></svg></span>Terminologie médicale</button>
       <button class="nav-item" data-page="Flashcards" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-layers"/></svg></span>Flashcards</button>
@@ -1614,6 +1637,13 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
               <div class="module-icon"><svg class="ico"><use href="#i-layers"/></svg></div>
               <h3>Atlas anatomie</h3>
               <p>Modèle 3D du corps humain : os, muscles, organes, vaisseaux et nerfs sous tous les angles.</p>
+              <span class="module-arrow">↗</span>
+            </button>
+
+            <button class="module-card" data-open="E-learning" type="button">
+              <div class="module-icon"><svg class="ico"><use href="#i-spark"/></svg></div>
+              <h3>E-learning</h3>
+              <p>Apprends en jouant : quiz, XP, badges et classement.</p>
               <span class="module-arrow">↗</span>
             </button>
 
@@ -3661,6 +3691,167 @@ const SITE_PAGES = [
   { name: "Assistant IA", words: "assistant ia intelligence artificielle questions" },
   { name: "Assistance", words: "aide assistance conditions utilisation mode emploi" }
 ];
+
+// =====================================
+// E-LEARNING : quiz gamifié (XP, niveaux, badges, série quotidienne, classement)
+// Pour ajouter une question : copier une ligne de EL_Q [thème, question, [4 choix], index de la bonne réponse, explication]
+// =====================================
+const EL_T = { ana: ["Anatomie", "🦴"], phy: ["Physiologie", "🫀"], sem: ["Sémiologie", "🩺"], ter: ["Terminologie", "🔤"], pat: ["Pathologie", "🦠"], soi: ["Soins", "💉"] };
+const EL_TITLES = ["Débutant", "Apprenti", "Stagiaire", "Soignant", "Expert", "Maître"];
+const EL_Q = [
+  ["ana", "Quel os forme le squelette du bras ?", ["Humérus", "Fémur", "Radius", "Tibia"], 0, "L'humérus est l'os du bras ; le fémur est celui de la cuisse."],
+  ["ana", "Combien de cavités compte le cœur ?", ["2", "3", "4", "5"], 2, "2 oreillettes + 2 ventricules."],
+  ["ana", "Quel est le plus long os du corps ?", ["Tibia", "Fémur", "Humérus", "Fibula"], 1, "Le fémur, os de la cuisse."],
+  ["ana", "Combien de lobes a le poumon droit ?", ["2", "3", "4", "5"], 1, "Poumon droit : 3 lobes ; poumon gauche : 2 lobes."],
+  ["ana", "Quels vaisseaux ramènent le sang oxygéné vers le cœur gauche ?", ["Veines pulmonaires", "Artères pulmonaires", "Veine cave supérieure", "Veines rénales"], 0, "Les veines pulmonaires arrivent à l'oreillette gauche."],
+  ["ana", "Quel organe se trouve surtout dans l'hypochondre droit ?", ["Rate", "Foie", "Estomac", "Appendice"], 1, "Le foie est le plus gros organe plein, à droite sous le diaphragme."],
+  ["phy", "Fréquence cardiaque normale d'un adulte au repos ?", ["30–50 /min", "60–100 /min", "100–140 /min", "120–180 /min"], 1, "Au-dessus de 100 : tachycardie ; sous 60 : bradycardie."],
+  ["phy", "Quelle cellule transporte surtout l'oxygène ?", ["Globule rouge", "Globule blanc", "Plaquette", "Lymphocyte"], 0, "Le globule rouge contient l'hémoglobine."],
+  ["phy", "Où se font les échanges gazeux ?", ["Trachée", "Bronches", "Alvéoles pulmonaires", "Pharynx"], 2, "O₂ passe vers le sang, CO₂ vers l'air expiré, au niveau des alvéoles."],
+  ["phy", "Quelle hormone fait baisser la glycémie ?", ["Glucagon", "Adrénaline", "Cortisol", "Insuline"], 3, "L'insuline permet l'entrée du glucose dans les cellules."],
+  ["phy", "Rôle principal des reins ?", ["Filtrer le sang et former l'urine", "Produire la bile", "Digérer les graisses", "Fabriquer les plaquettes"], 0, "Les reins filtrent le sang et régulent l'eau et les sels."],
+  ["phy", "Glycémie normale à jeun ?", ["0,70 – 1,10 g/L", "0,20 – 0,40 g/L", "1,80 – 2,50 g/L", "3 – 4 g/L"], 0, "Au-delà de 1,26 g/L à jeun à deux reprises : diabète."],
+  ["sem", "Tachycardie chez l'adulte : fréquence cardiaque supérieure à… ?", ["60 /min", "80 /min", "100 /min", "140 /min"], 2, "Tachycardie : FC > 100 /min au repos."],
+  ["sem", "Que signifie dyspnée ?", ["Toux sèche", "Difficulté à respirer", "Douleur thoracique", "Crachat de sang"], 1, "Dyspnée = gêne respiratoire ressentie."],
+  ["sem", "Coloration bleutée de la peau et des lèvres ?", ["Ictère", "Pâleur", "Érythème", "Cyanose"], 3, "Cyanose = manque d'oxygène dans le sang."],
+  ["sem", "Coloration jaune de la peau et des yeux ?", ["Ictère", "Cyanose", "Pâleur", "Érythème"], 0, "Ictère (jaunisse) : excès de bilirubine."],
+  ["sem", "La fièvre correspond à une température d'au moins… ?", ["37 °C", "38 °C", "36,5 °C", "39,5 °C"], 1, "Fièvre : température ≥ 38 °C."],
+  ["sem", "Hématémèse = ?", ["Vomissement de sang", "Toux avec sang", "Selles noires", "Urines sanglantes"], 0, "Hémato = sang, émèse = vomissement."],
+  ["ter", "Le suffixe « -ite » signifie…", ["Douleur", "Inflammation", "Tumeur", "Ablation"], 1, "Ex. : appendicite, gastrite, hépatite."],
+  ["ter", "Le suffixe « -ectomie » signifie…", ["Ablation chirurgicale", "Incision", "Suture", "Observation"], 0, "Ex. : appendicectomie."],
+  ["ter", "Le préfixe « hyper- » signifie…", ["Manque", "Inflammation", "Excès", "Absence"], 2, "Ex. : hypertension. À l'inverse, hypo- = insuffisance."],
+  ["ter", "La racine « cardio » désigne…", ["Poumon", "Rein", "Foie", "Cœur"], 3, "Ex. : cardiologie, tachycardie."],
+  ["ter", "La racine « néphro » désigne…", ["Rein", "Nerf", "Os", "Peau"], 0, "Ex. : néphrologie, néphrite."],
+  ["ter", "Le suffixe « -algie » signifie…", ["Faiblesse", "Douleur", "Écoulement", "Dilatation"], 1, "Ex. : céphalalgie (douleur de la tête)."],
+  ["pat", "Quelle hormone manque dans le diabète de type 1 ?", ["Cortisol", "Thyroxine", "Adrénaline", "Insuline"], 3, "Destruction des cellules bêta du pancréas : insuline à vie."],
+  ["pat", "Seuil de l'hypertension artérielle de l'adulte (au cabinet) ?", ["120/80 mmHg", "140/90 mmHg", "100/60 mmHg", "180/110 mmHg"], 1, "HTA : PAS ≥ 140 et/ou PAD ≥ 90 mmHg."],
+  ["pat", "Inflammation de l'appendice ?", ["Appendicite", "Gastrite", "Colite", "Cholécystite"], 0, "Urgence chirurgicale fréquente."],
+  ["pat", "Quel microbe cause la tuberculose ?", ["Staphylocoque doré", "Bacille de Koch", "Salmonelle", "Streptocoque"], 1, "Mycobacterium tuberculosis, transmission aérienne."],
+  ["pat", "Un AVC ischémique est dû à…", ["Une rupture de vaisseau", "Une infection", "Une obstruction d'une artère cérébrale", "Une chute de glycémie"], 2, "Dans l'AVC hémorragique, c'est au contraire une rupture."],
+  ["pat", "L'asthme touche surtout…", ["Les bronches", "Les reins", "Le foie", "Le cœur"], 0, "Inflammation et bronchospasme réversible."],
+  ["soi", "Geste le plus efficace contre la transmission des infections ?", ["Porter des bijoux", "Hygiène des mains", "Changer de blouse", "Parler moins"], 1, "L'hygiène des mains est la mesure n°1."],
+  ["soi", "Avant d'administrer un médicament, on vérifie…", ["Seulement la dose", "Seulement le nom", "Rien si le médicament est courant", "Les 5 B : patient, médicament, dose, voie, moment"], 3, "Vérifier systématiquement évite les erreurs médicamenteuses."],
+  ["soi", "La position latérale de sécurité s'utilise pour un patient…", ["Inconscient qui respire", "En arrêt cardiaque", "Qui marche", "Qui mange"], 0, "Elle libère les voies aériennes et évite l'inhalation."],
+  ["soi", "Massage cardiaque adulte : rapport compressions / insufflations ?", ["15 : 1", "5 : 1", "30 : 2", "10 : 5"], 2, "30 compressions pour 2 insufflations."],
+  ["soi", "Score de Glasgow : valeur minimale ?", ["0", "3", "1", "5"], 1, "Le score va de 3 à 15."],
+  ["soi", "Pour mesurer la tension, le brassard est placé…", ["Au niveau du cœur", "Au-dessus de la tête", "Au niveau des pieds", "Peu importe"], 0, "Le bras doit être à hauteur du cœur."]
+];
+const EL_B = [
+  ["first", "🚀", "Premier pas", "Termine ta 1re partie", s => s.played >= 1],
+  ["xp100", "⭐", "100 XP", "Atteins 100 XP", s => s.xp >= 100],
+  ["xp500", "🌟", "500 XP", "Atteins 500 XP", s => s.xp >= 500],
+  ["perf", "🎯", "Sans faute", "Réussis une partie 6/6", s => s.perfect >= 1],
+  ["fire", "🔥", "Série de feu", "5 bonnes réponses d'affilée", s => s.combo >= 5],
+  ["s3", "📅", "Assidu", "Connecte-toi 3 jours de suite", s => s.streak >= 3],
+  ["s7", "🏅", "Fidèle", "Connecte-toi 7 jours de suite", s => s.streak >= 7],
+  ["day", "🌅", "Défi du jour", "Termine un défi du jour", s => s.daily >= 1],
+  ["all", "🧠", "Polyvalent", "Joue les 6 thèmes", s => Object.keys(EL_T).every(k => s.themes[k] !== undefined)]
+];
+const elShuf = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const elLevel = xp => Math.floor(Math.sqrt(xp / 40)) + 1;
+const elKey = () => "ish_el_" + (currentUser?.id || "anon");
+const elLoad = () => Object.assign({ xp: 0, streak: 0, last: "", played: 0, perfect: 0, combo: 0, daily: 0, dayDone: "", themes: {}, badges: [] }, lsGet(elKey(), {}));
+async function elSync(s) {
+  try {
+    if (!currentUser) return;
+    await db.from("elearning_scores").upsert({ user_id: currentUser.id, name: currentUser.user_metadata?.full_name || "Étudiant", xp: s.xp, level: elLevel(s.xp), streak: s.streak, badges: s.badges.length, updated_at: new Date().toISOString() }, { onConflict: "user_id" });
+  } catch (e) { /* classement indisponible : ignoré */ }
+}
+function elSave(s) {
+  const nw = [];
+  EL_B.forEach(b => { if (!s.badges.includes(b[0]) && b[4](s)) { s.badges.push(b[0]); nw.push(b); } });
+  lsSet(elKey(), s); elSync(s); return nw;
+}
+function elTouch() {
+  const s = elLoad(), t = ttIso(new Date());
+  if (s.last !== t) { s.streak = s.last === ttIso(ttDate(t, -1)) ? s.streak + 1 : 1; s.last = t; s.xp += 5; elSave(s); }
+  return s;
+}
+let elTab = "play", elTimer = null;
+function renderElearning() {
+  clearInterval(elTimer);
+  const inner = document.getElementById("innerPage"), s = elTouch(), lv = elLevel(s.xp);
+  const lo = 40 * (lv - 1) ** 2, hi = 40 * lv * lv, pct = Math.round((s.xp - lo) / (hi - lo) * 100);
+  inner.innerHTML = `
+    <div class="page-heading"><div class="eyebrow">ESPACE PÉDAGOGIQUE</div><h1>E-learning</h1><p>${esc(moduleDescriptions["E-learning"])}</p></div>
+    <div class="el-hero"><div class="el-lvl">${lv}</div>
+      <div class="el-hmain"><strong>${esc(EL_TITLES[Math.min(lv - 1, 5)])}</strong><div class="el-bar"><i style="width:${pct}%"></i></div><small>${s.xp} XP · encore ${hi - s.xp} XP pour le niveau ${lv + 1}</small></div>
+      <div class="el-streak">🔥 ${s.streak}<small>jour${s.streak > 1 ? "s" : ""}</small></div></div>
+    <div class="tt-chips">${[["play", "Jouer"], ["badges", "Badges"], ["rank", "Classement"]].map(t => `<button type="button" class="tt-chip${t[0] === elTab ? " on" : ""}" data-t="${t[0]}">${t[1]}</button>`).join("")}</div>
+    <div id="elBody"></div>
+    <div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>`;
+  inner.querySelectorAll("[data-t]").forEach(b => b.addEventListener("click", () => { elTab = b.dataset.t; renderElearning(); }));
+  const box = document.getElementById("elBody");
+  if (elTab === "badges") {
+    box.innerHTML = `<div class="el-grid">${EL_B.map(b => `<div class="el-badge${s.badges.includes(b[0]) ? " on" : ""}"><span>${b[1]}</span><strong>${esc(b[2])}</strong><small>${esc(b[3])}</small></div>`).join("")}</div>`;
+  } else if (elTab === "rank") {
+    elRank(box);
+  } else {
+    const today = ttIso(new Date()), done = s.dayDone === today;
+    box.innerHTML = `<button type="button" class="el-daily" data-play="*">⚡ <span><strong>Défi du jour</strong><small>${done ? "Déjà relevé aujourd'hui · rejoue sans bonus" : "6 questions mélangées · +25 XP bonus"}</small></span></button>
+      <div class="el-grid">${Object.entries(EL_T).map(([k, v]) => `<button type="button" class="el-theme" data-play="${k}"><span>${v[1]}</span><strong>${v[0]}</strong><small>${s.themes[k] !== undefined ? "Meilleur : " + s.themes[k] + "/6" : "Pas encore joué"}</small></button>`).join("")}</div>
+      <p class="search-hint">3 vies · 20 s par question · enchaîne les bonnes réponses pour des XP bonus.</p>`;
+    box.querySelectorAll("[data-play]").forEach(b => b.addEventListener("click", () => elPlay(b.dataset.play)));
+  }
+  addBackButton(inner);
+}
+async function elRank(box) {
+  box.innerHTML = `<p class="search-hint">Chargement du classement…</p>`;
+  let rows = null;
+  try { const r = await db.from("elearning_scores").select("user_id,name,xp,level,streak,badges").order("xp", { ascending: false }).limit(30); if (!r.error) rows = r.data; } catch (e) { /* ignoré */ }
+  if (!document.getElementById("elBody")) return;
+  if (!rows) { box.innerHTML = `<div class="resource-empty"><h3>Classement bientôt disponible</h3><p>Ton XP est bien enregistré sur cet appareil et sera ajouté au classement dès son activation.</p></div>`; return; }
+  const me = currentUser?.id, medal = ["🥇", "🥈", "🥉"];
+  box.innerHTML = rows.length ? `<div class="el-rank">${rows.map((r, i) => `<div class="el-row${r.user_id === me ? " me" : ""}"><b>${medal[i] || i + 1}</b><span>${esc(r.name || "Étudiant")}<small>Niv. ${r.level} · 🔥 ${r.streak} · 🏅 ${r.badges}</small></span><em>${r.xp} XP</em></div>`).join("")}</div>` : `<p class="search-hint">Sois le premier au classement : lance une partie !</p>`;
+}
+function elPlay(th) {
+  const daily = th === "*", pool = daily ? EL_Q : EL_Q.filter(q => q[0] === th);
+  const qs = elShuf(pool).slice(0, 6).map(q => ({ q: q[1], o: elShuf(q[2].map((t, i) => [t, i === q[3]])), e: q[4] }));
+  const g = { i: 0, lives: 3, combo: 0, max: 0, ok: 0, xp: 0 }, box = document.getElementById("elBody");
+  const before = elLoad();
+  const finish = () => {
+    clearInterval(elTimer);
+    const s = elLoad(), perfect = g.ok === qs.length, today = ttIso(new Date());
+    let bonus = (g.lives > 0 ? 20 : 0) + (perfect ? 30 : 0);
+    if (daily && s.dayDone !== today) { bonus += 25; s.dayDone = today; s.daily++; }
+    const gain = g.xp + bonus;
+    s.xp += gain; s.played++; if (perfect) s.perfect++; s.combo = Math.max(s.combo, g.max);
+    if (!daily) s.themes[th] = Math.max(s.themes[th] || 0, g.ok);
+    else if (s.themes.mix === undefined) s.themes.mix = g.ok;
+    const nw = elSave(s), up = elLevel(s.xp) > elLevel(before.xp);
+    box.innerHTML = `<div class="el-end"><div class="el-big">${perfect ? "🏆" : g.lives > 0 ? "🎉" : "💪"}</div><h2>${g.ok}/${qs.length} bonnes réponses</h2><p class="el-gain">+${gain} XP</p>
+      ${up ? `<p class="el-up">Niveau ${elLevel(s.xp)} atteint !</p>` : ""}${nw.map(b => `<p class="el-new">${b[1]} Badge débloqué : <strong>${esc(b[2])}</strong></p>`).join("")}
+      <div class="tt-chips"><button type="button" class="tt-chip on" id="elAgain">Rejouer</button><button type="button" class="tt-chip" id="elHome">Retour</button></div></div>`;
+    document.getElementById("elAgain").onclick = () => elPlay(th);
+    document.getElementById("elHome").onclick = renderElearning;
+  };
+  const step = () => {
+    const c = qs[g.i]; let left = 20, locked = false;
+    box.innerHTML = `<div class="el-game" id="elGame"><div class="el-top"><span>${"❤️".repeat(g.lives) || "💔"}</span><span>Question ${g.i + 1}/${qs.length}</span><span>${g.combo > 1 ? "🔥 x" + g.combo : ""}</span></div>
+      <div class="el-bar t"><i id="elT" style="width:100%"></i></div><h3 class="el-q">${esc(c.q)}</h3>
+      ${c.o.map((o, i) => `<button type="button" class="el-opt" data-i="${i}">${esc(o[0])}</button>`).join("")}<div id="elFb"></div></div>`;
+    const answer = i => {
+      if (locked) return; locked = true; clearInterval(elTimer);
+      const right = i >= 0 && c.o[i][1];
+      box.querySelectorAll(".el-opt").forEach((b, k) => { b.disabled = true; if (c.o[k][1]) b.classList.add("ok"); else if (k === i) b.classList.add("ko"); });
+      if (right) { g.combo++; g.max = Math.max(g.max, g.combo); g.ok++; g.xp += 10 + Math.min(g.combo - 1, 4) * 2 + (left >= 12 ? 3 : 0); } else { g.lives--; g.combo = 0; }
+      const last = g.lives === 0 || g.i === qs.length - 1;
+      document.getElementById("elFb").innerHTML = `<p class="el-exp">${right ? "✅ Bravo ! " : i < 0 ? "⏱️ Temps écoulé. " : "❌ Raté. "}${esc(c.e)}</p><button type="button" class="tt-chip on" id="elNext">${last ? "Voir le résultat" : "Suivant"}</button>`;
+      document.getElementById("elNext").onclick = () => { if (last) finish(); else { g.i++; step(); } };
+    };
+    box.querySelectorAll(".el-opt").forEach(b => b.addEventListener("click", () => answer(+b.dataset.i)));
+    elTimer = setInterval(() => {
+      if (!document.getElementById("elGame")) { clearInterval(elTimer); return; }
+      left -= 0.1; const t = document.getElementById("elT"); if (t) t.style.width = Math.max(left, 0) / 20 * 100 + "%";
+      if (left <= 0) answer(-1);
+    }, 100);
+  };
+  step();
+}
+NEW_PAGES["E-learning"] = renderElearning;
+moduleDescriptions["E-learning"] = "Apprends en jouant : quiz d'anatomie, physiologie, sémiologie, terminologie, pathologie et soins, avec XP, niveaux, badges et classement.";
+SITE_PAGES.push({ name: "E-learning", words: "e-learning jeu quiz xp badges classement niveau apprendre anatomie physiologie semiologie pathologie soins defi" });
+
 
 const esc = t => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const norm = t => String(t).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
