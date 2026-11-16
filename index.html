@@ -1118,6 +1118,16 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .kp-sheet input[type=text],.kp-sheet textarea{width:100%;box-sizing:border-box;border:0;background:#ffffff90;border-radius:10px;padding:10px 12px;font:inherit;margin:0 0 8px}.kp-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:18px}.kp-body{resize:vertical;line-height:1.55}
 .kp-colors{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.kp-colors button{width:26px;height:26px;border-radius:50%;border:2px solid #cdd8e1;cursor:pointer}.kp-colors button.on{border-color:var(--navy);box-shadow:0 0 0 2px #fff inset}
 .kp-photo{margin:8px 0}.kp-actions{display:flex;gap:10px;align-items:center;margin-top:8px}
+
+/* ===== FIX : menu principal fixe (desktop) + carte du bas toujours visible ===== */
+@media(min-width:761px){
+  .layout{align-items:flex-start}
+  body .sidebar{position:sticky;top:88px;align-self:flex-start;height:calc(100vh - 104px);height:calc(100dvh - 104px);max-height:calc(100vh - 104px);max-height:calc(100dvh - 104px);overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#ffffff33 transparent}
+  body .sidebar .side-bottom{position:sticky;bottom:0;z-index:2;flex:none;margin-top:auto;background:#12385a;box-shadow:0 -12px 16px -6px #0b1f3a}
+}
+@media(max-width:760px){
+  body .sidebar{height:100vh;height:100dvh;bottom:auto;overscroll-behavior:contain;padding-bottom:calc(22px + env(safe-area-inset-bottom,0px))}
+}
 </style>
 </head>
 
