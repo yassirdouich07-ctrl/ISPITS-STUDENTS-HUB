@@ -1071,6 +1071,27 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .at-info{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin:0 0 16px;box-shadow:var(--shadow)}
 .at-info h3{font-family:'Outfit',sans-serif;color:var(--navy);margin:8px 0 6px;font-size:18px}.at-info p{margin:0;line-height:1.65;font-size:14px;color:var(--text)}
 .at-info-top{display:flex;justify-content:space-between;align-items:center}.at-tag{color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px}
+
+/* ===== NOUVEAUX ESPACES ===== */
+.mx-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin:0 0 14px;box-shadow:var(--shadow)}
+.mx-card h3{font-family:'Outfit',sans-serif;color:var(--navy);margin:0 0 10px;font-size:18px}.mx-card h4{color:var(--navy);margin:12px 0 4px}
+.mx-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 10px}
+.mx-row label,.mx-block{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:600;color:var(--navy)}.mx-block{margin:8px 0}
+.mx-card input[type=number],.mx-card input[type=date],.mx-card input[type=text],.mx-card select,.mx-card textarea{width:100%;box-sizing:border-box;border:1px solid #dbe3ea;border-radius:10px;padding:10px;font:inherit;font-weight:400;background:#fff}
+.mx-res{background:#f1f8f7;border-radius:12px;padding:12px 14px;line-height:1.7;font-size:14px;color:var(--navy);margin-top:6px}
+.mx-term-top{display:flex;justify-content:space-between;align-items:center;gap:8px}.mx-term p{margin:6px 0 0;font-size:13px;color:var(--muted);line-height:1.55}
+.mx-dj{margin-top:6px;font-weight:700;color:var(--teal-dark)}.mx-dj span{font-size:10px;letter-spacing:1px;text-transform:uppercase;background:#e6f6f4;border-radius:6px;padding:2px 6px;margin-right:6px}
+.mx-head{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--teal-dark)}.mx-ctx{background:#fff7e6;border-radius:10px;padding:10px 12px;font-size:14px;line-height:1.6;color:var(--navy);margin:8px 0}
+.mx-q{font-family:'Outfit',sans-serif;font-size:17px;font-weight:700;color:var(--navy);line-height:1.5;margin:10px 0}
+.mx-opts{display:grid;gap:8px;margin:0 0 12px}.mx-opt{text-align:left;border:1px solid #dbe3ea;background:#fff;border-radius:12px;padding:12px 14px;font:inherit;font-size:14px;color:var(--navy);line-height:1.5}
+.mx-opt.good{background:#e8f7ee;border-color:#2fa04a}.mx-opt.bad{background:#fdecea;border-color:#d9392b}.mx-opt:disabled{opacity:1}
+.mx-fb{border-radius:12px;padding:10px 14px;margin:0 0 10px;font-size:14px;line-height:1.55}.mx-fb.good{background:#e8f7ee}.mx-fb.bad{background:#fdecea}.mx-fb p{margin:4px 0 0}
+.mx-ul{margin:6px 0;padding-left:20px;line-height:1.7;color:var(--navy);font-size:14px}.mx-check{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--navy);padding:5px 0}
+.mx-chk{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:2px 12px;margin-bottom:10px}
+.mx-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 14px}.mx-stats div{background:#fff;border:1px solid var(--border);border-radius:14px;padding:12px;text-align:center;box-shadow:var(--shadow)}
+.mx-stats b{display:block;font-family:'Outfit',sans-serif;font-size:22px;color:var(--navy)}.mx-stats span{font-size:12px;color:var(--muted)}
+.mx-bar{display:grid;grid-template-columns:minmax(120px,1.3fr) 2fr 24px;gap:8px;align-items:center;font-size:12px;color:var(--navy);margin:5px 0}
+.mx-bar i{display:block;height:8px;background:#e8edf2;border-radius:6px;overflow:hidden}.mx-bar u{display:block;height:100%;background:var(--teal);border-radius:6px}.mx-bar b{text-align:right}
 </style>
 </head>
 
@@ -1279,6 +1300,11 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
       <button class="nav-item" data-page="Emploi du temps" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-calendar"/></svg></span>Emploi du temps</button>
       <button class="nav-item" data-page="Règlement intérieur" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-file"/></svg></span>Règlement intérieur</button>
       <button class="nav-item" data-page="Atlas anatomie" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-layers"/></svg></span>Atlas anatomie</button>
+      <button class="nav-item" data-page="Dictionnaire médical" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-book"/></svg></span>Dictionnaire médical</button>
+      <button class="nav-item" data-page="Calculatrices" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-spark"/></svg></span>Calculatrices</button>
+      <button class="nav-item" data-page="Préparation concours" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-check"/></svg></span>Préparation concours</button>
+      <button class="nav-item" data-page="Carnet de stage" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-file"/></svg></span>Carnet de stage</button>
+      <button class="nav-item" data-page="Cas cliniques" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-hospital"/></svg></span>Cas cliniques</button>
       <button class="nav-item" data-page="TP Simulation" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-syringe"/></svg></span>TP Simulation</button>
       <button class="nav-item" data-page="Examens & QCM" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-check"/></svg></span>Examens & QCM</button>
       <button class="nav-item" data-page="Assistant IA" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-spark"/></svg></span>Assistant IA</button>
@@ -1389,6 +1415,41 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
               <div class="module-icon"><svg class="ico"><use href="#i-layers"/></svg></div>
               <h3>Atlas anatomie</h3>
               <p>Modèle 3D du corps humain : os, muscles, organes, vaisseaux et nerfs sous tous les angles.</p>
+              <span class="module-arrow">↗</span>
+            </button>
+
+            <button class="module-card" data-open="Dictionnaire médical" type="button">
+              <div class="module-icon"><svg class="ico"><use href="#i-book"/></svg></div>
+              <h3>Dictionnaire médical</h3>
+              <p>Termes de santé en français et en darija pour mieux comprendre.</p>
+              <span class="module-arrow">↗</span>
+            </button>
+
+            <button class="module-card" data-open="Calculatrices" type="button">
+              <div class="module-icon"><svg class="ico"><use href="#i-spark"/></svg></div>
+              <h3>Calculatrices</h3>
+              <p>IMC, débit de perfusion, date d'accouchement et semaines de grossesse.</p>
+              <span class="module-arrow">↗</span>
+            </button>
+
+            <button class="module-card" data-open="Préparation concours" type="button">
+              <div class="module-icon"><svg class="ico"><use href="#i-check"/></svg></div>
+              <h3>Préparation concours</h3>
+              <p>QCM d'entraînement et plan de révision pour les concours et le master.</p>
+              <span class="module-arrow">↗</span>
+            </button>
+
+            <button class="module-card" data-open="Carnet de stage" type="button">
+              <div class="module-icon"><svg class="ico"><use href="#i-file"/></svg></div>
+              <h3>Carnet de stage</h3>
+              <p>Notez vos activités, difficultés, compétences et objectifs de stage.</p>
+              <span class="module-arrow">↗</span>
+            </button>
+
+            <button class="module-card" data-open="Cas cliniques" type="button">
+              <div class="module-icon"><svg class="ico"><use href="#i-hospital"/></svg></div>
+              <h3>Cas cliniques</h3>
+              <p>Situations de soins interactives : prenez les bonnes décisions.</p>
               <span class="module-arrow">↗</span>
             </button>
 
@@ -1681,6 +1742,11 @@ const moduleDescriptions = {
   "Stages": "Consultez les documents de stage, les protocoles, les fiches techniques et les situations cliniques.",
   "Résumés": "Accédez aux fiches de révision, synthèses et documents conçus pour faciliter vos révisions.",
   "Emploi du temps": "Retrouvez les plannings, les emplois du temps et les informations relatives à votre organisation académique.",
+  "Dictionnaire médical": "Termes de santé en français et en darija pour mieux comprendre.",
+  "Calculatrices": "IMC, débit de perfusion, date d'accouchement et semaines de grossesse.",
+  "Préparation concours": "QCM d'entraînement et plan de révision pour les concours et le master.",
+  "Carnet de stage": "Notez vos activités, difficultés, compétences et objectifs de stage.",
+  "Cas cliniques": "Situations de soins interactives : prenez les bonnes décisions.",
   "Atlas anatomie": "Explorez le corps humain en 3D : squelette, muscles, organes, vaisseaux et nerfs, sous tous les angles.",
   "Règlement intérieur": "Consultez le règlement intérieur des ISPITS : absences, évaluations, rattrapage, discipline et droits de l'étudiant.",
   "TP Simulation": "Préparez vos travaux pratiques grâce aux fiches techniques, procédures et ressources de simulation.",
@@ -1694,6 +1760,11 @@ const moduleIcons = {
   "Stages": ico("hospital"),
   "Résumés": ico("file"),
   "Emploi du temps": ico("calendar"),
+  "Dictionnaire médical": ico("book"),
+  "Calculatrices": ico("spark"),
+  "Préparation concours": ico("check"),
+  "Carnet de stage": ico("file"),
+  "Cas cliniques": ico("hospital"),
   "Atlas anatomie": ico("layers"),
   "Règlement intérieur": ico("file"),
   "TP Simulation": ico("syringe"),
@@ -1780,6 +1851,11 @@ function openPage(pageName, arg) {
 
   if (pageName === "Atlas anatomie") {
     renderAtlas();
+    return;
+  }
+
+  if (NEW_PAGES[pageName]) {
+    NEW_PAGES[pageName]();
     return;
   }
 
@@ -2201,6 +2277,306 @@ function renderAtlas(focusId = null) {
   if (focusId) select(model.items.find(i => i.id === focusId));
 }
 
+// =====================================
+// NOUVEAUX ESPACES : dictionnaire, calculatrices, concours, carnet de stage, cas cliniques
+// =====================================
+const lsGet = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
+const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* ignoré */ } };
+const mxUid = () => (currentUser && currentUser.id) || "anon";
+function mxPage(title, sub, html) {
+  const inner = document.getElementById("innerPage");
+  inner.innerHTML = `<div class="page-heading"><div class="eyebrow">ESPACE PÉDAGOGIQUE</div><h1>${esc(title)}</h1><p>${esc(sub)}</p></div>${html}<div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>`;
+  addBackButton(inner); window.scrollTo(0, 0);
+  return inner;
+}
+// Lecteur générique : décisions (cas cliniques) et QCM (concours)
+function mxPlay(box, steps, head, onEnd) {
+  let i = 0, score = 0;
+  const show = () => {
+    const s = steps[i];
+    box.innerHTML = `<div class="quiz-progress"><span style="width:${i / steps.length * 100}%"></span></div>
+      <div class="mx-card"><div class="mx-head">${esc(head)} · ${i + 1}/${steps.length}</div>${s.ctx ? `<p class="mx-ctx">${esc(s.ctx)}</p>` : ""}<p class="mx-q">${esc(s.q)}</p>
+      <div class="mx-opts">${s.opts.map((o, k) => `<button type="button" class="mx-opt" data-k="${k}">${esc(o.t)}</button>`).join("")}</div><div id="mxFb"></div></div>`;
+    box.querySelectorAll("[data-k]").forEach(b => b.addEventListener("click", () => {
+      const o = s.opts[+b.dataset.k], good = s.opts.find(x => x.ok);
+      box.querySelectorAll(".mx-opt").forEach(x => { x.disabled = true; });
+      box.querySelector(`[data-k="${s.opts.indexOf(good)}"]`).classList.add("good");
+      if (o.ok) score++; else b.classList.add("bad");
+      box.querySelector("#mxFb").innerHTML = `<div class="mx-fb ${o.ok ? "good" : "bad"}"><strong>${o.ok ? "Bonne décision" : "Pas tout à fait"}</strong><p>${esc(o.fb)}</p>${o.ok ? "" : `<p><strong>À retenir :</strong> ${esc(good.fb)}</p>`}</div><button type="button" class="primary-btn" id="mxNext">${i + 1 < steps.length ? "Suivant" : "Voir le résultat"}</button>`;
+      box.querySelector("#mxNext").addEventListener("click", () => { i++; if (i < steps.length) show(); else onEnd(score, steps.length); });
+    }));
+  };
+  show();
+}
+
+// ---------- 1. Dictionnaire médical (français / darija) ----------
+const DICO = `Fièvre|skhana, sokhna|Température corporelle supérieure ou égale à 38 °C.|Symptômes
+Douleur|wja3|Sensation désagréable liée à une atteinte réelle ou possible d'un tissu.|Symptômes
+Toux|so3al, kouha|Expulsion brusque d'air des poumons pour dégager les voies respiratoires.|Symptômes
+Nausée|ghtian|Envie de vomir.|Symptômes
+Vomissement|tqeyya2|Rejet du contenu de l'estomac par la bouche.|Symptômes
+Diarrhée|ishal|Selles liquides et fréquentes.|Symptômes
+Constipation|imsak|Selles rares ou difficiles à évacuer.|Symptômes
+Vertige|dwkha|Sensation que l'environnement ou soi-même tourne.|Symptômes
+Évanouissement (syncope)|ghchiya|Perte de connaissance brève.|Symptômes
+Essoufflement (dyspnée)|d9it nfas|Difficulté à respirer.|Symptômes
+Palpitations|dqan l9alb|Sensation de battements du cœur rapides ou irréguliers.|Symptômes
+Fatigue (asthénie)|3ya, t3b|Manque d'énergie, difficulté à faire un effort.|Symptômes
+Céphalée (mal de tête)|sda3|Douleur ressentie au niveau de la tête.|Symptômes
+Œdème|nfakh, tourem|Gonflement dû à l'accumulation de liquide dans les tissus.|Symptômes
+Hémorragie|nzif dem|Écoulement abondant de sang.|Symptômes
+Prurit (démangeaison)|7akka|Sensation qui pousse à se gratter.|Symptômes
+Insomnie|araq|Difficulté à s'endormir ou à rester endormi.|Symptômes
+Hypertension artérielle|dghta 3aliya, tension 3aliya|Pression artérielle élevée de façon répétée (≥ 140/90 mmHg).|Pathologies
+Hypotension|dghta wati|Pression artérielle trop basse.|Pathologies
+Diabète|messkar|Excès de sucre dans le sang (hyperglycémie chronique).|Pathologies
+Hypoglycémie|nqs f skkar|Glycémie trop basse (< 0,70 g/L) : sueurs, tremblements, malaise.|Pathologies
+Anémie|fqr dem|Baisse de l'hémoglobine dans le sang.|Pathologies
+Asthme|rabw|Maladie inflammatoire des bronches avec crises de gêne respiratoire.|Pathologies
+Pneumonie|iltihab f rria|Infection du poumon.|Pathologies
+Grippe|grib|Infection virale respiratoire avec fièvre et courbatures.|Pathologies
+Rhume|nezla|Infection virale bénigne du nez et de la gorge.|Pathologies
+Allergie|7sassiya|Réaction exagérée du système immunitaire à une substance.|Pathologies
+Fracture|kesr|Rupture d'un os.|Pathologies
+Plaie|jer7|Rupture de la continuité de la peau.|Pathologies
+Brûlure|7erqa|Lésion de la peau due à la chaleur, à un produit chimique ou à l'électricité.|Pathologies
+Ictère (jaunisse)|bou sfir|Coloration jaune de la peau et des yeux due à un excès de bilirubine.|Pathologies
+Rougeole|7asba|Maladie virale très contagieuse avec éruption.|Pathologies
+Varicelle|jdari lma|Maladie virale contagieuse avec vésicules sur la peau.|Pathologies
+Cancer|sartan|Multiplication anormale et incontrôlée de cellules.|Pathologies
+AVC|jalta f rass|Arrêt de l'irrigation d'une zone du cerveau par un vaisseau bouché ou rompu.|Pathologies
+Infarctus du myocarde|jalta f l9alb|Mort d'une zone du cœur par obstruction d'une artère coronaire.|Pathologies
+Insuffisance rénale|fchal f lkoula|Incapacité des reins à filtrer correctement le sang.|Pathologies
+Calcul rénal|7asa f lkoula|Concrétion dans les reins ou les voies urinaires.|Pathologies
+Cœur|9alb|Muscle qui propulse le sang dans tout le corps.|Anatomie
+Poumon|rria|Organe des échanges gazeux entre l'air et le sang.|Anatomie
+Foie|kbda|Grosse glande qui fabrique la bile et détoxifie le sang.|Anatomie
+Rein|kolya|Organe qui filtre le sang et fabrique l'urine.|Anatomie
+Estomac|m3ida|Poche musculaire qui digère les aliments.|Anatomie
+Vessie|mtana|Réservoir qui stocke l'urine.|Anatomie
+Os|3dem|Pièce rigide du squelette.|Anatomie
+Muscle|3adla|Tissu qui se contracte pour produire un mouvement.|Anatomie
+Peau|jild|Enveloppe externe du corps.|Anatomie
+Sang|dem|Liquide qui circule dans les vaisseaux et transporte l'oxygène.|Anatomie
+Urine|boul|Liquide produit par les reins et évacué par la vessie.|Anatomie
+Injection|ibra|Administration d'un produit avec une seringue et une aiguille.|Soins
+Perfusion|serom, perfusion|Administration d'un liquide par voie veineuse, goutte à goutte.|Soins
+Pansement|pansma|Protection posée sur une plaie.|Soins
+Pouls|nabd|Battement des artères ressenti au toucher (poignet, cou).|Soins
+Tension artérielle|dghta|Pression du sang sur la paroi des artères.|Soins
+Stérile|mou3a9am|Exempt de tout micro-organisme vivant.|Soins
+Ordonnance|wasfa|Prescription écrite par le médecin.|Soins
+Comprimé|7ab|Forme de médicament solide à avaler.|Médicaments
+Sirop|sirou|Forme de médicament liquide sucré à boire.|Médicaments
+Pommade|marham|Médicament à appliquer sur la peau.|Médicaments
+Gouttes|9tra|Médicament liquide administré goutte à goutte (yeux, nez, oreilles, voie orale).|Médicaments
+Enceinte|7amla|État d'une femme qui porte un enfant.|Grossesse
+Accouchement|wilada|Naissance de l'enfant.|Grossesse
+Règles|dora|Saignement mensuel du cycle menstruel.|Grossesse
+Allaitement|rda3a|Alimentation du nouveau-né par le lait de sa mère.|Grossesse
+Césarienne|9aysaria|Accouchement par une incision chirurgicale de l'abdomen et de l'utérus.|Grossesse`.split("\n").map(l => { const [fr, dj, def, cat] = l.split("|"); return { fr, dj, def, cat }; });
+
+function renderDico() {
+  const cats = ["Tous", ...new Set(DICO.map(d => d.cat))];
+  let cat = "Tous", q = "";
+  const inner = mxPage("Dictionnaire médical", "Les termes de santé en français et en darija pour mieux comprendre.",
+    `<input id="dQ" class="rg-search" type="search" placeholder="Chercher en français ou en darija : tension, skhana, messkar…" autocomplete="off">
+     <div class="tt-chips" id="dCats"></div><div id="dList"></div>
+     <p class="search-hint">Le darija varie selon les régions et s'écrit de plusieurs façons. Vérifiez avec votre enseignant en cas de doute.</p>`);
+  const draw = () => {
+    inner.querySelector("#dCats").innerHTML = cats.map(c => `<button type="button" class="tt-chip${c === cat ? " on" : ""}" data-c="${esc(c)}">${esc(c)}</button>`).join("");
+    inner.querySelectorAll("[data-c]").forEach(b => b.addEventListener("click", () => { cat = b.dataset.c; draw(); }));
+    const words = norm(q).split(" ").filter(Boolean);
+    const rows = DICO.filter(d => (cat === "Tous" || d.cat === cat) && words.every(w => norm(d.fr + " " + d.dj + " " + d.def).includes(w)));
+    inner.querySelector("#dList").innerHTML = rows.length ? rows.map(d => `<div class="mx-card mx-term"><div class="mx-term-top"><strong>${esc(d.fr)}</strong><span class="at-tag" style="background:#159c94">${esc(d.cat)}</span></div>
+      <div class="mx-dj"><span>Darija</span> ${esc(d.dj)}</div><p>${esc(d.def)}</p></div>`).join("") : `<div class="search-hint">Aucun terme trouvé.</div>`;
+  };
+  inner.querySelector("#dQ").addEventListener("input", e => { q = e.target.value; draw(); });
+  draw();
+}
+
+// ---------- 2. Calculatrices médicales ----------
+function renderCalc() {
+  const today = new Date().toISOString().slice(0, 10);
+  const inner = mxPage("Calculatrices médicales", "IMC, débit de perfusion, date probable d'accouchement et semaines d'aménorrhée.", `
+    <div class="mx-card"><h3>Indice de masse corporelle (IMC)</h3>
+      <div class="mx-row"><label>Poids (kg)<input id="imcP" type="number" min="1" step="0.1" inputmode="decimal"></label><label>Taille (cm)<input id="imcT" type="number" min="30" step="1" inputmode="decimal"></label></div>
+      <div class="mx-res" id="imcR">Entrez le poids et la taille.</div></div>
+    <div class="mx-card"><h3>Débit de perfusion</h3>
+      <div class="mx-row"><label>Volume (mL)<input id="pfV" type="number" min="1" step="1" inputmode="decimal"></label><label>Durée (heures)<input id="pfD" type="number" min="0.1" step="0.1" inputmode="decimal"></label>
+      <label>Gouttes par mL<select id="pfF"><option value="20">20 (perfuseur standard)</option><option value="15">15 (transfuseur)</option><option value="60">60 (microperfuseur)</option></select></label></div>
+      <div class="mx-res" id="pfR">Entrez le volume et la durée.</div></div>
+    <div class="mx-card"><h3>Grossesse : DPA, SA et SG</h3>
+      <div class="mx-row"><label>Premier jour des dernières règles (DDR)<input id="gD" type="date"></label><label>Durée du cycle (jours)<input id="gC" type="number" min="21" max="45" value="28"></label><label>Date de référence<input id="gR" type="date" value="${today}"></label></div>
+      <div class="mx-res" id="gRes">Entrez la date des dernières règles.</div></div>
+    <p class="search-hint">Outils d'aide au calcul : vérifiez toujours avec la prescription et le protocole du service.</p>`);
+  const $ = id => inner.querySelector("#" + id), on = (ids, fn) => ids.forEach(i => $(i).addEventListener("input", fn));
+  on(["imcP", "imcT"], () => {
+    const p = +$("imcP").value, t = +$("imcT").value / 100;
+    if (!(p > 0 && t > 0)) { $("imcR").textContent = "Entrez le poids et la taille."; return; }
+    const v = p / (t * t), c = v < 18.5 ? "Maigreur" : v < 25 ? "Corpulence normale" : v < 30 ? "Surpoids" : v < 35 ? "Obésité modérée (classe I)" : v < 40 ? "Obésité sévère (classe II)" : "Obésité massive (classe III)";
+    $("imcR").innerHTML = `<strong>IMC : ${v.toFixed(1)} kg/m²</strong><br>${c} (classification OMS)`;
+  });
+  on(["pfV", "pfD", "pfF"], () => {
+    const v = +$("pfV").value, d = +$("pfD").value, f = +$("pfF").value;
+    if (!(v > 0 && d > 0)) { $("pfR").textContent = "Entrez le volume et la durée."; return; }
+    const g = v * f / (d * 60);
+    $("pfR").innerHTML = `<strong>${(v / d).toFixed(1)} mL/h</strong><br><strong>${Math.round(g)} gouttes/min</strong> (1 goutte toutes les ${(60 / g).toFixed(1)} s)<br><small>Gouttes/min = volume × gouttes par mL ÷ durée en minutes</small>`;
+  });
+  on(["gD", "gC", "gR"], () => {
+    const dd = $("gD").value, rf = $("gR").value, cy = +$("gC").value || 28;
+    if (!dd || !rf) { $("gRes").textContent = "Entrez la date des dernières règles."; return; }
+    const D = new Date(dd + "T00:00:00Z"), Rf = new Date(rf + "T00:00:00Z"), days = Math.round((Rf - D) / 864e5);
+    const fmt = d => d.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+    const dpa = new Date(D.getTime() + (280 + cy - 28) * 864e5);
+    if (days < 0) { $("gRes").textContent = "La date de référence est avant la DDR."; return; }
+    const sa = Math.floor(days / 7), j = days % 7;
+    const stade = sa < 14 ? "1er trimestre" : sa < 28 ? "2e trimestre" : "3e trimestre", terme = sa < 37 ? "avant terme (prématurité si accouchement)" : sa < 41 ? "à terme" : "terme dépassé : surveillance renforcée selon le protocole";
+    $("gRes").innerHTML = `<strong>DPA : ${esc(fmt(dpa))}</strong><br>Aménorrhée : <strong>${sa} SA + ${j} j</strong><br>Grossesse (depuis la conception) : environ <strong>${Math.max(0, sa - 2)} semaines</strong><br>${stade} · ${terme}${days > 301 ? "<br><small>Plus de 43 SA : vérifiez les dates.</small>" : ""}<br><small>Règle de Naegele : DDR + 280 jours (40 SA), ajustée si le cycle n'est pas de 28 jours.</small>`;
+  });
+}
+
+// ---------- 3. Préparation aux concours (Master) ----------
+const CONC = [
+  ["Anatomie et physiologie", "Combien de lobes possède le poumon droit ?", ["2", "3", "4", "5"], 1, "Le poumon droit a 3 lobes, le gauche 2 car il laisse la place au cœur."],
+  ["Anatomie et physiologie", "Quelle cavité du cœur envoie le sang oxygéné dans l'aorte ?", ["Oreillette droite", "Ventricule droit", "Oreillette gauche", "Ventricule gauche"], 3, "Le ventricule gauche éjecte le sang oxygéné dans l'aorte."],
+  ["Anatomie et physiologie", "Quelle est la fréquence cardiaque normale de repos de l'adulte ?", ["30 à 50 bpm", "60 à 100 bpm", "110 à 140 bpm", "150 à 180 bpm"], 1, "La fréquence cardiaque normale de repos de l'adulte est de 60 à 100 battements par minute."],
+  ["Anatomie et physiologie", "Quelle est la glycémie normale à jeun ?", ["0,20 à 0,50 g/L", "0,70 à 1,10 g/L", "1,40 à 1,80 g/L", "2,00 à 2,50 g/L"], 1, "La glycémie normale à jeun est comprise entre 0,70 et 1,10 g/L."],
+  ["Anatomie et physiologie", "Quel est le donneur universel en transfusion de globules rouges ?", ["AB positif", "A négatif", "O négatif", "B positif"], 2, "Le groupe O négatif est le donneur universel de globules rouges."],
+  ["Pharmacologie", "Quel est l'antidote du paracétamol en cas de surdosage ?", ["Naloxone", "N-acétylcystéine", "Flumazénil", "Vitamine K"], 1, "La N-acétylcystéine est l'antidote du paracétamol."],
+  ["Pharmacologie", "Quel est l'antidote de la morphine ?", ["Naloxone", "Atropine", "Protamine", "Flumazénil"], 0, "La naloxone antagonise les opioïdes comme la morphine."],
+  ["Soins infirmiers", "Quelle voie d'administration donne l'action la plus rapide ?", ["Orale", "Sous-cutanée", "Intramusculaire", "Intraveineuse"], 3, "La voie intraveineuse apporte le médicament directement dans le sang."],
+  ["Soins infirmiers", "Quel angle d'injection pour une injection intramusculaire ?", ["15°", "30°", "45°", "90°"], 3, "L'injection intramusculaire se fait à 90°."],
+  ["Soins infirmiers", "Quel est le score maximal de l'échelle de Glasgow ?", ["10", "13", "15", "20"], 2, "Le score de Glasgow va de 3 à 15."],
+  ["Hygiène et asepsie", "Quel geste est le plus efficace pour limiter la transmission croisée ?", ["Port de masque seul", "Hygiène des mains", "Port de blouse seul", "Isolement systématique"], 1, "L'hygiène des mains (friction hydro-alcoolique) est la mesure de base."],
+  ["Hygiène et asepsie", "Quelle est la durée recommandée d'une friction hydro-alcoolique ?", ["5 secondes", "10 secondes", "Environ 30 secondes", "2 minutes"], 2, "Il faut frictionner environ 30 secondes, jusqu'à séchage complet des mains."],
+  ["Santé publique", "Que mesure l'incidence ?", ["Tous les cas existants à un moment donné", "Les nouveaux cas apparus pendant une période", "Les décès uniquement", "Le nombre de guérisons"], 1, "L'incidence compte les nouveaux cas sur une période. La prévalence compte tous les cas existants."],
+  ["Éthique", "Quel principe éthique correspond à « ne pas nuire » ?", ["Autonomie", "Justice", "Non-malfaisance", "Bienfaisance"], 2, "La non-malfaisance est le principe de ne pas nuire au patient."]
+].map(([t, q, o, a, e]) => ({ t, q, opts: o.map((x, i) => ({ t: x, ok: i === a, fb: e })) }));
+const CONC_PLAN = ["Anatomie et physiologie", "Pharmacologie et calcul de doses", "Soins infirmiers", "Hygiène et asepsie", "Santé publique et épidémiologie", "Éthique, droit et déontologie", "Méthodologie de recherche", "Anglais médical", "Annales et sujets des années précédentes"];
+function renderConcours() {
+  const themes = ["Tous", ...new Set(CONC.map(c => c.t))], key = "ish_conc_" + mxUid(), plan = lsGet(key, {});
+  let th = "Tous";
+  const inner = mxPage("Préparation aux concours", "Espace pour les étudiants qui préparent un concours ou un master.", `
+    <div class="mx-card"><h3>Entraînement QCM</h3><div class="tt-chips" id="cTh"></div><p class="search-hint" id="cInfo"></p><button class="primary-btn" type="button" id="cGo">Lancer l'entraînement</button><div id="cBox"></div></div>
+    <div class="mx-card"><h3>Plan de révision</h3><p class="search-hint">Cochez les thèmes que vous avez révisés. Votre progression est enregistrée sur cet appareil.</p><div id="cPlan"></div><div class="mx-res" id="cProg"></div></div>
+    <div class="mx-card"><h3>Conseils de méthode</h3><ul class="mx-ul"><li>Travaillez par thème, puis faites des séries chronométrées.</li><li>Relisez chaque explication, y compris quand votre réponse est correcte.</li><li>Notez vos erreurs récurrentes et refaites ces questions quelques jours plus tard.</li><li>Les modalités du concours changent chaque année : consultez l'avis officiel du Ministère de la Santé et de l'ISPITS.</li></ul></div>`);
+  const drawTh = () => {
+    inner.querySelector("#cTh").innerHTML = themes.map(t => `<button type="button" class="tt-chip${t === th ? " on" : ""}" data-t="${esc(t)}">${esc(t)}</button>`).join("");
+    inner.querySelectorAll("[data-t]").forEach(b => b.addEventListener("click", () => { th = b.dataset.t; drawTh(); }));
+    const n = CONC.filter(c => th === "Tous" || c.t === th).length, best = getBest("conc_" + th);
+    inner.querySelector("#cInfo").textContent = `${n} question${n > 1 ? "s" : ""} disponible${n > 1 ? "s" : ""}` + (best !== null ? ` · Meilleur score : ${best}%` : "");
+  };
+  const drawPlan = () => {
+    inner.querySelector("#cPlan").innerHTML = CONC_PLAN.map((p, i) => `<label class="mx-check"><input type="checkbox" data-p="${i}" ${plan[i] ? "checked" : ""}> ${esc(p)}</label>`).join("");
+    inner.querySelectorAll("[data-p]").forEach(c => c.addEventListener("change", () => { plan[c.dataset.p] = c.checked; lsSet(key, plan); drawPlan(); }));
+    const done = CONC_PLAN.filter((p, i) => plan[i]).length;
+    inner.querySelector("#cProg").innerHTML = `<strong>${done}/${CONC_PLAN.length} thèmes révisés</strong> (${Math.round(done / CONC_PLAN.length * 100)} %)`;
+  };
+  inner.querySelector("#cGo").addEventListener("click", () => {
+    const pool = CONC.filter(c => th === "Tous" || c.t === th).map(c => ({ ctx: c.t, q: c.q, opts: c.opts })).sort(() => Math.random() - 0.5).slice(0, 10), box = inner.querySelector("#cBox");
+    mxPlay(box, pool, "QCM", (sc, n) => { const p = Math.round(sc / n * 100); setBest("conc_" + th, p); box.innerHTML = `<div class="mx-card mx-end"><h3>${sc}/${n} · ${p} %</h3><p>${p >= 80 ? "Très bien, continuez ainsi." : p >= 60 ? "Correct : relisez les explications des erreurs." : "À retravailler : reprenez le thème puis refaites la série."}</p></div>`; drawTh(); });
+    box.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  drawTh(); drawPlan();
+}
+
+// ---------- 4. Carnet de stage intelligent ----------
+const CARNET_COMP = ["Hygiène et asepsie", "Prise de constantes", "Injections et perfusions", "Pansements et plaies", "Prélèvements", "Administration des médicaments", "Communication avec le patient", "Éducation thérapeutique", "Transmissions et dossier", "Gestion des urgences"];
+function renderCarnet() {
+  const key = "ish_carnet_" + mxUid(), d = lsGet(key, { e: [], o: [] }), save = () => lsSet(key, d), today = new Date().toISOString().slice(0, 10);
+  const inner = mxPage("Carnet de stage", "Notez vos activités, difficultés, compétences acquises et objectifs. Le carnet analyse votre progression.", `
+    <div id="cnStats"></div>
+    <div class="mx-card"><h3>Nouvelle activité</h3>
+      <div class="mx-row"><label>Date<input id="cnDate" type="date" value="${today}"></label><label>Service ou lieu de stage<input id="cnLieu" type="text" placeholder="Ex : Médecine, Urgences…"></label></div>
+      <label class="mx-block">Activités réalisées<textarea id="cnAct" rows="3" placeholder="Ex : prise des constantes, pansement d'une plaie opératoire…"></textarea></label>
+      <label class="mx-block">Difficultés rencontrées<textarea id="cnDif" rows="2" placeholder="Ex : difficulté à repérer la veine, stress devant le patient…"></textarea></label>
+      <div class="mx-block">Compétences pratiquées</div><div class="mx-chk" id="cnComp">${CARNET_COMP.map((c, i) => `<label class="mx-check"><input type="checkbox" data-k="${i}"> ${esc(c)}</label>`).join("")}</div>
+      <div class="mx-block">Objectifs atteints aujourd'hui</div><div class="mx-chk" id="cnObjPick"></div>
+      <button class="primary-btn" type="button" id="cnAdd">Enregistrer dans le carnet</button><p class="cm-err" id="cnErr"></p></div>
+    <div id="cnBody"></div>
+    <p class="search-hint">Votre carnet est enregistré sur cet appareil. Utilisez « Copier le résumé » pour le partager avec votre encadrant.</p>`);
+  const $ = id => inner.querySelector("#" + id);
+  const stop = new Set("dans pour avec cette comme leur mais plus tout très aussi être avoir fait faire suis sont était mon mes pas sur par une des les que qui nous vous elle".split(" "));
+  const pickObj = () => { $("cnObjPick").innerHTML = d.o.length ? d.o.map(o => `<label class="mx-check"><input type="checkbox" data-o="${esc(o.id)}"> ${esc(o.t)}</label>`).join("") : `<span class="search-hint">Ajoutez d'abord vos objectifs plus bas.</span>`; };
+  const draw = () => {
+    const comp = CARNET_COMP.map(c => ({ c, n: d.e.filter(x => x.k.includes(c)).length })), max = Math.max(1, ...comp.map(x => x.n));
+    const week = d.e.filter(x => (Date.now() - new Date(x.date)) / 864e5 <= 7), freq = {};
+    d.e.forEach(x => (x.d || "").toLowerCase().split(/[^a-zàâçéèêëîïôûùüÿœ]+/).filter(w => w.length > 4 && !stop.has(w)).forEach(w => { freq[w] = (freq[w] || 0) + 1; }));
+    const rec = Object.entries(freq).filter(([, n]) => n >= 2).sort((a, b) => b[1] - a[1]).slice(0, 5).map(x => x[0]), weak = comp.filter(x => !x.n).map(x => x.c), oks = d.o.filter(x => x.ok).length;
+    const summary = `Résumé de la semaine\nActivités enregistrées : ${week.length}\nCompétences pratiquées : ${[...new Set(week.flatMap(x => x.k))].join(", ") || "aucune"}\nDifficultés : ${week.map(x => x.d).filter(Boolean).join(" | ") || "aucune"}\nObjectifs atteints : ${oks}/${d.o.length}`;
+    $("cnStats").innerHTML = `<div class="mx-stats"><div><b>${d.e.length}</b><span>Activités</span></div><div><b>${comp.filter(x => x.n).length}/${CARNET_COMP.length}</b><span>Compétences</span></div><div><b>${oks}/${d.o.length}</b><span>Objectifs</span></div></div>`;
+    $("cnBody").innerHTML = `
+      <div class="mx-card"><h3>Mes objectifs</h3><div class="mx-row"><input id="cnObjT" type="text" placeholder="Ex : réaliser 5 prises de tension seul"><button class="primary-btn" type="button" id="cnObjAdd">Ajouter</button></div>
+        ${d.o.map(o => `<label class="mx-check"><input type="checkbox" data-od="${esc(o.id)}" ${o.ok ? "checked" : ""}> ${esc(o.t)} <button type="button" class="cm-del" data-orm="${esc(o.id)}">Supprimer</button></label>`).join("")}</div>
+      <div class="mx-card"><h3>Compétences et analyse</h3>${comp.map(x => `<div class="mx-bar"><span>${esc(x.c)}</span><i><u style="width:${x.n / max * 100}%"></u></i><b>${x.n}</b></div>`).join("")}
+        <div class="mx-res">${weak.length ? `<strong>À travailler :</strong> ${esc(weak.slice(0, 4).join(", "))}. Demandez à votre encadrant des occasions de les pratiquer.` : "<strong>Toutes les compétences ont été pratiquées.</strong> Continuez à consolider."}${rec.length ? `<br><strong>Mots récurrents dans vos difficultés :</strong> ${esc(rec.join(", "))}. Pensez à en parler avec l'encadrant ou à revoir la fiche technique correspondante.` : ""}</div>
+        <button class="tt-chip" type="button" id="cnCopy">Copier le résumé de la semaine</button></div>
+      <div class="mx-card"><h3>Historique</h3>${d.e.length ? [...d.e].sort((a, b) => b.date.localeCompare(a.date)).map(x => `<div class="cm-item"><div class="cm-head"><span><strong>${esc(new Date(x.date).toLocaleDateString("fr-FR", { day: "numeric", month: "short" }))}</strong> · ${esc(x.lieu || "")}</span><button class="cm-del" type="button" data-del="${esc(x.id)}">Supprimer</button></div>
+        <p class="cm-body">${esc(x.a || "")}</p>${x.d ? `<p class="cm-body"><em>Difficultés :</em> ${esc(x.d)}</p>` : ""}<p class="search-hint">${esc(x.k.join(" · "))}${x.ob && x.ob.length ? " · Objectifs : " + esc(x.ob.join(", ")) : ""}</p></div>`).join("") : `<div class="search-hint">Aucune activité enregistrée.</div>`}</div>`;
+    $("cnObjAdd").addEventListener("click", () => { const t = $("cnObjT").value.trim(); if (!t) return; d.o.push({ id: "o" + Date.now(), t, ok: false }); save(); draw(); pickObj(); });
+    inner.querySelectorAll("[data-od]").forEach(c => c.addEventListener("change", () => { d.o.find(o => o.id === c.dataset.od).ok = c.checked; save(); draw(); }));
+    inner.querySelectorAll("[data-orm]").forEach(b => b.addEventListener("click", e => { e.preventDefault(); d.o = d.o.filter(o => o.id !== b.dataset.orm); save(); draw(); pickObj(); }));
+    inner.querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", () => { if (confirm("Supprimer cette activité ?")) { d.e = d.e.filter(x => x.id !== b.dataset.del); save(); draw(); } }));
+    $("cnCopy").addEventListener("click", () => { try { navigator.clipboard.writeText(summary); $("cnCopy").textContent = "Résumé copié"; } catch (e) { prompt("Copiez ce résumé :", summary); } });
+  };
+  $("cnAdd").addEventListener("click", () => {
+    const a = $("cnAct").value.trim(), k = [...inner.querySelectorAll("[data-k]:checked")].map(c => CARNET_COMP[+c.dataset.k]);
+    if (!a) { $("cnErr").textContent = "Décrivez au moins une activité."; return; }
+    $("cnErr").textContent = "";
+    const ob = [...inner.querySelectorAll("[data-o]:checked")].map(c => { const o = d.o.find(x => x.id === c.dataset.o); if (o) o.ok = true; return o ? o.t : ""; }).filter(Boolean);
+    d.e.push({ id: "e" + Date.now(), date: $("cnDate").value || today, lieu: $("cnLieu").value.trim(), a, d: $("cnDif").value.trim(), k, ob });
+    save(); ["cnAct", "cnDif"].forEach(i => { $(i).value = ""; }); inner.querySelectorAll("[data-k]").forEach(c => { c.checked = false; }); draw(); pickObj();
+  });
+  pickObj(); draw();
+}
+
+// ---------- 5. Cas cliniques interactifs ----------
+const CAS = [
+  { id: "hypo", t: "Hypoglycémie chez une patiente diabétique", niv: "Urgence",
+    intro: "Mme Amrani, 67 ans, diabétique sous insuline, est retrouvée en sueurs, tremblante et confuse mais répond à vos questions. Glycémie capillaire : 0,48 g/L.",
+    keys: ["Hypoglycémie : glycémie inférieure à 0,70 g/L.", "Patient conscient : resucrage oral de 15 g de glucides, recontrôle après 15 minutes.", "Patient inconscient : rien par la bouche, position latérale de sécurité, médecin, glucose IV ou glucagon selon prescription.", "Rechercher la cause et informer le médecin."],
+    steps: [
+      { q: "Quelle est votre première action ?", opts: [["Un resucrage oral immédiat avec 15 g de glucides (jus de fruit, 3 morceaux de sucre)", 1, "Chez un patient conscient, le resucrage oral est le traitement de première intention."], ["Lui injecter son insuline habituelle", 0, "L'insuline baisse encore la glycémie : c'est dangereux."], ["Attendre l'arrivée du médecin sans rien donner", 0, "Il faut agir tout de suite tout en prévenant le médecin."]] },
+      { ctx: "Quinze minutes plus tard, la glycémie est à 0,62 g/L.", q: "Que faites-vous ?", opts: [["Refaire un resucrage de 15 g puis recontrôler la glycémie", 1, "Tant que la glycémie reste inférieure à 0,70 g/L, on resucre et on recontrôle."], ["Considérer l'épisode terminé", 0, "La glycémie est encore trop basse."], ["Ne plus surveiller pour la laisser se reposer", 0, "La surveillance doit continuer jusqu'à normalisation."]] },
+      { ctx: "Plus tard, la patiente ne répond plus. Glycémie : 0,35 g/L.", q: "Quelle est la bonne conduite ?", opts: [["Lui faire boire du jus", 0, "Danger de fausse route chez un patient inconscient."], ["Position latérale de sécurité, appel du médecin, glucose IV ou glucagon IM selon prescription", 1, "Un patient inconscient ne reçoit rien par la bouche."], ["La laisser dormir et revenir plus tard", 0, "Risque de coma : c'est une urgence."]] },
+      { ctx: "La glycémie est revenue à la normale.", q: "Que faites-vous pour finir ?", opts: [["Rechercher la cause (repas sauté, dose d'insuline), informer le médecin, tracer et éduquer la patiente", 1, "L'analyse de la cause prévient les récidives."], ["Rien de plus", 0, "Il faut chercher la cause et tracer l'événement."], ["Arrêter les contrôles glycémiques", 0, "Les contrôles sont indispensables chez un patient sous insuline."]] }] },
+  { id: "sca", t: "Douleur thoracique chez un homme de 58 ans", niv: "Urgence",
+    intro: "M. Lahlou, 58 ans, hypertendu et fumeur, présente depuis 30 minutes une douleur rétrosternale constrictive qui irradie dans le bras gauche, avec sueurs et pâleur. TA 150/90, FC 98, SpO2 96 % à l'air ambiant.",
+    keys: ["Douleur thoracique : penser à l'infarctus du myocarde.", "Ne pas laisser le patient seul, prévenir le médecin ou les urgences immédiatement.", "ECG 12 dérivations dès que possible.", "Oxygène seulement si la saturation est basse, selon le protocole.", "Arrêt cardiaque : alerter, massage cardiaque et défibrillateur."],
+    steps: [
+      { q: "Quelle est votre première réaction ?", opts: [["Repos en position demi-assise, rester auprès de lui et prévenir immédiatement le médecin ou les urgences", 1, "Une douleur thoracique est une urgence : repos, présence et alerte."], ["Lui demander de marcher jusqu'à la salle d'examen", 0, "L'effort aggrave le risque."], ["Attendre pour voir si la douleur passe", 0, "Le délai de prise en charge est essentiel."]] },
+      { q: "Quel examen faut-il réaliser en priorité ?", opts: [["Un ECG 12 dérivations dès que possible", 1, "L'ECG précoce oriente la prise en charge."], ["Une prise de sang d'abord, l'ECG peut attendre", 0, "Ne retardez pas l'ECG."], ["Un antalgique oral puis une réévaluation plus tard", 0, "Ce n'est pas la bonne priorité devant une suspicion d'infarctus."]] },
+      { q: "Sa saturation est à 96 % à l'air ambiant. Que faites-vous ?", opts: [["Surveillance continue (constantes, SpO2, ECG), pose d'une voie veineuse et traitements selon prescription", 1, "L'oxygène n'est pas systématique si la saturation est normale."], ["Oxygène à haut débit systématique", 0, "Pas d'oxygène systématique si la saturation est normale."], ["Retirer les électrodes pour son confort", 0, "La surveillance doit rester continue."]] },
+      { ctx: "Soudain, le patient perd connaissance et ne respire plus.", q: "Que faites-vous ?", opts: [["Alerter, débuter le massage cardiaque et utiliser le défibrillateur", 1, "Arrêt cardiaque : alerte, compressions thoraciques et défibrillation précoce."], ["Prendre sa tension", 0, "Il n'y a pas de temps à perdre."], ["Attendre le médecin sans rien faire", 0, "Les gestes de réanimation doivent commencer immédiatement."]] }] },
+  { id: "ana", t: "Réaction allergique grave après une injection", niv: "Urgence",
+    intro: "Mlle Idrissi, 24 ans, reçoit une perfusion d'amoxicilline. Cinq minutes plus tard : urticaire, gonflement des lèvres, difficulté à respirer. TA 80/45, FC 130.",
+    keys: ["Anaphylaxie : arrêter immédiatement le produit en cause.", "Appeler à l'aide, garder la voie veineuse.", "Adrénaline IM (cuisse) selon protocole ou prescription.", "Position adaptée : allongée jambes surélevées, ou assise si gêne respiratoire.", "Surveillance continue et traçabilité de l'allergie."],
+    steps: [
+      { q: "Quelle est votre première action ?", opts: [["Arrêter immédiatement la perfusion, garder la voie veineuse et appeler à l'aide", 1, "Il faut stopper le produit responsable et alerter sans attendre."], ["Ralentir le débit de la perfusion", 0, "Le produit doit être arrêté, pas ralenti."], ["Continuer en surveillant de près", 0, "Continuer aggrave la réaction."]] },
+      { q: "Quel est le traitement de première ligne ?", opts: [["Adrénaline intramusculaire à la face antéro-externe de la cuisse, selon protocole ou prescription", 1, "L'adrénaline IM est le traitement de première intention de l'anaphylaxie."], ["Un antihistaminique seul", 0, "Insuffisant en cas de choc."], ["Un corticoïde seul", 0, "Son effet est trop lent pour l'urgence."]] },
+      { q: "Quelle position adoptez-vous ?", opts: [["Allongée jambes surélevées (assise si elle respire mal)", 1, "La position dépend de la tension et de la respiration."], ["Debout pour mieux respirer", 0, "Risque de malaise brutal avec une tension basse."], ["Assise jambes pendantes dans tous les cas", 0, "Elle risque de s'effondrer avec une tension à 80/45."]] },
+      { ctx: "Son état s'améliore après le traitement.", q: "Que faites-vous ensuite ?", opts: [["Surveillance continue (tension, pouls, saturation, respiration), oxygène et remplissage selon prescription, puis traçabilité de l'allergie", 1, "La surveillance doit rester rapprochée et l'allergie doit être inscrite au dossier."], ["La renvoyer au bout de 10 minutes", 0, "Une récidive est possible : la surveillance doit être prolongée."], ["Ne rien noter pour ne pas alarmer", 0, "L'allergie doit être tracée dans le dossier."]] }] }
+].map(c => Object.assign(c, { steps: c.steps.map(s => Object.assign({}, s, { opts: s.opts.map(([t, ok, fb]) => ({ t, ok: !!ok, fb })) })) }));
+function renderCas(id = null) {
+  const inner = mxPage("Cas cliniques interactifs", "Prenez les bonnes décisions face à des situations de soins réalistes.", `<div id="csBox"></div>`), box = inner.querySelector("#csBox");
+  const list = () => {
+    box.innerHTML = CAS.map(c => { const b = getBest("cas_" + c.id); return `<button type="button" class="list-row" data-c="${c.id}"><span class="list-main"><span class="list-title">${esc(c.t)}</span><span class="list-sub">${esc(c.niv)} · ${c.steps.length} décisions${b !== null ? " · Meilleur score : " + b + "%" : ""}</span></span><span class="list-arrow">›</span></button>`; }).join("") +
+      `<p class="search-hint">Ces cas sont pédagogiques. Appliquez toujours le protocole de votre service et la prescription médicale.</p>`;
+    box.querySelectorAll("[data-c]").forEach(b => b.addEventListener("click", () => play(CAS.find(c => c.id === b.dataset.c))));
+  };
+  const play = c => {
+    box.innerHTML = `<div class="mx-card"><h3>${esc(c.t)}</h3><p>${esc(c.intro)}</p><button class="primary-btn" type="button" id="csStart">Commencer</button></div>`;
+    box.querySelector("#csStart").addEventListener("click", () => mxPlay(box, c.steps, "Décision", (sc, n) => {
+      const p = Math.round(sc / n * 100); setBest("cas_" + c.id, p);
+      box.innerHTML = `<div class="mx-card mx-end"><h3>${sc}/${n} bonnes décisions · ${p} %</h3><p>${p === 100 ? "Excellente prise en charge." : p >= 60 ? "Bien, revoyez les points ci-dessous." : "À retravailler : relisez les points clés puis recommencez."}</p><h4>Points clés</h4><ul class="mx-ul">${c.keys.map(k => `<li>${esc(k)}</li>`).join("")}</ul><button class="primary-btn" type="button" id="csAgain">Recommencer</button> <button class="tt-chip" type="button" id="csBack">Tous les cas</button></div>`;
+      box.querySelector("#csAgain").addEventListener("click", () => play(c)); box.querySelector("#csBack").addEventListener("click", list);
+    }));
+  };
+  if (id && CAS.find(c => c.id === id)) play(CAS.find(c => c.id === id)); else list();
+}
+const NEW_PAGES = { "Dictionnaire médical": () => renderDico(), "Calculatrices": () => renderCalc(), "Préparation concours": () => renderConcours(), "Carnet de stage": () => renderCarnet(), "Cas cliniques": () => renderCas() };
+
 function addBackButton(inner, label = "Retour au dashboard", handler = showHome) {
   const btn = document.createElement("button");
   btn.type = "button";
@@ -2246,6 +2622,11 @@ const SITE_PAGES = [
   { name: "Médicaments", words: "medicaments medicament pharmacie paracetamol antibiotique antalgique insuline posologie" },
   { name: "Stages", words: "stage protocoles fiches techniques situations cliniques" },
   { name: "Emploi du temps", words: "planning emploi du temps horaires" },
+  { name: "Dictionnaire médical", words: "dictionnaire medical termes vocabulaire darija francais traduction mots" },
+  { name: "Calculatrices", words: "calculatrice imc debit perfusion gouttes date accouchement dpa semaines amenorrhee grossesse" },
+  { name: "Préparation concours", words: "concours master preparation qcm revision entrainement" },
+  { name: "Carnet de stage", words: "carnet stage activites difficultes competences objectifs suivi" },
+  { name: "Cas cliniques", words: "cas clinique cliniques situations urgence decisions simulation" },
   { name: "Atlas anatomie", words: "atlas anatomie corps humain 3d squelette os muscles organes vaisseaux nerfs coeur poumons cerveau" },
   { name: "Règlement intérieur", words: "reglement interieur absences retard rattrapage fraude discipline sanctions droits obligations evaluation" },
   { name: "TP Simulation", words: "tp simulation travaux pratiques gestes techniques soins jeu 3d gants steriles encadrant" },
@@ -2444,6 +2825,8 @@ function buildSearchIndex() {
   TIMETABLES.forEach(tt => TT_DAYS.forEach((day, i) => (tt.days[day] || []).forEach(c => add("Emploi du temps", c.t,
     tt.f + " · Semestre " + tt.s.slice(1) + " · " + day + " " + ttDate(tt.start, i).toLocaleDateString("fr-FR", { day: "numeric", month: "short" }) + " · " + c.h, c.p || "",
     () => { openPage("Emploi du temps"); ttFil = tt.f; ttSel = tt.s; renderTimetable(); }))));
+  DICO.forEach(t => add("Dictionnaire médical", t.fr, t.dj + " · " + t.cat, t.def, () => { openPage("Dictionnaire médical"); }));
+  CAS.forEach(c => add("Cas cliniques", c.t, c.niv, c.intro + " " + c.keys.join(" "), () => { openPage("Cas cliniques"); renderCas(c.id); }));
   ATLAS_INFO.forEach(i => add("Atlas d'anatomie", i.name, (ATLAS_LAYERS.find(l => l[0] === i.layer) || [0, i.layer])[1], i.desc, () => { openPage("Atlas anatomie"); renderAtlas(i.id); }));
   [SIM_GANTS, SIM_PANS, SIM_ECG, SIM_IM].forEach(sim => sim.steps.forEach(st => add("Simulations", sim.title, st.name,
     allStrings([st.say, st.hint, st.ok, st.opts]).join(" "), () => { openPage("TP Simulation"); SIMX = sim; renderSimBrief(); })));
@@ -2475,7 +2858,7 @@ function snippet(text, words) {
 function deepHTML(deep) {
   deepLast = deep;
   let h = "";
-  ["Contenu des fiches", "Médicaments", "Atlas d'anatomie", "Règlement intérieur", "Emploi du temps", "Simulations"].forEach(cat => {
+  ["Contenu des fiches", "Médicaments", "Dictionnaire médical", "Cas cliniques", "Atlas d'anatomie", "Règlement intérieur", "Emploi du temps", "Simulations"].forEach(cat => {
     const items = deep.map((e, i) => ({ e, i })).filter(x => x.e.cat === cat);
     if (!items.length) return;
     h += `<h3 class="res-head">${esc(cat)} <span class="res-count">${items.length}</span></h3><div class="list">${items.map((x, k) =>
