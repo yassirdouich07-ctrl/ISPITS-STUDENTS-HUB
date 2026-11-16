@@ -1168,6 +1168,15 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
   body .module-card p{font-size:11px;line-height:1.45;padding-right:0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
   body .module-arrow{right:12px;bottom:12px;width:28px;height:28px;font-size:14px}
 }
+
+/* ===== MOBILE : avatar profil rond, sans cadre ===== */
+@media(max-width:760px){
+  body .profile-btn{padding:0;border:0;background:transparent;box-shadow:none;border-radius:50%;-webkit-tap-highlight-color:transparent}
+  body .profile-btn:hover{background:transparent}
+  body .profile-btn .avatar{width:42px;height:42px;border-radius:50%;box-shadow:0 0 0 2px #fff,0 6px 16px #0b1f3a2e;font-size:16px}
+  body .profile-btn:active .avatar{transform:scale(.94)}
+  body .topbar{padding-right:16px}
+}
 </style>
 </head>
 
