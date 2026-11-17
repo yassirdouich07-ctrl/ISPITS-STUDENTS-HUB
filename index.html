@@ -1350,6 +1350,21 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .ha-date{margin-left:auto;font-size:11.5px;color:var(--muted)}
 .ha-title{display:block;font-weight:800;font-size:14.5px;line-height:1.35;color:var(--navy)}
 .ha-snip{display:block;margin-top:4px;font-size:13px;line-height:1.55;color:var(--muted)}
+
+/* ===== GESTION DES RUBRIQUES (admin) ===== */
+.rub-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid #eef2f6}
+.rub-row:first-of-type{border-top:0}
+.rub-row span{flex:1;font-size:14px;font-weight:600;color:var(--navy)}
+.rub-row small{display:block;font-size:11.5px;font-weight:600;color:#2f8f5b;margin-top:2px}
+.rub-row.off small{color:#b42318}
+.rub-sw{position:relative;width:46px;height:26px;flex:none}
+.rub-sw input{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:pointer}
+.rub-sw i{position:absolute;inset:0;border-radius:13px;background:#cfd8e1;transition:.2s;pointer-events:none}
+.rub-sw i:after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s}
+.rub-sw input:checked+i{background:var(--teal)}
+.rub-sw input:checked+i:after{transform:translateX(20px)}
+.rub-list{max-height:55vh;overflow:auto;margin-top:4px}
+.rub-tag{margin-left:auto;font-size:10px;font-weight:800;padding:2px 7px;border-radius:8px;background:#fee2e2;color:#b42318}
 </style>
 </head>
 
@@ -1540,6 +1555,7 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
         </div>
         <button class="pm-item" data-action="profile" type="button"><svg class="ico"><use href="#i-user"/></svg>Modifier le profil</button>
         <button class="pm-item" data-action="security" type="button"><svg class="ico"><use href="#i-lock"/></svg>Mot de passe et sécurité</button>
+        <button class="pm-item hidden" id="rubBtn" type="button"><svg class="ico"><use href="#i-layers"/></svg>Gérer les rubriques</button>
         <div class="pm-sep"></div>
         <button class="pm-item danger" id="logoutBtn" type="button"><svg class="ico"><use href="#i-logout"/></svg>Déconnexion</button>
       </div>
@@ -1910,6 +1926,7 @@ function showDashboard(user) {
   showHome();
   refreshAnnBadge();
   csPull();
+  rubInit();
 }
 
 // Salutation adaptée à l'heure : Bonjour (jour) / Bonsoir (soir), avec parfois Salam ou Ahlan
@@ -2093,6 +2110,7 @@ function setActiveNav(pageName) {
 }
 
 function openPage(pageName, arg) {
+  if (rubBlocked(pageName)) { showToast("Cette rubrique est temporairement indisponible."); pageName = "Accueil"; }
   stopSim();
   setActiveNav(pageName);
   document.getElementById("sidebar").classList.remove("open");
@@ -8708,6 +8726,76 @@ async function csPull() {
     if (CS_PAGES.includes(act) && modalOverlay.classList.contains("hidden")) openPage(act);
   }
 }
+
+
+// =====================================
+// MASQUAGE DES RUBRIQUES (géré par l'admin)
+// =====================================
+const rub = { admin: false, hidden: new Set(), ready: false };
+const rubBlocked = name => rub.ready && !rub.admin && rub.hidden.has(name);
+
+function rubPages() {
+  return [...document.querySelectorAll("#sidebar .nav-item[data-page]")]
+    .filter(b => b.dataset.page !== "Accueil")
+    .map(b => ({ page: b.dataset.page, label: b.textContent.replace(/Masquée|\d+\+?/g, "").trim() || b.dataset.page }));
+}
+
+function rubApply() {
+  const off = n => rub.hidden.has(n);
+  document.querySelectorAll("#sidebar .nav-item[data-page]").forEach(b => {
+    const n = b.dataset.page, masked = off(n);
+    b.classList.toggle("hidden", masked && !rub.admin);
+    let tag = b.querySelector(".rub-tag");
+    if (masked && rub.admin) { if (!tag) { tag = document.createElement("span"); tag.className = "rub-tag"; tag.textContent = "Masquée"; b.appendChild(tag); } }
+    else if (tag) tag.remove();
+  });
+  document.querySelectorAll("#bnav button[data-bn]").forEach(b => {
+    if (b.dataset.bn !== "__menu") b.classList.toggle("hidden", off(b.dataset.bn) && !rub.admin);
+  });
+  document.querySelectorAll(".stat-card[data-open]").forEach(c => c.classList.toggle("hidden", off(c.dataset.open) && !rub.admin));
+  const btn = document.getElementById("rubBtn");
+  if (btn) btn.classList.toggle("hidden", !rub.admin);
+  // si la rubrique ouverte vient d'être masquée pour cet utilisateur
+  const act = document.querySelector("#sidebar .nav-item.active")?.dataset.page;
+  if (act && rubBlocked(act)) showHome();
+}
+
+async function rubInit() {
+  try {
+    const [isAdmin, res] = await Promise.all([annCheckAdmin(), db.from("rubrique_settings").select("page,hidden")]);
+    if (res.error) { console.error("Rubriques :", res.error); return; }
+    rub.admin = isAdmin;
+    rub.hidden = new Set((res.data || []).filter(r => r.hidden).map(r => r.page));
+    rub.ready = true;
+    rubApply();
+  } catch (e) { console.error("Rubriques :", e); }
+}
+
+function openRubModal() {
+  const rows = rubPages().map(r => `
+    <div class="rub-row${rub.hidden.has(r.page) ? " off" : ""}" data-row="${esc(r.page)}">
+      <span>${esc(r.label)}<small>${rub.hidden.has(r.page) ? "Masquée pour les étudiants" : "Visible"}</small></span>
+      <label class="rub-sw"><input type="checkbox" data-rub="${esc(r.page)}" ${rub.hidden.has(r.page) ? "" : "checked"} aria-label="Afficher ${esc(r.label)}"><i></i></label>
+    </div>`).join("");
+  modalBody.innerHTML = `<h3>Gérer les rubriques</h3>
+    <p class="modal-sub">Désactivez une rubrique pour la masquer aux étudiants (par exemple pendant une réparation). Vous la voyez toujours, marquée « Masquée ».</p>
+    <div class="rub-list">${rows}</div>
+    <div id="modalMessage" class="message" role="status"></div>`;
+  modalOverlay.classList.remove("hidden");
+  modalBody.querySelectorAll("[data-rub]").forEach(inp => inp.addEventListener("change", async () => {
+    const page = inp.dataset.rub, hide = !inp.checked;
+    inp.disabled = true;
+    const { error } = await db.from("rubrique_settings").upsert({ page, hidden: hide, updated_at: new Date().toISOString() }, { onConflict: "page" });
+    inp.disabled = false;
+    if (error) { console.error(error); inp.checked = !inp.checked; modalMsg("Action impossible. Vérifiez vos droits d'administrateur.", "error"); return; }
+    if (hide) rub.hidden.add(page); else rub.hidden.delete(page);
+    const row = inp.closest(".rub-row");
+    row.classList.toggle("off", hide);
+    row.querySelector("small").textContent = hide ? "Masquée pour les étudiants" : "Visible";
+    rubApply();
+  }));
+}
+document.getElementById("rubBtn").addEventListener("click", () => { closeProfileMenu(); openRubModal(); });
 
 // =====================================
 // INITIAL AUTH STATE
