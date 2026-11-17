@@ -1473,6 +1473,87 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .td-card.alert .td-ico{background:#fff1ec;color:#e8590c;animation:lubdub 1.6s ease-in-out infinite}
 .td-card.alert .td-txt small{color:#e8590c}
 @media(max-width:900px){.td-grid{grid-template-columns:1fr;gap:10px}}
+
+/* ===== Jeux de terminologie ===== */
+.tg-hero{display:flex;align-items:center;gap:16px;padding:16px;border-radius:22px;background:linear-gradient(135deg,#0b1f3a,#0d6f66);color:#fff;margin-bottom:14px;box-shadow:0 14px 30px #0b1f3a30}
+.tg-lv{flex:none;width:64px;height:64px;border-radius:20px;background:linear-gradient(135deg,#f59e0b,#ec4899);display:grid;place-items:center;text-align:center;line-height:1}
+.tg-lv small{display:block;font-size:9px;font-weight:700;text-transform:uppercase;opacity:.9;margin-bottom:2px}
+.tg-lv b{display:block;font-family:'Outfit',sans-serif;font-size:28px}
+.tg-xp{flex:1;min-width:0}
+.tg-xp strong{font-family:'Outfit',sans-serif;font-size:18px}
+.tg-xp small{display:block;margin-top:5px;font-size:11px;opacity:.8}
+.tg-bar{height:8px;border-radius:8px;background:#ffffff30;overflow:hidden;margin-top:6px}
+.tg-bar i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,#34d399,#fbbf24)}
+.tg-games{display:grid;gap:12px;margin-bottom:12px}
+.tg-card{display:flex;align-items:center;gap:14px;text-align:left;background:#fff;border:1px solid var(--border);border-radius:20px;padding:16px;box-shadow:0 8px 22px #0b1f3a0d;-webkit-tap-highlight-color:transparent;transition:transform .15s}
+.tg-card:active{transform:scale(.98)}
+.tg-t{min-width:0;display:block}
+.tg-t strong{display:block;font-size:16px;color:var(--navy)}
+.tg-t small{display:block;margin:2px 0 6px;font-size:12px;color:var(--muted);line-height:1.45}
+.tg-t em{font-style:normal;font-size:11px;font-weight:800;color:#0d9488}
+.tg-hud{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;font-weight:800;color:var(--navy);margin-bottom:8px}
+.tg-hearts{color:#ef4444;letter-spacing:2px;font-size:16px}
+.tg-combo{color:#f59e0b}
+.tg-play{position:relative;text-align:center}
+.tg-prompt{margin:0 0 6px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#0d9488}
+.tg-def{margin:0 0 16px;font-family:'Outfit',sans-serif;font-size:20px;line-height:1.35;color:var(--navy)}
+.tg-statement{margin:14px 0;min-height:84px;display:grid;place-items:center;font-family:'Outfit',sans-serif;font-size:21px;line-height:1.35;color:var(--navy);overflow-wrap:anywhere}
+.tg-slots{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.tg-plus{font-weight:800;color:var(--muted)}
+.tg-slot{min-width:72px;padding:12px 14px;border-radius:14px;border:2px dashed #c4d2de;background:#f6f9fb;color:#9bb0c2;font-weight:800;font-size:16px}
+.tg-slot.on{border-style:solid;color:#fff}
+.tg-tray{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.tg-chip{padding:11px 16px;border:0;border-radius:14px;font-weight:800;font-size:16px;color:#fff;box-shadow:0 5px 0 #0b1f3a26;transition:transform .1s}
+.tg-chip:active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 #0b1f3a26}
+.tg-chip:disabled{opacity:.25;box-shadow:none}
+.tg-chip.pre,.tg-slot.on.pre{background:linear-gradient(135deg,#0d9488,#14b8a6)}
+.tg-chip.suf,.tg-slot.on.suf{background:linear-gradient(135deg,#f97316,#f59e0b)}
+.tg-chip.mot,.tg-slot.on.mot{background:linear-gradient(135deg,#7c5cff,#a78bfa)}
+.tg-msg{margin:14px 0 0;min-height:20px;font-size:13px;color:var(--muted)}
+.tg-msg.good{color:#17703a;font-weight:700}
+.tg-msg.bad{color:#a3281c;font-weight:700}
+.tg-ok{margin-top:16px;padding:16px;border-radius:18px;background:linear-gradient(180deg,#e8f8ef,#d9f3e5);animation:fcIn .3s ease}
+.tg-word{font-family:'Outfit',sans-serif;font-size:28px;font-weight:800;color:#17703a}
+.tg-ok p{margin:6px 0;font-size:13px;color:#2f5d44}
+.tg-pts{display:block;margin:6px 0 12px;font-weight:800;color:#0d9488}
+.tg-ok .primary-btn{width:100%}
+.tg-timer{height:10px;border-radius:10px;background:#e6edf3;overflow:hidden;margin-bottom:12px}
+.tg-timer i{display:block;height:100%;width:100%;border-radius:10px;background:linear-gradient(90deg,#ef4444,#f59e0b,#10b981);transition:width .1s linear}
+.tg-tf{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.tg-tf button{border:0;border-radius:18px;padding:18px;font-size:18px;font-weight:800;color:#fff;box-shadow:0 6px 0 #0b1f3a26}
+.tg-tf button:active{transform:translateY(4px);box-shadow:0 2px 0 #0b1f3a26}
+.tg-yes{background:linear-gradient(135deg,#0d9488,#10b981)}
+.tg-no{background:linear-gradient(135deg,#f97316,#ef4444)}
+.tg-pairs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.tg-pairs>div{display:grid;gap:8px;align-content:start}
+.tg-pair{min-height:56px;padding:8px 10px;border-radius:14px;border:2px solid var(--border);background:#fff;color:var(--navy);font-size:12.5px;font-weight:700;line-height:1.3;overflow-wrap:anywhere;-webkit-tap-highlight-color:transparent}
+.tg-pair.a{font-family:'Outfit',sans-serif;font-size:14px}
+.tg-pair.sel{border-color:#7c5cff;background:#f0ebff}
+.tg-pair.ok{border-color:#10b981;background:#e0f5e8;color:#17703a;opacity:.7}
+.tg-gain{margin:10px 0;padding:8px 14px;border-radius:12px;background:var(--teal-soft);color:#0d6f66;font-weight:800;font-size:13px}
+.shake{animation:tgShake .4s}
+@keyframes tgShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+
+/* ===== Examens & QCM ===== */
+.ex-card{margin-bottom:14px}
+.ex-head{display:flex;align-items:flex-start;gap:12px}
+.ex-ico{--g1:#14b8a6;--g2:#0ea5e9}
+.ex-head h3{margin:0;font-size:16px;line-height:1.3}
+.ex-head p{margin:3px 0 0;font-size:12px;color:var(--muted)}
+.ex-chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 10px}
+.ex-chips span{padding:4px 10px;border-radius:999px;background:var(--teal-soft);color:#0d6f66;font-size:11px;font-weight:800}
+.ex-parts{display:grid;gap:6px;margin-bottom:12px}
+.ex-parts div{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;background:#f6f9fb;font-size:12.5px}
+.ex-parts b{flex:none;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:#fff;border:1px solid var(--border);color:#0d9488;font-size:11px}
+.ex-parts span{flex:1;min-width:0;color:var(--navy);line-height:1.35}
+.ex-parts em{flex:none;font-style:normal;font-weight:800;color:var(--muted);font-size:11px}
+.ex-timer{padding:9px 12px;border-radius:12px;background:#f6f9fb;color:var(--muted);font-size:12.5px;font-weight:700;text-align:center;margin-bottom:10px}
+.ex-timer.on{background:#fff0d6;color:#8a5a00;font-family:'Outfit',sans-serif;font-size:15px}
+.ex-actions{display:grid;gap:8px}
+.ex-btn{display:flex;align-items:center;justify-content:center;text-decoration:none;text-align:center}
+.ex-corr{margin-top:8px}
+.ex-soon{margin:10px 0 0;text-align:center;font-size:12px;color:var(--muted)}
+@media(min-width:761px){.ex-actions{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 
@@ -3407,13 +3488,164 @@ function tmQuestions(mode) {
   const kinds = shuffle(Object.keys(pools)), sh = {}; kinds.forEach(k => { sh[k] = shuffle(pools[k]); });
   return Array.from({ length: 15 }, (_, i) => { const k = kinds[i % kinds.length]; return tmBuild(k, sh[k][Math.floor(i / kinds.length)]); });
 }
+// ---------- Terminologie : jeux, niveaux et XP ----------
+const tmXpKey = () => "ish_tmxp_" + mxUid();
+const tmXp = () => lsGet(tmXpKey(), 0);
+const tmAddXp = n => { const v = tmXp() + n; lsSet(tmXpKey(), v); return v; };
+const tmLevel = xp => Math.floor(xp / 100) + 1;
+const tmPick = a => a[Math.floor(Math.random() * a.length)];
+const tmBuzz = ms => { try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) { /* ignoré */ } };
+const tmChipCls = t => /-$/.test(t) ? "pre" : /^-/.test(t) ? "suf" : "mot";
+function tmParts(m) {
+  const parts = m.dec.split(" + ").map(p => p.replace(/\s*\(.*?\)/g, "").trim()).filter(Boolean);
+  if (parts.length < 2) return null;
+  const c = parts.map(p => p.replace(/^-|-$/g, "").toLowerCase()), n = c.length - 1;
+  for (let mask = 0; mask < (1 << n); mask++) {
+    let w = c[0];
+    for (let i = 0; i < n; i++) w += (((mask >> i) & 1) ? "o" : "") + c[i + 1];
+    if (w === m.mot.toLowerCase()) return { parts, joined: m.mot };
+  }
+  return null;
+}
+function tmGameEnd(body, o) {
+  const best0 = getBest("termino_game_" + o.id);
+  setBest("termino_game_" + o.id, o.score);
+  const before = tmXp(), after = o.gain ? tmAddXp(o.gain) : before, rec = best0 === null || o.score > best0, up = tmLevel(after) > tmLevel(before);
+  body.innerHTML = `<div class="mx-card tm-end"><div class="tm-score">${o.score}</div><h3 class="tm-h">${esc(o.title)}</h3><p class="search-hint">${esc(o.sub)}</p>
+    <div class="tg-gain">+${o.gain} XP${rec ? " · Nouveau record !" : ""}${up ? " · Niveau " + tmLevel(after) + " atteint !" : ""}</div>
+    <button type="button" class="primary-btn" id="tgAgain">Rejouer</button><button type="button" class="ghost-btn" id="tgBack">Retour aux jeux</button></div>`;
+  body.querySelector("#tgAgain").addEventListener("click", o.again);
+  body.querySelector("#tgBack").addEventListener("click", o.back);
+}
+// Jeu 1 : assembler le mot avec des blocs
+function tmGameBuild(body, back) {
+  const words = shuffle(TM_MOTS.map(m => ({ m, p: tmParts(m) })).filter(x => x.p)).slice(0, 8);
+  let i = 0, lives = 3, score = 0, streak = 0, gain = 0, found = 0;
+  const clean = e => e.split(" / ")[0].replace(/\(.*?\)/g, "").trim();
+  const hearts = () => "♥".repeat(lives) + "♡".repeat(3 - lives);
+  const finish = () => tmGameEnd(body, { id: "build", title: lives > 0 ? "Bravo, mot après mot !" : "Plus de vies", score, gain, back, again: () => tmGameBuild(body, back),
+    sub: `${found} mot${found > 1 ? "s" : ""} assemblé${found > 1 ? "s" : ""} sur ${words.length}.` });
+  const show = () => {
+    if (i >= words.length || lives <= 0) return finish();
+    const w = words[i], parts = w.p.parts, picked = [];
+    const extras = shuffle([...new Set(TM_ITEMS.map(t => clean(t.el)))].filter(e => !parts.includes(e))).slice(0, 3), tray = shuffle([...parts, ...extras]);
+    body.innerHTML = `<div class="tg-hud"><span>Mot ${i + 1}/${words.length}</span><span class="tg-hearts" id="tgHearts">${hearts()}</span><span>${score} pts</span></div>
+      <div class="quiz-progress"><span style="width:${i / words.length * 100}%"></span></div>
+      <div class="mx-card tg-play"><p class="tg-prompt">Assemble le mot qui signifie :</p><p class="tg-def">${esc(w.m.sens)}</p>
+      <div class="tg-slots" id="tgSlots"></div><div class="tg-tray" id="tgTray"></div><p class="tg-msg" id="tgMsg">Touche les blocs dans le bon ordre.</p></div>`;
+    const slotsEl = body.querySelector("#tgSlots"), trayEl = body.querySelector("#tgTray"), msg = body.querySelector("#tgMsg");
+    const draw = () => {
+      slotsEl.innerHTML = parts.map((_, k) => picked[k] !== undefined ? `<button type="button" class="tg-slot on ${tmChipCls(tray[picked[k]])}" data-s="${k}">${esc(tray[picked[k]])}</button>` : `<span class="tg-slot">?</span>`).join('<span class="tg-plus">+</span>');
+      trayEl.innerHTML = tray.map((t, k) => `<button type="button" class="tg-chip ${tmChipCls(t)}" data-k="${k}"${picked.includes(k) ? " disabled" : ""}>${esc(t)}</button>`).join("");
+      slotsEl.querySelectorAll("[data-s]").forEach(b => b.addEventListener("click", () => { picked.splice(+b.dataset.s, 1); draw(); }));
+      trayEl.querySelectorAll("[data-k]").forEach(b => b.addEventListener("click", () => { if (picked.length < parts.length) { picked.push(+b.dataset.k); draw(); if (picked.length === parts.length) check(); } }));
+    };
+    const check = () => {
+      if (picked.every((k, n) => tray[k] === parts[n])) {
+        const pts = 10 + Math.min(streak, 5) * 2; score += pts; gain += 15; streak++; found++; tmBuzz(15);
+        trayEl.querySelectorAll("button").forEach(b => { b.disabled = true; });
+        body.querySelector(".tg-play").insertAdjacentHTML("beforeend", `<div class="tg-ok"><div class="tg-word">${esc(w.m.mot)}</div><p>${esc(w.m.dec)}</p><span class="tg-pts">+${pts} pts${streak > 1 ? " · série x" + streak : ""}</span>
+          <button type="button" class="primary-btn" id="tgNext">${i + 1 < words.length ? "Mot suivant" : "Voir le résultat"}</button></div>`);
+        body.querySelector("#tgNext").addEventListener("click", () => { i++; show(); });
+      } else {
+        lives--; streak = 0; tmBuzz(60); body.querySelector("#tgHearts").textContent = hearts(); slotsEl.classList.add("shake");
+        msg.textContent = lives > 0 ? "Pas tout à fait, réessaie !" : "Dernière vie perdue...";
+        setTimeout(() => { slotsEl.classList.remove("shake"); picked.length = 0; if (lives <= 0) finish(); else draw(); }, 650);
+      }
+    };
+    draw();
+  };
+  show();
+}
+// Jeu 2 : vrai ou faux éclair (45 s)
+function tmGameTf(body, back) {
+  let left = 45, score = 0, streak = 0, right = 0, last = "", cur = null, over = false;
+  const gen = () => {
+    for (let n = 0; n < 8; n++) {
+      const kind = tmPick(["el", "mot", "dico"]), truth = Math.random() < 0.5; let s;
+      if (kind === "el") { const a = tmPick(TM_ITEMS), o = tmPick(TM_ITEMS.filter(x => x.type === a.type && x.sens !== a.sens)); s = { t: `« ${a.el} » signifie « ${truth ? a.sens : o.sens} »`, v: truth, fb: `${a.el} = ${a.sens}` }; }
+      else if (kind === "mot") { const a = tmPick(TM_MOTS), o = tmPick(TM_MOTS.filter(x => x.sens !== a.sens)); s = { t: `« ${a.mot} » : ${truth ? a.sens : o.sens}`, v: truth, fb: `${a.mot} : ${a.sens}` }; }
+      else { const a = tmPick(DICO), o = tmPick(DICO.filter(x => x.dj !== a.dj)); s = { t: `En darija, « ${a.fr} » se dit « ${truth ? a.dj : o.dj} »`, v: truth, fb: `${a.fr} → ${a.dj}` }; }
+      if (s.t !== last) { last = s.t; return s; }
+    }
+    return { t: last, v: true, fb: "" };
+  };
+  body.innerHTML = `<div class="tg-hud"><span id="tgScore">0 pts</span><span id="tgCombo" class="tg-combo"></span><span id="tgTime">45 s</span></div>
+    <div class="tg-timer"><i id="tgBar"></i></div>
+    <div class="mx-card tg-play"><p class="tg-prompt">Vrai ou faux ?</p><p class="tg-statement" id="tgSt"></p><p class="tg-msg" id="tgFb"></p>
+    <div class="tg-tf"><button type="button" class="tg-no" id="tgFalse">Faux</button><button type="button" class="tg-yes" id="tgTrue">Vrai</button></div></div>`;
+  const st = body.querySelector("#tgSt"), fb = body.querySelector("#tgFb"), card = body.querySelector(".tg-play");
+  const next = () => { cur = gen(); st.textContent = cur.t; };
+  const upd = () => { body.querySelector("#tgScore").textContent = score + " pts"; body.querySelector("#tgCombo").textContent = streak > 1 ? "Combo x" + streak : ""; };
+  const answer = v => {
+    if (over) return;
+    const ok = v === cur.v;
+    if (ok) { streak++; right++; score += 10 + Math.min(streak - 1, 5) * 2; fb.textContent = "✓ Bien joué !"; fb.className = "tg-msg good"; }
+    else { streak = 0; left = Math.max(0, left - 2); fb.textContent = "✗ " + cur.fb + " (−2 s)"; fb.className = "tg-msg bad"; card.classList.add("shake"); tmBuzz(50); setTimeout(() => card.classList.remove("shake"), 400); }
+    upd(); next();
+  };
+  body.querySelector("#tgTrue").addEventListener("click", () => answer(true));
+  body.querySelector("#tgFalse").addEventListener("click", () => answer(false));
+  const timer = setInterval(() => {
+    if (!document.body.contains(st)) { clearInterval(timer); return; }
+    left -= 0.1;
+    body.querySelector("#tgTime").textContent = Math.max(0, Math.ceil(left)) + " s";
+    body.querySelector("#tgBar").style.width = Math.max(0, left / 45 * 100) + "%";
+    if (left <= 0) { over = true; clearInterval(timer); tmGameEnd(body, { id: "tf", title: "Temps écoulé !", score, gain: right * 3, back, again: () => tmGameTf(body, back), sub: `${right} bonne${right > 1 ? "s" : ""} réponse${right > 1 ? "s" : ""} en 45 secondes.` }); }
+  }, 100);
+  next(); upd();
+}
+// Jeu 3 : relier les paires
+function tmGamePairs(body, back) {
+  const rounds = 3, per = 5, t0 = Date.now(); let r = 0, score = 0, errors = 0;
+  const pool = shuffle([...TM_ITEMS.filter(t => t.sens.length <= 36).map(t => ({ a: t.el, b: t.sens })), ...TM_MOTS.filter(m => m.sens.length <= 44).map(m => ({ a: m.mot, b: m.sens }))]);
+  const take = n => { const out = [], sa = new Set(), sb = new Set(); while (out.length < n && pool.length) { const x = pool.pop(); if (!sa.has(x.a) && !sb.has(x.b)) { sa.add(x.a); sb.add(x.b); out.push(x); } } return out; };
+  const fmt = s => Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+  const round = () => {
+    const pairs = take(per); let sel = -1, done = 0, err = 0;
+    body.innerHTML = `<div class="tg-hud"><span>Manche ${r + 1}/${rounds}</span><span id="tgErr">Erreurs : ${errors}</span><span id="tgClock">0:00</span></div>
+      <div class="quiz-progress"><span style="width:${r / rounds * 100}%"></span></div>
+      <div class="mx-card tg-play"><p class="tg-prompt">Touche un terme, puis sa définition.</p><div class="tg-pairs"><div id="tgL">${shuffle(pairs.map((p, k) => k)).map(k => `<button type="button" class="tg-pair a" data-i="${k}">${esc(pairs[k].a)}</button>`).join("")}</div>
+      <div id="tgR">${shuffle(pairs.map((p, k) => k)).map(k => `<button type="button" class="tg-pair b" data-i="${k}">${esc(pairs[k].b)}</button>`).join("")}</div></div></div>`;
+    const L = body.querySelector("#tgL"), R = body.querySelector("#tgR");
+    L.querySelectorAll("[data-i]").forEach(b => b.addEventListener("click", () => { if (b.disabled) return; L.querySelectorAll(".sel").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); sel = +b.dataset.i; }));
+    R.querySelectorAll("[data-i]").forEach(b => b.addEventListener("click", () => {
+      if (b.disabled || sel < 0) return;
+      const lb = L.querySelector(`[data-i="${sel}"]`);
+      if (+b.dataset.i === sel) {
+        [lb, b].forEach(x => { x.disabled = true; x.classList.remove("sel"); x.classList.add("ok"); }); sel = -1; done++; score += 10; tmBuzz(15);
+        if (done === per) { score += Math.max(0, 20 - err * 5); setTimeout(() => { r++; if (r < rounds) round(); else finish(); }, 600); }
+      } else {
+        err++; errors++; tmBuzz(50); body.querySelector("#tgErr").textContent = "Erreurs : " + errors;
+        [lb, b].forEach(x => { x.classList.add("shake"); setTimeout(() => x.classList.remove("shake"), 400); }); lb.classList.remove("sel"); sel = -1;
+      }
+    }));
+  };
+  const clock = setInterval(() => { const c = body.querySelector("#tgClock"); if (!c) { clearInterval(clock); return; } c.textContent = fmt(Math.floor((Date.now() - t0) / 1000)); }, 500);
+  const finish = () => { clearInterval(clock); const sec = Math.floor((Date.now() - t0) / 1000), fin = Math.max(0, score - Math.floor(sec / 6));
+    tmGameEnd(body, { id: "pairs", title: errors === 0 ? "Sans faute !" : "Manches terminées", score: fin, gain: Math.round(fin / 4), back, again: () => tmGamePairs(body, back), sub: `${rounds * per} paires en ${fmt(sec)} avec ${errors} erreur${errors > 1 ? "s" : ""}.` }); };
+  round();
+}
+function tmPlay(body) {
+  const xp = tmXp(), lv = tmLevel(xp), pct = xp % 100;
+  const G = [
+    { id: "build", t: "Assemble le mot", d: "Construis le terme médical avec des blocs préfixe, racine et suffixe.", ic: "spark", g: ["#14b8a6", "#0ea5e9"], f: tmGameBuild },
+    { id: "tf", t: "Vrai ou Faux éclair", d: "45 secondes : enchaîne les bonnes réponses et garde ton combo.", ic: "pulse", g: ["#f59e0b", "#ef4444"], f: tmGameTf },
+    { id: "pairs", t: "Relie les paires", d: "Associe chaque terme à sa définition le plus vite possible.", ic: "layers", g: ["#7c5cff", "#ec4899"], f: tmGamePairs }
+  ];
+  body.innerHTML = `<div class="tg-hero"><div class="tg-lv"><small>Ton niveau</small><b>${lv}</b></div><div class="tg-xp"><strong>${xp} XP</strong><div class="tg-bar"><i style="width:${pct}%"></i></div><small>Encore ${100 - pct} XP pour le niveau ${lv + 1}</small></div></div>
+    <div class="tg-games">${G.map(g => { const b = getBest("termino_game_" + g.id); return `<button type="button" class="tg-card" data-g="${g.id}" style="--g1:${g.g[0]};--g2:${g.g[1]}"><span class="cx-ico">${ico(g.ic)}</span><span class="tg-t"><strong>${esc(g.t)}</strong><small>${esc(g.d)}</small>${b !== null ? `<em>Record : ${b} pts</em>` : "<em>Pas encore joué</em>"}</span></button>`; }).join("")}</div>
+    <p class="search-hint">Chaque bonne réponse rapporte des XP. Tous les 100 XP, tu passes au niveau suivant.</p>`;
+  body.querySelectorAll("[data-g]").forEach(b => b.addEventListener("click", () => G.find(g => g.id === b.dataset.g).f(body, () => tmPlay(body))));
+}
+
 function renderTermino() {
-  let tab = "learn", kind = "P", mode = "sens";
+  let tab = "play", kind = "P", mode = "sens";
   const inner = mxPage("Terminologie médicale", "Préfixes, suffixes et racines : comprenez n'importe quel terme médical, puis testez-vous.", `<div class="cx-tabs" id="tmTabs"></div><div id="tmBody"></div>`);
   const tabs = inner.querySelector("#tmTabs"), body = inner.querySelector("#tmBody");
   const drawTabs = () => {
-    tabs.innerHTML = [["learn", "Apprendre"], ["quiz", "Quiz"]].map(([k, t]) => `<button type="button" class="cx-tab${k === tab ? " on" : ""}" data-t="${k}">${t}</button>`).join("");
-    tabs.querySelectorAll("[data-t]").forEach(b => b.addEventListener("click", () => { tab = b.dataset.t; drawTabs(); tab === "learn" ? learn() : quiz(); }));
+    tabs.innerHTML = [["play", "Jeux"], ["learn", "Apprendre"], ["quiz", "Quiz"]].map(([k, t]) => `<button type="button" class="cx-tab${k === tab ? " on" : ""}" data-t="${k}">${t}</button>`).join("");
+    tabs.querySelectorAll("[data-t]").forEach(b => b.addEventListener("click", () => { tab = b.dataset.t; drawTabs(); ({ play, learn, quiz })[tab](); }));
   };
   const learn = () => {
     const kinds = [["P", "Préfixes"], ["S", "Suffixes"], ["R", "Racines"], ["M", "Mots décomposés"]];
@@ -3461,7 +3693,8 @@ function renderTermino() {
       });
     });
   };
-  drawTabs(); learn();
+  const play = () => tmPlay(body);
+  drawTabs(); play();
 }
 
 // ---------- Flashcards (répétition espacée) ----------
@@ -3574,6 +3807,65 @@ function renderFlashcards() {
   home();
 }
 
+
+// ---------- Examens & QCM : examens blancs (PDF) ----------
+// Pour ajouter un examen : une ligne type "examen" dans RESOURCES (voir plus haut).
+// Pour ajouter le corrigé : renseigner corrige: "examens/S3/IP/mon-corrige.pdf" sur la ligne de l'examen.
+function renderExamens() {
+  const exams = RESOURCES.filter(d => d.type === "examen").sort((a, b) => a.s.localeCompare(b.s));
+  const sems = [...new Set(exams.map(e => e.s))].sort(), fils = [...new Set(exams.flatMap(e => e.f))];
+  let sem = "", fil = "";
+  const tKey = "ish_exam_timer_" + mxUid();
+  const inner = mxPage("Examens & QCM", "Examens blancs par filière et semestre : ouvrez le sujet, chronométrez-vous, puis comparez avec le corrigé.", `
+    <div class="tt-chips" id="exSem"></div><div class="tt-chips" id="exFil"></div><div id="exList"></div>
+    <div class="mx-card"><h3 class="tm-h">Comment bien utiliser ces examens ?</h3>
+      <ul class="mx-ul"><li>Travaillez en conditions réelles : 2 heures, sans documents, avec le chronomètre de la carte.</li>
+      <li>Répondez d'abord seul(e), puis comparez avec le cours et le corrigé quand il est disponible.</li>
+      <li>Notez vos points faibles et révisez-les avec les flashcards.</li></ul></div>`);
+  const list = inner.querySelector("#exList");
+  const fmt = ms => { const s = Math.max(0, Math.ceil(ms / 1000)), h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60); return `${h}:${String(m).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`; };
+  const chips = (id, label, vals, cur, set) => {
+    const el = inner.querySelector(id);
+    if (vals.length < 2) { el.classList.add("hidden"); return; }
+    el.innerHTML = [["", label], ...vals.map(v => [v, v])].map(([v, t]) => `<button type="button" class="tt-chip${v === cur ? " on" : ""}" data-v="${esc(v)}">${esc(t)}</button>`).join("");
+    el.querySelectorAll("[data-v]").forEach(b => b.addEventListener("click", () => { set(b.dataset.v); draw(); }));
+  };
+  const card = (e, i) => {
+    const st = lsGet(tKey, null), on = st && st.id === e.url;
+    return `<div class="mx-card ex-card" data-i="${i}">
+      <div class="ex-head"><span class="cx-ico ex-ico">${ico("check")}</span><div><h3>${esc(e.t)}</h3><p>${esc(e.m)} · ${esc(e.s)} · ${esc(e.f.join(", "))}</p></div></div>
+      <div class="ex-chips"><span>${esc(e.dur || "2 h")}</span><span>Note / 20</span>${e.pages ? `<span>${e.pages} pages</span>` : ""}${e.annee ? `<span>${esc(e.annee)}</span>` : ""}</div>
+      ${e.parts ? `<div class="ex-parts">${e.parts.map(p => `<div><b>${esc(p[0])}</b><span>${esc(p[1])}</span><em>${p[2]} pts</em></div>`).join("")}</div>` : ""}
+      <div class="ex-timer${on ? " on" : ""}" data-t="${esc(e.url)}">${on ? "" : "Chronomètre : " + esc(e.dur || "2 h")}</div>
+      <div class="ex-actions"><a class="primary-btn ex-btn" href="${esc(safeUrl(e.url))}" target="_blank" rel="noopener noreferrer">Ouvrir le sujet (PDF)</a>
+        <button type="button" class="ghost-btn" data-chrono="${i}">${on ? "Arrêter le chrono" : "Démarrer le chrono"}</button></div>
+      ${e.corrige ? `<a class="ghost-btn ex-btn ex-corr" href="${esc(safeUrl(e.corrige))}" target="_blank" rel="noopener noreferrer">Voir le corrigé (PDF)</a>` : `<p class="ex-soon">Le corrigé sera bientôt disponible.</p>`}</div>`;
+  };
+  const tick = () => {
+    const st = lsGet(tKey, null);
+    list.querySelectorAll(".ex-timer").forEach(t => {
+      if (!st || st.id !== t.dataset.t) return;
+      const left = st.end - Date.now();
+      t.classList.add("on"); t.textContent = left > 0 ? "Temps restant : " + fmt(left) : "Temps écoulé : rendez votre copie !";
+      if (left <= 0 && !st.done) { st.done = true; lsSet(tKey, st); showToast("Temps écoulé !"); try { if (navigator.vibrate) navigator.vibrate([200, 100, 200]); } catch (err) { /* ignoré */ } }
+    });
+  };
+  const draw = () => {
+    chips("#exSem", "Tous les semestres", sems, sem, v => { sem = v; });
+    chips("#exFil", "Toutes les filières", fils, fil, v => { fil = v; });
+    const shown = exams.filter(e => (!sem || e.s === sem) && (!fil || e.f.includes(fil)));
+    list.innerHTML = shown.length ? shown.map(e => card(e, exams.indexOf(e))).join("") : `<p class="search-hint">Aucun examen pour cette sélection.</p>`;
+    list.querySelectorAll("[data-chrono]").forEach(b => b.addEventListener("click", () => {
+      const e = exams[+b.dataset.chrono], st = lsGet(tKey, null);
+      if (st && st.id === e.url) lsSet(tKey, null);
+      else { lsSet(tKey, { id: e.url, end: Date.now() + (e.durMin || 120) * 60000 }); window.open(safeUrl(e.url), "_blank", "noopener"); }
+      draw();
+    }));
+    tick();
+  };
+  const timer = setInterval(() => { if (!document.body.contains(list)) { clearInterval(timer); return; } tick(); }, 1000);
+  draw();
+}
 
 // ---------- 3. Préparation aux concours (Master) ----------
 const CONC = [
@@ -3796,7 +4088,7 @@ function renderCas(id = null) {
   };
   if (id && CAS.find(c => c.id === id)) play(CAS.find(c => c.id === id)); else list();
 }
-const NEW_PAGES = { "Dictionnaire médical": () => renderDico(), "Terminologie médicale": () => renderTermino(), "Flashcards": () => renderFlashcards(), "Calculatrices": () => renderCalc(), "Préparation concours": () => renderConcours(), "Carnet de stage": () => renderCarnet(), "Cas cliniques": () => renderCas() };
+const NEW_PAGES = { "Dictionnaire médical": () => renderDico(), "Terminologie médicale": () => renderTermino(), "Flashcards": () => renderFlashcards(), "Calculatrices": () => renderCalc(), "Examens & QCM": () => renderExamens(), "Préparation concours": () => renderConcours(), "Carnet de stage": () => renderCarnet(), "Cas cliniques": () => renderCas() };
 
 function addBackButton(inner, label = "Retour au dashboard", handler = showHome) {
   const btn = document.createElement("button");
@@ -3868,11 +4160,18 @@ const CURRICULUM = {};
 // type : "cours" ou "resume" | f : filières | s : semestre | m : nom EXACT du module
 // sub : nom EXACT du sous-module ("" s'il n'y en a pas) | t : titre | url : lien du document
 const RESOURCES = [
+  // Examens blancs (type "examen"). corrige : lien du corrigé (vide = "bientôt disponible"). durMin : durée du chrono en minutes.
+  { type: "examen", f: ["IP"], s: "S3", m: "Programmes de santé", sub: "", t: "Examen blanc · Programmes de santé (SMI, PLMD, PLMC, IRA)", url: "examens/S3/IP/programmes-de-sante-examen-blanc.pdf", corrige: "", dur: "2 h", durMin: 120, pages: 14, annee: "2026/2027",
+    parts: [["I", "10 QCM", 5], ["II", "6 questions de cours et de raisonnement", 5], ["III", "2 cas cliniques", 7], ["IV", "3 questions de synthèse et d'application", 3]] },
+  { type: "examen", f: ["IP"], s: "S3", m: "Programmes de santé et SMI", sub: "", t: "Examen blanc · Programmes de santé et SMI", url: "examens/S3/IP/programmes-de-sante-smi-examen-blanc.pdf", corrige: "", dur: "2 h", durMin: 120, pages: 15, annee: "2026/2027",
+    parts: [["I", "10 QCM", 5], ["II", "6 questions de cours et de raisonnement", 5], ["III", "2 cas cliniques", 7], ["IV", "2 questions de synthèse et d'application", 3]] },
+  { type: "examen", f: ["IP"], s: "S3", m: "Programme de lutte contre les IRA", sub: "", t: "Examen blanc · Programme de lutte contre les IRA", url: "examens/S3/IP/ira-examen-blanc.pdf", corrige: "", dur: "2 h", durMin: 120, pages: 13, annee: "2026/2027",
+    parts: [["I", "10 QCM", 5], ["II", "6 questions de cours et de raisonnement", 5], ["III", "2 cas cliniques", 7], ["IV", "2 questions de synthèse et d'application", 3]] },
   { type: "cours", f: ["IP"], s: "S1", m: "SIB1", sub: "", t: "Cours des constantes", url: "cours/S1/IP/SIB1/cours-des-constantes.pdf" },
   { type: "cours", f: ["IP"], s: "S1", m: "SIB1", sub: "", t: "Cours SIB1", url: "cours/S1/IP/SIB1/sib1-cours.pdf" },
 ];
 
-const TYPE_LABEL = { cours: "Cours", resume: "Résumé" };
+const TYPE_LABEL = { cours: "Cours", resume: "Résumé", examen: "Examen blanc" };
 const SITE_PAGES = [
   { name: "Cours", words: "cours supports documents modules" },
   { name: "Résumés", words: "resumes fiches revision syntheses" },
@@ -3889,7 +4188,7 @@ const SITE_PAGES = [
   { name: "Atlas anatomie", words: "atlas anatomie corps humain 3d squelette os muscles organes vaisseaux nerfs coeur poumons cerveau" },
   { name: "Règlement intérieur", words: "reglement interieur absences retard rattrapage fraude discipline sanctions droits obligations evaluation" },
   { name: "TP Simulation", words: "tp simulation travaux pratiques gestes techniques soins jeu 3d gants steriles encadrant" },
-  { name: "Examens & QCM", words: "examens qcm evaluations" },
+  { name: "Examens & QCM", words: "examens qcm evaluations examen blanc controle continu sujets programmes de sante smi ira pas s3 diarrhee pneumonie" },
   { name: "Assistant IA", words: "assistant ia intelligence artificielle questions" },
   { name: "Assistance", words: "aide assistance conditions utilisation mode emploi" }
 ];
@@ -4059,7 +4358,7 @@ SITE_PAGES.push({ name: "E-learning", words: "e-learning jeu quiz xp badges clas
 const esc = t => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const norm = t => String(t).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
   .replace(/&/g, "et").replace(/\s+/g, " ").trim();
-const safeUrl = u => (/^(https?:\/\/|cours\/[\w\-./%]+\.pdf$)/i.test(String(u)) ? String(u) : "#");
+const safeUrl = u => (/^(https?:\/\/|(cours|examens)\/[\w\-./%]+\.pdf$)/i.test(String(u)) ? String(u) : "#");
 
 function searchCurriculum(q, filiere) {
   const nq = norm(q);
