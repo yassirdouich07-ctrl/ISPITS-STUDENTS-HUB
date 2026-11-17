@@ -4126,7 +4126,8 @@ function deepSearch(q) {
   const nq = norm(q), words = nq.split(" ").filter(w => w.length >= 2);
   if (!words.length) return [];
   const has = (hay, w) => w.length >= 4 ? hay.includes(w) : (" " + hay).includes(" " + w);
-  return SEARCH_INDEX.filter(e => words.every(w => has(e.hay, w)))
+  const catPage = { "Contenu des fiches": "Stages", "Atlas d'anatomie": "Atlas anatomie", "Simulations": "TP Simulation" };
+  return SEARCH_INDEX.filter(e => !rubBlocked(catPage[e.cat] || e.cat) && words.every(w => has(e.hay, w)))
     .map(e => ({ e, sc: e.nt.includes(nq) ? 3 : words.every(w => e.nt.includes(w)) ? 2 : 0 }))
     .sort((a, b) => b.sc - a.sc).map(x => Object.assign({}, x.e, { words }));
 }
@@ -4191,7 +4192,7 @@ function renderSearch(initial = "") {
       box.innerHTML = `<div class="search-hint">Tapez au moins 2 lettres pour lancer la recherche.</div>`;
       return;
     }
-    const pages = searchPages(q), mods = searchCurriculum(q, null), docs = searchDocs(q, null, null), fiches = searchFiches(q), deep = deepSearch(q);
+    const bl = rubBlocked, noCr = bl("Cours") && bl("Résumés"), pages = searchPages(q).filter(p => !bl(p.name)), mods = noCr ? [] : searchCurriculum(q, null), docs = noCr ? [] : searchDocs(q, null, null), fiches = bl("Stages") ? [] : searchFiches(q), deep = deepSearch(q);
     if (!pages.length && !mods.length && !docs.length && !fiches.length && !deep.length) { box.innerHTML = noResultsPanel(); return; }
 
     let html = "";
@@ -8752,7 +8753,7 @@ function rubApply() {
   document.querySelectorAll("#bnav button[data-bn]").forEach(b => {
     if (b.dataset.bn !== "__menu") b.classList.toggle("hidden", off(b.dataset.bn) && !rub.admin);
   });
-  document.querySelectorAll(".stat-card[data-open]").forEach(c => c.classList.toggle("hidden", off(c.dataset.open) && !rub.admin));
+  document.querySelectorAll("#homePage [data-open]").forEach(c => c.classList.toggle("hidden", off(c.dataset.open) && !rub.admin));
   const btn = document.getElementById("rubBtn");
   if (btn) btn.classList.toggle("hidden", !rub.admin);
   // si la rubrique ouverte vient d'être masquée pour cet utilisateur
@@ -8761,6 +8762,11 @@ function rubApply() {
 }
 
 async function rubInit() {
+  const ck = "ish_rub_" + (currentUser ? currentUser.id : "anon");
+  try {
+    const c = JSON.parse(localStorage.getItem(ck) || "null");
+    if (c) { rub.admin = !!c.admin; rub.hidden = new Set(c.hidden || []); rub.ready = true; rubApply(); }
+  } catch (e) { /* ignoré */ }
   try {
     const [isAdmin, res] = await Promise.all([annCheckAdmin(), db.from("rubrique_settings").select("page,hidden")]);
     if (res.error) { console.error("Rubriques :", res.error); return; }
@@ -8768,6 +8774,7 @@ async function rubInit() {
     rub.hidden = new Set((res.data || []).filter(r => r.hidden).map(r => r.page));
     rub.ready = true;
     rubApply();
+    try { localStorage.setItem(ck, JSON.stringify({ admin: rub.admin, hidden: [...rub.hidden] })); } catch (e) { /* ignoré */ }
   } catch (e) { console.error("Rubriques :", e); }
 }
 
@@ -8793,6 +8800,7 @@ function openRubModal() {
     row.classList.toggle("off", hide);
     row.querySelector("small").textContent = hide ? "Masquée pour les étudiants" : "Visible";
     rubApply();
+    try { localStorage.setItem("ish_rub_" + currentUser.id, JSON.stringify({ admin: true, hidden: [...rub.hidden] })); } catch (e) { /* ignoré */ }
   }));
 }
 document.getElementById("rubBtn").addEventListener("click", () => { closeProfileMenu(); openRubModal(); });
