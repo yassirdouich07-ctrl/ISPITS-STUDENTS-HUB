@@ -1365,6 +1365,8 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .rub-sw input:checked+i:after{transform:translateX(20px)}
 .rub-list{max-height:55vh;overflow:auto;margin-top:4px}
 .rub-tag{margin-left:auto;font-size:10px;font-weight:800;padding:2px 7px;border-radius:8px;background:#fee2e2;color:#b42318}
+
+#modalOverlay[data-force="1"] #modalClose{display:none}
 </style>
 </head>
 
@@ -1927,6 +1929,7 @@ function showDashboard(user) {
   refreshAnnBadge();
   csPull();
   rubInit();
+  if (user.user_metadata?.must_change_password) forcePwdChange();
 }
 
 // Salutation adaptée à l'heure : Bonjour (jour) / Bonsoir (soir), avec parfois Salam ou Ahlan
@@ -1951,6 +1954,7 @@ function showAuth() {
   stopSim();
   aiMessages = [];
   closeProfileMenu();
+  delete modalOverlay.dataset.force;
   closeModal();
   currentUser = null;
   appView.classList.add("hidden");
@@ -8306,6 +8310,7 @@ function closeProfileMenu() {
   profileBtn.setAttribute("aria-expanded", "false");
 }
 function closeModal() {
+  if (modalOverlay.dataset.force === "1") return;
   modalOverlay.classList.add("hidden");
   modalBody.innerHTML = "";
 }
@@ -8804,6 +8809,30 @@ function openRubModal() {
   }));
 }
 document.getElementById("rubBtn").addEventListener("click", () => { closeProfileMenu(); openRubModal(); });
+
+
+// =====================================
+// CHANGEMENT DE MOT DE PASSE OBLIGATOIRE (première connexion)
+// =====================================
+function forcePwdChange() {
+  modalOverlay.dataset.force = "1";
+  openForm("Bienvenue sur ISPITS Students Hub", "Pour sécuriser votre compte, choisissez dès maintenant votre propre mot de passe (6 caractères minimum).", [
+    { label: "Nouveau mot de passe", name: "nw", type: "password", attrs: 'required minlength="6" autocomplete="new-password"' },
+    { label: "Confirmer le mot de passe", name: "cf", type: "password", attrs: 'required minlength="6" autocomplete="new-password"' }
+  ], "Enregistrer et continuer", async v => {
+    if (v.nw.length < 6) throw new Error("Le mot de passe doit contenir au moins 6 caractères.");
+    if (v.nw !== v.cf) throw new Error("Les mots de passe ne correspondent pas.");
+    const { data, error } = await db.auth.updateUser({ password: v.nw, data: { must_change_password: false } });
+    if (error) {
+      if (/different|same/i.test(error.message || "")) throw new Error("Choisissez un mot de passe différent de l'ancien.");
+      throw error;
+    }
+    currentUser = data.user;
+    delete modalOverlay.dataset.force;
+    closeModal();
+    showToast("Mot de passe enregistré. Bienvenue !");
+  });
+}
 
 // =====================================
 // INITIAL AUTH STATE
