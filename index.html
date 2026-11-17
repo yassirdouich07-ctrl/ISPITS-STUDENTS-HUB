@@ -1909,6 +1909,7 @@ function showDashboard(user) {
 
   showHome();
   refreshAnnBadge();
+  csPull();
 }
 
 // Salutation adaptée à l'heure : Bonjour (jour) / Bonsoir (soir), avec parfois Salam ou Ahlan
@@ -8618,6 +8619,95 @@ async function loadHomeAnn() {
   } catch (e) { box.innerHTML = ""; }
 }
 
+
+
+// =====================================
+// SYNCHRO CLOUD : progression (E-learning, Flashcards, Concours, scores) et Carnet de stage
+// Les données restent en local (rapide, hors ligne) et sont copiées dans Supabase (table user_data).
+// =====================================
+const CS_RE = /^ish_(el|carnet2|fc|conc|best)_/;
+const CS_PAGES = ["Carnet de stage", "E-learning", "Flashcards", "Préparation concours"];
+const csTsKey = k => "ish_ts_" + k;
+const csMine = k => !!currentUser && CS_RE.test(k) && k.includes(currentUser.id);
+const csTime = t => Date.parse(String(t).replace(/(\.\d{3})\d+/, "$1"));
+const csDirty = new Set();
+const csRawSet = Storage.prototype.setItem;
+let csBusy = false, csTimer = null;
+
+function csPut(k, v) {
+  csBusy = true;
+  try { csRawSet.call(localStorage, k, v); } catch (e) { /* stockage plein : ignoré */ } finally { csBusy = false; }
+}
+Storage.prototype.setItem = function (k, v) {
+  csRawSet.call(this, k, v);
+  if (this === localStorage && !csBusy && csMine(k)) {
+    csDirty.add(k);
+    clearTimeout(csTimer);
+    csTimer = setTimeout(csFlush, 1200);
+  }
+};
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") csFlush(); });
+
+async function csFlush() {
+  if (!currentUser || !csDirty.size) return;
+  const keys = [...csDirty], rows = [];
+  csDirty.clear();
+  keys.forEach(k => {
+    try { const v = localStorage.getItem(k); if (v !== null) rows.push({ user_id: currentUser.id, key: k, value: JSON.parse(v) }); } catch (e) { /* ignoré */ }
+  });
+  if (!rows.length) return;
+  try {
+    const { data, error } = await db.from("user_data").upsert(rows, { onConflict: "user_id,key" }).select("key,updated_at");
+    if (error) throw error;
+    (data || []).forEach(r => csPut(csTsKey(r.key), r.updated_at));
+  } catch (e) {
+    console.error("Synchro :", e);
+    keys.forEach(k => csDirty.add(k));
+    clearTimeout(csTimer);
+    csTimer = setTimeout(csFlush, 15000);
+  }
+}
+
+// Fusion lors de la première synchro d'un appareil (a = local, b = serveur)
+function csMerge(k, a, b) {
+  if (typeof a === "number" && typeof b === "number") return Math.max(a, b);
+  if (/^ish_carnet2_/.test(k)) {
+    const ids = new Set((b.notes || []).map(n => n.id));
+    return { ...b, notes: [...(b.notes || []), ...(a.notes || []).filter(n => !ids.has(n.id))] };
+  }
+  if (/^ish_el_/.test(k)) return (a.xp || 0) > (b.xp || 0) ? a : b;
+  return (a && b && typeof a === "object" && typeof b === "object") ? Object.assign({}, a, b) : b;
+}
+
+async function csPull() {
+  if (!currentUser) return;
+  let changed = false;
+  try {
+    const { data, error } = await db.from("user_data").select("key,value,updated_at").limit(2000);
+    if (error) throw error;
+    const srv = new Map((data || []).filter(r => csMine(r.key)).map(r => [r.key, r]));
+    for (const [k, r] of srv) {
+      const loc = localStorage.getItem(k), ts = localStorage.getItem(csTsKey(k));
+      if (loc === null) {
+        csPut(k, JSON.stringify(r.value)); csPut(csTsKey(k), r.updated_at); changed = true;
+      } else if (!ts) {
+        let m; try { m = csMerge(k, JSON.parse(loc), r.value); } catch (e) { m = r.value; }
+        csPut(k, JSON.stringify(m)); csDirty.add(k); changed = true;
+      } else if (csTime(r.updated_at) > csTime(ts)) {
+        csPut(k, JSON.stringify(r.value)); csPut(csTsKey(k), r.updated_at); changed = true;
+      }
+    }
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (csMine(k) && !srv.has(k)) csDirty.add(k);
+    }
+    await csFlush();
+  } catch (e) { console.error("Synchro :", e); return; }
+  if (changed) {
+    const act = document.querySelector(".nav-item.active")?.dataset.page;
+    if (CS_PAGES.includes(act) && modalOverlay.classList.contains("hidden")) openPage(act);
+  }
+}
 
 // =====================================
 // INITIAL AUTH STATE
