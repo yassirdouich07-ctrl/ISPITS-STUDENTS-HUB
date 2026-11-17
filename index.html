@@ -1307,6 +1307,49 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .el-rank{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
 .el-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border)}.el-row.me{background:var(--teal-soft)}
 .el-row b{width:28px;text-align:center}.el-row span{flex:1;min-width:0;font-weight:600;color:var(--navy)}.el-row small{display:block;font-weight:400;color:var(--muted);font-size:12px}.el-row em{font-style:normal;font-weight:800;color:var(--teal-dark)}
+
+/* ===== ANNONCES ===== */
+.ann-dot{margin-left:auto;min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:#ef4444;color:#fff;font-size:11px;font-weight:800;display:inline-grid;place-items:center;line-height:1}
+.an-form{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:22px;box-shadow:var(--shadow)}
+.an-form h2{font-size:15px;color:var(--navy);margin:0 0 4px}
+.an-form .an-hint{font-size:12px;color:var(--muted);margin:0 0 14px}
+.an-form input[type=text],.an-form select,.an-form textarea{width:100%;border:1px solid #dbe3ea;border-radius:11px;background:#fbfcfd;color:var(--navy);padding:0 12px;height:46px;font-size:16px;margin-bottom:10px;outline:none}
+.an-form textarea{height:auto;min-height:110px;padding:12px;resize:vertical;line-height:1.6}
+.an-form input:focus,.an-form select:focus,.an-form textarea:focus{border-color:var(--teal);background:#fff}
+.an-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.an-row select{flex:1 1 180px;margin:0}
+.an-check{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#45566a}
+.an-form .primary-btn{margin:2px 0 0}
+.an-err{color:#b42318;font-size:13px;min-height:1em;margin:8px 0 0}
+.an-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:14px}
+.an-card.pin{border-color:#bfe6e2;background:linear-gradient(180deg,#f6fcfb,#fff)}
+.an-card.urgent{border-left:4px solid #ef4444}
+.an-top{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.an-date{margin-left:auto;font-size:12px;color:var(--muted)}
+.an-card h3{margin:0 0 8px;font-size:17px;line-height:1.35;color:var(--navy)}
+.an-body{margin:0;white-space:pre-wrap;word-break:break-word;font-size:14px;line-height:1.75;color:var(--text)}
+.an-body a{color:var(--teal-dark);font-weight:600}
+.an-foot{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid #eef2f6;font-size:12px;color:var(--muted)}
+.an-acts{margin-left:auto;display:flex;gap:14px}
+.an-acts button{background:none;border:0;padding:0;font-size:13px;font-weight:700;color:var(--teal)}
+.an-acts button.del{color:#b42318}
+.an-badge-urgent{background:#fee2e2;color:#b42318}
+
+/* ===== ANNONCES SUR L'ACCUEIL ===== */
+.ha-box:empty{display:none}
+.ha-box{margin:0 0 22px}
+.ha-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.ha-head h2{display:flex;align-items:center;gap:8px;margin:0;font-size:16px;color:var(--navy)}
+.ha-head h2 .ico{width:18px;height:18px;color:var(--teal)}
+.ha-all{background:none;border:0;padding:4px 0;color:var(--teal);font-size:13px;font-weight:700}
+.ha-item{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--border);border-radius:14px;padding:13px 15px;margin-bottom:9px;color:inherit}
+.ha-item:hover{border-color:#bfe6e2}
+.ha-item.urgent{border-left:4px solid #ef4444}
+.ha-top{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.ha-top .badge{font-size:11px;padding:4px 9px}
+.ha-date{margin-left:auto;font-size:11.5px;color:var(--muted)}
+.ha-title{display:block;font-weight:800;font-size:14.5px;line-height:1.35;color:var(--navy)}
+.ha-snip{display:block;margin-top:4px;font-size:13px;line-height:1.55;color:var(--muted)}
 </style>
 </head>
 
@@ -1371,6 +1414,7 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
   <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
   <symbol id="i-pill" viewBox="0 0 24 24"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7z"/><path d="m8.5 8.5 7 7"/></symbol>
   <symbol id="i-wind" viewBox="0 0 24 24"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2M9.6 4.6A2 2 0 1 1 11 8H2M12.6 19.4A2 2 0 1 0 14 16H2"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
 </svg>
 
 <!-- AUTHENTICATION -->
@@ -1507,6 +1551,7 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
       <div class="side-label">MENU PRINCIPAL</div>
 
       <button class="nav-item active" data-page="Accueil" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-home"/></svg></span>Accueil</button>
+      <button class="nav-item" data-page="Annonces" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-bell"/></svg></span>Annonces<span class="ann-dot hidden" id="annDot"></span></button>
       <button class="nav-item" data-page="Recherche" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-search"/></svg></span>Recherche</button>
       <button class="nav-item" data-page="Cours" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-book"/></svg></span>Cours</button>
       <button class="nav-item" data-page="Stages" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-hospital"/></svg></span>Stages</button>
@@ -1562,6 +1607,8 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
             </div>
             <div class="hero-tag"><svg class="ico"><use href="#i-spark"/></svg> Learning space</div>
           </div>
+
+          <section id="homeAnn" class="ha-box"></section>
 
           <div class="stats-grid">
             <div class="stat-card" data-open="Cours" role="button" tabindex="0" aria-label="Ouvrir Cours">
@@ -1861,6 +1908,7 @@ function showDashboard(user) {
     }).format(new Date());
 
   showHome();
+  refreshAnnBadge();
 }
 
 // Salutation adaptée à l'heure : Bonjour (jour) / Bonsoir (soir), avec parfois Salam ou Ahlan
@@ -1989,6 +2037,7 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
 // PAGE NAVIGATION
 // =====================================
 const moduleDescriptions = {
+  "Annonces": "Les annonces officielles destinées aux étudiants : examens, plannings, stages, informations administratives.",
   "Cours": "Retrouvez les supports de cours et les documents pédagogiques classés par module et par semestre.",
   "Médicaments": "Les médicaments rencontrés en stage : indications, surveillance infirmière et précautions.",
   "Stages": "Consultez les documents de stage, les protocoles, les fiches techniques et les situations cliniques.",
@@ -2033,6 +2082,7 @@ function showHome() {
   document.getElementById("innerPage").classList.add("hidden");
   setActiveNav("Accueil");
   document.getElementById("sidebar").classList.remove("open");
+  loadHomeAnn();
 }
 
 function setActiveNav(pageName) {
@@ -8386,6 +8436,188 @@ function openSecurityModal() {
     showToast("Mot de passe modifié avec succès.");
   });
 }
+
+
+// =====================================
+// ANNONCES
+// =====================================
+const ANN_CATS = ["Général", "Examens", "Pédagogique", "Stages", "Administratif", "Urgent"];
+const ANN_SEEN_KEY = "ispits_ann_seen";
+let annAdminCache = { id: null, val: false };
+
+async function annCheckAdmin() {
+  if (!currentUser) return false;
+  if (annAdminCache.id === currentUser.id) return annAdminCache.val;
+  let val = false;
+  try {
+    const r = await db.from("admins").select("user_id").eq("user_id", currentUser.id).limit(1);
+    val = !r.error && (r.data || []).length > 0;
+  } catch (e) { console.error("Admin check :", e); }
+  annAdminCache = { id: currentUser.id, val };
+  return val;
+}
+
+function annSeen() { try { return localStorage.getItem(ANN_SEEN_KEY); } catch (e) { return null; } }
+function annMarkSeen(iso) { try { if (iso) localStorage.setItem(ANN_SEEN_KEY, iso); } catch (e) { /* ignoré */ } }
+
+function annSetDot(n) {
+  const d = document.getElementById("annDot");
+  if (!d) return;
+  d.textContent = n > 9 ? "9+" : String(n);
+  d.classList.toggle("hidden", !(n > 0));
+}
+
+async function refreshAnnBadge() {
+  try {
+    let q = db.from("announcements").select("id", { count: "exact", head: true });
+    const seen = annSeen();
+    if (seen) q = q.gt("created_at", seen);
+    const { count, error } = await q;
+    annSetDot(error ? 0 : (count || 0));
+  } catch (e) { annSetDot(0); }
+}
+
+const annText = t => esc(t).replace(/(https?:\/\/[^\s<]+)/g, u => `<a href="${u}" target="_blank" rel="noopener noreferrer">${u}</a>`);
+const annDate = d => new Date(d).toLocaleString("fr-FR", { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" });
+
+function renderAnnonces() {
+  const inner = document.getElementById("innerPage");
+  inner.innerHTML = `
+    <div class="page-heading">
+      <div class="eyebrow">ANNONCES</div>
+      <h1>Annonces</h1>
+      <p>${esc(moduleDescriptions["Annonces"])}</p>
+    </div>
+    <div id="annAdmin"></div>
+    <div id="annList"><p class="search-hint">Chargement…</p></div>`;
+  addBackButton(inner);
+  window.scrollTo(0, 0);
+  loadAnnonces();
+}
+
+async function loadAnnonces() {
+  const list = document.getElementById("annList");
+  if (!list) return;
+  const [isAdmin, res] = await Promise.all([
+    annCheckAdmin(),
+    db.from("announcements").select("id,title,body,category,pinned,author_name,created_at")
+      .order("pinned", { ascending: false }).order("created_at", { ascending: false }).limit(100)
+  ]);
+  if (!list.isConnected) return;
+
+  if (res.error) {
+    console.error("Annonces :", res.error);
+    list.innerHTML = `<p class="search-hint">Les annonces ne sont pas encore activées.</p>`;
+    return;
+  }
+  const rows = res.data || [];
+
+  // Formulaire de publication (admins uniquement)
+  const adminBox = document.getElementById("annAdmin");
+  if (adminBox) {
+    adminBox.innerHTML = isAdmin ? `
+      <div class="an-form">
+        <h2>Publier une annonce</h2>
+        <p class="an-hint">Visible immédiatement par tous les étudiants.</p>
+        <input type="text" id="anTitle" maxlength="150" placeholder="Titre de l'annonce">
+        <textarea id="anBody" maxlength="5000" placeholder="Contenu de l'annonce (les liens https:// sont cliquables)"></textarea>
+        <div class="an-row">
+          <select id="anCat">${ANN_CATS.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join("")}</select>
+          <label class="an-check"><input type="checkbox" id="anPin"> Épingler en haut</label>
+        </div>
+        <button class="primary-btn" type="button" id="anSend">Publier</button>
+        <p class="an-err" id="anErr" role="status"></p>
+      </div>` : "";
+    const send = document.getElementById("anSend");
+    if (send) send.addEventListener("click", async () => {
+      const title = document.getElementById("anTitle").value.trim();
+      const body = document.getElementById("anBody").value.trim();
+      const err = document.getElementById("anErr");
+      err.textContent = "";
+      if (title.length < 3) { err.textContent = "Saisissez un titre (3 caractères minimum)."; return; }
+      if (body.length < 3) { err.textContent = "Saisissez le contenu de l'annonce."; return; }
+      send.disabled = true;
+      const { error } = await db.from("announcements").insert({
+        title, body,
+        category: document.getElementById("anCat").value,
+        pinned: document.getElementById("anPin").checked,
+        author_id: currentUser.id,
+        author_name: currentUser.user_metadata?.full_name || "Administration"
+      });
+      send.disabled = false;
+      if (error) { console.error(error); err.textContent = "Publication impossible. Vérifiez vos droits d'administrateur."; return; }
+      showToast("Annonce publiée.");
+      loadAnnonces();
+    });
+  }
+
+  if (!rows.length) {
+    list.innerHTML = `<p class="search-hint">Aucune annonce pour le moment.</p>`;
+  } else {
+    list.innerHTML = rows.map(a => `
+      <article class="an-card${a.pinned ? " pin" : ""}${a.category === "Urgent" ? " urgent" : ""}">
+        <div class="an-top">
+          <span class="badge${a.category === "Urgent" ? " an-badge-urgent" : ""}">${esc(a.category || "Général")}</span>
+          ${a.pinned ? `<span class="badge gray">Épinglée</span>` : ""}
+          <span class="an-date">${esc(annDate(a.created_at))}</span>
+        </div>
+        <h3>${esc(a.title)}</h3>
+        <p class="an-body">${annText(a.body)}</p>
+        <div class="an-foot">
+          <span>Publié par ${esc(a.author_name || "l'administration")}</span>
+          ${isAdmin ? `<span class="an-acts">
+            <button type="button" data-pin="${esc(a.id)}" data-cur="${a.pinned ? 1 : 0}">${a.pinned ? "Désépingler" : "Épingler"}</button>
+            <button type="button" class="del" data-del="${esc(a.id)}">Supprimer</button></span>` : ""}
+        </div>
+      </article>`).join("");
+  }
+
+  if (isAdmin) {
+    list.onclick = async e => {
+      const pin = e.target.closest("[data-pin]"), del = e.target.closest("[data-del]");
+      if (pin) {
+        const { error } = await db.from("announcements").update({ pinned: pin.dataset.cur !== "1" }).eq("id", pin.dataset.pin);
+        if (error) { console.error(error); showToast("Action impossible."); return; }
+        loadAnnonces();
+      } else if (del) {
+        if (!confirm("Supprimer cette annonce définitivement ?")) return;
+        const { error } = await db.from("announcements").delete().eq("id", del.dataset.del);
+        if (error) { console.error(error); showToast("Suppression impossible."); return; }
+        showToast("Annonce supprimée.");
+        loadAnnonces();
+      }
+    };
+  }
+
+  // Marquer comme lues
+  if (rows.length) annMarkSeen(rows.reduce((m, a) => a.created_at > m ? a.created_at : m, rows[0].created_at));
+  annSetDot(0);
+}
+
+NEW_PAGES["Annonces"] = renderAnnonces;
+
+// Aperçu des dernières annonces sur l'accueil
+async function loadHomeAnn() {
+  const box = document.getElementById("homeAnn");
+  if (!box) return;
+  try {
+    const { data, error } = await db.from("announcements").select("id,title,body,category,pinned,created_at")
+      .order("pinned", { ascending: false }).order("created_at", { ascending: false }).limit(3);
+    if (!box.isConnected) return;
+    if (error || !data || !data.length) { box.innerHTML = ""; return; }
+    const day = d => new Date(d).toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
+    box.innerHTML = `<div class="ha-head"><h2>${ico("bell")} Dernières annonces</h2><button type="button" class="ha-all" id="haAll">Tout voir</button></div>` +
+      data.map(a => {
+        const snip = a.body.replace(/\s+/g, " ").trim();
+        return `<button type="button" class="ha-item${a.category === "Urgent" ? " urgent" : ""}" data-ha="1">
+          <span class="ha-top"><span class="badge${a.category === "Urgent" ? " an-badge-urgent" : ""}">${esc(a.category || "Général")}</span>${a.pinned ? `<span class="badge gray">Épinglée</span>` : ""}<span class="ha-date">${esc(day(a.created_at))}</span></span>
+          <span class="ha-title">${esc(a.title)}</span>
+          <span class="ha-snip">${esc(snip.length > 110 ? snip.slice(0, 110) + "…" : snip)}</span></button>`;
+      }).join("");
+    box.querySelectorAll("[data-ha],#haAll").forEach(b => b.addEventListener("click", () => openPage("Annonces")));
+  } catch (e) { box.innerHTML = ""; }
+}
+
 
 // =====================================
 // INITIAL AUTH STATE
