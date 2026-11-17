@@ -1929,7 +1929,7 @@ function showDashboard(user) {
   refreshAnnBadge();
   csPull();
   rubInit();
-  if (user.user_metadata?.must_change_password) forcePwdChange();
+  try { if (needsOnboarding(user)) forcePwdChange(); } catch (e) { console.error("Première connexion :", e); }
 }
 
 // Salutation adaptée à l'heure : Bonjour (jour) / Bonsoir (soir), avec parfois Salam ou Ahlan
@@ -8814,24 +8814,41 @@ document.getElementById("rubBtn").addEventListener("click", () => { closeProfile
 // =====================================
 // CHANGEMENT DE MOT DE PASSE OBLIGATOIRE (première connexion)
 // =====================================
+// Faut-il afficher l'écran de première connexion ?
+const needsOnboarding = u => !!u && (u.user_metadata?.must_change_password === true ||
+  (/@ish\.email\.com$/i.test(u.email || "") && !u.user_metadata?.onboarded));
+
 function forcePwdChange() {
   modalOverlay.dataset.force = "1";
-  openForm("Bienvenue sur ISPITS Students Hub", "Pour sécuriser votre compte, choisissez dès maintenant votre propre mot de passe (6 caractères minimum).", [
-    { label: "Nouveau mot de passe", name: "nw", type: "password", attrs: 'required minlength="6" autocomplete="new-password"' },
-    { label: "Confirmer le mot de passe", name: "cf", type: "password", attrs: 'required minlength="6" autocomplete="new-password"' }
+  const form = openForm("Bienvenue sur ISPITS Students Hub",
+    "Première connexion : choisissez votre mot de passe et votre semestre. Le téléphone et le nom d'utilisateur sont facultatifs.", [
+    { label: "Nouveau mot de passe *", name: "nw", type: "password", attrs: 'required minlength="6" autocomplete="new-password"' },
+    { label: "Confirmer le mot de passe *", name: "cf", type: "password", attrs: 'required minlength="6" autocomplete="new-password"' },
+    { label: "Semestre *", name: "semestre", type: "select", options: ["", "S1", "S2", "S3", "S4", "S5", "S6"] },
+    { label: "Numéro de téléphone (facultatif)", name: "phone", type: "tel", attrs: 'placeholder="06 00 00 00 00" autocomplete="tel"' },
+    { label: "Nom d'utilisateur (facultatif)", name: "username", type: "text", attrs: 'placeholder="ex : yassir_07" maxlength="20" autocomplete="username"' }
   ], "Enregistrer et continuer", async v => {
+    const phone = (v.phone || "").trim(), username = (v.username || "").trim();
     if (v.nw.length < 6) throw new Error("Le mot de passe doit contenir au moins 6 caractères.");
     if (v.nw !== v.cf) throw new Error("Les mots de passe ne correspondent pas.");
-    const { data, error } = await db.auth.updateUser({ password: v.nw, data: { must_change_password: false } });
+    if (!v.semestre) throw new Error("Veuillez choisir votre semestre.");
+    if (username && !/^[A-Za-z0-9_.]{3,20}$/.test(username)) throw new Error("Nom d'utilisateur : 3 à 20 caractères (lettres, chiffres, _ et .).");
+    if (phone && !/^\+?[0-9\s().-]{8,18}$/.test(phone)) throw new Error("Numéro de téléphone invalide.");
+    const meta = { must_change_password: false, onboarded: true, semestre: v.semestre };
+    if (phone) meta.phone = phone;
+    if (username) meta.username = username;
+    const { data, error } = await db.auth.updateUser({ password: v.nw, data: meta });
     if (error) {
       if (/different|same/i.test(error.message || "")) throw new Error("Choisissez un mot de passe différent de l'ancien.");
       throw error;
     }
     currentUser = data.user;
+    updateProfileUI(data.user);
     delete modalOverlay.dataset.force;
     closeModal();
-    showToast("Mot de passe enregistré. Bienvenue !");
+    showToast("Informations enregistrées. Bienvenue !");
   });
+  if (form && form.semestre) form.semestre.required = true;
 }
 
 // =====================================
