@@ -1415,9 +1415,7 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 @keyframes lubdub{0%,100%{transform:scale(1)}14%{transform:scale(1.18)}28%{transform:scale(1)}42%{transform:scale(1.12)}70%{transform:scale(1)}}
 @keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-#homePage .vitals{display:flex;align-items:center;gap:18px;width:100%;margin:0 0 24px;padding:14px 20px;border:0;border-radius:18px;text-align:left;color:#e6fffb;cursor:pointer;position:relative;overflow:hidden;background:linear-gradient(120deg,#0b1f3a,#0f3a52);box-shadow:0 14px 32px #0b1f3a26;-webkit-tap-highlight-color:transparent;transition:transform .25s,box-shadow .25s}
-#homePage .vitals:hover{transform:translateY(-2px);box-shadow:0 20px 40px #0b1f3a33}
-#homePage .vitals:active{transform:scale(.99)}
+.vitals{display:flex;align-items:center;gap:18px;width:100%;margin:0 0 18px;padding:14px 20px;border:0;border-radius:18px;text-align:left;color:#e6fffb;cursor:default;position:relative;overflow:hidden;background:linear-gradient(120deg,#0b1f3a,#0f3a52);box-shadow:0 14px 32px #0b1f3a26;-webkit-tap-highlight-color:transparent;transition:transform .25s,box-shadow .25s}
 .vt-left{flex:1;min-width:0}
 .vt-tag{display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:#5eead4}
 .vt-dot{width:7px;height:7px;border-radius:50%;background:#2dd4bf;animation:vtDot var(--ecg,1.6s) ease-in-out infinite}
@@ -1431,7 +1429,7 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .vitals.flat .vt-ecg{animation:none;background:linear-gradient(#64748b,#64748b) center/100% 2px no-repeat;filter:none;opacity:.7}
 .vitals.flat .vt-dot{background:#94a3b8;animation:none}
 .vitals.flat .vt-tag{color:#94a3b8}
-@media(max-width:640px){#homePage .vitals{flex-direction:column;align-items:stretch;gap:10px;padding:14px 16px}.vt-cells{justify-content:space-between;gap:10px}.vt-cell b{font-size:24px}}
+@media(max-width:640px){.vitals{flex-direction:column;align-items:stretch;gap:10px;padding:14px 16px}.vt-cells{justify-content:space-between;gap:10px}.vt-cell b{font-size:24px}}
 /* apparition progressive (ajoutée par JS, retirée ensuite) */
 #homePage .rv{opacity:0;transform:translateY(14px)}
 #homePage .rv.in{opacity:1;transform:none;transition:opacity .55s ease var(--d,0ms),transform .55s cubic-bezier(.2,.7,.2,1) var(--d,0ms)}
@@ -1449,6 +1447,32 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 #innerPage.pg-in>*:nth-child(3){animation-delay:.12s}
 #innerPage.pg-in>*:nth-child(n+4){animation-delay:.18s}
 @media (prefers-reduced-motion:reduce){#homePage *,#innerPage *{animation:none!important;transition:none!important}#homePage .rv{opacity:1;transform:none}}
+
+/* semaine d'activité (page E-learning) */
+.vt-week{display:flex;gap:9px;flex:none}
+.vt-d{display:flex;flex-direction:column;align-items:center;gap:5px}
+.vt-d i{width:22px;height:22px;border-radius:50%;background:#ffffff14;border:1.5px solid #ffffff2e;display:block}
+.vt-d.on i{background:#2dd4bf;border-color:#2dd4bf;box-shadow:0 0 10px #2dd4bf88}
+.vt-d.now i{outline:2px solid #5eead4;outline-offset:2px}
+.vt-d small{font-size:9.5px;font-weight:800;color:#7fb7b0}
+@media(max-width:640px){.vt-week{justify-content:space-between}}
+/* rangée « Aujourd'hui » (inspirée des tableaux de bord AMBOSS, Osmosis, Lecturio) */
+.today{margin:0 0 26px}
+.td-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.td-card{display:flex;align-items:center;gap:13px;min-width:0;padding:14px 16px;border:1px solid var(--border);border-radius:16px;background:#fff;text-align:left;position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .2s,border-color .2s,box-shadow .2s}
+.td-card:hover{transform:translateY(-2px);border-color:#bfe3df;box-shadow:0 10px 24px #0b1f3a12}
+.td-card:active{transform:scale(.98)}
+.td-ico{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--teal-soft);color:var(--teal)}
+.td-ico .ico{width:21px;height:21px}
+.td-txt{min-width:0;display:flex;flex-direction:column;gap:2px}
+.td-txt small{font-size:10px;font-weight:800;letter-spacing:1.3px;color:var(--teal)}
+.td-txt strong{font-size:14.5px;line-height:1.25;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.td-txt em{font-style:normal;font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.td-go{margin-left:auto;flex:none;color:#a9b6c3;font-size:15px}
+.td-card:hover .td-go{color:var(--teal)}
+.td-card.alert .td-ico{background:#fff1ec;color:#e8590c;animation:lubdub 1.6s ease-in-out infinite}
+.td-card.alert .td-txt small{color:#e8590c}
+@media(max-width:900px){.td-grid{grid-template-columns:1fr;gap:10px}}
 </style>
 </head>
 
@@ -1710,18 +1734,26 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 
           <section id="homeAnn" class="ha-box"></section>
 
-          <button type="button" class="vitals" id="homeVitals" data-open="E-learning" aria-label="Ouvrir E-learning">
-            <div class="vt-left">
-              <div class="vt-tag"><span class="vt-dot"></span>Pouls d'apprentissage</div>
-              <div class="vt-ecg" aria-hidden="true"></div>
-              <div class="vt-msg" id="vtMsg"></div>
+          <section class="today" id="homeToday" aria-label="Aujourd'hui">
+            <h3 class="grp-title">Aujourd'hui</h3>
+            <div class="td-grid">
+              <button type="button" class="td-card" id="tdResume" data-open="Cours">
+                <span class="td-ico"></span>
+                <span class="td-txt"><small>REPRENDRE</small><strong>—</strong><em></em></span>
+                <span class="td-go">↗</span>
+              </button>
+              <button type="button" class="td-card" id="tdReview" data-open="Flashcards">
+                <span class="td-ico"></span>
+                <span class="td-txt"><small>RÉVISIONS DU JOUR</small><strong>—</strong><em></em></span>
+                <span class="td-go">↗</span>
+              </button>
+              <button type="button" class="td-card" id="tdDaily" data-open="E-learning">
+                <span class="td-ico"></span>
+                <span class="td-txt"><small>DÉFI DU JOUR</small><strong>—</strong><em></em></span>
+                <span class="td-go">↗</span>
+              </button>
             </div>
-            <div class="vt-cells">
-              <div class="vt-cell"><small>SÉRIE</small><b id="vtStreak">0</b><em id="vtStreakU">jour</em></div>
-              <div class="vt-cell"><small>NIVEAU</small><b id="vtLvl">1</b><em id="vtTitle"></em></div>
-              <div class="vt-cell"><small>XP</small><b id="vtXp">0</b><em id="vtNext"></em></div>
-            </div>
-          </button>
+          </section>
 
           <div class="stats-grid">
             <div class="stat-card" data-open="Cours" role="button" tabindex="0" aria-label="Ouvrir Cours">
@@ -2211,6 +2243,7 @@ function setActiveNav(pageName) {
 function openPage(pageName, arg) {
   if (rubBlocked(pageName)) { showToast("Cette rubrique est temporairement indisponible."); pageName = "Accueil"; }
   pgEnter();
+  try { noteLastPage(pageName); } catch (e) { /* ignoré */ }
   stopSim();
   setActiveNav(pageName);
   document.getElementById("sidebar").classList.remove("open");
@@ -3946,6 +3979,7 @@ function renderElearning() {
     <div class="el-hero"><div class="el-lvl">${lv}</div>
       <div class="el-hmain"><strong>${esc(EL_TITLES[Math.min(lv - 1, 5)])}</strong><div class="el-bar"><i style="width:${pct}%"></i></div><small>${s.xp} XP · encore ${hi - s.xp} XP pour le niveau ${lv + 1}</small></div>
       <div class="el-streak">🔥 ${s.streak}<small>jour${s.streak > 1 ? "s" : ""}</small></div></div>
+    ${vitalsHTML(s)}
     <div class="tt-chips">${[["play", "Jouer"], ["badges", "Badges"], ["rank", "Classement"]].map(t => `<button type="button" class="tt-chip${t[0] === elTab ? " on" : ""}" data-t="${t[0]}">${t[1]}</button>`).join("")}</div>
     <div id="elBody"></div>
     <div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>`;
@@ -8745,7 +8779,7 @@ async function loadHomeAnn() {
 // SYNCHRO CLOUD : progression (E-learning, Flashcards, Concours, scores) et Carnet de stage
 // Les données restent en local (rapide, hors ligne) et sont copiées dans Supabase (table user_data).
 // =====================================
-const CS_RE = /^ish_(el|carnet2|fc|conc|best)_/;
+const CS_RE = /^ish_(el|carnet2|fc|conc|best|last)_/;
 const CS_PAGES = ["Carnet de stage", "E-learning", "Flashcards", "Préparation concours"];
 const csTsKey = k => "ish_ts_" + k;
 const csMine = k => !!currentUser && CS_RE.test(k) && k.includes(currentUser.id);
@@ -8824,7 +8858,7 @@ async function csPull() {
     await csFlush();
   } catch (e) { console.error("Synchro :", e); return; }
   if (changed) {
-    try { renderVitals(); } catch (e) { /* ignoré */ }
+    try { renderToday(); } catch (e) { /* ignoré */ }
     const act = document.querySelector(".nav-item.active")?.dataset.page;
     if (CS_PAGES.includes(act) && modalOverlay.classList.contains("hidden")) openPage(act);
   }
@@ -8966,25 +9000,75 @@ function countUp(el, to, ms = 900) {
   requestAnimationFrame(step);
 }
 
-// Le « pouls » bat tant que la série d'étude est active ; sans série, la ligne devient plate.
-function renderVitals() {
-  const box = document.getElementById("homeVitals");
-  if (!box || !currentUser) return;
-  let s; try { s = elLoad(); } catch (e) { return; }
+// ----- Rangée « Aujourd'hui » -----
+const lastKey = () => "ish_last_" + (currentUser ? currentUser.id : "anon");
+function noteLastPage(name) {
+  if (!currentUser || ["Accueil", "Recherche", "Annonces"].includes(name)) return;
+  try { localStorage.setItem(lastKey(), JSON.stringify({ page: name, t: Date.now() })); } catch (e) { /* ignoré */ }
+}
+function agoFr(t) {
+  const m = Math.max(0, Math.round((Date.now() - t) / 60000));
+  if (m < 2) return "à l'instant";
+  if (m < 60) return "il y a " + m + " min";
+  const h = Math.round(m / 60);
+  if (h < 24) return "il y a " + h + " h";
+  const d = Math.round(h / 24);
+  return "il y a " + d + " jour" + (d > 1 ? "s" : "");
+}
+function renderToday() {
+  const root = document.getElementById("homeToday");
+  if (!root || !currentUser) return;
+  const fill = (id, page, icon, title, sub, alert) => {
+    const c = document.getElementById(id);
+    c.dataset.open = page;
+    c.classList.toggle("alert", !!alert);
+    c.querySelector(".td-ico").innerHTML = icon;
+    c.querySelector("strong").textContent = title;
+    c.querySelector("em").textContent = sub;
+  };
+  // 1. Reprendre là où l'on s'était arrêté
+  let last = null;
+  try { last = JSON.parse(localStorage.getItem(lastKey()) || "null"); } catch (e) { /* ignoré */ }
+  if (last && rubBlocked(last.page)) last = null;
+  if (last && last.page) fill("tdResume", last.page, moduleIcons[last.page] || ico("compass"), last.page, "Dernière visite " + agoFr(last.t));
+  else fill("tdResume", "Cours", ico("book"), "Commencer par les cours", "Votre première étape");
+  // 2. Cartes de flashcards à revoir (répétition espacée)
+  let due = 0, seen = 0;
+  try {
+    const st = JSON.parse(localStorage.getItem("ish_fc_" + mxUid()) || "{}"), now = Date.now();
+    Object.values(st).forEach(e => { if (e && typeof e.d === "number") { seen++; if (e.d <= now) due++; } });
+  } catch (e) { /* ignoré */ }
+  if (due) fill("tdReview", "Flashcards", ico("layers"), due + " carte" + (due > 1 ? "s" : "") + " à revoir", "Répétition espacée · quelques minutes suffisent", true);
+  else if (seen) fill("tdReview", "Flashcards", ico("layers"), "Tout est à jour", "Aucune carte à revoir aujourd'hui");
+  else fill("tdReview", "Flashcards", ico("layers"), "Découvrir les flashcards", "Mémorisez durablement, carte par carte");
+  // 3. Défi du jour (E-learning)
+  let s = null; try { s = elLoad(); } catch (e) { /* ignoré */ }
+  if (s) {
+    const t = ttIso(new Date()), done = s.dayDone === t;
+    const alive = s.last === t || s.last === ttIso(ttDate(t, -1)), streak = alive ? s.streak : 0;
+    fill("tdDaily", "E-learning", ico("spark"), done ? "Défi relevé aujourd'hui" : "Défi du jour · +25 XP",
+      streak ? "🔥 Série de " + streak + " jour" + (streak > 1 ? "s" : "") : "Lancez votre série d'étude", !done);
+  }
+  if (rub.ready) rubApply();
+}
+
+// ----- « Pouls d'apprentissage » : affiché dans la page E-learning -----
+// Il bat tant que la série d'étude est active ; sans série, la ligne devient plate.
+function vitalsHTML(s) {
   const t = ttIso(new Date());
   const alive = s.last === t || s.last === ttIso(ttDate(t, -1));
-  const streak = alive ? s.streak : 0, lv = elLevel(s.xp), hi = 40 * lv * lv;
-  box.classList.toggle("flat", streak === 0);
-  box.style.setProperty("--ecg", Math.max(0.8, 1.7 - Math.min(streak, 20) * 0.045).toFixed(2) + "s");
-  document.getElementById("vtMsg").textContent = streak
-    ? "Pouls régulier · " + streak + " jour" + (streak > 1 ? "s" : "") + " d'affilée"
-    : "Pouls absent · ouvrez E-learning aujourd'hui pour le relancer";
-  countUp(document.getElementById("vtStreak"), streak, 700);
-  document.getElementById("vtStreakU").textContent = streak > 1 ? "jours" : "jour";
-  document.getElementById("vtLvl").textContent = lv;
-  document.getElementById("vtTitle").textContent = EL_TITLES[Math.min(lv - 1, 5)] || "";
-  countUp(document.getElementById("vtXp"), s.xp, 900);
-  document.getElementById("vtNext").textContent = "encore " + (hi - s.xp) + " pour N" + (lv + 1);
+  const streak = alive ? s.streak : 0, act = new Set();
+  for (let k = 0; k < streak; k++) act.add(ttIso(ttDate(s.last, -k)));
+  const week = [];
+  for (let k = 6; k >= 0; k--) {
+    const d = ttDate(t, -k), iso = ttIso(d);
+    week.push(`<span class="vt-d${act.has(iso) ? " on" : ""}${iso === t ? " now" : ""}"><i></i><small>${esc(d.toLocaleDateString("fr-FR", { weekday: "narrow" }).toUpperCase())}</small></span>`);
+  }
+  const dur = Math.max(0.8, 1.7 - Math.min(streak, 20) * 0.045).toFixed(2);
+  const msg = streak ? "Pouls régulier · " + streak + " jour" + (streak > 1 ? "s" : "") + " d'affilée" : "Pouls absent · revenez demain pour relancer la série";
+  return `<div class="vitals${streak ? "" : " flat"}" style="--ecg:${dur}s">
+    <div class="vt-left"><div class="vt-tag"><span class="vt-dot"></span>Pouls d'apprentissage</div><div class="vt-ecg" aria-hidden="true"></div><div class="vt-msg">${esc(msg)}</div></div>
+    <div class="vt-week" aria-label="7 derniers jours">${week.join("")}</div></div>`;
 }
 
 function countUpAll() {
@@ -8997,7 +9081,7 @@ function countUpAll() {
 // Apparition en cascade au défilement (sécurité : tout redevient visible au bout de 2,5 s)
 function revealHome() {
   if (!("IntersectionObserver" in window) || fxReduce()) return;
-  const els = [...document.querySelectorAll("#homePage .vitals, #homePage .stats-grid, #homePage .section-title, #homePage .grp-title, #homePage .module-card")];
+  const els = [...document.querySelectorAll("#homePage .today, #homePage .stats-grid, #homePage .section-title, #homePage .grp-title, #homePage .module-card")];
   const done = el => el.classList.remove("rv", "in");
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (!e.isIntersecting) return;
@@ -9014,7 +9098,7 @@ function revealHome() {
   setTimeout(() => { io.disconnect(); els.forEach(done); }, 2500);
 }
 
-function homeFx() { try { renderVitals(); countUpAll(); revealHome(); } catch (e) { console.error("Animations :", e); } }
+function homeFx() { try { renderToday(); countUpAll(); revealHome(); } catch (e) { console.error("Animations :", e); } }
 
 // Entrée douce des pages intérieures
 function pgEnter() {
