@@ -1571,6 +1571,62 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 /* ===== ESPACE DE PARTAGE ===== */
 .sh-post h3{font-family:'Outfit',sans-serif;color:var(--navy);margin:8px 0 4px;font-size:17px}.sh-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
 .sh-com{margin-top:10px;border-top:1px solid #eef2f6;padding-top:6px}.sh-com .mx-row{grid-template-columns:1fr auto;align-items:center}
+/* ===== E-LEARNING PRO ===== */
+.el-hero{background:linear-gradient(135deg,#0b2238,#133e5b 55%,#116e6c);border-radius:22px;padding:18px 18px;box-shadow:0 14px 34px rgba(11,34,56,.25)}
+.el-lvl{position:relative;width:66px;height:66px;border-radius:50%;background:conic-gradient(#ffd166 calc(var(--p,0)*1%),rgba(255,255,255,.2) 0);display:grid;place-items:center}
+.el-lvl:before{content:"";position:absolute;inset:6px;border-radius:50%;background:#0f3350}.el-lvl span{position:relative;font-size:24px;font-weight:800}
+.el-hmain strong{font-family:'Outfit',sans-serif;font-size:17px}.el-streak{background:rgba(255,255,255,.12);border-radius:14px;padding:8px 12px}
+.el-tabs{display:flex;gap:6px;background:#e9eff4;border-radius:14px;padding:5px;margin:14px 0}.el-tabs .tt-chip{flex:1;text-align:center;border:0;background:transparent;border-radius:10px;padding:10px 4px;font-size:13px}.el-tabs .tt-chip.on{background:#fff;color:var(--navy);box-shadow:0 2px 6px rgba(16,43,70,.15)}
+.el-focus>*:not(#elBody){display:none!important}
+/* parcours */
+.elp-sum{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--border);border-radius:18px;padding:14px 16px;margin:0 0 14px;box-shadow:var(--shadow)}
+.elp-sumt{flex:1;min-width:0}.elp-sumt strong{display:block;font-family:'Outfit',sans-serif;color:var(--navy);font-size:17px}.elp-sumt small{color:var(--muted);font-size:12px}
+.elp-bar{height:10px;border-radius:99px;background:#e8edf2;margin-top:8px;overflow:hidden}.elp-bar i{display:block;height:100%;background:linear-gradient(90deg,#ffc800,#ff9f1c);border-radius:99px;transition:width .6s}.elp-all{font-weight:800;color:#237a3b}
+.elp-unit{background:#fff;border:1px solid var(--border);border-radius:22px;overflow:hidden;margin:0 0 18px;box-shadow:var(--shadow)}
+.elp-banner{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px 18px;color:#fff;background:var(--c);background:linear-gradient(135deg,var(--c),color-mix(in srgb,var(--c) 68%,#000))}
+.elp-banner small{font-size:11px;font-weight:800;letter-spacing:1.4px;opacity:.85}.elp-banner h3{margin:2px 0;font-family:'Outfit',sans-serif;font-size:22px}.elp-banner span{font-size:12px;opacity:.9}.elp-ico{font-size:42px;filter:drop-shadow(0 4px 6px rgba(0,0,0,.25))}
+.elp-path{position:relative;display:flex;flex-direction:column;align-items:center;padding:26px 0 20px}
+.elp-path:before{content:"";position:absolute;top:30px;bottom:30px;left:50%;border-left:5px dotted #dfe6ec;transform:translateX(-50%)}
+.elp-step{position:relative;display:flex;flex-direction:column;align-items:center;transform:translateX(var(--o));margin:8px 0;z-index:1}.elp-step small{font-size:11px;font-weight:600;color:var(--muted);margin-top:8px;max-width:130px;text-align:center;background:#fff;padding:0 4px}
+.elp-node{width:76px;height:76px;border-radius:50%;border:0;font:inherit;font-size:26px;font-weight:800;color:#fff;cursor:pointer;background:var(--c);box-shadow:0 7px 0 rgba(0,0,0,.22);transition:transform .12s,box-shadow .12s}
+.elp-node:active{transform:translateY(5px);box-shadow:0 2px 0 rgba(0,0,0,.22)}.elp-node.done{background:#ffc800;color:#fff}.elp-node.lock{background:#e5e5e5;color:#9aa5b1;box-shadow:0 7px 0 #cfcfcf;cursor:not-allowed}
+.elp-node.cur{animation:elpulse 1.7s infinite}@keyframes elpulse{0%,100%{box-shadow:0 7px 0 rgba(0,0,0,.22),0 0 0 0 rgba(21,156,148,.4)}50%{box-shadow:0 7px 0 rgba(0,0,0,.22),0 0 0 14px rgba(21,156,148,0)}}
+.elp-go{position:absolute;top:-40px;background:#fff;border:2px solid #e5e5e5;color:var(--c);font-weight:800;font-size:12px;letter-spacing:.5px;padding:6px 12px;border-radius:12px;animation:elfloat 1.4s ease-in-out infinite;white-space:nowrap}
+.elp-go:after{content:"";position:absolute;bottom:-8px;left:50%;width:12px;height:12px;background:#fff;border-right:2px solid #e5e5e5;border-bottom:2px solid #e5e5e5;transform:translateX(-50%) rotate(45deg)}@keyframes elfloat{50%{transform:translateY(-6px)}}
+/* leçons et exercices en plein écran */
+.elx{max-width:640px;margin:0 auto;min-height:72vh;display:flex;flex-direction:column;padding:4px 2px 120px}
+.elx-top{display:flex;align-items:center;gap:12px;margin:0 0 18px}.elx-prog{flex:1;height:14px;border-radius:99px;background:#e5eaf0;overflow:hidden}.elx-prog i{display:block;height:100%;background:var(--c,#58cc02);border-radius:99px;transition:width .45s cubic-bezier(.3,.8,.3,1)}
+.elx-hearts{font-size:16px;white-space:nowrap}.elx-hearts.lost{animation:elshake .4s}@keyframes elshake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.elx-slide{animation:elin .35s ease both}@keyframes elin{from{opacity:0;transform:translateX(26px)}}
+.elx-body{flex:1}.elx-ill{width:104px;height:104px;border-radius:30px;background:var(--c);background:linear-gradient(135deg,var(--c),color-mix(in srgb,var(--c) 70%,#000));display:grid;place-items:center;font-size:54px;margin:0 0 16px;box-shadow:0 8px 0 rgba(0,0,0,.14)}
+.elx-tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--c,#159c94);margin:0 0 6px}
+.elx-title,.elx-q{font-family:'Outfit',sans-serif;color:var(--navy);font-size:26px;line-height:1.25;margin:0 0 12px}.elx-q{font-size:22px}
+.elx-text{font-size:17px;line-height:1.75;color:var(--text);margin:0 0 16px}
+.elx-dots{display:flex;gap:6px;margin-top:16px}.elx-dots i{width:9px;height:9px;border-radius:50%;background:#dfe6ec}.elx-dots i.on{background:var(--c);width:24px;border-radius:99px}.elx-dots i.done{background:var(--c);opacity:.5}
+.elx-opts{display:grid;gap:2px}.elx-opt{display:flex;gap:12px;align-items:center;width:100%;text-align:left;border:2px solid #dbe3ea;border-bottom-width:5px;background:#fff;border-radius:16px;padding:14px;margin:6px 0;font:inherit;font-size:16px;color:var(--navy);cursor:pointer;transition:transform .1s}
+.elx-opt:active{transform:translateY(2px)}.elx-opt b{flex:none;width:30px;height:30px;border:2px solid #dbe3ea;border-radius:9px;display:grid;place-items:center;font-size:13px;color:#8795a3}
+.elx-opt.sel{border-color:#1cb0f6;background:#ddf4ff}.elx-opt.sel b{border-color:#1cb0f6;color:#1cb0f6}.elx-opt.ok{border-color:#58cc02;background:#d7ffb8}.elx-opt.ko{border-color:#ff4b4b;background:#ffdfe0}.elx-opt:disabled{cursor:default}
+.elx-bar{position:fixed;left:0;right:0;bottom:0;z-index:90;display:flex;gap:12px;align-items:center;justify-content:center;padding:14px 16px calc(14px + env(safe-area-inset-bottom));background:#fff;border-top:2px solid #e5eaf0}
+.elx-bar.good{background:#d7ffb8;border-color:#b8f28b}.elx-bar.bad{background:#ffdfe0;border-color:#ffc1c1}.elx-fb{flex:1;max-width:420px}.elx-fb strong{font-size:18px;display:block}.elx-bar.good strong{color:#3c8c00}.elx-bar.bad strong{color:#d43b3b}.elx-fb p{margin:3px 0 0;font-size:14px;line-height:1.45;color:#37474f}
+.elx-btn{flex:1;max-width:640px;border:0;border-radius:16px;padding:15px 18px;font:inherit;font-weight:800;letter-spacing:.8px;font-size:15px;color:#fff;cursor:pointer;background:var(--c,#58cc02);box-shadow:0 5px 0 rgba(0,0,0,.2)}
+.elx-bar .elx-fb+.elx-btn{flex:none;min-width:150px}.elx-btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.2)}.elx-btn:disabled{background:#e5e5e5;color:#a8b0b8;box-shadow:0 5px 0 #cfcfcf;cursor:not-allowed}.elx-btn.red{background:#ff4b4b}.elx-btn.ghost{background:#fff;color:var(--navy);border:2px solid #dbe3ea;box-shadow:0 5px 0 #dbe3ea}.elx-btn.small{flex:none;padding:11px 18px}
+/* fin de leçon */
+.elx-end{text-align:center;align-items:center;justify-content:center}.elx-trophy{font-size:84px;animation:elbounce .9s ease both}@keyframes elbounce{0%{transform:scale(.2) rotate(-20deg);opacity:0}60%{transform:scale(1.15) rotate(6deg)}100%{transform:scale(1)}}
+.elx-end h2{font-family:'Outfit',sans-serif;color:var(--navy);font-size:28px;margin:8px 0}.elx-sub{color:var(--muted);line-height:1.6;max-width:360px}
+.elx-stars{display:flex;gap:10px;justify-content:center;margin:6px 0 14px}.elx-stars i{font-style:normal;font-size:46px;color:#dfe6ec;transform:scale(.6);opacity:0}.elx-stars i.on{color:#ffc800;animation:elstar .5s ease both}@keyframes elstar{to{transform:scale(1);opacity:1}}
+.elx-stars i:not(.on){opacity:1;transform:scale(1)}
+.elx-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:420px;margin:0 0 14px}.elx-stats div{border:2px solid #e5eaf0;border-radius:16px;padding:10px 6px}.elx-stats small{display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase}.elx-stats b{font-size:22px;color:var(--c,#159c94)}
+.elx-up{background:#fff4d6;color:#8a5a0c;font-weight:800;border-radius:14px;padding:10px 16px;margin:4px 0}.elx-new{display:flex;gap:12px;align-items:center;text-align:left;background:#fffaf0;border:2px solid #ffd166;border-radius:16px;padding:10px 14px;margin:6px 0;width:100%;max-width:420px}.elx-new span{font-size:34px}.elx-new small{display:block;font-size:11px;color:#8a6a00;font-weight:700;text-transform:uppercase}
+.el-confetti{position:fixed;inset:0;pointer-events:none;z-index:120;overflow:hidden}.el-confetti i{position:absolute;top:-14px;width:9px;height:14px;border-radius:2px;animation:elfall linear forwards}@keyframes elfall{to{transform:translateY(105vh) rotate(720deg)}}
+/* badges */
+.el-badge{position:relative;border-radius:18px;padding:16px 14px;text-align:left}.el-badge span{font-size:38px}.el-badge strong{color:var(--navy)}.el-badge.on{box-shadow:0 6px 18px rgba(255,170,0,.25)}
+/* classement */
+.elr-podium{display:flex;align-items:flex-end;justify-content:center;gap:10px;margin:6px 0 16px}
+.elr-p{flex:1;max-width:130px;display:flex;flex-direction:column;align-items:center;text-align:center}.elr-p strong{font-size:13px;color:var(--navy);margin-top:6px;word-break:break-word}.elr-p em{font-style:normal;font-weight:800;color:var(--teal-dark);font-size:13px}
+.elr-medal{font-size:26px}.elr-av{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;color:#fff;font-style:normal;font-weight:800;font-size:19px}
+.elr-bar{width:100%;border-radius:12px 12px 0 0;margin-top:8px;background:linear-gradient(180deg,#ffd166,#f2b01e)}.elr-p.p1 .elr-bar{height:96px}.elr-p.p2 .elr-bar{height:70px;background:linear-gradient(180deg,#d9dee3,#b4bcc4)}.elr-p.p3 .elr-bar{height:52px;background:linear-gradient(180deg,#e3b387,#c98e57)}
+.elr-p.me strong{color:var(--teal-dark)}.el-row .elr-av{width:36px;height:36px;font-size:15px}.el-rank:empty{display:none}
+@media (prefers-reduced-motion:reduce){.elx-slide,.elx-trophy,.elp-node.cur,.elp-go,.elx-stars i{animation:none!important}.elx-stars i.on{opacity:1;transform:none}}
 </style>
 </head>
 
@@ -4295,16 +4351,16 @@ function elTouch() {
 }
 let elTab = "learn", elTimer = null;
 function renderElearning() {
-  clearInterval(elTimer);
+  clearInterval(elTimer); elFocus(false);
   const inner = document.getElementById("innerPage"), s = elTouch(), lv = elLevel(s.xp);
   const lo = 40 * (lv - 1) ** 2, hi = 40 * lv * lv, pct = Math.round((s.xp - lo) / (hi - lo) * 100);
   inner.innerHTML = `
     <div class="page-heading"><div class="eyebrow">ESPACE PÉDAGOGIQUE</div><h1>E-learning</h1><p>${esc(moduleDescriptions["E-learning"])}</p></div>
-    <div class="el-hero"><div class="el-lvl">${lv}</div>
+    <div class="el-hero"><div class="el-lvl" style="--p:${pct}"><span>${lv}</span></div>
       <div class="el-hmain"><strong>${esc(EL_TITLES[Math.min(lv - 1, 5)])}</strong><div class="el-bar"><i style="width:${pct}%"></i></div><small>${s.xp} XP · encore ${hi - s.xp} XP pour le niveau ${lv + 1}</small></div>
       <div class="el-streak">🔥 ${s.streak}<small>jour${s.streak > 1 ? "s" : ""}</small></div></div>
     ${vitalsHTML(s)}
-    <div class="tt-chips">${[["learn", "Apprendre"], ["play", "Tester"], ["badges", "Badges"], ["rank", "Classement"]].map(t => `<button type="button" class="tt-chip${t[0] === elTab ? " on" : ""}" data-t="${t[0]}">${t[1]}</button>`).join("")}</div>
+    <div class="tt-chips el-tabs">${[["learn", "Apprendre"], ["play", "Tester"], ["badges", "Badges"], ["rank", "Classement"]].map(t => `<button type="button" class="tt-chip${t[0] === elTab ? " on" : ""}" data-t="${t[0]}">${t[1]}</button>`).join("")}</div>
     <div id="elBody"></div>
     <div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>`;
   inner.querySelectorAll("[data-t]").forEach(b => b.addEventListener("click", () => { elTab = b.dataset.t; renderElearning(); }));
@@ -4312,7 +4368,7 @@ function renderElearning() {
   if (elTab === "learn") {
     elLearn(box);
   } else if (elTab === "badges") {
-    box.innerHTML = `<div class="el-grid">${EL_B.map(b => `<div class="el-badge${s.badges.includes(b[0]) ? " on" : ""}"><span>${b[1]}</span><strong>${esc(b[2])}</strong><small>${esc(b[3])}</small></div>`).join("")}</div>`;
+    box.innerHTML = `<p class="search-hint"><strong>${s.badges.length}/${EL_B.length}</strong> badges débloqués</p><div class="el-grid">${EL_B.map(b => `<div class="el-badge${s.badges.includes(b[0]) ? " on" : ""}"><span>${b[1]}</span><strong>${esc(b[2])}</strong><small>${esc(b[3])}</small></div>`).join("")}</div>`;
   } else if (elTab === "rank") {
     elRank(box);
   } else {
@@ -4330,8 +4386,12 @@ async function elRank(box) {
   try { const r = await db.from("elearning_scores").select("user_id,name,xp,level,streak,badges").order("xp", { ascending: false }).limit(30); if (!r.error) rows = r.data; } catch (e) { /* ignoré */ }
   if (!document.getElementById("elBody")) return;
   if (!rows) { box.innerHTML = `<div class="resource-empty"><h3>Classement bientôt disponible</h3><p>Ton XP est bien enregistré sur cet appareil et sera ajouté au classement dès son activation.</p></div>`; return; }
-  const me = currentUser?.id, medal = ["🥇", "🥈", "🥉"];
-  box.innerHTML = rows.length ? `<div class="el-rank">${rows.map((r, i) => `<div class="el-row${r.user_id === me ? " me" : ""}"><b>${medal[i] || i + 1}</b><span>${esc(r.name || "Étudiant")}<small>Niv. ${r.level} · 🔥 ${r.streak} · 🏅 ${r.badges}</small></span><em>${r.xp} XP</em></div>`).join("")}</div>` : `<p class="search-hint">Sois le premier au classement : lance une partie !</p>`;
+  const me = currentUser?.id, hue = n => { let h = 0; for (const c of String(n)) h = (h * 31 + c.charCodeAt(0)) % 360; return h; };
+  const av = r => `<i class="elr-av" style="background:hsl(${hue(r.user_id || r.name)} 55% 46%)">${esc((r.name || "É").trim().charAt(0).toUpperCase())}</i>`;
+  if (!rows.length) { box.innerHTML = `<p class="search-hint">Sois le premier au classement : termine une leçon !</p>`; return; }
+  const top = rows.slice(0, 3), order = [1, 0, 2].filter(i => top[i]);
+  box.innerHTML = `<div class="elr-podium">${order.map(i => { const r = top[i]; return `<div class="elr-p p${i + 1}${r.user_id === me ? " me" : ""}"><span class="elr-medal">${["🥇", "🥈", "🥉"][i]}</span>${av(r)}<strong>${esc(r.name || "Étudiant")}</strong><em>${r.xp} XP</em><div class="elr-bar"></div></div>`; }).join("")}</div>
+    <div class="el-rank">${rows.slice(3).map((r, i) => `<div class="el-row${r.user_id === me ? " me" : ""}"><b>${i + 4}</b>${av(r)}<span>${esc(r.name || "Étudiant")}<small>Niv. ${r.level} · 🔥 ${r.streak} · 🏅 ${r.badges}</small></span><em>${r.xp} XP</em></div>`).join("")}</div>`;
 }
 function elPlay(th) {
   const daily = th === "*", pool = daily ? EL_Q : EL_Q.filter(q => q[0] === th);
@@ -4492,74 +4552,133 @@ EL_B.push(
 const elItems = ex => ex.map(e => e[0] === "vf"
   ? { q: e[1], o: [["Vrai", e[2]], ["Faux", !e[2]]], e: e[3] }
   : { q: e[1], o: elShuf(e[2].map((t, i) => [t, i === e[3]])), e: e[4] });
-// Exercices : 3 vies, une question ratée revient une fois à la fin (leçon)
+const EL_COL = { ana: "#e0562e", phy: "#2f80ed", sem: "#8a4fd1", ter: "#159c94", pat: "#d9392b", soi: "#f2994a" };
+// --- Sons, vibration, confettis, mode concentration ---
+let elAudio = null;
+const elSndOn = () => lsGet("ish_el_snd", true) !== false;
+function elSnd(kind) {
+  if (!elSndOn()) return;
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+    elAudio = elAudio || new AC(); const c = elAudio, t0 = c.currentTime;
+    const note = (f, t, d, type, v) => { const o = c.createOscillator(), g = c.createGain(); o.type = type || "sine"; o.frequency.value = f; g.gain.setValueAtTime(0.0001, t0 + t); g.gain.exponentialRampToValueAtTime(v || 0.12, t0 + t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t0 + t + d); o.connect(g); g.connect(c.destination); o.start(t0 + t); o.stop(t0 + t + d + 0.05); };
+    if (kind === "ok") { note(659, 0, 0.12); note(880, 0.1, 0.22); }
+    else if (kind === "ko") { note(196, 0, 0.25, "sawtooth", 0.07); note(147, 0.12, 0.3, "sawtooth", 0.07); }
+    else if (kind === "tap") note(520, 0, 0.05, "sine", 0.05);
+    else if (kind === "win") [523, 659, 784, 1047].forEach((f, i) => note(f, i * 0.12, 0.32));
+    else if (kind === "lose") [392, 330, 262].forEach((f, i) => note(f, i * 0.16, 0.3, "triangle"));
+  } catch (e) { /* ignoré */ }
+}
+const elBuzz = ms => { try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) { /* ignoré */ } };
+function elConfetti() {
+  try {
+    const box = document.createElement("div"); box.className = "el-confetti";
+    const cols = ["#ffd166", "#06d6a0", "#ef476f", "#118ab2", "#8a4fd1", "#f2994a"];
+    for (let i = 0; i < 46; i++) { const p = document.createElement("i"); p.style.cssText = `left:${Math.random() * 100}%;background:${cols[i % 6]};animation-delay:${Math.random() * 0.6}s;animation-duration:${1.8 + Math.random() * 1.4}s`; box.appendChild(p); }
+    document.body.appendChild(box); setTimeout(() => box.remove(), 3800);
+  } catch (e) { /* ignoré */ }
+}
+function elFocus(on) { const p = document.getElementById("innerPage"); if (p && p.classList) p.classList.toggle("el-focus", on); }
+// --- Exercices : choisir, vérifier, feedback en bas, 3 vies ---
 function elEx(box, items, o) {
-  const q = items.slice(), retried = new Set(), total = items.length;
-  let i = 0, hearts = 3, first = 0, errors = 0;
+  const q = items.slice(), retried = new Set(), total = items.length, base = o.base || 0;
+  let i = 0, hearts = 3, first = 0, errors = 0, keyH = null;
+  const finish = r => { if (keyH) document.removeEventListener("keydown", keyH); o.done(r); };
   const show = () => {
-    if (hearts <= 0 || i >= q.length) return o.done({ first, errors, total, dead: hearts <= 0 });
-    const c = q[i]; let locked = false;
-    box.innerHTML = `<div class="el-game" id="elGame"><div class="el-top"><button type="button" class="el-x" id="elQuit">✕</button><span>${"❤️".repeat(hearts)}${"🖤".repeat(3 - hearts)}</span><span>${esc(o.label)} ${Math.min(i + 1, q.length)}/${q.length}</span></div>
-      <div class="el-bar t"><i style="width:${i / q.length * 100}%"></i></div><h3 class="el-q">${esc(c.q)}</h3>
-      ${c.o.map((x, k) => `<button type="button" class="el-opt" data-i="${k}">${esc(x[0])}</button>`).join("")}<div id="elFb"></div></div>`;
+    if (hearts <= 0 || i >= q.length) return finish({ first, errors, total, dead: hearts <= 0 });
+    const c = q[i]; let sel = -1, checked = false;
+    box.innerHTML = `<div class="elx" id="elGame" style="--c:${o.color || "#159c94"}">
+      <div class="elx-top"><button type="button" class="el-x" id="elQuit" aria-label="Quitter">✕</button><div class="elx-prog"><i style="width:${(base + i) / (base + q.length) * 100}%"></i></div><span class="elx-hearts" id="elHearts">${"❤️".repeat(hearts)}${"🖤".repeat(3 - hearts)}</span></div>
+      <div class="elx-body elx-slide"><span class="elx-tag">${esc(o.label)}</span><h3 class="elx-q">${esc(c.q)}</h3>
+        <div class="elx-opts">${c.o.map((x, k) => `<button type="button" class="elx-opt" data-i="${k}"><b>${k + 1}</b><span>${esc(x[0])}</span></button>`).join("")}</div></div>
+      <div class="elx-bar" id="elBar"><button type="button" class="elx-btn" id="elCheck" disabled>VÉRIFIER</button></div></div>`;
+    const opts = [...box.querySelectorAll(".elx-opt")], btn = document.getElementById("elCheck");
     document.getElementById("elQuit").onclick = () => { if (confirm("Quitter ? Ta progression dans cette étape sera perdue.")) renderElearning(); };
-    box.querySelectorAll(".el-opt").forEach(b => b.addEventListener("click", () => {
-      if (locked) return; locked = true;
-      const k = +b.dataset.i, right = c.o[k][1];
-      box.querySelectorAll(".el-opt").forEach((x, j) => { x.disabled = true; if (c.o[j][1]) x.classList.add("ok"); else if (j === k) x.classList.add("ko"); });
-      if (right) { if (!retried.has(c)) first++; } else { hearts--; errors++; if (o.requeue && !retried.has(c)) { retried.add(c); q.push(c); } }
-      document.getElementById("elFb").innerHTML = `<p class="el-exp">${right ? "✅ Bravo ! " : "❌ Pas tout à fait. "}${esc(c.e)}</p><button type="button" class="tt-chip on" id="elNext">${hearts <= 0 ? "Voir le résultat" : i + 1 >= q.length ? "Terminer" : "Suivant"}</button>`;
-      document.getElementById("elNext").onclick = () => { i++; show(); };
-    }));
+    opts.forEach(b => b.addEventListener("click", () => { if (checked) return; sel = +b.dataset.i; opts.forEach(x => x.classList.toggle("sel", x === b)); btn.disabled = false; elSnd("tap"); }));
+    btn.addEventListener("click", () => {
+      if (checked || sel < 0) return; checked = true;
+      const right = c.o[sel][1];
+      opts.forEach((x, j) => { x.disabled = true; x.classList.remove("sel"); if (c.o[j][1]) x.classList.add("ok"); else if (j === sel) x.classList.add("ko"); });
+      if (right) { if (!retried.has(c)) first++; elSnd("ok"); }
+      else { hearts--; errors++; elSnd("ko"); elBuzz(140); if (o.requeue && !retried.has(c)) { retried.add(c); q.push(c); } const hz = document.getElementById("elHearts"); hz.textContent = "❤️".repeat(hearts) + "🖤".repeat(3 - hearts); hz.classList.add("lost"); }
+      const bar = document.getElementById("elBar"); bar.className = "elx-bar " + (right ? "good" : "bad");
+      bar.innerHTML = `<div class="elx-fb"><strong>${right ? "Bravo !" : "Pas tout à fait"}</strong><p>${esc(c.e)}</p></div><button type="button" class="elx-btn ${right ? "" : "red"}" id="elCheck">${hearts <= 0 ? "VOIR LE RÉSULTAT" : i + 1 >= q.length ? "TERMINER" : "CONTINUER"}</button>`;
+      document.getElementById("elCheck").addEventListener("click", () => { i++; show(); });
+    });
+    if (keyH) document.removeEventListener("keydown", keyH);
+    keyH = e => {
+      if (!document.getElementById("elGame")) { document.removeEventListener("keydown", keyH); return; }
+      if (/^[1-4]$/.test(e.key) && !checked && opts[+e.key - 1]) opts[+e.key - 1].click();
+      else if (e.key === "Enter") { const b = document.getElementById("elCheck"); if (b && !b.disabled) b.click(); }
+    };
+    document.addEventListener("keydown", keyH);
   };
   show();
 }
-// Résultat : XP, niveau, badges
+// --- Écran de fin : XP, étoiles, confettis, badges ---
 function elEnd(k, id, kind, r, again) {
-  const box = document.getElementById("elBody"), s = elLoad(), before = elLevel(s.xp), firstTime = !s.les[id];
+  const box = document.getElementById("elBody"), s = elLoad(), before = elLevel(s.xp), firstTime = !s.les[id], col = EL_COL[k];
   if (r.dead) {
-    box.innerHTML = `<div class="el-end"><div class="el-big">💔</div><h2>Plus de vies</h2><p>${kind === "t" ? "Relis les leçons de cette unité puis retente le test." : "Relis la leçon et réessaie : tu vas y arriver."}</p><div class="tt-chips"><button type="button" class="tt-chip on" id="elAgain">Réessayer</button><button type="button" class="tt-chip" id="elHome">Retour</button></div></div>`;
+    elSnd("lose");
+    box.innerHTML = `<div class="elx elx-end" style="--c:${col}"><div class="elx-trophy">💔</div><h2>Plus de vies</h2><p class="elx-sub">${kind === "t" ? "Relis les leçons de cette unité puis retente le test." : "Relis la leçon et réessaie : tu vas y arriver !"}</p>
+      <div class="elx-bar"><button type="button" class="elx-btn" id="elAgain">RÉESSAYER</button><button type="button" class="elx-btn ghost" id="elHome">QUITTER</button></div></div>`;
     document.getElementById("elAgain").onclick = again; document.getElementById("elHome").onclick = renderElearning; return;
   }
   const gain = kind === "t" ? (firstTime ? 40 : 10) : firstTime ? 15 + 3 * r.first + (r.errors === 0 ? 10 : 0) : 5;
   s.xp += gain; s.les[id] = { best: Math.max((s.les[id] || {}).best || 0, Math.round(r.first / r.total * 100)) };
   if (r.errors === 0 && kind !== "t") s.lperf = (s.lperf || 0) + 1;
-  const nw = elSave(s), up = elLevel(s.xp) > before;
-  box.innerHTML = `<div class="el-end"><div class="el-big">${kind === "t" ? "👑" : r.errors === 0 ? "🏆" : "🎉"}</div><h2>${kind === "t" ? "Unité validée !" : "Leçon terminée !"}</h2><p class="el-gain">+${gain} XP</p>
-    ${up ? `<p class="el-up">Niveau ${elLevel(s.xp)} atteint !</p>` : ""}${nw.map(b => `<p class="el-new">${b[1]} Badge débloqué : <strong>${esc(b[2])}</strong></p>`).join("")}
-    <div class="tt-chips"><button type="button" class="tt-chip on" id="elHome">Continuer</button></div></div>`;
+  const nw = elSave(s), up = elLevel(s.xp) > before, stars = r.errors === 0 ? 3 : r.errors <= 1 ? 2 : 1, acc = Math.round(r.first / r.total * 100);
+  box.innerHTML = `<div class="elx elx-end" style="--c:${col}"><div class="elx-trophy">${kind === "t" ? "👑" : r.errors === 0 ? "🏆" : "🎉"}</div><h2>${kind === "t" ? "Unité validée !" : "Leçon terminée !"}</h2>
+    <div class="elx-stars">${[1, 2, 3].map(n => `<i class="${n <= stars ? "on" : ""}" style="animation-delay:${n * 0.18}s">★</i>`).join("")}</div>
+    <div class="elx-stats"><div><small>XP gagnés</small><b id="elXp">+${gain}</b></div><div><small>Précision</small><b>${acc}%</b></div><div><small>Série</small><b>🔥 ${s.streak}</b></div></div>
+    ${up ? `<div class="elx-up">⬆️ Niveau ${elLevel(s.xp)} atteint !</div>` : ""}${nw.map(b => `<div class="elx-new"><span>${b[1]}</span><div><small>Badge débloqué</small><strong>${esc(b[2])}</strong></div></div>`).join("")}
+    <div class="elx-bar"><button type="button" class="elx-btn" id="elHome">CONTINUER</button></div></div>`;
   document.getElementById("elHome").onclick = renderElearning;
+  elSnd("win"); elConfetti();
+  const xe = document.getElementById("elXp"); if (xe) { let n = 0; const iv = setInterval(() => { n = Math.min(gain, n + Math.max(1, Math.ceil(gain / 18))); xe.textContent = "+" + n; if (n >= gain) clearInterval(iv); }, 35); }
 }
 function elLesson(k, idx) {
-  const L = EL_COURSE[k][idx], th = EL_T[k], box = document.getElementById("elBody"), id = k + "-" + idx; let ci = 0;
+  const L = EL_COURSE[k][idx], th = EL_T[k], col = EL_COL[k], box = document.getElementById("elBody"), id = k + "-" + idx, total = L.cards.length + L.ex.length; let ci = 0;
+  elFocus(true);
   const card = () => {
     const c = L.cards[ci];
-    box.innerHTML = `<div class="el-game"><div class="el-top"><button type="button" class="el-x" id="elQuit">✕</button><span>${th[1]} ${esc(L.t)}</span><span>${ci + 1}/${L.cards.length}</span></div>
-      <div class="el-bar t"><i style="width:${ci / L.cards.length * 100}%"></i></div>
-      <div class="el-lesson"><span class="el-step">Apprendre</span><h3>${esc(c[0])}</h3><p>${esc(c[1])}</p><div class="el-key"><strong>À retenir</strong> ${esc(c[2])}</div></div>
-      <button type="button" class="tt-chip on" id="elGo">${ci + 1 < L.cards.length ? "Continuer" : "Passer aux exercices"}</button></div>`;
+    box.innerHTML = `<div class="elx" id="elGame" style="--c:${col}">
+      <div class="elx-top"><button type="button" class="el-x" id="elQuit" aria-label="Quitter">✕</button><div class="elx-prog"><i style="width:${ci / total * 100}%"></i></div><button type="button" class="el-x" id="elSnd" aria-label="Son">${elSndOn() ? "🔊" : "🔇"}</button></div>
+      <div class="elx-body elx-slide"><div class="elx-ill"><span>${th[1]}</span></div><span class="elx-tag">Leçon ${idx + 1} · ${esc(L.t)}</span>
+        <h3 class="elx-title">${esc(c[0])}</h3><p class="elx-text">${esc(c[1])}</p><div class="el-key"><strong>À retenir</strong>${esc(c[2])}</div>
+        <div class="elx-dots">${L.cards.map((_, n) => `<i class="${n === ci ? "on" : n < ci ? "done" : ""}"></i>`).join("")}</div></div>
+      <div class="elx-bar"><button type="button" class="elx-btn" id="elGo">${ci + 1 < L.cards.length ? "CONTINUER" : "C'EST PARTI !"}</button></div></div>`;
     document.getElementById("elQuit").onclick = renderElearning;
-    document.getElementById("elGo").onclick = () => { ci++; if (ci < L.cards.length) card(); else elEx(box, elItems(L.ex), { requeue: true, label: "Exercice", done: r => elEnd(k, id, "l", r, () => elLesson(k, idx)) }); };
+    document.getElementById("elSnd").onclick = () => { lsSet("ish_el_snd", !elSndOn()); document.getElementById("elSnd").textContent = elSndOn() ? "🔊" : "🔇"; };
+    document.getElementById("elGo").onclick = () => { elSnd("tap"); ci++; if (ci < L.cards.length) card(); else elEx(box, elItems(L.ex), { requeue: true, label: "Exercice", base: L.cards.length, color: col, done: r => elEnd(k, id, "l", r, () => elLesson(k, idx)) }); };
   };
   card();
 }
 function elUnit(k) {
+  elFocus(true);
   const box = document.getElementById("elBody"), items = elItems(EL_COURSE[k].flatMap(l => l.ex)).sort(() => Math.random() - 0.5);
-  elEx(box, items, { requeue: false, label: "Test", done: r => elEnd(k, k + "-t", "t", r, () => elUnit(k)) });
+  elEx(box, items, { requeue: false, label: "Test de l'unité", color: EL_COL[k], done: r => elEnd(k, k + "-t", "t", r, () => elUnit(k)) });
 }
+// --- Parcours : unités colorées, chemin en zigzag, étape suivante mise en avant ---
 function elLearn(box) {
   const s = elLoad();
-  box.innerHTML = `<p class="search-hint" id="elMsg">Apprends chaque leçon, puis entraîne-toi : 3 vies par étape. Le test d'unité donne une couronne.</p>` + Object.entries(EL_T).map(([k, th]) => {
-    const nodes = EL_COURSE[k].map((l, i) => ({ id: k + "-" + i, t: l.t, i })).concat([{ id: k + "-t", t: "Test de l'unité", test: true }]);
-    const done = n => !!s.les[n.id], state = (n, x) => done(n) ? "done" : x === 0 || done(nodes[x - 1]) ? "open" : "lock";
-    return `<div class="el-unit"><div class="el-uhead"><span>${th[1]}</span><div><strong>${esc(th[0])}</strong><small>${nodes.filter(done).length}/${nodes.length} étapes</small></div></div>
-      <div class="el-path">${nodes.map((n, x) => { const st = state(n, x); return `<div class="el-nwrap" style="--o:${[0, 46, 0, -46][x % 4]}px"><button type="button" class="el-node ${st}" data-k="${k}" data-i="${n.test ? "t" : n.i}">${st === "done" ? (n.test ? "👑" : "✓") : st === "lock" ? "🔒" : n.test ? "🏁" : x + 1}</button><small>${esc(n.t)}</small></div>`; }).join("")}</div></div>`;
-  }).join("");
+  const units = Object.entries(EL_T).map(([k, th]) => { const nodes = EL_COURSE[k].map((l, i) => ({ id: k + "-" + i, t: l.t, i })).concat([{ id: k + "-t", t: "Test de l'unité", test: true }]); return { k, th, nodes, done: nodes.filter(n => s.les[n.id]).length }; });
+  const totalSteps = units.reduce((a, u) => a + u.nodes.length, 0), doneSteps = units.reduce((a, u) => a + u.done, 0);
+  const next = units.map(u => { const n = u.nodes.find(n => !s.les[n.id]); return n ? { u, n } : null; }).find(Boolean);
+  const start = (k, i) => { if (i === "t") elUnit(k); else elLesson(k, +i); };
+  box.innerHTML = `<div class="elp-sum"><div class="elp-sumt"><strong>Ton parcours</strong><small>${doneSteps}/${totalSteps} étapes terminées</small><div class="elp-bar"><i style="width:${Math.round(doneSteps / totalSteps * 100)}%"></i></div></div>
+      ${next ? `<button type="button" class="elx-btn small" id="elNextGo">CONTINUER</button>` : `<span class="elp-all">🎓 Parcours terminé !</span>`}</div><p class="search-hint" id="elMsg"></p>` +
+    units.map((u, ui) => `<section class="elp-unit" style="--c:${EL_COL[u.k]}">
+      <div class="elp-banner"><div><small>UNITÉ ${ui + 1}</small><h3>${esc(u.th[0])}</h3><span>${u.done}/${u.nodes.length} étapes</span></div><div class="elp-ico">${u.th[1]}</div></div>
+      <div class="elp-path">${u.nodes.map((n, x) => { const st = s.les[n.id] ? "done" : (x === 0 || s.les[u.nodes[x - 1].id]) ? "open" : "lock", cur = next && next.n.id === n.id;
+        return `<div class="elp-step" style="--o:${[0, 44, 0, -44][x % 4]}px">${cur ? `<span class="elp-go">COMMENCER</span>` : ""}<button type="button" class="elp-node ${st}${cur ? " cur" : ""}" data-k="${u.k}" data-i="${n.test ? "t" : n.i}" aria-label="${esc(n.t)}">${st === "done" ? (n.test ? "👑" : "★") : st === "lock" ? "🔒" : n.test ? "🏁" : x + 1}</button><small>${esc(n.t)}</small></div>`; }).join("")}</div></section>`).join("");
   box.querySelectorAll("[data-k]").forEach(b => b.addEventListener("click", () => {
-    if (b.classList.contains("lock")) { document.getElementById("elMsg").textContent = "🔒 Termine d'abord l'étape précédente."; return; }
-    if (b.dataset.i === "t") elUnit(b.dataset.k); else elLesson(b.dataset.k, +b.dataset.i);
+    if (b.classList.contains("lock")) { document.getElementById("elMsg").textContent = "🔒 Termine d'abord l'étape précédente."; elBuzz(60); return; }
+    start(b.dataset.k, b.dataset.i);
   }));
+  const ng = document.getElementById("elNextGo"); if (ng && next) ng.onclick = () => start(next.u.k, next.n.test ? "t" : next.n.i);
 }
+
 // =====================================
 // ESPACE DE PARTAGE : groupes par option, ressources, commentaires
 // =====================================
