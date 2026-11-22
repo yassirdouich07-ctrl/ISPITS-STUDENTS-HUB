@@ -1627,6 +1627,14 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .elr-bar{width:100%;border-radius:12px 12px 0 0;margin-top:8px;background:linear-gradient(180deg,#ffd166,#f2b01e)}.elr-p.p1 .elr-bar{height:96px}.elr-p.p2 .elr-bar{height:70px;background:linear-gradient(180deg,#d9dee3,#b4bcc4)}.elr-p.p3 .elr-bar{height:52px;background:linear-gradient(180deg,#e3b387,#c98e57)}
 .elr-p.me strong{color:var(--teal-dark)}.el-row .elr-av{width:36px;height:36px;font-size:15px}.el-rank:empty{display:none}
 @media (prefers-reduced-motion:reduce){.elx-slide,.elx-trophy,.elp-node.cur,.elp-go,.elx-stars i{animation:none!important}.elx-stars i.on{opacity:1;transform:none}}
+
+/* ===== RACCOURCIS & RETOUR ===== */
+.hero-chips{position:relative;z-index:2}
+.hero-chips [data-open]{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .2s,filter .2s}
+.hero-chips [data-open]:hover{transform:translateY(-2px);filter:brightness(1.3)}
+.hero-chips [data-open]:active{transform:scale(.95)}
+.hero-chips [data-open]:focus-visible,#topLogo:focus-visible{outline:2px solid #5eead4;outline-offset:3px}
+#topLogo{cursor:pointer;-webkit-tap-highlight-color:transparent}
 </style>
 </head>
 
@@ -1791,7 +1799,7 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
   <header class="topbar">
     <div class="topbar-left">
       <button class="mobile-menu-btn" id="menuBtn" type="button" aria-label="Ouvrir le menu">☰</button>
-      <div class="logo">
+      <div class="logo" id="topLogo" role="button" tabindex="0" aria-label="Retour à l'accueil">
         <svg class="logo-symbol"><use href="#hub-logo"></use></svg>
         <div>
           <div class="logo-title">ISPITS STUDENTS HUB</div>
@@ -1882,7 +1890,7 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
             <div class="hero-copy">
               <h2>Bienvenue sur votre plateforme !</h2>
               <p>Toutes vos ressources pédagogiques réunies dans un seul espace pour accompagner votre parcours de formation.</p>
-            <div class="hero-chips"><span><svg class="ico"><use href="#i-book"/></svg>Cours</span><span><svg class="ico"><use href="#i-syringe"/></svg>TP</span><span><svg class="ico"><use href="#i-check"/></svg>QCM</span><span><svg class="ico"><use href="#i-spark"/></svg>IA</span></div>
+            <div class="hero-chips"><span data-open="Cours" role="button" tabindex="0" aria-label="Ouvrir Cours"><svg class="ico"><use href="#i-book"/></svg>Cours</span><span data-open="TP Simulation" role="button" tabindex="0" aria-label="Ouvrir TP Simulation"><svg class="ico"><use href="#i-syringe"/></svg>TP</span><span data-open="Examens &amp; QCM" role="button" tabindex="0" aria-label="Ouvrir Examens et QCM"><svg class="ico"><use href="#i-check"/></svg>QCM</span><span data-open="Assistant IA" role="button" tabindex="0" aria-label="Ouvrir Assistant IA"><svg class="ico"><use href="#i-spark"/></svg>IA</span></div>
             </div>
             <div class="hero-tag"><svg class="ico"><use href="#i-spark"/></svg> Learning space</div>
           </div>
@@ -2387,6 +2395,7 @@ const moduleIcons = {
 };
 
 function showHome() {
+  histPush("Accueil");
   stopSim();
   document.getElementById("homePage").classList.remove("hidden");
   document.getElementById("innerPage").classList.add("hidden");
@@ -2405,6 +2414,7 @@ function setActiveNav(pageName) {
 function openPage(pageName, arg) {
   if (rubBlocked(pageName)) { showToast("Cette rubrique est temporairement indisponible."); pageName = "Accueil"; }
   pgEnter();
+  histPush(pageName, arg);
   try { noteLastPage(pageName); } catch (e) { /* ignoré */ }
   stopSim();
   setActiveNav(pageName);
@@ -9877,6 +9887,51 @@ document.getElementById("homePage").addEventListener("pointermove", e => {
   c.style.setProperty("--mx", (e.clientX - r.left) + "px");
   c.style.setProperty("--my", (e.clientY - r.top) + "px");
 });
+
+
+// =====================================
+// NAVIGATION : le bouton Retour du navigateur / du téléphone reste dans le site
+// =====================================
+const hist = { popping: false, rootAt: 0 };
+const histArg = a => (typeof a === "string" || typeof a === "number" || typeof a === "boolean") ? a : null;
+
+function histInit() {
+  try {
+    history.replaceState({ ish: 1, page: "__root" }, "");
+    history.pushState({ ish: 1, page: "Accueil", arg: null }, "");
+  } catch (e) { /* ignoré */ }
+}
+function histPush(page, arg) {
+  if (hist.popping || !currentUser) return;
+  try {
+    if (!history.state || !history.state.ish) histInit();
+    const a = histArg(arg), cur = history.state;
+    if (cur && cur.page === page && cur.arg === a) return;
+    history.pushState({ ish: 1, page, arg: a }, "");
+  } catch (e) { /* ignoré */ }
+}
+window.addEventListener("popstate", e => {
+  const st = e.state;
+  if (!currentUser || !st || !st.ish) return;
+  if (st.page === "__root") {
+    // Retour depuis l'accueil : 1er appui = avertissement, 2e appui rapproché = quitter
+    if (Date.now() - hist.rootAt < 2500) { hist.rootAt = 0; history.back(); return; }
+    hist.rootAt = Date.now();
+    showToast("Appuyez encore sur Retour pour quitter le site");
+    try { history.pushState({ ish: 1, page: "Accueil", arg: null }, ""); } catch (er) { /* ignoré */ }
+    hist.popping = true; try { showHome(); } finally { hist.popping = false; }
+    return;
+  }
+  hist.popping = true;
+  try { if (st.page === "Accueil") showHome(); else openPage(st.page, st.arg === null ? undefined : st.arg); }
+  finally { hist.popping = false; }
+});
+
+// Clavier (Entrée / Espace) sur les pastilles de la bannière et sur le logo
+document.querySelectorAll(".hero-chips [data-open], #topLogo").forEach(el => el.addEventListener("keydown", e => {
+  if (e.key === "Enter" || e.key === " ") { e.preventDefault(); el.click(); }
+}));
+document.getElementById("topLogo").addEventListener("click", () => openPage("Accueil"));
 
 // =====================================
 // INITIAL AUTH STATE
