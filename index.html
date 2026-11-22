@@ -1635,6 +1635,52 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .hero-chips [data-open]:active{transform:scale(.95)}
 .hero-chips [data-open]:focus-visible,#topLogo:focus-visible{outline:2px solid #5eead4;outline-offset:3px}
 #topLogo{cursor:pointer;-webkit-tap-highlight-color:transparent}
+
+/* ===== FICHES TECHNIQUES (SI-001 à SI-015) ===== */
+.sf-sum{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 16px;margin:0 0 14px;border:1px solid var(--border);border-radius:16px;background:#fff}
+.sf-sum-t{flex:1;min-width:180px}
+.sf-sum-t strong{display:block;font-size:14px;color:var(--navy)}
+.sf-sum-t span{font-size:12px;color:var(--muted)}
+.sf-sum .primary-btn{width:auto;margin:0;padding:11px 18px}
+.sf-filters{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:10px;margin:0 0 6px}
+.sf-filters input,.sf-filters select{width:100%;height:44px;border:1px solid #dbe3ea;border-radius:12px;padding:0 12px;background:#fff;font-size:16px;color:var(--navy);outline:none}
+.sf-filters input:focus,.sf-filters select:focus{border-color:var(--teal)}
+@media(max-width:760px){.sf-filters{grid-template-columns:1fr 1fr}.sf-filters input{grid-column:1/-1}}
+.sf-count{font-size:12px;color:var(--muted);margin:4px 2px 0}
+.res-head small{color:var(--muted);font-weight:600}
+.sf-obj{padding:14px 16px;border-radius:14px;background:var(--teal-soft);color:#0e5a55;font-size:14px;line-height:1.6;margin:0 0 8px}
+.sf-obj strong{display:block;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:2px}
+.sf-pub{font-size:12px;color:var(--muted);margin:0 0 14px}
+.sf-hint{font-size:12px;color:var(--muted);margin:6px 0 0}
+.sf-chk{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:9px 2px;font-size:14px;line-height:1.55}
+.sf-chk input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--teal);flex:none}
+.sf-chk:has(input:checked)>span:last-child{color:var(--muted);text-decoration:line-through}
+.sf-steps{list-style:none;margin:0;padding:0}
+.sf-steps li{border-top:1px solid #eef2f6}
+.sf-steps li:first-child{border-top:0}
+.sf-n{flex:none;width:24px;height:24px;border-radius:50%;background:var(--teal-soft);color:var(--teal);font-weight:800;font-size:12px;display:grid;place-items:center}
+.sf-chk:has(input:checked) .sf-n{background:var(--teal);color:#fff}
+.sf-prog{display:flex;align-items:center;gap:10px;margin:0 0 8px;font-size:12px;color:var(--muted)}
+.sf-prog-bar{flex:1;height:8px;border-radius:8px;background:#eef2f6;overflow:hidden}
+.sf-prog-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#14b8a6,#0ea5e9);transition:width .35s}
+.sf-role{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sf-role-c{padding:12px 14px;border-radius:12px;border:1px solid var(--border);border-top:4px solid #14b8a6;background:#fff}
+.sf-role-c.p{border-top-color:#0ea5e9}
+.sf-role-c.a{border-top-color:#8b5cf6}
+.sf-role-c h4{margin:0 0 4px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--navy)}
+.sf-role-c p{margin:0;font-size:13px;line-height:1.6}
+@media(max-width:760px){.sf-role{grid-template-columns:1fr}}
+.sf-err{display:flex;gap:10px;padding:11px 13px;margin:0 0 8px;border-radius:12px;background:#fff5f4;border:1px solid #f5d0cc;color:#8f2a22;font-size:13.5px;line-height:1.55}
+.sf-err:before{content:"✕";flex:none;font-weight:800}
+.sf-ref a{display:block;padding:10px 0;border-top:1px solid #eef2f6;color:var(--teal);font-weight:700;font-size:13.5px;text-decoration:none;line-height:1.45}
+.sf-ref a:first-child{border-top:0}
+.sf-ref small{display:block;color:var(--muted);font-weight:500}
+.q-exp{margin:2px 0 14px;padding:12px 14px;border-radius:12px;font-size:13.5px;line-height:1.6}
+.q-exp:empty{display:none}
+.q-exp.ok{background:#e8f7ef;color:#18734d}
+.q-exp.bad{background:#fdeceb;color:#b3392f}
+.q-exp strong{display:block;margin-bottom:2px}
+.opt:disabled{cursor:default;color:inherit}
 </style>
 </head>
 
@@ -5456,754 +5502,58 @@ const COMMON_END = ol([
 ]);
 const DISCLAIMER = "Support d'apprentissage : en stage, suivez toujours le protocole du service et les consignes de votre encadrant. Un geste se réalise sous supervision tant qu'il n'est pas validé.";
 
-// ---------- Fiches ----------
-const FICHES = [
-  {
-    id: "id", niveau: 1, short: "ID", title: "Injection intradermique (ID)", duree: "7 min",
-    keywords: "intradermique id idr mantoux tuberculine bcg papule test allergique injection",
-    resume: "Injection d'une très petite quantité de produit dans le derme, utilisée pour l'IDR à la tuberculine et les tests allergiques.",
-    sections: [
-      { t: "Fiche rapide", html: specs([
-          ["Couche visée", "Derme superficiel"],
-          ["Angle", "5 à 15° (presque à plat)"],
-          ["Aiguille", "25–27 G, courte (≈ 10 mm), biseau vers le haut"],
-          ["Seringue", "1 mL graduée au centième"],
-          ["Volume", "0,01 à 0,1 mL"],
-          ["Site", "Face antérieure de l'avant-bras"],
-          ["Signe de réussite", "Papule blanche de 6 à 10 mm"],
-          ["Massage", "Jamais"]
-        ]) + warn("L'absorption est très lente : on cherche une réaction locale visible, pas un effet général.") },
-      { t: "Définition et indications", html:
-          para("L'injection intradermique dépose le produit entre l'épiderme et l'hypoderme, dans le derme. Le produit reste sur place : la réaction est locale et visible.") +
-          "<h4>Indications</h4>" + ul(["IDR à la tuberculine (test de Mantoux)", "Tests allergiques", "Vaccin BCG (selon protocole)", "Petite anesthésie locale avant certains gestes"]) +
-          "<h4>Précautions</h4>" + ul(["Peau lésée, infectée, eczémateuse, tatouée ou cicatricielle sur le site : choisir un autre site", "Allergie connue au produit : prévenir l'encadrant avant le geste"]) },
-      { t: "Matériel", html:
-          ul(["Seringue de 1 mL (seringue à tuberculine) et aiguille 25–27 G courte", "Aiguille de prélèvement", "Produit prescrit (ex. tuberculine)", "Antiseptique et compresses", "Gants non stériles", "Collecteur pour objets piquants et tranchants"]) +
-          FIGURE(figSyringe(), "Les parties de la seringue et de l'aiguille. Le biseau est la pointe taillée en biais.") },
-      { t: "Avant tout geste (étapes communes)", html: COMMON_PREP },
-      { t: "Choisir le site", html:
-          FIGURE(figForearm(), "Site habituel : face antérieure de l'avant-bras, en évitant les veines apparentes.") +
-          ul(["Face antérieure de l'avant-bras, à environ 10 cm sous le pli du coude", "Peau saine, sans veine apparente, sans cicatrice, sans tatouage, peu de poils", "Noter le bras et le site utilisés", "BCG : face externe du bras (deltoïde), selon protocole"]) },
-      { t: "Angle et profondeur", html:
-          FIGURE(figAngles([{ tx: 150, ty: 122, angle: 15, L: 60, label: "5–15°" }]), "L'aiguille est presque parallèle à la peau : seul le biseau pénètre, juste sous l'épiderme.") +
-          para("Si l'angle est trop grand, le produit part dans l'hypoderme : la papule ne se forme pas et le test n'est pas fiable.") },
-      { t: "Technique pas à pas", html: ol([
-          "Appliquer les <strong>étapes communes</strong> « Avant tout geste ».",
-          "Installer l'avant-bras en appui, paume vers le haut, bras détendu.",
-          "Désinfecter la peau et <strong>laisser sécher complètement</strong>.",
-          "Tendre la peau avec la main non dominante (pouce sous le site).",
-          "Tenir la seringue presque à plat (5 à 15°), <strong>biseau vers le haut</strong>.",
-          "Faire pénétrer <strong>uniquement le biseau</strong>, juste sous l'épiderme : on voit l'aiguille par transparence.",
-          "Injecter lentement : on sent une résistance et une <strong>papule blanche</strong> apparaît.",
-          "Retirer l'aiguille. <strong>Ne pas masser</strong>, ne pas comprimer, pas de pansement compressif.",
-          "Noter l'heure, le produit, la dose et le site.",
-          "Appliquer les <strong>étapes communes</strong> « Après le geste »."
-        ]) + FIGURE(figPapule(), "Une papule blanche de 6 à 10 mm confirme que le produit est bien dans le derme.") },
-      { t: "Lecture du test (IDR à la tuberculine)", html: ul([
-          "Lecture classique <strong>48 à 72 heures</strong> après l'injection.",
-          "On mesure l'<strong>induration</strong> (zone dure en relief), dans le sens transversal de l'avant-bras, et non la rougeur.",
-          "L'interprétation du résultat revient à l'infirmier ou au médecin, selon le protocole."
-        ]) },
-      { t: "Après le geste (étapes communes)", html: COMMON_END },
-      { t: "Complications et conduite à tenir", html: ul([
-          "<strong>Pas de papule</strong> : produit déposé trop profond, test non fiable. Prévenir l'encadrant ; le test se refait selon le protocole, à distance du premier site ou sur l'autre bras.",
-          "<strong>Réaction locale importante</strong> (rougeur étendue, ulcération, démangeaisons) : alerter.",
-          "<strong>Réaction allergique générale</strong> (malaise, urticaire, gêne respiratoire) : arrêter, alerter immédiatement, appliquer le protocole d'urgence."
-        ]) },
-      { t: "Erreurs fréquentes", html: ul([
-          "Angle trop grand (le produit passe sous la peau)", "Biseau vers le bas", "Masser ou frotter le site", "Piquer sur un antiseptique encore humide",
-          "Piquer sur une veine ou une peau lésée", "Ne pas noter l'heure de l'injection (lecture impossible)"
-        ]) + note("À retenir : petit angle, biseau en haut, papule, aucun massage.") }
-    ],
-    quiz: [
-      { q: "Quel est l'angle d'insertion de l'aiguille pour une injection intradermique ?", o: ["90°", "45°", "5 à 15°", "30 à 45°"], a: 2, e: "L'aiguille est presque parallèle à la peau pour rester dans le derme." },
-      { q: "Comment faut-il orienter le biseau de l'aiguille ?", o: ["Vers le haut", "Vers le bas", "Sur le côté", "Peu importe"], a: 0, e: "Biseau vers le haut : le produit est déposé dans le derme et l'aiguille reste visible sous l'épiderme." },
-      { q: "Quel signe confirme que l'injection est bien intradermique ?", o: ["Une rougeur étendue", "Une papule blanche de 6 à 10 mm", "Un saignement au point de ponction", "Aucun signe visible"], a: 1, e: "La papule « peau d'orange » montre que le produit est dans le derme." },
-      { q: "Quel volume injecte-t-on au maximum ?", o: ["0,1 mL", "1 mL", "2 mL", "5 mL"], a: 0, e: "On injecte 0,01 à 0,1 mL." },
-      { q: "Que fait-on du site après avoir retiré l'aiguille ?", o: ["On masse pour répartir le produit", "On applique un pansement compressif", "On ne masse pas et on ne comprime pas", "On applique de la chaleur"], a: 2, e: "Masser disperserait le produit et fausserait le résultat du test." },
-      { q: "Quel est le site habituel pour l'IDR à la tuberculine ?", o: ["Face antérieure de l'avant-bras", "Abdomen", "Face externe de la cuisse", "Fesse"], a: 0, e: "L'avant-bras permet de bien voir et mesurer la réaction." },
-      { q: "Quand lit-on classiquement une IDR à la tuberculine ?", o: ["Immédiatement", "Après 15 minutes", "48 à 72 heures après", "Après 7 jours"], a: 2, e: "On mesure l'induration (et non la rougeur) 48 à 72 heures après l'injection." },
-      { q: "Aucune papule ne se forme pendant l'injection. Que faire ?", o: ["Masser doucement", "Considérer que tout va bien", "Prévenir l'encadrant : produit trop profond, test non fiable", "Injecter une dose supplémentaire au même endroit"], a: 2, e: "Sans papule, le produit n'est pas dans le derme. Le test se refait selon le protocole." }
-    ]
-  },
-  {
-    id: "sc", niveau: 1, short: "SC", title: "Injection sous-cutanée (SC)", duree: "9 min",
-    keywords: "sous cutanee sous-cutanée sc insuline heparine hbpm lovenox pli cutane abdomen",
-    resume: "Injection dans le tissu sous-cutané : insuline, héparine de bas poids moléculaire (HBPM), certains vaccins.",
-    sections: [
-      { t: "Fiche rapide", html: specs([
-          ["Couche visée", "Hypoderme (tissu sous-cutané)"],
-          ["Angle", "45° ou 90° selon l'aiguille et le patient"],
-          ["Aiguille", "25–30 G, environ 4 à 16 mm"],
-          ["Volume", "Jusqu'à 1 mL (2 mL maximum)"],
-          ["Sites", "Abdomen, bras, cuisse, haut de la fesse"],
-          ["Pli cutané", "Souvent, selon l'aiguille et le patient"],
-          ["Absorption", "Lente et régulière"]
-        ]) },
-      { t: "Définition et indications", html:
-          para("L'injection sous-cutanée dépose le produit dans le tissu adipeux situé sous la peau. L'absorption est plus lente qu'en intramusculaire, ce qui donne un effet régulier.") +
-          "<h4>Indications</h4>" + ul(["Insuline", "Héparine de bas poids moléculaire (HBPM) : prévention des thromboses", "Certains vaccins et médicaments prescrits en SC"]) +
-          "<h4>Précautions</h4>" + ul(["Éviter les zones lésées, infectées, œdématiées, indurées ou avec hématome", "Éviter les zones de lipodystrophie (bosses ou creux liés aux injections répétées)"]) },
-      { t: "Matériel", html:
-          ul(["Seringue de 1 mL, stylo ou seringue préremplie", "Aiguille sous-cutanée (selon matériel : 4 à 16 mm)", "Produit prescrit", "Antiseptique et compresses", "Gants non stériles", "Collecteur pour objets piquants et tranchants"]) +
-          FIGURE(figSyringe(), "Les parties de la seringue et de l'aiguille.") },
-      { t: "Avant tout geste (étapes communes)", html: COMMON_PREP },
-      { t: "Choisir le site", html:
-          FIGURE(figBody(), "1 : abdomen · 2 : face externe du bras · 3 : face antéro-externe de la cuisse. Le cercle rouge entoure le nombril, zone à éviter.") +
-          ul(["<strong>1. Abdomen</strong> : à au moins 5 cm du nombril, en évitant les cicatrices", "<strong>2. Bras</strong> : face externe", "<strong>3. Cuisse</strong> : face antéro-externe", "Haut de la fesse (région dorsale)", "<strong>Alterner les sites</strong> et espacer chaque injection d'au moins 2 cm de la précédente"]) },
-      { t: "Angle et profondeur", html:
-          FIGURE(figAngles([{ tx: 150, ty: 172, angle: 45, L: 100, label: "45°" }, { tx: 250, ty: 172, angle: 90, L: 100, label: "90°" }]), "Deux options selon l'aiguille : 45° avec un pli cutané, ou 90° avec une aiguille courte.") +
-          ul(["<strong>90°</strong> : aiguille courte (4 à 8 mm) et tissu adipeux suffisant", "<strong>45°</strong> avec pli cutané : patient maigre ou aiguille plus longue, pour éviter d'atteindre le muscle", "Le pli se fait avec le pouce et l'index : on pince la peau et la graisse, <strong>pas le muscle</strong>"]) },
-      { t: "Technique pas à pas", html: ol([
-          "Appliquer les <strong>étapes communes</strong> « Avant tout geste ».",
-          "Choisir le site, désinfecter et <strong>laisser sécher</strong>.",
-          "Former un pli cutané doux entre le pouce et l'index (si nécessaire).",
-          "Tenir la seringue comme un stylo et piquer d'un geste rapide, à 45° ou 90°.",
-          "Injecter <strong>lentement</strong> (environ 10 secondes par mL).",
-          "Maintenir le pli pendant toute l'injection. Avec un stylo à insuline, garder l'aiguille environ 10 secondes avant de la retirer.",
-          "Retirer l'aiguille d'un geste net, puis relâcher le pli.",
-          "Comprimer légèrement avec une compresse, <strong>sans masser</strong>.",
-          "Appliquer les <strong>étapes communes</strong> « Après le geste »."
-        ]) },
-      { t: "Particularités : HBPM et insuline", html:
-          "<h4>HBPM (seringue préremplie)</h4>" + ul(["<strong>Ne pas purger la bulle d'air</strong> : elle ferme le produit après l'injection", "Injecter dans un pli cutané maintenu, à 90°", "Ne pas masser après l'injection (risque d'hématome)", "Alterner le côté droit et le côté gauche de l'abdomen"]) +
-          "<h4>Insuline</h4>" + ul(["Vérifier le type d'insuline et la dose (double contrôle si le protocole l'exige)", "Stylo : purger quelques unités avant l'injection", "Changer l'aiguille du stylo à chaque injection", "Alterner les sites pour éviter les lipodystrophies"]) },
-      { t: "Après le geste (étapes communes)", html: COMMON_END },
-      { t: "Complications et conduite à tenir", html: ul([
-          "<strong>Hématome ou saignement</strong> (surtout avec les HBPM) : comprimer, surveiller, signaler.",
-          "<strong>Douleur, rougeur, chaleur, nodule</strong> : possible infection ou réaction locale, alerter.",
-          "<strong>Lipodystrophie</strong> : liée aux injections répétées au même endroit, alterner les sites.",
-          "<strong>Insuline : hypoglycémie</strong> (sueurs, tremblements, faim, confusion) : alerter immédiatement et suivre le protocole (glycémie capillaire)."
-        ]) },
-      { t: "Erreurs fréquentes", html: ul([
-          "Injecter dans le muscle (aiguille trop longue, patient maigre, pas de pli)", "Toujours piquer au même endroit", "Masser le site après une HBPM", "Purger la bulle d'air d'une seringue d'HBPM préremplie",
-          "Piquer sur un antiseptique encore humide", "Réutiliser une aiguille de stylo"
-        ]) + note("À retenir : bon site, bon angle, pli si nécessaire, rotation des sites.") }
-    ],
-    quiz: [
-      { q: "Dans quelle couche dépose-t-on le produit lors d'une injection sous-cutanée ?", o: ["L'épiderme", "Le derme", "L'hypoderme (tissu sous-cutané)", "Le muscle"], a: 2, e: "Le produit est déposé dans le tissu adipeux situé sous la peau." },
-      { q: "Patient très maigre, aiguille de 12 mm : quelle technique est la plus sûre ?", o: ["Pli cutané et angle de 45°", "90° sans pli cutané", "5° sans pli cutané", "Injection dans le muscle"], a: 0, e: "Le pli et l'angle de 45° évitent d'atteindre le muscle." },
-      { q: "Quelle zone de l'abdomen est recommandée ?", o: ["Juste autour du nombril", "À au moins 5 cm du nombril", "Uniquement sur la ligne médiane", "Sous les côtes, sur l'os"], a: 1, e: "On s'éloigne du nombril d'au moins 5 cm." },
-      { q: "Seringue préremplie d'HBPM : que fait-on de la bulle d'air ?", o: ["On la purge entièrement", "On la garde dans la seringue", "On l'aspire avec le piston", "On secoue la seringue pour la faire disparaître"], a: 1, e: "La bulle d'air ferme le produit après l'injection : on ne la purge pas." },
-      { q: "Après une injection d'HBPM, que faut-il faire ?", o: ["Masser le site pendant une minute", "Ne pas masser (risque d'hématome)", "Appliquer de la chaleur", "Plier fortement le bras"], a: 1, e: "Le massage augmente le risque d'hématome avec les anticoagulants." },
-      { q: "Pourquoi faut-il alterner les sites d'injection ?", o: ["Pour gagner du temps", "Pour éviter les lipodystrophies et les indurations", "Pour mieux voir les veines", "Ce n'est pas nécessaire"], a: 1, e: "Les injections répétées au même endroit abîment le tissu sous-cutané." },
-      { q: "Quel est le volume maximal habituel en sous-cutané ?", o: ["Environ 1 à 2 mL", "5 mL", "10 mL", "20 mL"], a: 0, e: "Au-delà, le produit est mal absorbé et l'injection devient douloureuse." },
-      { q: "Comment doit être le pli cutané ?", o: ["Pincé fortement avec le muscle", "Maintenu pendant toute l'injection", "Relâché dès l'insertion de l'aiguille", "Toujours inutile"], a: 1, e: "On pince la peau et la graisse (pas le muscle) et on maintient le pli pendant l'injection." }
-    ]
-  },
-  {
-    id: "im", niveau: 2, short: "IM", title: "Injection intramusculaire (IM)", duree: "11 min",
-    keywords: "intramusculaire im muscle fessier ventro-gluteal deltoide vaste lateral technique en z injection",
-    resume: "Injection dans un muscle : absorption rapide et volumes plus importants qu'en sous-cutané (antibiotiques, antalgiques, vaccins).",
-    sections: [
-      { t: "Fiche rapide", html: specs([
-          ["Couche visée", "Muscle"],
-          ["Angle", "90° (perpendiculaire)"],
-          ["Aiguille", "21–23 G, 25 à 40 mm selon le site et la corpulence"],
-          ["Volume", "Deltoïde : 1 à 2 mL · Autres sites : jusqu'à 3 mL (5 mL maximum chez l'adulte, selon protocole)"],
-          ["Sites", "Ventro-glutéal (préféré), vaste latéral, deltoïde"],
-          ["Après l'injection", "Attendre environ 10 secondes avant de retirer l'aiguille"]
-        ]) },
-      { t: "Définition et indications", html:
-          para("L'injection intramusculaire dépose le médicament dans un muscle, riche en vaisseaux sanguins. L'absorption est plus rapide qu'en sous-cutané et permet des volumes plus importants.") +
-          "<h4>Indications</h4>" + ul(["Médicaments prescrits en IM (antibiotiques, antalgiques, antiémétiques...)", "Vaccins", "Médicaments retard (selon prescription)"]) +
-          "<h4>Contre-indications et précautions</h4>" + ul(["Peau lésée, infectée, œdème, hématome ou induration sur le site", "Troubles de la coagulation ou traitement anticoagulant : risque d'hématome, demander l'avis de l'encadrant", "Muscle atrophié, membre paralysé", "Mauvaise circulation (choc) : absorption imprévisible"]) },
-      { t: "Matériel", html:
-          ul(["Seringue de 2 à 5 mL selon le volume", "Aiguille IM : 21–23 G (verte, noire ou bleue), 25 à 40 mm", "Aiguille de prélèvement", "Produit prescrit", "Antiseptique et compresses", "Gants non stériles, pansement", "Collecteur pour objets piquants et tranchants"]) +
-          FIGURE(figSyringe(), "Les parties de la seringue et de l'aiguille.") },
-      { t: "Avant tout geste (étapes communes)", html: COMMON_PREP },
-      { t: "Choisir le site", html:
-          "<h4>Ventro-glutéal (site préféré chez l'adulte)</h4>" +
-          FIGURE(figVentro(), "Poser la paume sur le grand trochanter, l'index vers l'EIAS (épine iliaque antéro-supérieure), le majeur vers la crête iliaque : le point d'injection est au centre du V.") +
-          ul(["Pas de gros nerf ni gros vaisseau, couche de graisse fine", "Patient sur le côté (genou fléchi) ou sur le dos"]) +
-          "<h4>Vaste latéral (cuisse)</h4>" +
-          FIGURE(figThigh(), "Tiers moyen de la face antéro-externe de la cuisse : entre une main sous le trochanter et une main au-dessus du genou.") +
-          "<h4>Deltoïde (épaule)</h4>" +
-          FIGURE(figDeltoid(), "À 2 ou 3 travers de doigt sous l'acromion, au centre du muscle. Petit volume uniquement.") +
-          ul(["Volume maximal : 1 à 2 mL", "Adapté aux vaccins et aux petits volumes"]) +
-          warn("Le quadrant supéro-externe de la fesse (site dorso-glutéal) est de moins en moins recommandé : risque de lésion du nerf sciatique. Suivez les consignes de votre formateur et le protocole du service.") },
-      { t: "Angle et profondeur", html:
-          FIGURE(figAngles([{ tx: 200, ty: 216, angle: 90, L: 110, label: "90°" }]), "L'aiguille traverse l'épiderme, le derme et l'hypoderme pour atteindre le muscle.") +
-          ul(["Piquer <strong>perpendiculairement</strong> à la peau", "Patient corpulent : aiguille plus longue pour atteindre le muscle", "Patient maigre : aiguille plus courte", "Ne pas enfoncer l'aiguille jusqu'au pavillon (risque de rupture)"]) },
-      { t: "Technique pas à pas", html: ol([
-          "Appliquer les <strong>étapes communes</strong> « Avant tout geste ».",
-          "Installer le patient, <strong>muscle relâché</strong>.",
-          "Repérer le site avec les repères anatomiques.",
-          "Désinfecter en cercles du centre vers l'extérieur et <strong>laisser sécher</strong>.",
-          "Tendre la peau avec la main non dominante (ou pincer le muscle chez un patient maigre).",
-          "Tenir la seringue comme un dard et <strong>piquer d'un geste net à 90°</strong>.",
-          "Injecter <strong>lentement</strong> (environ 10 secondes par mL) en surveillant le visage du patient.",
-          "<strong>Attendre environ 10 secondes</strong> avant de retirer l'aiguille.",
-          "Retirer l'aiguille d'un geste rapide, dans le même axe.",
-          "Comprimer doucement avec une compresse sèche, poser un pansement.",
-          "Appliquer les <strong>étapes communes</strong> « Après le geste »."
-        ]) + note("Aspiration : certaines écoles enseignent encore de vérifier l'absence de sang avant d'injecter. Suivez la consigne de votre formateur et le protocole du service.") },
-      { t: "Technique en Z", html:
-          para("Utilisée pour les médicaments irritants ou colorants, selon prescription ou protocole. Elle évite que le produit remonte dans le tissu sous-cutané.") +
-          ol(["Avec la main non dominante, tirer la peau et le tissu sous-cutané sur le côté (environ 2,5 cm).", "Piquer à 90° en gardant la peau tirée.", "Injecter lentement, attendre environ 10 secondes.", "Retirer l'aiguille, <strong>puis relâcher la peau</strong> : le trajet de l'aiguille se décale et se referme.", "Ne pas masser le site."]) },
-      { t: "Après le geste (étapes communes)", html: COMMON_END },
-      { t: "Complications et conduite à tenir", html: ul([
-          "<strong>Douleur vive, fourmillements, engourdissement</strong> (lésion nerveuse possible) : arrêter, retirer l'aiguille, alerter.",
-          "<strong>Hématome</strong> : comprimer, surveiller, signaler.",
-          "<strong>Abcès</strong> (rougeur, chaleur, douleur persistante, fièvre) : alerter.",
-          "<strong>Réaction allergique</strong> (urticaire, gêne respiratoire, malaise) : arrêter, alerter immédiatement, protocole d'urgence."
-        ]) },
-      { t: "Erreurs fréquentes", html: ul([
-          "Piquer sur un antiseptique humide", "Mauvais repérage du site", "Patient contracté (muscle non relâché)", "Aiguille trop courte chez un patient corpulent (injection dans la graisse)",
-          "Injecter trop vite", "Recapuchonner l'aiguille", "Toujours utiliser le même site"
-        ]) + note("À retenir : bon site, 90°, injection lente, attente de 10 secondes, aucun recapuchonnage.") }
-    ],
-    quiz: [
-      { q: "Quel est l'angle d'insertion de l'aiguille pour une injection intramusculaire ?", o: ["15°", "45°", "90°", "5 à 15°"], a: 2, e: "L'aiguille est perpendiculaire à la peau pour atteindre le muscle." },
-      { q: "Quel site IM présente le moins de risque de lésion du nerf sciatique chez l'adulte ?", o: ["Quadrant supéro-externe de la fesse (dorso-glutéal)", "Ventro-glutéal", "Face interne de la cuisse", "Haut de la fesse, près du sillon"], a: 1, e: "Le site ventro-glutéal est éloigné des gros nerfs et vaisseaux." },
-      { q: "Quel est le volume maximal conseillé dans le deltoïde ?", o: ["1 à 2 mL", "5 mL", "10 mL", "0,1 mL"], a: 0, e: "Le deltoïde est un petit muscle : seulement 1 à 2 mL." },
-      { q: "Où se trouve le point d'injection dans le deltoïde ?", o: ["2 à 3 travers de doigt sous l'acromion", "Directement sur l'acromion", "Au pli du coude", "À 15 cm sous l'acromion"], a: 0, e: "Au centre du muscle, à 2 ou 3 travers de doigt sous l'acromion." },
-      { q: "Après la désinfection de la peau, que faut-il faire ?", o: ["Piquer immédiatement", "Laisser l'antiseptique sécher", "Essuyer avec une compresse humide", "Souffler sur la peau"], a: 1, e: "L'antiseptique agit en séchant. Piquer sur une peau humide est une erreur fréquente." },
-      { q: "Que fait-on de l'aiguille après l'injection ?", o: ["On la recapuchonne avec les deux mains", "On la jette dans le collecteur, sans recapuchonner", "On la jette dans la poubelle ordinaire", "On la garde pour l'injection suivante"], a: 1, e: "Jamais de recapuchonnage : risque d'accident d'exposition au sang." },
-      { q: "À quoi sert la technique en Z ?", o: ["À piquer sans douleur", "À empêcher un produit irritant de remonter dans le tissu sous-cutané", "À injecter plus vite", "À éviter de désinfecter la peau"], a: 1, e: "Le trajet de l'aiguille se décale et se referme quand on relâche la peau." },
-      { q: "Combien de temps attend-on avant de retirer l'aiguille après l'injection ?", o: ["Aucun, on la retire tout de suite", "Environ 10 secondes", "2 minutes", "5 minutes"], a: 1, e: "L'attente permet au produit de diffuser dans le muscle et limite les fuites." }
-    ]
-  },
-  {
-    id: "iv", niveau: 3, short: "IV", title: "Injection intraveineuse directe (IV)", duree: "12 min",
-    keywords: "intraveineuse intraveineux iv ivd veine garrot ponction veineuse injection directe",
-    resume: "Administration d'un médicament directement dans une veine périphérique : effet immédiat, geste à risque réalisé sous supervision.",
-    sections: [
-      { t: "Fiche rapide", html: specs([
-          ["Voie", "Veine périphérique (injection directe)"],
-          ["Angle", "15 à 30°, biseau vers le haut"],
-          ["Aiguille", "21–23 G (ou cathéter adapté à la veine)"],
-          ["Garrot", "Environ 10 cm au-dessus du site, 1 à 2 minutes au plus"],
-          ["Veines", "Pli du coude, avant-bras, dos de la main"],
-          ["Confirmation", "Reflux de sang dans la seringue"],
-          ["Vitesse", "Lentement, au débit prescrit"],
-          ["Effet", "Immédiat"]
-        ]) + warn("L'effet est immédiat et difficile à rattraper : vérifiez deux fois le produit, la dose et l'identité du patient.") },
-      { t: "Définition et indications", html:
-          para("L'injection intraveineuse directe dépose le médicament dans une veine. Il n'y a pas de phase d'absorption : l'effet est immédiat.") +
-          "<h4>Indications</h4>" + ul(["Médicaments prescrits en IV direct", "Situations où un effet rapide est nécessaire"]) +
-          "<h4>Contre-indications et précautions</h4>" + ul(["Membre avec fistule artério-veineuse, ou du côté d'un curage axillaire ou d'une mastectomie", "Membre paralysé ou œdématié", "Zone infectée, brûlée ou avec hématome", "Veine dure, thrombosée ou fragile", "Produit non prévu pour la voie IV : ne jamais injecter"]) },
-      { t: "Matériel", html:
-          ul(["Seringue(s) avec produit prescrit", "Aiguille 21–23 G", "Garrot", "Antiseptique et compresses stériles", "Gants non stériles, pansement", "Protection du lit ou du bras", "Collecteur pour objets piquants et tranchants"]) +
-          FIGURE(figSyringe(), "Les parties de la seringue et de l'aiguille.") },
-      { t: "Avant tout geste (étapes communes)", html: COMMON_PREP + note("En IV, <strong>purger complètement l'air</strong> de la seringue avant d'injecter.") },
-      { t: "Choisir la veine", html:
-          FIGURE(figArmIV(), "Veines du pli du coude et de l'avant-bras. Le garrot se place environ 10 cm au-dessus du site de ponction.") +
-          ul(["Veine <strong>souple, rebondie, rectiligne, non pulsatile</strong> (une veine qui bat est une artère)", "Palper avec la pulpe de l'index, jamais avec le pouce", "Éviter les articulations, les zones lésées et les veines dures", "Commencer par les veines du bas (distales) pour préserver les sites du haut"]) },
-      { t: "Angle et profondeur", html:
-          FIGURE(figAngles([{ tx: 260, ty: 160, angle: 20, L: 165, label: "15–30°" }], VEIN), "L'aiguille, biseau vers le haut, traverse la peau puis entre dans la veine.") +
-          ul(["Piquer dans l'axe de la veine, <strong>biseau vers le haut</strong>", "On sent une perte de résistance quand l'aiguille entre dans la veine", "Après le reflux de sang, baisser l'angle et avancer de quelques millimètres"]) },
-      { t: "Technique pas à pas", html: ol([
-          "Appliquer les <strong>étapes communes</strong> « Avant tout geste ».",
-          "Installer le bras en extension, bien appuyé, paume vers le haut.",
-          "Poser le <strong>garrot à environ 10 cm</strong> au-dessus du site (le pouls radial doit rester perceptible). Demander au patient de serrer le poing.",
-          "Repérer la veine, désinfecter, <strong>laisser sécher</strong> et ne plus toucher la zone.",
-          "Immobiliser la veine en tirant la peau vers le bas avec le pouce, 3 à 4 cm sous le site.",
-          "Piquer, <strong>biseau vers le haut</strong>, à 15–30°, dans l'axe de la veine.",
-          "Vérifier le <strong>reflux de sang</strong> dans la seringue.",
-          "<strong>Desserrer le garrot</strong> et demander au patient d'ouvrir le poing.",
-          "Injecter <strong>lentement</strong>, au débit prescrit, en observant le point de ponction et le patient (douleur, gonflement, pâleur).",
-          "Retirer l'aiguille d'un geste net, puis comprimer avec une compresse sèche environ 2 minutes, <strong>sans plier le coude</strong>.",
-          "Poser un pansement, puis appliquer les <strong>étapes communes</strong> « Après le geste »."
-        ]) },
-      { t: "Après le geste (étapes communes)", html: COMMON_END },
-      { t: "Complications et conduite à tenir", html: ul([
-          "<strong>Infiltration ou extravasation</strong> (douleur, brûlure, gonflement au point de ponction) : <strong>arrêter immédiatement</strong> et alerter.",
-          "<strong>Injection intra-artérielle</strong> (douleur vive qui irradie, pâleur, main froide) : arrêter et alerter immédiatement.",
-          "<strong>Hématome</strong> : retirer l'aiguille, comprimer.",
-          "<strong>Phlébite</strong> (veine rouge, dure, douloureuse) : alerter.",
-          "<strong>Embolie gazeuse</strong> : prévention par la purge de l'air.",
-          "<strong>Réaction allergique ou malaise</strong> : arrêter, alerter immédiatement, protocole d'urgence."
-        ]) },
-      { t: "Erreurs fréquentes", html: ul([
-          "Garrot trop serré ou laissé trop longtemps", "Ne pas vérifier le reflux de sang", "Injecter trop vite", "Piquer une artère (veine qui bat)",
-          "Oublier de desserrer le garrot", "Plier le coude après le retrait (hématome)", "Toucher la zone après la désinfection", "Laisser de l'air dans la seringue", "Recapuchonner l'aiguille"
-        ]) + note("À retenir : veine souple, garrot à 10 cm, reflux de sang, garrot desserré, injection lente.") }
-    ],
-    quiz: [
-      { q: "À quelle distance du site de ponction place-t-on le garrot ?", o: ["Environ 2 cm", "Environ 10 cm", "Environ 30 cm", "Directement sur le site"], a: 1, e: "Le garrot se place environ 10 cm au-dessus du site pour gonfler les veines." },
-      { q: "Quel est l'angle d'insertion en injection intraveineuse directe ?", o: ["90°", "60°", "15 à 30°, biseau vers le haut", "0°, aiguille à plat"], a: 2, e: "On pique dans l'axe de la veine avec un angle faible, biseau vers le haut." },
-      { q: "Quel signe confirme que l'aiguille est dans la veine ?", o: ["Une douleur vive", "Un reflux de sang dans la seringue", "Un gonflement de la peau", "Une résistance au piston"], a: 1, e: "Le reflux de sang prouve que l'aiguille est dans la lumière de la veine." },
-      { q: "Quand desserre-t-on le garrot ?", o: ["Après l'injection complète", "Dès que le reflux est confirmé, avant d'injecter", "Avant de piquer", "Après avoir posé le pansement"], a: 1, e: "Un garrot laissé en place pendant l'injection risque de provoquer une rupture de la veine ou un hématome." },
-      { q: "Comment injecte-t-on le produit ?", o: ["Le plus vite possible", "Lentement, au débit prescrit, en surveillant le patient", "En une seconde", "Sans regarder le point de ponction"], a: 1, e: "L'effet est immédiat : on surveille le patient et le point de ponction." },
-      { q: "Pendant l'injection, le patient ressent une douleur vive et le point de ponction gonfle. Que faire ?", o: ["Continuer plus lentement", "Arrêter immédiatement et alerter", "Masser la zone", "Injecter plus fort"], a: 1, e: "C'est le signe d'une infiltration : le produit part hors de la veine." },
-      { q: "Quelle veine faut-il privilégier ?", o: ["Souple, rebondie et non pulsatile", "Dure et en cordon", "Qui bat sous le doigt", "Située sur un hématome"], a: 0, e: "Une veine qui bat est une artère : à éviter absolument." },
-      { q: "Que fait-on après le retrait de l'aiguille ?", o: ["Comprimer avec une compresse sèche, sans plier le coude", "Plier fortement le coude pendant 10 minutes", "Masser énergiquement", "Laisser saigner"], a: 0, e: "Plier le coude favorise l'hématome. On comprime environ 2 minutes." }
-    ]
-  },
-  {
-    id: "lit", niveau: 1, short: "LIT", title: "Réfection du lit (literie)", duree: "8 min",
-    keywords: "literie lit drap alese lit occupe inoccupe refaire changer le lit coin hospitalier escarres",
-    resume: "Faire ou changer un lit propre, confortable et sûr, lit vide ou lit occupé, en respectant l'hygiène et l'ergonomie.",
-    sections: [
-      { t: "Fiche rapide", html: specs([
-          ["Objectif", "Lit propre, confortable, sans plis"],
-          ["Types", "Lit inoccupé (fermé ou ouvert) · Lit occupé"],
-          ["Fréquence", "Chaque jour et dès que le linge est souillé ou humide"],
-          ["Hauteur du lit", "À hauteur de la taille du soignant"],
-          ["Linge sale", "Dans le sac à linge, jamais au sol, sans le secouer"],
-          ["Prévention", "Draps tendus, sans plis : prévention des escarres"]
-        ]) },
-      { t: "Définition et objectifs", html:
-          para("La réfection du lit consiste à changer et à mettre en place la literie. C'est un soin d'hygiène et de confort qui participe à la prévention des infections et des escarres.") +
-          ul(["Assurer le confort et le bien-être du patient", "Maintenir un environnement propre", "Prévenir les escarres (plis, humidité, miettes)", "Assurer la sécurité du patient et du soignant"]) },
-      { t: "Matériel", html:
-          ul(["Drap de dessous (ou drap housse) et drap de dessus", "Alèse ou protège-alèse", "Couverture et taie d'oreiller", "Sac ou chariot à linge sale", "Gants à usage unique si le linge est souillé", "Solution hydro-alcoolique"]) +
-          FIGURE(figLit(), "Les couches de la literie, dans l'ordre de pose.") },
-      { t: "Hygiène et ergonomie", html: ul([
-          "<strong>Hygiène des mains</strong> avant et après le soin",
-          "<strong>Gants</strong> si le linge est souillé par des liquides biologiques ou en précautions complémentaires",
-          "<strong>Ne pas secouer</strong> le linge sale et ne pas le plaquer contre la tenue",
-          "Ne jamais poser le linge sur le sol ni sur une chaise",
-          "Mettre le lit <strong>à hauteur de la taille</strong>, freins serrés",
-          "Dos droit, genoux fléchis, se déplacer autour du lit plutôt que de se pencher"
-        ]) },
-      { t: "Lit inoccupé : pas à pas", html: ol([
-          "Hygiène des mains. Préparer le linge propre <strong>dans l'ordre d'utilisation</strong>.",
-          "Serrer les freins et régler la hauteur du lit.",
-          "Retirer le linge sale en le roulant, <strong>face souillée à l'intérieur</strong>, et le mettre directement dans le sac.",
-          "Contrôler le matelas, le nettoyer si besoin.",
-          "Drap de dessous : le centrer, le border d'un côté, faire le coin (coin hospitalier : soulever le drap à 45° pour former un triangle, border le bas, rabattre le triangle et border).",
-          "Poser l'alèse au milieu et la border.",
-          "Passer de l'autre côté : tendre le drap et l'alèse <strong>sans plis</strong>, border, faire le coin.",
-          "Drap de dessus : le centrer, border le pied du lit en laissant un peu de mou pour les pieds.",
-          "Poser la couverture, puis la taie et l'oreiller.",
-          "Lit fermé : tout est bordé. Lit ouvert : rabattre le haut des draps en éventail.",
-          "Baisser le lit, remettre la sonnette à portée, hygiène des mains."
-        ]) },
-      { t: "Lit occupé : pas à pas", html: ol([
-          "Informer le patient, hygiène des mains, gants si besoin. Préserver son intimité.",
-          "Régler la hauteur, serrer les freins, relever la barrière du côté opposé.",
-          "Retirer la couverture et le drap de dessus, en gardant un drap pour couvrir le patient.",
-          "Tourner le patient sur le côté, vers la barrière (demander de l'aide si nécessaire).",
-          "Rouler le linge sale vers le dos du patient.",
-          "Poser le drap propre sur le côté libre : en rouler la moitié vers le patient, tendre et border.",
-          "Retourner le patient sur le côté propre, en passant par-dessus la « bosse » de linge.",
-          "Retirer le linge sale, dérouler le linge propre, tendre sans plis et border.",
-          "Réinstaller le patient sur le dos, en position confortable. Poser le drap de dessus, la couverture et l'oreiller.",
-          "Relever les barrières si nécessaire, sonnette à portée, hygiène des mains."
-        ]) + warn("Ne jamais laisser un patient seul sur le côté du lit sans protection : risque de chute.") },
-      { t: "Points d'attention", html: ul([
-          "Draps bien tendus, sans plis, sans miettes ni objets",
-          "Linge sec : un linge humide favorise les lésions de la peau",
-          "Observer la peau aux points d'appui (sacrum, talons, hanches) : toute rougeur qui persiste est à signaler",
-          "Noter et signaler les anomalies (souillures importantes, lésions, douleurs)"
-        ]) },
-      { t: "Erreurs fréquentes", html: ul([
-          "Secouer le linge sale", "Poser le linge par terre", "Laisser des plis ou des miettes", "Oublier les barrières ou les freins", "Travailler le dos penché",
-          "Mélanger le linge propre et le linge sale", "Laisser le patient exposé sans protéger son intimité"
-        ]) + note("À retenir : mains propres, lit à bonne hauteur, linge sale dans le sac, draps tendus.") }
-    ],
-    quiz: [
-      { q: "Pourquoi les draps doivent-ils être bien tendus et sans plis ?", o: ["Pour que le lit soit plus esthétique", "Pour prévenir les escarres", "Pour économiser du linge", "Pour gagner du temps"], a: 1, e: "Les plis et l'humidité sur la peau favorisent les lésions de pression." },
-      { q: "Que fait-on du linge sale ?", o: ["On le secoue puis on le pose sur une chaise", "On le met par terre", "On le roule face souillée à l'intérieur et on le met directement dans le sac", "On le garde sur le lit"], a: 2, e: "Secouer le linge disperse les micro-organismes dans l'air." },
-      { q: "À quelle hauteur règle-t-on le lit pour travailler ?", o: ["Au plus bas", "À hauteur de la taille du soignant", "Au plus haut", "Peu importe"], a: 1, e: "Cela protège le dos du soignant." },
-      { q: "Dans un lit occupé, comment installe-t-on le drap propre ?", o: ["On fait lever le patient", "On roule la moitié du drap sous le patient tourné sur le côté, puis on le retourne", "On pose le drap sur l'ancien", "On tire le drap sous le patient d'un coup"], a: 1, e: "On travaille un côté puis l'autre, patient tourné sur le côté." },
-      { q: "Quand porte-t-on des gants pour refaire un lit ?", o: ["Jamais", "Toujours", "Si le linge est souillé par des liquides biologiques", "Seulement le soir"], a: 2, e: "Les gants protègent du contact avec des liquides biologiques." },
-      { q: "Quelle précaution prend-on avec un patient tourné sur le côté ?", o: ["Aucune", "On relève la barrière du côté opposé et on ne le laisse pas seul", "On le laisse sur le bord du lit", "On éteint la lumière"], a: 1, e: "Le risque de chute est réel : barrière relevée, patient jamais laissé seul." },
-      { q: "Quelle couche est posée directement sur le matelas ?", o: ["La couverture", "Le drap de dessus", "Le drap de dessous (ou drap housse)", "L'oreiller"], a: 2, e: "Ordre de pose : matelas, drap de dessous, alèse, drap de dessus, couverture." },
-      { q: "À quel moment faut-il changer la literie en plus de la fréquence prévue ?", o: ["Jamais", "Dès qu'elle est souillée ou humide", "Une fois par mois", "Seulement à la sortie du patient"], a: 1, e: "Un linge souillé ou humide est un risque d'infection et de lésion cutanée." }
-    ]
-  },
-  {
-    id: "gants", niveau: 2, short: "GANTS", title: "Enfilage des gants stériles", duree: "7 min",
-    keywords: "gants steriles enfilage asepsie sondage pansement champ sterile",
-    resume: "Mettre des gants stériles sans les contaminer, pour les soins qui exigent une asepsie rigoureuse.",
-    sections: [
-      { t: "Fiche rapide", html: specs([
-          ["Quand", "Soins aseptiques : sondage, pansements complexes, abords vasculaires..."],
-          ["Avant", "Hygiène des mains, mains bien sèches"],
-          ["Vérifier", "Taille, date de péremption, emballage intact"],
-          ["Règle d'or", "Stérile touche stérile : main nue sur l'intérieur du gant uniquement"],
-          ["Mains gantées", "Au-dessus de la taille, devant soi, visibles"],
-          ["En cas de doute", "Changer de gants"]
-        ]) },
-      { t: "Définition et indications", html:
-          para("Le gant stérile crée une barrière entre les mains du soignant et le patient lors d'un geste aseptique. Il est efficace seulement si on ne le contamine pas pendant l'enfilage.") +
-          ul(["Sondage vésical", "Pansement de plaie complexe ou de site d'abord vasculaire", "Pose ou manipulation de dispositifs invasifs", "Tout soin pour lequel le protocole demande des gants stériles"]) },
-      { t: "Matériel", html:
-          ul(["Paire de gants stériles à la bonne taille", "Surface propre et sèche, à hauteur de taille", "Solution hydro-alcoolique", "Sac à déchets"]) +
-          FIGURE(figGant(), "Doigts et paume sont stériles. La manchette repliée se saisit par sa face interne, à main nue.") },
-      { t: "Enfilage pas à pas", html: ol([
-          "<strong>Hygiène des mains</strong> (friction hydro-alcoolique), mains sèches. Retirer bijoux et montre.",
-          "Vérifier la taille, la date de péremption et l'intégrité de l'emballage.",
-          "Poser l'emballage sur une surface propre, sèche et à hauteur de taille.",
-          "Ouvrir l'emballage extérieur, puis déplier le papier intérieur <strong>en ne touchant que les bords</strong>. Les gants restent sur le champ.",
-          "Avec la main non dominante, saisir le gant de la main dominante <strong>par la face interne de la manchette repliée</strong>.",
-          "Glisser la main dans le gant sans toucher l'extérieur. Laisser la manchette repliée.",
-          "Avec la main gantée, glisser les doigts <strong>sous la manchette du second gant</strong> (face externe stérile).",
-          "Enfiler le second gant, puis déplier sa manchette en la tirant vers le poignet.",
-          "Avec la main gantée du second gant, dérouler la manchette du premier. Ajuster les doigts en touchant seulement des surfaces gantées.",
-          "Garder les mains <strong>au-dessus de la taille, devant soi</strong>, sans toucher la peau, la tenue ni un objet non stérile."
-        ]) },
-      { t: "Retrait des gants", html: ol([
-          "Pincer le premier gant par l'extérieur, au niveau du poignet, et le retirer en le retournant.",
-          "Le tenir dans la main encore gantée.",
-          "Glisser un doigt sous le second gant, côté intérieur, et le retirer en le retournant sur le premier.",
-          "Jeter dans le sac à déchets approprié, puis <strong>hygiène des mains</strong>."
-        ]) },
-      { t: "Si un gant est contaminé", html: ul([
-          "Toucher un objet non stérile, la peau, la tenue, une surface douteuse : le gant n'est plus stérile",
-          "Gant déchiré ou perforé : l'enlever et le remplacer",
-          "En cas de doute, <strong>changer de gants</strong> et recommencer l'enfilage"
-        ]) },
-      { t: "Erreurs fréquentes", html: ul([
-          "Toucher l'extérieur du gant avec la main nue", "Poser les mains sous la taille", "Gants mis sur des mains humides", "Ne pas vérifier la péremption", "Déplier le champ en touchant le centre",
-          "Continuer avec un gant douteux"
-        ]) + note("À retenir : main nue sur l'intérieur, main gantée sur l'extérieur, mains au-dessus de la taille.") }
-    ],
-    quiz: [
-      { q: "Comment saisit-on le premier gant ?", o: ["Par les doigts", "Par la face interne de la manchette repliée, à main nue", "Par la face externe de la manchette", "Avec une pince"], a: 1, e: "La face interne de la manchette est la seule zone touchée à main nue." },
-      { q: "Comment prend-on le second gant ?", o: ["À main nue", "En glissant les doigts gantés sous la manchette (face externe)", "En le secouant", "En aidant avec les dents"], a: 1, e: "Stérile touche stérile : la main gantée ne touche que l'extérieur du second gant." },
-      { q: "Où doivent rester les mains gantées ?", o: ["Sous la taille", "Dans les poches", "Au-dessus de la taille, devant soi", "Sur le visage"], a: 2, e: "On garde les mains visibles et loin des surfaces non stériles." },
-      { q: "Un gant stérile touche un objet non stérile. Que faire ?", o: ["Continuer le soin", "Passer de l'alcool sur le gant", "Changer de gants", "Le laisser sécher"], a: 2, e: "Un gant contaminé n'est plus stérile : on le remplace." },
-      { q: "Que vérifie-t-on avant d'ouvrir l'emballage ?", o: ["La couleur", "La taille, la péremption et l'intégrité de l'emballage", "Le prix", "Le poids"], a: 1, e: "Un emballage abîmé ou périmé n'est plus garanti stérile." },
-      { q: "Sur quelle surface pose-t-on l'emballage ?", o: ["Sur le sol", "Sur le lit du patient", "Sur une surface propre, sèche, à hauteur de taille", "Sur ses genoux"], a: 2, e: "Une surface propre et sèche évite la contamination de l'emballage." },
-      { q: "Quelle hygiène réalise-t-on avant d'enfiler les gants ?", o: ["Aucune", "Une hygiène des mains, mains bien sèches", "Un simple essuyage sur la tenue", "Un rinçage à l'eau uniquement"], a: 1, e: "Les gants ne remplacent pas l'hygiène des mains." },
-      { q: "Comment retire-t-on des gants usagés ?", o: ["En les arrachant", "En les retournant l'un dans l'autre, puis hygiène des mains", "En les jetant au sol", "En les gardant pour le patient suivant"], a: 1, e: "La face contaminée reste à l'intérieur, puis on se lave les mains." }
-    ]
-  },
-  {
-    id: "pansement", niveau: 2, short: "PANS", title: "Pansement stérile", duree: "10 min",
-    keywords: "pansement sterile plaie compresse serum physiologique asepsie cicatrisation soin plaie dressing",
-    resume: "Réaliser un pansement stérile sur une plaie propre en respectant l'asepsie, du retrait de l'ancien pansement à la traçabilité.",
-    sections: [
-      { t: "Fiche rapide", html: specs([
-          ["Quand", "Plaie post-opératoire, traumatique propre, suture, selon prescription ou protocole"],
-          ["Avant", "Informer le patient, hygiène des mains, matériel vérifié et préparé"],
-          ["Nettoyage", "Sérum physiologique, compresses stériles, du centre vers la périphérie"],
-          ["Séchage", "Par tamponnement, sans frotter"],
-          ["Règle d'or", "Du plus propre au plus sale, une compresse par passage"],
-          ["Après", "Déchets éliminés, hygiène des mains, soin tracé"]
-        ]) },
-      { t: "Définition et indications", html:
-          para("Le pansement protège la plaie, absorbe les écoulements, maintient un milieu favorable à la cicatrisation et limite le risque d'infection. Il se réalise en technique aseptique : tout ce qui touche la plaie doit être stérile.") +
-          ul(["Plaie opératoire ou traumatique propre", "Plaie suturée ou avec points de rapprochement", "Plaie chronique, selon prescription et protocole", "Pansement souillé, humide, décollé ou arrivé à sa date de renouvellement"]) },
-      { t: "Matériel", html:
-          ul(["Chariot nettoyé et désinfecté, à hauteur de taille", "Set de pansement stérile (compresses, pince ou champ), contrôlé", "Sérum physiologique stérile (péremption, ouverture récente)", "Compresses stériles supplémentaires et pansement adapté à la plaie", "Adhésif hypoallergénique ou bande de fixation", "Gants à usage unique propres pour le retrait, gants stériles pour le soin", "Solution hydro-alcoolique, sac à déchets, protection de lit si besoin", "Antiseptique uniquement si prescrit ou prévu par le protocole"]) },
-      { t: "Déroulement pas à pas", html: ol([
-          "<strong>Préparer le chariot</strong> : le nettoyer, rassembler tout le matériel et contrôler les dates de péremption.",
-          "<strong>Informer le patient</strong>, vérifier son identité, préserver son intimité et l'installer confortablement.",
-          "<strong>Hygiène des mains</strong> (friction hydro-alcoolique), mains sèches, sans bijoux ni montre.",
-          "Contrôler le set et le sérum : péremption, emballage intact, indicateur de stérilité.",
-          "Mettre des gants propres, <strong>retirer l'ancien pansement</strong> doucement (au besoin le mouiller au sérum), le jeter dans le sac à déchets et <strong>observer la plaie</strong>.",
-          "Retirer les gants, puis nouvelle <strong>hygiène des mains</strong>.",
-          "Ouvrir le set sur le chariot <strong>en ne touchant que les bords</strong> : l'intérieur du champ reste stérile.",
-          "Enfiler les <strong>gants stériles</strong> sans toucher l'extérieur. Garder les mains au-dessus de la taille.",
-          "<strong>Nettoyer</strong> la plaie au sérum physiologique avec des compresses stériles, du centre vers la périphérie, une compresse neuve à chaque passage.",
-          "<strong>Sécher</strong> en tamponnant avec une compresse stérile, sans frotter.",
-          "<strong>Poser le pansement</strong> stérile en le tenant par les bords, sans toucher la face qui sera contre la plaie, et le centrer sur la plaie.",
-          "<strong>Fixer</strong> sans tendre la peau, en débordant de 2 à 3 cm autour de la plaie. L'adhésif ne touche jamais la plaie.",
-          "Éliminer les déchets, retirer les gants, <strong>hygiène des mains</strong>, installer le patient, puis <strong>tracer</strong> : date, aspect de la plaie, matériel utilisé."
-        ]) },
-      { t: "Surveillance et signes d'alerte", html:
-          para("À chaque pansement, observer la plaie : couleur, taille, écoulement, odeur, état de la peau autour. Prévenir l'infirmier ou le médecin devant :") +
-          ul(["Rougeur qui s'étend, chaleur, gonflement", "Douleur qui augmente", "Écoulement purulent ou mauvaise odeur", "Fièvre ou frissons", "Plaie qui s'ouvre, saigne ou ne se cicatrise pas"]) },
-      { t: "Si le champ est contaminé", html: ul([
-          "Toucher l'intérieur du set, un objet non stérile, la peau ou la tenue : le champ n'est plus stérile",
-          "Emballage abîmé, humide ou périmé : le set se remplace",
-          "En cas de doute, <strong>reprendre avec un nouveau set et de nouveaux gants stériles</strong>"
-        ]) },
-      { t: "Erreurs fréquentes", html: ul([
-          "Oublier l'hygiène des mains entre le retrait et la pose", "Ne pas contrôler le set ni le sérum", "Nettoyer du bord vers le centre ou réutiliser une compresse", "Frotter la plaie au lieu de tamponner", "Souffler sur la plaie pour la sécher", "Toucher la face du pansement qui touche la plaie", "Tendre l'adhésif ou le poser sur la plaie", "Ne pas tracer le soin"
-        ]) + note("À retenir : informer, désinfecter les mains, champ stérile, du centre vers la périphérie, une compresse par passage, tracer.") }
-    ],
-    quiz: [
-      { q: "Comment nettoie-t-on une plaie propre ?", o: ["Du bord vers le centre", "Du centre vers la périphérie, une compresse neuve à chaque passage", "En frottant avec la même compresse", "Avec de l'eau du robinet"], a: 1, e: "On va du plus propre au plus sale, sans réutiliser de compresse." },
-      { q: "Quel produit utilise-t-on en priorité pour nettoyer la plaie ?", o: ["Un antiseptique alcoolisé", "Du sérum physiologique stérile", "De l'eau oxygénée", "Du savon"], a: 1, e: "Sauf prescription ou protocole, on nettoie au sérum physiologique." },
-      { q: "Comment sèche-t-on la plaie ?", o: ["En frottant", "En soufflant dessus", "En tamponnant avec une compresse stérile", "On laisse à l'air libre longtemps"], a: 2, e: "Tamponner protège le tissu fragile et évite la contamination." },
-      { q: "Que fait-on entre le retrait de l'ancien pansement et l'ouverture du set ?", o: ["Rien", "On retire les gants et on fait une hygiène des mains", "On rince les gants", "On ouvre le set avec les mêmes gants"], a: 1, e: "On passe du sale au propre : gants retirés, mains désinfectées." },
-      { q: "Comment ouvre-t-on le set de pansement ?", o: ["En touchant l'intérieur pour le disposer", "En ne touchant que les bords du papier", "Sur le lit du patient", "En le secouant"], a: 1, e: "Seuls les bords extérieurs se touchent : l'intérieur du champ reste stérile." },
-      { q: "Quels gants porte-t-on pour réaliser le soin sur la plaie ?", o: ["Des gants propres non stériles", "Aucun gant", "Des gants stériles", "Des gants de ménage"], a: 2, e: "La technique est aseptique : stérile touche stérile." },
-      { q: "Comment fixe-t-on le pansement ?", o: ["En tendant fortement l'adhésif", "Sans tendre la peau, en débordant de 2 à 3 cm autour de la plaie", "Avec l'adhésif directement sur la plaie", "Sans fixer"], a: 1, e: "Une fixation douce évite les lésions de la peau, l'adhésif ne touche jamais la plaie." },
-      { q: "Quel signe doit alerter après un pansement ?", o: ["Une plaie propre et sèche", "Une rougeur qui s'étend avec une douleur croissante", "Une cicatrice qui se ferme", "Un pansement bien en place"], a: 1, e: "Rougeur, chaleur, douleur croissante, pus ou fièvre font suspecter une infection." }
-    ]
-  },
-  {
-    id: "ecg", niveau: 2, short: "ECG", title: "Électrocardiogramme (ECG)", duree: "10 min",
-    keywords: "ecg electrocardiogramme electrocardiographe electrodes derivations precordiales cardiaque thoracique douleur trace v1 v6",
-    resume: "Réaliser un ECG 12 dérivations : installation du patient, pose des électrodes, enregistrement de qualité et identification du tracé.",
-    sections: [
-      { t: "Fiche rapide", html: specs([
-          ["Quand", "Douleur thoracique, palpitations, malaise, dyspnée, bilan, surveillance"],
-          ["Position", "Allongé sur le dos, détendu, immobile, thorax et membres dégagés"],
-          ["Membres", "Rouge : bras droit · Jaune : bras gauche · Vert : jambe gauche · Noir : jambe droite"],
-          ["Précordiales", "V1 à V6 : repérage au niveau des espaces intercostaux"],
-          ["Réglages", "25 mm/s et 10 mm/mV (calibration standard)"],
-          ["Après", "Tracé identifié et transmis, matériel désinfecté, soin tracé"]
-        ]) },
-      { t: "Définition et indications", html:
-          para("L'électrocardiogramme enregistre l'activité électrique du cœur à travers la peau grâce à des électrodes. Il est indolore et sans danger. L'infirmier réalise l'enregistrement, l'interprétation revient au médecin.") +
-          ul(["Douleur thoracique, palpitations, essoufflement, malaise ou syncope", "Bilan préopératoire ou bilan d'admission", "Surveillance d'un traitement ou d'une pathologie cardiaque"]) +
-          warn("Une douleur thoracique est une urgence : réaliser l'ECG sans retard et prévenir immédiatement le médecin.") },
-      { t: "Matériel", html:
-          ul(["Électrocardiographe avec câble patient, branché et chargé", "Papier thermique en quantité suffisante", "Électrodes autocollantes à usage unique, non périmées, au gel humide", "Rasoir ou tondeuse, compresses, drap de pudeur", "Solution hydro-alcoolique, lingettes désinfectantes pour les câbles"]) },
-      { t: "Placement des électrodes", html:
-          "<h4>Membres</h4>" +
-          ul(["<strong>Rouge</strong> : poignet ou bras droit", "<strong>Jaune</strong> : poignet ou bras gauche", "<strong>Vert</strong> : cheville ou jambe gauche", "<strong>Noir</strong> : cheville ou jambe droite"]) +
-          "<h4>Précordiales (codes couleur IEC)</h4>" +
-          ul(["<strong>V1</strong> (rouge) : 4e espace intercostal, bord droit du sternum", "<strong>V2</strong> (jaune) : 4e espace intercostal, bord gauche du sternum", "<strong>V3</strong> (vert) : entre V2 et V4", "<strong>V4</strong> (marron) : 5e espace intercostal, ligne médio-claviculaire gauche", "<strong>V5</strong> (noir) : à la hauteur de V4, ligne axillaire antérieure", "<strong>V6</strong> (violet) : à la hauteur de V4, ligne axillaire moyenne"]) +
-          note("Les codes couleur peuvent varier selon l'appareil (norme IEC ou AHA). Vérifiez toujours la notice de l'appareil et le protocole du service.") },
-      { t: "Déroulement pas à pas", html: ol([
-          "<strong>Préparer le matériel</strong> : appareil branché, papier, câbles, électrodes neuves.",
-          "<strong>Informer le patient</strong>, vérifier son identité, lui demander de rester immobile et détendu.",
-          "<strong>Hygiène des mains</strong> (friction hydro-alcoolique).",
-          "<strong>Installer</strong> le patient allongé sur le dos, thorax et poignets/chevilles dégagés, pudeur préservée. Éloigner montre et téléphone.",
-          "<strong>Préparer la peau</strong> : tondre ou raser si besoin, nettoyer, sécher.",
-          "Poser les <strong>électrodes des membres</strong> (rouge, jaune, vert, noir).",
-          "Poser les <strong>électrodes précordiales</strong> V1 à V6 en repérant les espaces intercostaux.",
-          "Vérifier les câbles et la <strong>calibration</strong> : 25 mm/s et 10 mm/mV.",
-          "<strong>Enregistrer</strong> : patient immobile, respiration calme, sans parler. Refaire si le tracé est parasité.",
-          "<strong>Identifier le tracé</strong> : nom, prénom, date, heure, symptômes, puis le transmettre au médecin.",
-          "<strong>Retirer</strong> les électrodes, nettoyer la peau, réinstaller le patient, désinfecter les câbles, hygiène des mains, tracer."
-        ]) },
-      { t: "Qualité du tracé", html:
-          para("Un tracé parasité est inexploitable. Les causes les plus fréquentes :") +
-          ul(["Mouvements, toux, parole ou tremblements du patient", "Électrodes sèches, décollées ou posées sur peau grasse ou poilue", "Câbles tendus ou mal branchés", "Objets métalliques, téléphone ou appareils électriques à proximité", "Patient froid ou anxieux (frissons)"]) },
-      { t: "Erreurs fréquentes", html: ul([
-          "Inverser les électrodes des bras", "Placer V1 et V2 trop haut ou V4 à la mauvaise hauteur", "Poser les électrodes sur une peau non préparée", "Régler une vitesse ou une amplitude non standard", "Enregistrer pendant que le patient parle ou bouge", "Oublier d'identifier le tracé", "Réutiliser les électrodes ou ne pas désinfecter les câbles"
-        ]) + note("À retenir : patient allongé et immobile, peau préparée, couleurs au bon endroit, V1 à V6 bien repérées, 25 mm/s, tracé identifié.") }
-    ],
-    quiz: [
-      { q: "Où pose-t-on l'électrode rouge des membres ?", o: ["Poignet ou bras gauche", "Poignet ou bras droit", "Cheville gauche", "Cheville droite"], a: 1, e: "Rouge : bras droit. Jaune : bras gauche. Vert : jambe gauche. Noir : jambe droite." },
-      { q: "Où pose-t-on V1 ?", o: ["4e espace intercostal, bord droit du sternum", "5e espace intercostal gauche", "2e espace intercostal droit", "Sous le mamelon gauche"], a: 0, e: "V1 se place dans le 4e espace intercostal, au bord droit du sternum." },
-      { q: "Quelle est la calibration standard de l'ECG ?", o: ["50 mm/s et 20 mm/mV", "25 mm/s et 10 mm/mV", "10 mm/s et 25 mm/mV", "100 mm/s et 5 mm/mV"], a: 1, e: "La calibration standard est 25 mm/s et 10 mm/mV." },
-      { q: "Comment doit être le patient pendant l'enregistrement ?", o: ["Il parle pour se détendre", "Immobile, respirant calmement, sans parler", "Assis penché en avant", "Debout"], a: 1, e: "Les mouvements et la parole créent des artefacts." },
-      { q: "Pourquoi éloigner montre et téléphone du patient ?", o: ["Pour éviter de les abîmer", "Ils créent des interférences sur le tracé", "Ce n'est pas nécessaire", "Pour gagner de la place"], a: 1, e: "Les objets métalliques et les appareils électriques parasitent le tracé." },
-      { q: "Que faire si le tracé est parasité ?", o: ["Le transmettre quand même", "Chercher la cause (mouvement, électrode, câble) et refaire l'ECG", "Le jeter sans rien dire", "Régler la vitesse à 50 mm/s"], a: 1, e: "Un tracé parasité est inexploitable : on corrige la cause et on refait l'enregistrement." },
-      { q: "Qui interprète l'ECG ?", o: ["L'infirmier seul", "Le médecin", "Le patient", "Le secrétariat"], a: 1, e: "L'infirmier enregistre, le médecin interprète. Une anomalie ou une douleur thoracique doit être signalée tout de suite." },
-      { q: "Que fait-on des électrodes après l'examen ?", o: ["On les garde pour le prochain ECG", "On les retire et on les jette, les câbles sont désinfectés", "On les laisse sur le patient", "On les range sans rien faire"], a: 1, e: "Les électrodes sont à usage unique, les câbles se désinfectent entre deux patients." }
-    ]
-  },
-  {
-    id: "glyc", niveau: 2, short: "GLY", title: "Glycémie capillaire", duree: "9 min",
-    keywords: "glycemie capillaire glucometre lecteur bandelette autopiqueur diabete hypoglycemie hyperglycemie",
-    resume: "Mesurer le taux de sucre dans une goutte de sang au bout du doigt, avec un lecteur de glycémie.",
-    sections: [
-      { t: "Fiche rapide", html: specs([
-          ["Prélèvement", "Goutte de sang capillaire au bout du doigt"],
-          ["Site", "Côté de la pulpe (éviter le centre et le pouce)"],
-          ["Matériel", "Lecteur, bandelette, autopiqueur + lancette neuve, compresses, gants"],
-          ["Avant la piqûre", "Mains lavées à l'eau et au savon, bien séchées"],
-          ["Lancette", "Usage unique, jamais partagée"],
-          ["Repère hypoglycémie", "Moins de 0,70 g/L (70 mg/dL)"]
-        ]) + warn("Les valeurs de référence sont indicatives. Leur interprétation dépend du patient, de la prescription et du protocole du service.") },
-      { t: "Définition et indications", html:
-          para("La glycémie capillaire mesure rapidement le taux de glucose dans le sang. Elle permet de surveiller et d'adapter le traitement, notamment chez la personne diabétique.") +
-          ul(["Surveillance d'un patient diabétique (avant les repas, avant l'insuline...)", "Malaise, sueurs, confusion, trouble de la conscience", "Selon la prescription ou le protocole du service"]) },
-      { t: "Matériel", html:
-          ul(["Lecteur de glycémie en état de marche", "Bandelettes compatibles avec le lecteur (péremption, boîte bien refermée)", "Autopiqueur et lancette stérile neuve", "Compresses sèches, gants non stériles", "Collecteur pour objets piquants et tranchants"]) },
-      { t: "Choisir le site", html:
-          FIGURE(figMain(), "Piquer sur le côté de la pulpe des doigts, moins douloureux. Alterner les doigts d'une mesure à l'autre.") +
-          ul(["Côté de la pulpe du majeur, de l'annulaire ou de l'auriculaire", "Éviter le centre de la pulpe (plus douloureux) et, si possible, le pouce et l'index", "Éviter un doigt blessé, calleux ou œdématié", "Alterner les doigts et les mains"]) },
-      { t: "Technique pas à pas", html: ol([
-          "Appliquer les <strong>étapes communes</strong> : prescription, identité du patient, explication du geste, hygiène des mains, gants.",
-          "Vérifier le lecteur et la bandelette (péremption, code si l'appareil l'exige).",
-          "Faire laver les mains du patient <strong>à l'eau tiède et au savon</strong>, puis bien les sécher. Les mains tièdes favorisent la circulation.",
-          "Installer l'autopiqueur avec une <strong>lancette neuve</strong>.",
-          "Masser doucement le doigt vers le bout, sans le serrer.",
-          "Piquer sur le côté de la pulpe.",
-          "Laisser perler une goutte de sang. <strong>Ne pas presser fort</strong> : cela dilue le sang et fausse le résultat.",
-          "Appliquer la goutte sur la bandelette, selon le mode d'emploi de l'appareil.",
-          "Comprimer le doigt avec une compresse sèche.",
-          "Lire le résultat, éliminer la lancette dans le collecteur, retirer les gants, hygiène des mains.",
-          "<strong>Noter</strong> la valeur, l'heure et les circonstances. Signaler tout résultat anormal."
-        ]) },
-      { t: "Repères et conduite à tenir", html:
-          specs([["Hypoglycémie", "Moins de 0,70 g/L (70 mg/dL)"], ["À jeun, valeur habituelle", "Environ 0,70 à 1,10 g/L"], ["Diabète (à jeun, deux mesures)", "1,26 g/L et plus"]]) +
-          "<h4>Signes d'hypoglycémie</h4>" + ul(["Sueurs, tremblements, faim, pâleur", "Vertiges, maux de tête, vision trouble", "Irritabilité, confusion, malaise"]) +
-          warn("Hypoglycémie : alerter immédiatement et suivre le protocole de resucrage du service. Ne rien donner à boire ou à manger à un patient inconscient.") },
-      { t: "Erreurs fréquentes", html: ul([
-          "Mains sucrées ou mal séchées (fausse élévation)", "Piquer sur un antiseptique non sec", "Presser trop fort le doigt", "Bandelette périmée ou boîte restée ouverte", "Quantité de sang insuffisante",
-          "Réutiliser ou partager une lancette ou un autopiqueur", "Piquer toujours le même doigt", "Ne pas noter le résultat"
-        ]) + note("À retenir : mains lavées et sèches, côté de la pulpe, lancette neuve, goutte sans presser.") }
-    ],
-    quiz: [
-      { q: "Où pique-t-on de préférence ?", o: ["Au centre de la pulpe", "Sur le côté de la pulpe d'un doigt", "Sur l'ongle", "Sur la paume"], a: 1, e: "Le côté de la pulpe est moins douloureux." },
-      { q: "Pourquoi faire laver les mains du patient à l'eau et au savon ?", o: ["Pour les réchauffer uniquement", "Pour éliminer les traces de sucre qui fausseraient le résultat", "Ce n'est pas utile", "Pour désinfecter la bandelette"], a: 1, e: "Un reste de sucre sur la peau fausse la mesure. Il faut aussi bien sécher." },
-      { q: "Que fait-on de la lancette après usage ?", o: ["On la réutilise", "On la partage avec le patient suivant", "On la jette dans le collecteur, jamais réutilisée ni partagée", "On la jette à la poubelle ordinaire"], a: 2, e: "Une lancette est à usage unique : risque de transmission de maladies par le sang." },
-      { q: "Que provoque une forte pression sur le doigt pour obtenir une goutte ?", o: ["Rien", "Elle peut diluer le sang et fausser le résultat", "Elle accélère la mesure", "Elle améliore la précision"], a: 1, e: "Le liquide des tissus se mélange au sang et fausse le résultat." },
-      { q: "En dessous de quelle valeur parle-t-on d'hypoglycémie (repère) ?", o: ["0,70 g/L", "1,10 g/L", "1,80 g/L", "2,50 g/L"], a: 0, e: "Moins de 0,70 g/L (70 mg/dL) est le repère habituel." },
-      { q: "Quel signe évoque une hypoglycémie ?", o: ["Sueurs, tremblements, faim, confusion", "Froid aux pieds", "Toux", "Démangeaisons"], a: 0, e: "Ce sont les signes classiques de l'hypoglycémie : alerter vite." },
-      { q: "Que vérifie-t-on sur les bandelettes ?", o: ["La couleur de la boîte", "La péremption, la compatibilité avec le lecteur et la boîte bien refermée", "Le prix", "Rien"], a: 1, e: "Une bandelette périmée ou mal conservée donne un résultat faux." },
-      { q: "Que fait-on une fois le résultat obtenu ?", o: ["On ne note rien", "On note la valeur et l'heure, et on signale un résultat anormal", "On le garde en mémoire", "On refait la mesure sans prévenir"], a: 1, e: "La traçabilité et l'alerte sont indispensables." }
-    ]
-  },
-  {
-    id: "pouls", niveau: 1, short: "POULS", title: "Prise du pouls", duree: "6 min",
-    keywords: "pouls frequence cardiaque radial carotidien pulsations bradycardie tachycardie constantes",
-    resume: "Mesurer la fréquence et observer le rythme des battements du cœur en palpant une artère, le plus souvent au poignet.",
-    sections: [
-      { t: "Fiche rapide", html: specs([
-          ["Site habituel", "Artère radiale (face antérieure du poignet, côté du pouce)"],
-          ["Doigts", "Pulpe de l'index et du majeur. Jamais le pouce"],
-          ["Durée", "30 secondes ×2 si régulier · 60 secondes si irrégulier"],
-          ["Adulte au repos", "60 à 100 battements par minute"],
-          ["À noter", "Fréquence, rythme (régulier ou non), amplitude"],
-          ["Avant", "Patient au repos depuis 5 minutes"]
-        ]) },
-      { t: "Définition et indications", html:
-          para("Le pouls est la sensation de l'onde de pression créée par chaque battement du cœur dans une artère. Sa mesure fait partie des constantes vitales.") +
-          ul(["Surveillance de routine et à l'admission", "Avant ou après un soin, un traitement ou un effort", "Malaise, douleur, fièvre, saignement, trouble du rythme", "Surveillance post-opératoire"]) },
-      { t: "Matériel", html:
-          ul(["Montre avec trotteuse ou chronomètre", "Fiche de surveillance et stylo", "Solution hydro-alcoolique"]) },
-      { t: "Les sites de prise du pouls", html:
-          FIGURE(figPoulsSites(), "1 : carotide · 2 : brachial · 3 : radial · 4 : fémoral · 5 : pédieux.") +
-          ul(["<strong>Radial</strong> : poignet, le plus pratique", "<strong>Brachial</strong> : face interne du bras, pli du coude", "<strong>Carotidien</strong> : cou, en urgence. Jamais des deux côtés en même temps, sans masser", "<strong>Fémoral</strong> : pli de l'aine", "<strong>Pédieux</strong> : dessus du pied"]) },
-      { t: "Technique pas à pas (pouls radial)", html: ol([
-          "Hygiène des mains, expliquer le soin au patient. Le laisser <strong>au repos depuis 5 minutes</strong>.",
-          "Installer le patient assis ou allongé, avant-bras soutenu, paume vers le haut ou vers le bas.",
-          "Placer la <strong>pulpe de l'index et du majeur</strong> sur l'artère radiale, côté du pouce. <strong>Ne pas utiliser le pouce</strong> : il a son propre pouls.",
-          "Appuyer légèrement, sans écraser l'artère.",
-          "Compter les battements pendant <strong>30 secondes</strong> puis multiplier par 2. Si le rythme est irrégulier, compter <strong>60 secondes</strong>.",
-          "Apprécier le rythme (régulier ou irrégulier) et l'amplitude (bien frappé, faible).",
-          "Hygiène des mains, noter la fréquence, le rythme, l'heure et les circonstances (repos, effort, douleur)."
-        ]) + FIGURE(figPoignet(), "La pulpe de l'index et du majeur se pose sur l'artère radiale, côté du pouce.") },
-      { t: "Interpréter", html: specs([
-          ["Adulte au repos", "60 à 100 battements/min"],
-          ["Bradycardie", "Moins de 60 battements/min"],
-          ["Tachycardie", "Plus de 100 battements/min"]
-        ]) + ul(["La fréquence normale est plus rapide chez l'enfant", "Elle augmente avec l'effort, l'émotion, la fièvre, la douleur", "Certains médicaments la ralentissent ou l'accélèrent", "Un pouls irrégulier, très rapide ou très lent est à signaler"]) },
-      { t: "Erreurs fréquentes", html: ul([
-          "Utiliser le pouce", "Appuyer trop fort et ne plus sentir le pouls", "Compter moins de 30 secondes", "Prendre le pouls juste après un effort", "Ne pas noter le rythme",
-          "Prendre les deux carotides en même temps", "Oublier la montre"
-        ]) + note("À retenir : index et majeur, patient au repos, 30 secondes ×2 (60 s si irrégulier).") }
-    ],
-    quiz: [
-      { q: "Avec quels doigts prend-on le pouls ?", o: ["Le pouce", "L'index et le majeur", "L'auriculaire", "Les cinq doigts"], a: 1, e: "Le pouce possède son propre pouls et peut fausser la mesure." },
-      { q: "Où se trouve l'artère radiale ?", o: ["Au pli de l'aine", "Sur la face antérieure du poignet, côté du pouce", "Derrière le genou", "Dans le cou"], a: 1, e: "C'est le site le plus pratique pour la prise du pouls." },
-      { q: "Combien de temps compte-t-on si le rythme est régulier ?", o: ["5 secondes", "30 secondes puis ×2", "10 secondes", "5 minutes"], a: 1, e: "On compte 30 secondes et on multiplie par 2 (60 secondes si irrégulier)." },
-      { q: "Quelle est la fréquence normale d'un adulte au repos ?", o: ["20 à 40", "60 à 100 par minute", "120 à 160", "Plus de 180"], a: 1, e: "Entre 60 et 100 battements par minute." },
-      { q: "Que signifie tachycardie ?", o: ["Pouls inférieur à 60", "Pouls supérieur à 100 par minute", "Pouls absent", "Pouls normal"], a: 1, e: "Tachycardie : plus de 100 battements par minute au repos." },
-      { q: "Pourquoi évite-t-on d'utiliser le pouce ?", o: ["Il est trop gros", "Il a son propre pouls qu'on risque de confondre", "Il est trop froid", "Il est interdit"], a: 1, e: "On risque de compter ses propres pulsations." },
-      { q: "Que note-t-on en plus de la fréquence ?", o: ["Rien", "Le rythme (régulier ou irrégulier) et l'amplitude", "La couleur de la peau", "La taille du patient"], a: 1, e: "Le rythme et l'amplitude complètent la mesure." },
-      { q: "Quelle condition respecte-t-on avant la prise ?", o: ["Patient en pleine activité", "Patient au repos depuis environ 5 minutes", "Patient à jeun depuis 12 heures", "Patient debout"], a: 1, e: "L'effort et l'émotion accélèrent le pouls." }
-    ]
-  },
-  {
-    id: "ta", niveau: 1, short: "TA", title: "Prise de la tension artérielle (TA)", duree: "10 min",
-    keywords: "tension arterielle ta pression arterielle tensiometre brassard korotkoff hypertension hypotension stethoscope constantes",
-    resume: "Mesurer la pression du sang dans les artères avec un tensiomètre et un stéthoscope, dans de bonnes conditions de repos.",
-    sections: [
-      { t: "Fiche rapide", html: specs([
-          ["Méthode", "Auscultatoire (brassard + stéthoscope) ou tensiomètre électronique"],
-          ["Repos", "5 minutes assis, avant la mesure"],
-          ["Bras", "Nu, soutenu, à hauteur du cœur"],
-          ["Brassard", "2–3 cm au-dessus du pli du coude, taille adaptée"],
-          ["Dégonflage", "2–3 mmHg par seconde"],
-          ["Systolique", "Apparition du 1er bruit"],
-          ["Diastolique", "Disparition des bruits"],
-          ["Repère HTA (adulte)", "140/90 mmHg et plus, sur mesures répétées"]
-        ]) },
-      { t: "Définition et indications", html:
-          para("La tension artérielle est la pression exercée par le sang sur la paroi des artères. Elle s'exprime en mmHg : la <strong>systolique</strong> (cœur qui se contracte) et la <strong>diastolique</strong> (cœur qui se relâche).") +
-          ul(["Surveillance de routine, à l'admission", "Suspicion d'hypertension ou d'hypotension", "Avant ou après certains traitements ou soins", "Malaise, douleur, saignement, surveillance post-opératoire"]) },
-      { t: "Matériel", html:
-          ul(["Tensiomètre avec brassard de taille adaptée", "Stéthoscope (désinfecté avant et après)", "Fiche de surveillance et stylo", "Solution hydro-alcoolique"]) +
-          para("Un brassard adapté couvre environ 80 % de la circonférence du bras et 40 % de sa longueur.") },
-      { t: "Conditions de mesure", html: ul([
-          "Patient <strong>au repos depuis 5 minutes</strong>, assis, dos soutenu, jambes non croisées, pieds à plat",
-          "Pas de café, de tabac ni d'effort dans les 30 minutes précédentes",
-          "Vessie vide, patient détendu, <strong>sans parler</strong>",
-          "Bras nu (sans manche serrée), appuyé, <strong>à hauteur du cœur</strong>",
-          "Éviter le bras avec perfusion, fistule artério-veineuse, ou du côté d'un curage axillaire ou d'une mastectomie"
-        ]) },
-      { t: "Technique pas à pas", html: ol([
-          "Hygiène des mains, expliquer le soin, installer le patient dans les bonnes conditions.",
-          "Placer le brassard <strong>2 à 3 cm au-dessus du pli du coude</strong>, le milieu de la poche sur l'artère brachiale. Il doit être bien ajusté.",
-          "Palper le pouls (radial ou brachial). Gonfler jusqu'à sa disparition, puis ajouter 20 à 30 mmHg.",
-          "Placer le pavillon du stéthoscope sur l'artère brachiale, sans appuyer trop fort.",
-          "Dégonfler <strong>lentement</strong> (2 à 3 mmHg par seconde).",
-          "Noter la valeur à l'<strong>apparition du premier bruit</strong> : c'est la pression systolique.",
-          "Noter la valeur à la <strong>disparition des bruits</strong> : c'est la pression diastolique.",
-          "Dégonfler complètement et retirer le brassard.",
-          "Attendre 1 à 2 minutes avant de refaire la mesure si nécessaire. Lors de la première prise, comparer les deux bras.",
-          "Désinfecter le stéthoscope, hygiène des mains, noter : valeurs, bras, position, heure."
-        ]) + FIGURE(figBrassard(), "Le brassard se place 2 à 3 cm au-dessus du pli du coude, le stéthoscope sur l'artère brachiale.") + FIGURE(figKorotkoff(), "Exemple : 120/80 mmHg. Les bruits s'entendent entre la pression systolique et la pression diastolique.") },
-      { t: "Interpréter", html: specs([
-          ["Hypertension (adulte)", "140/90 mmHg et plus, sur mesures répétées"],
-          ["Hypotension", "Moins de 90/60 mmHg"]
-        ]) + ul(["Les valeurs se confirment sur plusieurs mesures, dans de bonnes conditions", "Un patient avec des chiffres anormaux, un malaise ou des symptômes est à signaler immédiatement"]) + warn("Repères indicatifs : l'interprétation dépend du patient et du protocole du service.") },
-      { t: "Erreurs fréquentes", html: ul([
-          "Brassard trop petit (valeurs surestimées) ou trop grand (sous-estimées)", "Bras sous le niveau du cœur", "Patient qui parle, jambes croisées, pas de repos", "Dégonfler trop vite",
-          "Brassard posé sur un vêtement épais", "Mesure sur un bras avec perfusion ou fistule", "Ne pas noter le bras et la position"
-        ]) + note("À retenir : repos de 5 minutes, bras à hauteur du cœur, bon brassard, dégonflage lent.") }
-    ],
-    quiz: [
-      { q: "Où place-t-on le brassard ?", o: ["Sur le poignet", "2 à 3 cm au-dessus du pli du coude, sur l'artère brachiale", "Sur l'épaule", "Sur l'avant-bras"], a: 1, e: "Le milieu de la poche doit être sur l'artère brachiale." },
-      { q: "À quelle hauteur doit être le bras pendant la mesure ?", o: ["Sous le niveau du cœur", "À hauteur du cœur, bien soutenu", "Au-dessus de la tête", "Peu importe"], a: 1, e: "Un bras trop bas surestime la tension, trop haut la sous-estime." },
-      { q: "Quel bruit correspond à la pression systolique ?", o: ["La disparition des bruits", "L'apparition du premier bruit", "Le silence total", "Le dernier bruit entendu"], a: 1, e: "Le premier bruit de Korotkoff marque la pression systolique." },
-      { q: "À quelle vitesse dégonfle-t-on le brassard ?", o: ["20 mmHg par seconde", "2 à 3 mmHg par seconde", "Le plus vite possible", "D'un coup"], a: 1, e: "Un dégonflage lent permet de bien repérer les bruits." },
-      { q: "Un brassard trop petit donne une mesure :", o: ["Sous-estimée", "Surestimée", "Exacte", "Impossible à lire"], a: 1, e: "Un brassard trop petit surestime la pression artérielle." },
-      { q: "Quel repos avant la mesure ?", o: ["Aucun", "Environ 5 minutes", "2 heures", "Un jour entier"], a: 1, e: "Le repos permet d'obtenir une valeur représentative." },
-      { q: "À partir de quelle valeur parle-t-on d'hypertension chez l'adulte (mesures répétées) ?", o: ["100/60", "120/80", "140/90", "90/60"], a: 2, e: "140/90 mmHg ou plus, confirmé sur plusieurs mesures." },
-      { q: "Sur quel bras évite-t-on de prendre la tension ?", o: ["Un bras avec perfusion ou fistule, ou du côté d'un curage axillaire", "Le bras droit", "Le bras gauche", "Un bras nu"], a: 0, e: "La compression peut gêner la perfusion ou abîmer un abord vasculaire." }
-    ]
-  },
-  {
-    id: "dilu", niveau: 3, short: "DIL", title: "Dilution et reconstitution des médicaments", duree: "11 min",
-    keywords: "dilution reconstitution medicaments poudre solvant ampoule flacon calcul dose concentration regle de trois preparation",
-    resume: "Préparer correctement un médicament : lire la prescription, calculer le volume, dissoudre ou diluer, étiqueter.",
-    sections: [
-      { t: "Fiche rapide", html: specs([
-          ["Dilution", "Ajouter un solvant à un liquide pour baisser sa concentration"],
-          ["Reconstitution", "Dissoudre une poudre dans un solvant"],
-          ["Solvants courants", "Eau pour préparations injectables, NaCl 0,9 %, glucose 5 % : selon la notice"],
-          ["Formule", "Volume (mL) = Dose prescrite ÷ Concentration (mg/mL)"],
-          ["Unités", "1 g = 1 000 mg · 1 mg = 1 000 µg · 1 L = 1 000 mL"],
-          ["Sécurité", "Double vérification du calcul, étiquetage clair"]
-        ]) + warn("Une erreur de calcul ou d'unité peut être grave. En cas de doute, demandez à l'infirmier avant de préparer.") },
-      { t: "Définitions", html: ul([
-          "<strong>Dilution</strong> : on ajoute un solvant à un médicament déjà liquide.",
-          "<strong>Reconstitution</strong> : on dissout une poudre avec le solvant prévu.",
-          "<strong>Concentration</strong> : quantité de produit dans un volume (ex. 10 mg par mL)."
-        ]) },
-      { t: "Matériel", html:
-          ul(["Prescription et notice du médicament", "Produit (ampoule ou flacon) et solvant prescrit", "Seringue de volume adapté et aiguille de prélèvement", "Compresses et antiseptique", "Étiquette et stylo", "Gants, collecteur pour objets piquants et tranchants"]) +
-          FIGURE(figSyringe(), "Choisir une seringue dont le volume est proche de celui à prélever, pour une meilleure précision.") },
-      { t: "Calculs", html:
-          "<h4>Règle de trois</h4>" + para("Si 10 mg sont contenus dans 2 mL, alors 4 mg sont contenus dans (4 × 2) ÷ 10 = <strong>0,8 mL</strong>.") +
-          "<h4>Exemple 1 : ampoule</h4>" + ul(["Ampoule : 10 mg dans 2 mL", "Prescription : 4 mg", "Volume à prélever = 4 × 2 ÷ 10 = <strong>0,8 mL</strong>"]) +
-          "<h4>Exemple 2 : poudre reconstituée</h4>" + ul(["Flacon de 500 mg reconstitué avec 5 mL : concentration = 500 ÷ 5 = 100 mg/mL", "Prescription : 250 mg", "Volume à prélever = 250 ÷ 100 = <strong>2,5 mL</strong>"]) +
-          "<h4>Conversions utiles</h4>" + ul(["1 g = 1 000 mg", "1 mg = 1 000 µg (microgrammes)", "Attention à la virgule : 0,5 mL n'est pas 5 mL"]) +
-          note("Faites vérifier votre calcul par un second professionnel quand le protocole l'exige.") },
-      { t: "Technique pas à pas", html: ol([
-          "Appliquer les <strong>étapes communes</strong> : prescription, 5 B, hygiène des mains, matériel.",
-          "<strong>Lire la notice</strong> : solvant à utiliser, volume, durée de conservation, incompatibilités.",
-          "Faire le <strong>calcul</strong> du volume à prélever, le vérifier.",
-          "Désinfecter l'ampoule ou le bouchon du flacon, laisser sécher.",
-          "<strong>Ampoule</strong> : tapoter pour faire descendre le liquide, casser en protégeant ses doigts, prélever sans toucher les bords.",
-          "<strong>Poudre</strong> : injecter le solvant doucement dans le flacon et <strong>faire rouler le flacon</strong> entre les mains, sans secouer fortement.",
-          "Vérifier que la solution est <strong>limpide, sans particules</strong> ni précipité.",
-          "Prélever le volume calculé, purger l'air de la seringue.",
-          "Si la préparation n'est pas administrée tout de suite, <strong>étiqueter</strong> : nom du médicament, dose ou concentration, date et heure, initiales.",
-          "Éliminer l'aiguille dans le collecteur sans recapuchonner, hygiène des mains, tracer."
-        ]) },
-      { t: "Risques et précautions", html: ul([
-          "<strong>Mauvais solvant</strong> : le produit peut précipiter ou perdre son efficacité",
-          "<strong>Mélange de médicaments</strong> : jamais sans vérifier la compatibilité",
-          "<strong>Erreur d'unité</strong> (mg, µg, mL) : risque de surdosage ou de sous-dosage",
-          "<strong>Contamination</strong> : asepsie rigoureuse, ne pas toucher l'embout ni l'aiguille",
-          "<strong>Préparation conservée trop longtemps</strong> : respecter la durée indiquée sur la notice"
-        ]) },
-      { t: "Erreurs fréquentes", html: ul([
-          "Ne pas lire la notice", "Utiliser un autre solvant que celui prescrit", "Secouer fortement le flacon (mousse, perte de produit)", "Se tromper de virgule ou d'unité",
-          "Oublier d'étiqueter", "Ne pas vérifier l'aspect de la solution", "Prélever sans désinfecter le bouchon"
-        ]) + note("À retenir : prescription, notice, calcul vérifié, solution limpide, étiquette claire.") }
-    ],
-    quiz: [
-      { q: "Ampoule de 10 mg dans 2 mL. Prescription : 4 mg. Quel volume prélève-t-on ?", o: ["0,4 mL", "0,8 mL", "1,2 mL", "2 mL"], a: 1, e: "(4 × 2) ÷ 10 = 0,8 mL." },
-      { q: "Flacon reconstitué à 100 mg/mL. Prescription : 250 mg. Quel volume prélève-t-on ?", o: ["0,25 mL", "2,5 mL", "25 mL", "5 mL"], a: 1, e: "250 ÷ 100 = 2,5 mL." },
-      { q: "Que consulte-t-on avant de diluer un médicament ?", o: ["Rien", "La notice et la prescription", "Seulement l'emballage extérieur", "Le planning du service"], a: 1, e: "La notice précise le solvant, le volume et la conservation." },
-      { q: "Comment mélange-t-on la poudre et le solvant ?", o: ["En secouant très fort", "Doucement, en faisant rouler le flacon", "En chauffant le flacon", "En ajoutant de l'alcool"], a: 1, e: "Secouer fortement fait mousser et fait perdre du produit." },
-      { q: "Que doit contenir l'étiquette d'une préparation non administrée tout de suite ?", o: ["Seulement la date", "Le nom du médicament, la dose ou concentration, la date, l'heure et les initiales", "Le nom du patient seulement", "Rien"], a: 1, e: "Une étiquette claire évite les erreurs d'identification." },
-      { q: "Combien de microgrammes (µg) y a-t-il dans 1 mg ?", o: ["10", "100", "1 000", "1 000 000"], a: 2, e: "1 mg = 1 000 µg." },
-      { q: "Que risque-t-on en utilisant un solvant différent de celui prévu ?", o: ["Rien", "Une incompatibilité, un précipité ou une perte d'efficacité", "Un gain de temps", "Une meilleure absorption"], a: 1, e: "Le solvant est choisi pour la stabilité et la sécurité du produit." },
-      { q: "Que contrôle-t-on une fois le produit dissous ?", o: ["La couleur de l'étiquette", "Que la solution est limpide, sans particules ni précipité", "Le poids du flacon", "La température de la pièce"], a: 1, e: "Une solution trouble ou avec particules ne doit pas être administrée." }
-    ]
-  }
+// ---------- Fiches techniques (Batch 01 – Soins infirmiers fondamentaux et surveillance clinique) ----------
+const SI_RAW = [{"id":"SI-001","categorie":"Soins infirmiers fondamentaux","titre":"Hygiène des mains en milieu de soins","niveau":"Fondamental","public_cible":["Étudiant infirmier polyvalent","Professionnel de santé"],"objectif_general":"Réduire la transmission croisée des microorganismes et prévenir les infections associées aux soins.","definition":"Ensemble des gestes d'hygiène des mains réalisés par friction hydro-alcoolique ou lavage à l'eau et au savon selon l'indication.","indications":["Avant de toucher un patient","Avant un geste aseptique","Après un risque d'exposition à un liquide biologique","Après avoir touché un patient","Après avoir touché son environnement"],"contre_indications_precautions":["La friction hydro-alcoolique n'est pas adaptée aux mains visiblement souillées; procéder à un lavage à l'eau et au savon.","Respecter les précautions spécifiques en cas de suspicion d'agents sporulés ou selon le protocole local.","Ongles courts, sans faux ongles; bijoux aux mains/poignets à éviter selon politique locale."],"materiel":["Solution hydro-alcoolique conforme","Eau courante et savon liquide si lavage nécessaire","Essuie-mains à usage unique"],"preparation":["Retirer les bijoux gênant l'hygiène des mains.","Vérifier que les mains sont sèches avant friction.","Prévoir un produit accessible au point de soin."],"deroulement":["Appliquer une quantité suffisante de produit dans le creux de la main.","Frictionner paume contre paume.","Frictionner le dos de chaque main, espaces interdigitaux et dos des doigts.","Frictionner les pouces, pulpes des doigts et extrémités des ongles.","Poursuivre jusqu'au séchage complet; ne pas essuyer.","Si lavage requis: mouiller, savonner toutes les surfaces, rincer puis sécher avec essuie-mains à usage unique; fermer le robinet sans recontaminer les mains."],"role_infirmier":{"avant":"Identifier le moment d'hygiène requis et vérifier la disponibilité du produit.","pendant":"Réaliser une friction complète et respecter la durée indiquée par le fabricant/protocole (généralement 20–30 secondes pour la friction).","apres":"Reprendre le soin sans toucher de surface contaminante; répéter si les mains sont recontaminées."},"surveillance_complications":["Sécheresse ou irritation cutanée: signaler et utiliser les produits de soin cutané autorisés.","Surveiller l'observance des cinq indications dans l'équipe."],"tracabilite":"L'hygiène des mains n'est généralement pas tracée individuellement; signaler les ruptures de stock ou incidents selon le système qualité.","erreurs_a_eviter":["Porter des gants à la place de l'hygiène des mains.","Oublier pouces, pulpes ou espaces interdigitaux.","Mettre des gants sur des mains encore humides de solution hydro-alcoolique.","Toucher l'environnement immédiatement après friction avant le geste aseptique."],"qcm":[{"question":"Les gants remplacent-ils l'hygiène des mains?","options":["Oui","Non"],"reponse":"Non","explication":"L'hygiène des mains reste nécessaire avant et après le port des gants selon les indications."}],"references":[{"organisme":"OMS","titre":"WHO Guidelines on Hand Hygiene in Health Care","url":"https://www.who.int/publications/i/item/9789241597906"}],"limites":"Adapter aux précautions complémentaires et au protocole d'hygiène hospitalière local."},{"id":"SI-002","categorie":"Soins infirmiers fondamentaux","titre":"Identification sécurisée du patient","niveau":"Fondamental","public_cible":["Étudiant infirmier polyvalent","Professionnel de santé"],"objectif_general":"Garantir que le soin, le prélèvement ou le traitement est réalisé chez le bon patient.","definition":"Vérification active de l'identité du patient à l'aide d'au moins deux identifiants fiables, conformément à la politique de l'établissement.","indications":["Avant tout médicament, prélèvement, transfusion, soin ou acte invasif","Avant transfert ou examen","Avant étiquetage d'un prélèvement au lit du patient"],"contre_indications_precautions":["Ne pas utiliser le numéro de chambre ou de lit comme identifiant.","Si patient inconscient, nouveau-né ou incapable de répondre, appliquer la procédure institutionnelle avec bracelet et dossier.","En cas de discordance, suspendre l'acte non urgent jusqu'à résolution."],"materiel":["Bracelet d'identification si prévu","Dossier/ordonnance","Étiquettes ou système informatique sécurisé"],"preparation":["Se présenter et expliquer la vérification.","Demander au patient de décliner lui-même son identité, sans suggérer la réponse.","Comparer les identifiants avec le dossier et le bracelet."],"deroulement":["Demander au patient son nom et prénom et un second identifiant (par exemple date de naissance).","Comparer les réponses aux données du dossier/bracelet et à la prescription.","Vérifier la concordance avant préparation et administration du soin.","Étiqueter les prélèvements immédiatement après le prélèvement, en présence du patient, selon protocole.","En cas d'écart, arrêter, sécuriser et alerter le responsable."],"role_infirmier":{"avant":"Préparer le dossier et vérifier la prescription.","pendant":"Faire une identification active et croisée avec deux identifiants autorisés.","apres":"Documenter toute anomalie et déclarer un événement indésirable ou presque-accident selon procédure."},"surveillance_complications":["Risque d'erreur de patient, de médicament, de prélèvement ou de transfusion.","Risque accru chez les patients homonymes, désorientés ou non communicants."],"tracabilite":"Tracer le soin dans le dossier du patient identifié; signaler toute discordance.","erreurs_a_eviter":["Demander uniquement «Vous êtes Monsieur X?» et accepter un oui.","Se fier à la chambre ou au visage seul.","Pré-étiqueter des tubes hors de la présence du patient."],"qcm":[{"question":"Combien d'identifiants indépendants faut-il vérifier selon la règle courante?","options":["Un","Deux ou plus selon protocole","Le numéro de chambre"],"reponse":"Deux ou plus selon protocole","explication":"Utiliser les identifiants approuvés par l'établissement."}],"references":[{"organisme":"OMS","titre":"Patient identification","url":"https://www.who.int/teams/integrated-health-services/patient-safety"}],"limites":"Les identifiants exacts et la procédure pour les patients sans identité doivent suivre le protocole national/institutionnel."},{"id":"SI-003","categorie":"Surveillance clinique","titre":"Mesure du pouls périphérique","niveau":"Fondamental","public_cible":["Étudiant infirmier polyvalent"],"objectif_general":"Évaluer la fréquence, le rythme et l'amplitude du pouls et repérer une anomalie circulatoire.","definition":"Palpation d'une artère périphérique afin d'apprécier les pulsations artérielles.","indications":["Bilan des paramètres vitaux","Douleur thoracique, malaise, dyspnée ou altération de l'état général","Surveillance d'un traitement ou d'une pathologie cardiovasculaire","Évaluation de la perfusion périphérique"],"contre_indications_precautions":["Éviter de palper simultanément les deux carotides.","Ne pas utiliser le pouce pour compter le pouls.","En cas de pouls irrégulier, compter pendant 60 secondes et comparer au pouls apical si indiqué."],"materiel":["Montre avec trotteuse ou chronomètre","Fiche de surveillance"],"preparation":["Informer le patient et le laisser au repos si la situation le permet.","Installer confortablement le membre et repérer le site adapté, le plus souvent radial."],"deroulement":["Poser l'index et le majeur sur l'artère radiale, sans pression excessive.","Repérer les pulsations.","Compter 30 secondes et multiplier par deux si le rythme est régulier; compter 60 secondes si irrégulier ou selon protocole.","Apprécier le rythme, l'amplitude et la symétrie si nécessaire.","Comparer aux valeurs habituelles du patient et au contexte clinique."],"role_infirmier":{"avant":"Vérifier le contexte, le repos et les symptômes associés.","pendant":"Mesurer avec une technique reproductible et observer la régularité.","apres":"Interpréter avec les autres paramètres, répéter si valeur inattendue et alerter en cas de signe de gravité."},"surveillance_complications":["Tachycardie, bradycardie, irrégularité ou pouls filant/absent.","Associer douleur thoracique, syncope, dyspnée, hypotension ou confusion à une évaluation urgente."],"tracabilite":"Noter fréquence en battements/minute, site, régularité, amplitude, position/repos et symptômes.","erreurs_a_eviter":["Utiliser le pouce.","Appuyer trop fort et occlure l'artère.","Compter trop brièvement en cas d'irrégularité.","Interpréter la fréquence sans tenir compte de l'âge, de la fièvre, de l'effort ou des traitements."],"qcm":[{"question":"Que faire si le rythme est irrégulier?","options":["Compter 15 secondes","Compter 60 secondes","Estimer visuellement"],"reponse":"Compter 60 secondes","explication":"Une mesure prolongée améliore la précision."}],"references":[{"organisme":"Open RN","titre":"Nursing Skills – Vital Signs / General Survey","url":"https://www.ncbi.nlm.nih.gov/books/NBK596717/"}],"limites":"Les valeurs de référence varient selon l'âge et l'état clinique; appliquer les seuils d'alerte locaux."},{"id":"SI-004","categorie":"Surveillance clinique","titre":"Mesure de la pression artérielle","niveau":"Fondamental","public_cible":["Étudiant infirmier polyvalent"],"objectif_general":"Mesurer la pression artérielle de façon fiable et détecter une valeur anormale.","definition":"Mesure non invasive de la pression exercée par le sang sur la paroi artérielle, exprimée en mmHg (systolique/diastolique).","indications":["Surveillance des paramètres vitaux","Suivi d'hypertension ou d'hypotension","Malaise, céphalées, douleur thoracique ou altération clinique","Surveillance péri-opératoire ou thérapeutique"],"contre_indications_precautions":["Éviter un bras avec fistule artério-veineuse, perfusion, lymphœdème, chirurgie ganglionnaire ou lésion, selon avis/protocole.","Choisir un brassard adapté à la circonférence du bras.","Ne pas mesurer sur vêtement; éviter conversation et mouvement."],"materiel":["Tensiomètre validé (manuel ou automatique)","Brassard adapté","Stéthoscope si méthode auscultatoire","Fiche de surveillance"],"preparation":["Faire reposer le patient environ cinq minutes si possible.","Installer assis, dos soutenu, pieds au sol, jambes décroisées, bras soutenu au niveau du cœur.","Vérifier que le patient n'a pas parlé pendant la mesure."],"deroulement":["Choisir le bras approprié et mesurer si nécessaire aux deux bras lors de l'évaluation initiale selon protocole.","Placer le brassard sur peau nue, bord inférieur environ 2–3 cm au-dessus du pli du coude.","Centrer la poche gonflable sur l'artère brachiale.","Lancer l'appareil automatique ou réaliser la méthode auscultatoire par un professionnel formé.","Si résultat inattendu, vérifier la technique et répéter après un court repos; effectuer plusieurs mesures selon protocole.","Noter systolique, diastolique, bras, position et appareil/méthode si pertinent."],"role_infirmier":{"avant":"Rechercher les facteurs pouvant fausser la mesure et choisir le bras approprié.","pendant":"Maintenir le bras au niveau du cœur et utiliser un brassard adapté.","apres":"Évaluer le résultat dans son contexte, comparer aux valeurs antérieures et alerter selon les seuils et symptômes."},"surveillance_complications":["Hypotension avec malaise, syncope, pâleur ou signes de choc.","Hypertension sévère avec douleur thoracique, dyspnée, déficit neurologique ou céphalée brutale: urgence clinique."],"tracabilite":"Tracer les deux chiffres en mmHg, le bras, la position, l'heure et les symptômes.","erreurs_a_eviter":["Brassard trop petit ou trop grand.","Bras non soutenu ou situé sous/au-dessus du niveau du cœur.","Mesure sur vêtement, patient parlant ou jambes croisées.","Ne pas répéter une valeur inattendue."],"qcm":[{"question":"Où doit se situer le bras pendant la mesure?","options":["Au niveau du cœur","Au-dessus de la tête","Pendante vers le sol"],"reponse":"Au niveau du cœur","explication":"La position du bras influence la mesure."}],"references":[{"organisme":"Open RN","titre":"Nursing Skills – Vital Signs","url":"https://www.ncbi.nlm.nih.gov/books/NBK596717/"}],"limites":"Ne pas utiliser cette fiche pour établir seul un diagnostic d'hypertension; appliquer les recommandations et seuils locaux."},{"id":"SI-005","categorie":"Surveillance clinique","titre":"Mesure de la fréquence respiratoire","niveau":"Fondamental","public_cible":["Étudiant infirmier polyvalent"],"objectif_general":"Évaluer la ventilation par la fréquence, le rythme, l'amplitude et le travail respiratoire.","definition":"Comptage des cycles respiratoires (une inspiration et une expiration) sur une durée déterminée.","indications":["Bilan des paramètres vitaux","Dyspnée, douleur thoracique, fièvre, traumatisme ou altération de conscience","Surveillance après administration de médicaments dépresseurs respiratoires","Surveillance post-opératoire"],"contre_indications_precautions":["Ne pas demander au patient de modifier volontairement sa respiration.","Si détresse respiratoire, ne pas retarder l'alerte pour terminer le comptage."],"materiel":["Montre avec trotteuse","Oxymètre si indiqué","Fiche de surveillance"],"preparation":["Installer le patient au repos si possible.","Observer discrètement, idéalement après la prise du pouls pour éviter que le patient ne contrôle sa respiration."],"deroulement":["Observer le soulèvement thoracique ou abdominal.","Compter chaque cycle complet pendant 60 secondes si respiration irrégulière, patient fragile ou contexte aigu; sinon appliquer le protocole local.","Évaluer profondeur, rythme, symétrie et effort respiratoire.","Rechercher tirage, utilisation des muscles accessoires, cyanose, pauses, bruits audibles et capacité à parler.","Associer la SpO2 et l'état de conscience à l'évaluation."],"role_infirmier":{"avant":"Repérer les signes de détresse et préparer le matériel de surveillance.","pendant":"Compter sans influencer la respiration et apprécier le travail ventilatoire.","apres":"Tracer et alerter rapidement en cas de fréquence anormale ou de signes de lutte."},"surveillance_complications":["Tachypnée, bradypnée, apnée, respiration irrégulière.","Signes de gravité: cyanose, confusion, épuisement, incapacité à parler, tirage marqué ou désaturation."],"tracabilite":"Noter cycles/minute, rythme, amplitude, effort, position, SpO2 et signes associés.","erreurs_a_eviter":["Prévenir le patient qu'on compte ses respirations.","Compter moins longtemps en cas d'irrégularité.","Se limiter au chiffre sans observer l'effort respiratoire."],"qcm":[{"question":"Un cycle respiratoire correspond à:","options":["Une inspiration seule","Une inspiration et une expiration","Deux expirations"],"reponse":"Une inspiration et une expiration","explication":"Un cycle complet comprend les deux phases."}],"references":[{"organisme":"Open RN","titre":"Respiratory Assessment","url":"https://www.ncbi.nlm.nih.gov/sites/books/NBK593192/"}],"limites":"Les seuils dépendent de l'âge et du contexte; une détresse clinique prime sur la valeur numérique."},{"id":"SI-006","categorie":"Surveillance clinique","titre":"Mesure de la température corporelle","niveau":"Fondamental","public_cible":["Étudiant infirmier polyvalent"],"objectif_general":"Mesurer la température et repérer une hypo- ou hyperthermie.","definition":"Évaluation de la température corporelle à l'aide d'un dispositif adapté au site de mesure.","indications":["Bilan des paramètres vitaux","Suspicion d'infection ou d'inflammation","Surveillance post-opératoire","Suivi d'un patient à risque de trouble thermique"],"contre_indications_precautions":["Respecter les contre-indications propres au site et au thermomètre.","La mesure tympanique peut être faussée par une mauvaise orientation ou un bouchon de cérumen.","Ne pas comparer directement des mesures prises sur des sites différents sans tenir compte de leur méthode."],"materiel":["Thermomètre électronique ou infrarouge adapté","Embout/protection à usage unique si requis","Produit de nettoyage conforme"],"preparation":["Expliquer le geste et choisir le site selon l'âge, l'état et le dispositif.","Vérifier le bon fonctionnement et l'hygiène du thermomètre."],"deroulement":["Effectuer l'hygiène des mains.","Installer le patient et sélectionner le site autorisé.","Placer le thermomètre selon les instructions du fabricant (axillaire, oral, tympanique ou autre site validé).","Attendre le signal ou le temps prévu.","Lire et noter la valeur avec le site et la méthode.","Nettoyer/désinfecter l'appareil selon le protocole."],"role_infirmier":{"avant":"Choisir la méthode appropriée et rechercher les facteurs influençant la mesure (boisson chaude, activité, environnement).","pendant":"Respecter les consignes du dispositif et prévenir l'inconfort.","apres":"Interpréter selon l'âge, le site et l'état clinique; alerter si valeur préoccupante."},"surveillance_complications":["Fièvre avec frissons, altération de conscience, hypotension ou détresse: évaluation rapide.","Hypothermie avec confusion, somnolence ou ralentissement physiologique."],"tracabilite":"Tracer valeur en °C, site, méthode, heure et symptômes associés.","erreurs_a_eviter":["Oublier de noter le site de mesure.","Utiliser un appareil mal désinfecté.","Comparer des valeurs de sites différents comme si elles étaient équivalentes."],"qcm":[{"question":"Que faut-il toujours préciser avec la température?","options":["La couleur du thermomètre","Le site et la méthode","La marque du lit"],"reponse":"Le site et la méthode","explication":"Le site influence l'interprétation."}],"references":[{"organisme":"Open RN","titre":"Nursing Skills – Vital Signs","url":"https://www.ncbi.nlm.nih.gov/books/NBK596717/"}],"limites":"Les seuils de fièvre varient selon le site, l'âge et les protocoles; utiliser les seuils locaux."},{"id":"SI-007","categorie":"Surveillance clinique","titre":"Mesure de la saturation pulsée en oxygène (SpO2)","niveau":"Fondamental","public_cible":["Étudiant infirmier polyvalent"],"objectif_general":"Estimer non invasivement la saturation périphérique en oxygène et suivre son évolution.","definition":"Mesure par oxymètre de pouls de la saturation pulsée en oxygène (SpO2) et généralement de la fréquence du pouls.","indications":["Dyspnée ou suspicion d'hypoxémie","Surveillance respiratoire et post-opératoire","Suivi sous oxygénothérapie","Évaluation clinique selon prescription/protocole"],"contre_indications_precautions":["Une mauvaise perfusion, le mouvement, le froid, le vernis/faux ongles, la lumière intense ou un capteur mal adapté peuvent fausser la lecture.","La SpO2 ne mesure pas la ventilation ni la PaCO2.","Certaines dys-hémoglobinémies et facteurs de pigmentation cutanée peuvent affecter l'exactitude; interpréter avec la clinique."],"materiel":["Oxymètre de pouls","Capteur adapté au patient","Fiche de surveillance"],"preparation":["Expliquer le geste.","Choisir un doigt ou un site adapté, chaud et bien perfusé.","Vérifier l'absence d'obstacle au capteur."],"deroulement":["Mettre le capteur correctement sur le site choisi.","Demander au patient de rester immobile.","Attendre une valeur stable et vérifier la cohérence du signal/pouls affiché.","Noter SpO2, fréquence affichée, site, air ambiant ou dispositif d'oxygène et débit prescrit.","Si valeur inattendue, vérifier le capteur et répéter sans retarder l'évaluation d'un patient symptomatique."],"role_infirmier":{"avant":"Évaluer respiration, conscience, coloration et contexte d'oxygénothérapie.","pendant":"Assurer un signal fiable et observer le patient, pas seulement l'écran.","apres":"Comparer à la cible prescrite/au niveau habituel et alerter en cas de désaturation ou détresse."},"surveillance_complications":["Désaturation persistante ou chute par rapport au niveau habituel.","Ne pas retarder l'escalade clinique chez un patient en détresse même si la SpO2 paraît normale."],"tracabilite":"Noter SpO2 en %, site, conditions (air ambiant/oxygène, dispositif et débit), heure et symptômes.","erreurs_a_eviter":["Interpréter une valeur isolée sans vérifier le signal.","Oublier de préciser si le patient reçoit de l'oxygène.","Considérer une SpO2 normale comme preuve d'une ventilation normale."],"qcm":[{"question":"L'oxymètre mesure directement la PaCO2?","options":["Oui","Non"],"reponse":"Non","explication":"Il estime la saturation pulsée en oxygène, pas la ventilation ni le CO2."}],"references":[{"organisme":"Open RN","titre":"Oxygen Therapy","url":"https://www.ncbi.nlm.nih.gov/books/NBK596733/"}],"limites":"La cible de SpO2 doit être individualisée, notamment chez certains patients atteints de pathologie respiratoire chronique."},{"id":"SI-008","categorie":"Surveillance clinique","titre":"Réalisation d'une glycémie capillaire","niveau":"Fondamental","public_cible":["Étudiant infirmier polyvalent"],"objectif_general":"Mesurer rapidement la glycémie capillaire afin de dépister ou surveiller une hypo/hyperglycémie.","definition":"Mesure du glucose dans une goutte de sang capillaire à l'aide d'un lecteur et d'une bandelette adaptée.","indications":["Surveillance d'un patient diabétique","Signes évocateurs d'hypoglycémie ou d'hyperglycémie","Surveillance selon prescription ou protocole","Évaluation d'un trouble de conscience selon conduite d'urgence locale"],"contre_indications_precautions":["Ne pas utiliser un site froid, œdématié ou mal perfusé si un autre site est disponible.","Respecter les précautions standard et les règles de prévention des AES.","Ne jamais partager un autopiqueur; lecteur partagé nettoyé/désinfecté selon fabricant et protocole.","Éviter de presser fortement le doigt, ce qui peut diluer l'échantillon."],"materiel":["Glucomètre","Bandelette compatible non périmée","Autopiqueur à usage unique ou dispositif sécurisé individuel","Gants si risque d'exposition au sang","Compresses","Collecteur d'objets piquants/tranchants"],"preparation":["Vérifier identité, prescription/protocole et moment de mesure (à jeun, avant/après repas, symptômes).","Vérifier appareil, unité, bandelettes et contrôle qualité si requis.","Laver et sécher les mains du patient si possible; éviter les résidus de sucre."],"deroulement":["Insérer la bandelette selon notice.","Choisir le côté de la pulpe d'un doigt, éviter le pouce et l'index si possible.","Désinfecter si protocole l'exige et laisser sécher complètement; ne pas piquer une peau humide d'alcool.","Piquer avec un autopiqueur sécurisé à usage unique.","Obtenir une goutte suffisante sans presser excessivement.","Appliquer le sang selon les instructions du lecteur.","Lire le résultat et vérifier toute valeur incohérente avec l'état clinique.","Éliminer immédiatement la lancette dans le collecteur adapté; nettoyer le lecteur selon protocole."],"role_infirmier":{"avant":"Vérifier identité, contexte alimentaire, traitement antidiabétique et symptômes.","pendant":"Respecter asepsie, sécurité du dispositif et mode opératoire du lecteur.","apres":"Interpréter selon protocole, appliquer la conduite prévue en cas d'hypo/hyperglycémie et réévaluer."},"surveillance_complications":["Hypoglycémie: sueurs, tremblements, faim, confusion, convulsions ou coma.","Hyperglycémie importante: polyurie, polydipsie, déshydratation, vomissements, respiration anormale ou altération de conscience."],"tracabilite":"Tracer valeur, unité, heure, contexte (à jeun/repas), symptômes, site et actions entreprises.","erreurs_a_eviter":["Doigt humide ou contaminé par sucre.","Bandelette périmée ou incompatible.","Partager l'autopiqueur.","Ne pas confirmer une valeur incompatible avec l'état clinique."],"qcm":[{"question":"Pourquoi laisser sécher l'antiseptique avant la piqûre?","options":["Pour éviter dilution/irritation et interférence","Pour augmenter le saignement"],"reponse":"Pour éviter dilution/irritation et interférence","explication":"La peau doit être sèche avant le prélèvement."}],"references":[{"organisme":"Open RN","titre":"Nursing Skills – specimen collection / skills","url":"https://www.ncbi.nlm.nih.gov/books/NBK593210/"}],"limites":"Les seuils et conduites à tenir dépendent du protocole diabète local et de la prescription; urgence si altération neurologique."},{"id":"SI-009","categorie":"Administration des médicaments","titre":"Injection intradermique (ID)","niveau":"Fondamental supervisé","public_cible":["Étudiant infirmier polyvalent sous supervision"],"objectif_general":"Administrer un produit dans le derme lorsque la voie intradermique est prescrite et indiquée.","definition":"Injection d'un faible volume dans le derme superficiel, selon le produit et le protocole.","indications":["Tests diagnostiques cutanés ou autres indications explicitement prévues par protocole"],"contre_indications_precautions":["Vérifier la prescription, le produit, la voie et les conditions de lecture du test.","Ne pas injecter sur une peau lésée, infectée ou inflammatoire.","Ne pas masser le site après injection si le protocole l'interdit.","Le volume, l'aiguille, l'angle et le site dépendent du produit et du protocole."],"materiel":["Seringue et aiguille adaptées à la voie ID","Produit prescrit","Antiseptique si requis et compresse","Gants si indication d'exposition","Collecteur OPCT"],"preparation":["Vérifier identité, allergies, prescription, date de péremption et intégrité du produit.","Expliquer le geste et installer le patient.","Choisir un site autorisé, souvent face antérieure de l'avant-bras selon indication."],"deroulement":["Réaliser l'hygiène des mains et préparer le produit selon les règles d'asepsie.","Installer et tendre doucement la peau.","Introduire très superficiellement l'aiguille, biseau vers le haut, avec un angle faible conforme au protocole.","Injecter lentement le volume prescrit; une petite papule peut apparaître selon le test.","Retirer l'aiguille sans masser le site si le protocole l'indique.","Éliminer immédiatement le matériel piquant sans recapuchonnage.","Informer le patient des consignes de surveillance et de lecture."],"role_infirmier":{"avant":"Contrôler prescription, allergies, produit, site et conditions de lecture.","pendant":"Respecter la technique ID et observer la réaction immédiate.","apres":"Tracer produit, dose/volume, site, heure, lot si requis et organiser la lecture au délai prescrit."},"surveillance_complications":["Réaction locale excessive, douleur, saignement ou réaction allergique systémique.","Pour un test, risque d'interprétation invalide si mauvais site, volume ou délai de lecture."],"tracabilite":"Tracer produit, dose/volume, voie ID, site, date/heure, lot si requis, tolérance et rendez-vous de lecture.","erreurs_a_eviter":["Confondre voie ID et SC.","Injecter trop profondément.","Masser le site lorsqu'il faut préserver la réaction cutanée.","Oublier le rendez-vous de lecture du test."],"qcm":[{"question":"Quel signe peut apparaître lors d'une injection ID correctement réalisée?","options":["Une papule superficielle","Un hématome profond obligatoire"],"reponse":"Une papule superficielle","explication":"Une petite papule peut se former selon le produit et le protocole."}],"references":[{"organisme":"OMS","titre":"Best Practices for Injections and Related Procedures Toolkit","url":"https://www.ncbi.nlm.nih.gov/books/NBK138493/"}],"limites":"Fiche d'apprentissage: ne remplace pas la notice du produit, le protocole de test ni la validation pratique par un encadrant."},{"id":"SI-010","categorie":"Administration des médicaments","titre":"Injection sous-cutanée (SC)","niveau":"Fondamental supervisé","public_cible":["Étudiant infirmier polyvalent sous supervision"],"objectif_general":"Administrer un médicament prescrit dans le tissu sous-cutané en sécurité.","definition":"Administration d'un médicament dans le tissu adipeux situé sous le derme.","indications":["Médicaments prescrits par voie SC, par exemple certaines insulines ou anticoagulants selon prescription"],"contre_indications_precautions":["Vérifier le médicament, la voie, la dose, l'horaire, les allergies et les paramètres requis.","Éviter peau inflammatoire, infectée, cicatricielle, ecchymotique ou œdématiée.","Rotation des sites selon produit et protocole; ne pas masser certains produits (ex. anticoagulants) selon recommandations.","Angle et pli cutané dépendent de l'aiguille, du site et de la corpulence."],"materiel":["Seringue/aiguille ou stylo injectable adaptés","Médicament prescrit","Compresses","Collecteur OPCT"],"preparation":["Vérifier les droits d'administration et les paramètres spécifiques (ex. glycémie pour insuline si protocole).","Identifier le patient et expliquer le soin.","Choisir un site autorisé: abdomen, cuisse ou bras selon produit et protocole; inspecter la peau."],"deroulement":["Effectuer l'hygiène des mains et préparer le médicament selon prescription/notice.","Installer le patient et désinfecter si requis; laisser sécher.","Former un pli cutané si indiqué par la longueur d'aiguille et la morphologie.","Introduire l'aiguille selon l'angle prévu par le dispositif/protocole.","Injecter lentement la dose prescrite; respecter le temps d'attente du stylo si applicable.","Retirer l'aiguille, appliquer une pression douce si besoin sans massage lorsque déconseillé.","Éliminer immédiatement l'aiguille dans le collecteur OPCT."],"role_infirmier":{"avant":"Vérifier prescription, identité, allergies, dose et site; contrôler le médicament.","pendant":"Respecter l'asepsie, la technique et les spécificités du produit.","apres":"Surveiller réaction locale et effets attendus/indésirables; tracer l'administration."},"surveillance_complications":["Hématome, douleur, lipodystrophie en cas de rotation insuffisante, infection locale.","Hypoglycémie après insuline; saignement après anticoagulant."],"tracabilite":"Tracer médicament, dose, heure, voie SC, site précis, lot si requis, paramètres associés et tolérance.","erreurs_a_eviter":["Ne pas vérifier la concentration ou le type de stylo.","Réutiliser une aiguille ou un autopiqueur.","Injecter dans une zone de lipohypertrophie.","Masser le site sans vérifier les recommandations du médicament."],"qcm":[{"question":"Pourquoi alterner les sites d'injection SC?","options":["Prévenir les lésions/lipodystrophies","Accélérer systématiquement l'effet"],"reponse":"Prévenir les lésions/lipodystrophies","explication":"La rotation réduit les complications locales."}],"references":[{"organisme":"OMS","titre":"Best Practices for Injections and Related Procedures Toolkit","url":"https://www.ncbi.nlm.nih.gov/books/NBK138493/"}],"limites":"Les modalités varient selon le médicament et le dispositif; suivre impérativement notice et protocole local."},{"id":"SI-011","categorie":"Administration des médicaments","titre":"Injection intramusculaire (IM)","niveau":"Fondamental supervisé","public_cible":["Étudiant infirmier polyvalent sous supervision"],"objectif_general":"Administrer un médicament prescrit dans un muscle en limitant les risques neurovasculaires et infectieux.","definition":"Administration d'un médicament dans le tissu musculaire à l'aide d'une aiguille adaptée.","indications":["Médicaments explicitement prescrits par voie IM","Vaccins et traitements injectables dont la voie IM est prévue"],"contre_indications_precautions":["Vérifier prescription, allergies, produit, dose, voie, site et volume maximal autorisé par protocole.","Éviter une zone infectée, inflammatoire, atrophiée ou présentant hématome.","Prendre en compte anticoagulants, troubles de coagulation, masse musculaire et âge.","Choisir le site selon produit, âge, volume et recommandations; éviter le site dorso-glutéal lorsque le protocole recommande un site plus sûr.","Ne pas aspirer ou masser systématiquement: suivre les recommandations spécifiques du produit et protocole."],"materiel":["Seringue et aiguille adaptées au patient et au site","Médicament prescrit","Antiseptique si requis","Compresses","Collecteur OPCT"],"preparation":["Vérifier les droits d'administration et la concordance produit/voie/dose.","Identifier le patient, rechercher allergies et expliquer le geste.","Choisir le site anatomique selon protocole et repérer les structures à risque.","Installer le patient pour relâcher le muscle."],"deroulement":["Effectuer l'hygiène des mains et préparer le médicament de façon aseptique.","Inspecter et repérer le site; désinfecter si indiqué et laisser sécher.","Stabiliser la peau et introduire l'aiguille à 90 degrés avec une longueur adaptée.","Injecter selon la vitesse recommandée pour le médicament.","Retirer l'aiguille, appliquer une compresse sans massage si non recommandé.","Éliminer immédiatement le matériel piquant dans le collecteur OPCT."],"role_infirmier":{"avant":"Vérifier les facteurs de risque, le site et la prescription.","pendant":"Maintenir le repérage anatomique et surveiller douleur ou réaction immédiate.","apres":"Surveiller réaction locale/systémique, documenter et donner les consignes utiles."},"surveillance_complications":["Douleur persistante, hématome, abcès, lésion nerveuse ou vasculaire.","Réaction allergique immédiate ou effet indésirable du médicament."],"tracabilite":"Tracer produit, dose, voie IM, site anatomique exact, heure, lot si requis, tolérance et identité de l'administrateur.","erreurs_a_eviter":["Choisir le site uniquement par habitude sans repérage anatomique.","Aiguille inadaptée à la corpulence ou au site.","Injecter dans une zone lésée.","Oublier la surveillance d'une réaction allergique."],"qcm":[{"question":"Quel est l'angle habituel d'introduction pour une injection IM?","options":["15°","45°","90°"],"reponse":"90°","explication":"La voie IM vise le tissu musculaire; adapter aiguille et site."}],"references":[{"organisme":"OMS","titre":"Best Practices for Injections and Related Procedures Toolkit","url":"https://www.ncbi.nlm.nih.gov/books/NBK138493/"}],"limites":"Le site, le volume, l'aiguille et les gestes associés dépendent du produit, du patient et du protocole. Réalisation sous supervision jusqu'à validation."},{"id":"SI-012","categorie":"Soins techniques","titre":"Pansement stérile simple","niveau":"Fondamental supervisé","public_cible":["Étudiant infirmier polyvalent sous supervision"],"objectif_general":"Protéger une plaie, maintenir un environnement favorable à la cicatrisation et surveiller son évolution.","definition":"Renouvellement d'un dispositif de couverture d'une plaie en respectant une technique aseptique adaptée au niveau de risque.","indications":["Pansement prescrit ou prévu par protocole","Protection d'une plaie propre ou post-opératoire","Surveillance de l'exsudat et de l'évolution locale"],"contre_indications_precautions":["Plaie profonde, infectée, hémorragique, brûlure étendue ou déhiscence: appliquer protocole spécifique et demander avis compétent.","Ne pas utiliser de produit non prescrit ou non validé.","Adapter la technique (aseptique sans contact ou stérile) au type de plaie et au protocole."],"materiel":["Set de pansement stérile","Gants non stériles pour retrait si nécessaire","Gants stériles ou pinces stériles selon technique","Sérum physiologique/solution prescrite","Compresses stériles","Pansement adapté","Sac déchets et collecteur OPCT si nécessaire"],"preparation":["Vérifier prescription, allergies, douleur et dernier pansement.","Informer le patient, assurer intimité et installation confortable.","Préparer un plan de travail propre et le matériel complet.","Hygiène des mains et équipements de protection selon risque d'exposition."],"deroulement":["Retirer l'ancien pansement avec des gants adaptés; observer l'aspect et l'exsudat.","Éliminer les déchets et retirer les gants; hygiène des mains.","Préparer le champ et le matériel stérile selon technique choisie.","Nettoyer la plaie selon prescription/protocole, du moins contaminé vers le plus contaminé, sans revenir avec une compresse utilisée.","Sécher la peau périphérique si nécessaire et protéger la peau autour de la plaie.","Appliquer le pansement adapté sans toucher la partie en contact avec la plaie.","Fixer sans tension excessive et vérifier le confort."],"role_infirmier":{"avant":"Évaluer douleur, allergies, type de plaie et indication du pansement.","pendant":"Maintenir l'asepsie, observer la plaie et limiter les manipulations inutiles.","apres":"Réinstaller, éliminer les déchets, réaliser l'hygiène des mains et surveiller l'évolution."},"surveillance_complications":["Rougeur extensive, chaleur, œdème, douleur croissante, pus, odeur inhabituelle, fièvre.","Saignement, déhiscence, macération ou réaction au pansement."],"tracabilite":"Décrire localisation, dimensions si mesurées, lit de plaie, berges, peau péri-lésionnelle, exsudat, odeur, douleur, produits et pansement appliqués.","erreurs_a_eviter":["Contaminer le matériel stérile.","Réutiliser une compresse sur plusieurs zones.","Décrire uniquement «pansement fait» sans évaluation de la plaie.","Appliquer antiseptique ou antibiotique local sans indication."],"qcm":[{"question":"Que faire après le retrait de l'ancien pansement avant le temps aseptique?","options":["Garder les mêmes gants","Retirer les gants et réaliser l'hygiène des mains","Toucher le champ stérile"],"reponse":"Retirer les gants et réaliser l'hygiène des mains","explication":"Cela évite de transférer la contamination au matériel propre/stérile."}],"references":[{"organisme":"Open RN","titre":"Nursing Skills – Wound Care","url":"https://www.ncbi.nlm.nih.gov/sites/books/NBK593202/"}],"limites":"Choix du pansement et solution de nettoyage selon type de plaie, prescription et protocole de l'établissement."},{"id":"SI-013","categorie":"Soins techniques","titre":"Réalisation d'un électrocardiogramme (ECG) 12 dérivations","niveau":"Fondamental supervisé","public_cible":["Étudiant infirmier polyvalent sous supervision"],"objectif_general":"Enregistrer un tracé ECG de qualité pour permettre l'analyse de l'activité électrique cardiaque.","definition":"Enregistrement de l'activité électrique du cœur au moyen d'électrodes cutanées et de 12 dérivations standard.","indications":["Douleur thoracique ou palpitations","Malaise/syncope","Surveillance d'une pathologie ou d'un traitement cardiaque","ECG prescrit ou demandé en situation urgente"],"contre_indications_precautions":["Aucune contre-indication majeure à l'ECG de surface, mais respecter intimité et tolérance cutanée.","Ne pas retarder l'alerte médicale en cas de douleur thoracique ou instabilité.","Un ECG normal n'exclut pas à lui seul une urgence coronarienne."],"materiel":["Électrocardiographe","10 électrodes (4 membres et 6 précordiales)","Gel/électrodes adhésives selon appareil","Rasoir à usage unique si nécessaire et autorisé","Lingettes/nettoyant cutané"],"preparation":["Vérifier identité, indication et fonctionnement de l'appareil.","Expliquer le geste et assurer intimité.","Installer le patient en décubitus dorsal si possible, au repos, torse accessible.","Préparer la peau: propre, sèche; limiter les artefacts."],"deroulement":["Connecter les câbles aux électrodes selon le code couleur de l'appareil.","Placer les électrodes des membres aux sites anatomiques prévus; éviter les zones osseuses si possible.","Placer V1 au 4e espace intercostal droit, bord sternal; V2 au 4e espace intercostal gauche.","Placer V4 au 5e espace intercostal gauche, ligne médio-claviculaire; V3 à mi-distance entre V2 et V4.","Placer V5 ligne axillaire antérieure au niveau horizontal de V4; V6 ligne axillaire moyenne au même niveau.","Demander au patient de rester immobile et silencieux pendant l'enregistrement.","Vérifier qualité du tracé, absence d'inversion évidente d'électrodes et identifier l'enregistrement."],"role_infirmier":{"avant":"Évaluer urgence clinique et préparer le matériel.","pendant":"Respecter les repères anatomiques et limiter les artefacts.","apres":"Transmettre immédiatement le tracé si urgence; ne pas interpréter au-delà de sa compétence; nettoyer le matériel."},"surveillance_complications":["Douleur thoracique persistante, dyspnée, sueurs, syncope, instabilité hémodynamique: alerte urgente.","Irritation cutanée liée aux adhésifs."],"tracabilite":"Noter date/heure, identité, indication, symptômes, position, qualité du tracé et destinataire/transmission.","erreurs_a_eviter":["Mauvais placement des électrodes précordiales.","Inversion des câbles des membres.","Patient qui bouge ou parle pendant l'enregistrement.","Retarder la prise en charge pour obtenir un tracé parfait."],"qcm":[{"question":"Où placer V1?","options":["4e espace intercostal droit, bord sternal","5e espace intercostal gauche, ligne médio-claviculaire","Ligne axillaire moyenne"],"reponse":"4e espace intercostal droit, bord sternal","explication":"V1 et V2 se placent au 4e espace intercostal de part et d'autre du sternum."}],"references":[{"organisme":"Open RN","titre":"Cardiovascular Assessment","url":"https://www.ncbi.nlm.nih.gov/books/NBK596723/"}],"limites":"Cette fiche décrit l'acquisition technique, pas l'interprétation diagnostique. Respecter le protocole d'urgence et la formation locale."},{"id":"SI-014","categorie":"Soins de confort","titre":"Réfection du lit occupé","niveau":"Fondamental","public_cible":["Étudiant infirmier polyvalent"],"objectif_general":"Assurer confort, hygiène, sécurité et prévention des lésions cutanées chez un patient qui reste au lit.","definition":"Remplacement du linge de lit en maintenant le patient installé dans le lit, avec mobilisation sécurisée.","indications":["Linge souillé ou humide","Confort et hygiène du patient","Entretien programmé selon protocole"],"contre_indications_precautions":["Adapter la mobilisation aux douleurs, fractures, dispositifs invasifs et restrictions médicales.","Ne pas mobiliser seul un patient dépendant ou instable si aide nécessaire.","Préserver les lignes, drains, sondes et perfusions."],"materiel":["Drap-housse ou alèse","Drap de dessus","Taie d'oreiller","Sac à linge sale","Gants si risque de contact avec liquides biologiques"],"preparation":["Informer le patient et évaluer sa capacité à se tourner.","Fermer porte/rideau et régler le lit à hauteur ergonomique.","Freiner le lit et sécuriser les dispositifs médicaux.","Préparer le linge propre sans le poser au sol."],"deroulement":["Réaliser l'hygiène des mains et mettre les EPI selon risque.","Desserrer le linge et tourner le patient sur le côté en utilisant une technique de mobilisation adaptée.","Rouler le linge sale vers le patient sans le secouer; placer le linge propre roulé sur la moitié libre du matelas.","Tourner le patient sur le côté opposé en le faisant passer au-dessus du rouleau, avec aide si nécessaire.","Retirer le linge sale et déployer le linge propre sans plis ni tension excessive.","Changer le drap de dessus et la taie en respectant pudeur et confort.","Repositionner le patient, vérifier alignement, sonnette accessible et lit en position sécurisée.","Évacuer le linge sale selon circuit et réaliser l'hygiène des mains."],"role_infirmier":{"avant":"Évaluer douleur, autonomie, risques de chute/escarre et dispositifs.","pendant":"Préserver intimité, ergonomie et sécurité; observer la peau et la tolérance.","apres":"Vérifier confort, alignement, sonnette, barrières selon évaluation du risque et environnement."},"surveillance_complications":["Douleur, vertige, dyspnée ou intolérance à la mobilisation.","Rougeurs, lésions cutanées, plis générateurs de pression.","Traction ou déplacement accidentel d'une sonde, perfusion ou drain."],"tracabilite":"Tracer si soin réalisé dans le cadre d'un plan de soins; signaler anomalies cutanées, douleur ou incident.","erreurs_a_eviter":["Secouer le linge sale.","Déposer le linge au sol ou contre la tenue.","Laisser des plis sous le patient.","Tirer le patient par les bras ou mobiliser sans aide adaptée."],"qcm":[{"question":"Pourquoi éviter les plis du drap?","options":["Prévenir inconfort et lésions de pression","Pour accélérer le soin uniquement"],"reponse":"Prévenir inconfort et lésions de pression","explication":"Les plis augmentent les points de pression et le frottement."}],"references":[{"organisme":"Open RN","titre":"Nursing Skills – Basic Patient Care","url":"https://www.ncbi.nlm.nih.gov/books/NBK593210/"}],"limites":"Utiliser les aides techniques et règles de manutention en vigueur; adapter au patient et aux dispositifs."},{"id":"SI-015","categorie":"Soins techniques","titre":"Enfilage des gants stériles – technique ouverte","niveau":"Fondamental supervisé","public_cible":["Étudiant infirmier polyvalent sous supervision"],"objectif_general":"Enfiler des gants stériles en préservant leur stérilité pour un soin nécessitant une barrière stérile.","definition":"Technique d'enfilage de gants stériles sans toucher leur surface externe avec les mains nues.","indications":["Soin nécessitant des gants stériles selon protocole","Pansement ou procédure aseptique lorsque les gants stériles sont indiqués"],"contre_indications_precautions":["Les gants stériles ne remplacent ni l'hygiène des mains ni la technique aseptique sans contact.","Choisir la bonne taille et vérifier l'intégrité de l'emballage.","En cas de contamination ou doute, changer les gants."],"materiel":["Paire de gants stériles emballée individuellement","Surface propre et sèche"],"preparation":["Vérifier taille, intégrité et date/indicateur de stérilisation selon emballage.","Retirer bijoux et réaliser l'hygiène des mains; laisser sécher complètement.","Installer le paquet sur une surface propre."],"deroulement":["Ouvrir l'emballage externe sans toucher les gants.","Déplier le champ interne en touchant uniquement les bords autorisés.","Avec la main non dominante, saisir le revers replié du gant destiné à la main dominante par sa face interne.","Enfiler la main dominante sans toucher l'extérieur du gant.","Avec la main gantée, glisser les doigts sous le revers du second gant, en touchant uniquement sa face externe stérile.","Enfiler la seconde main sans toucher peau ou surfaces non stériles.","Ajuster en touchant uniquement les surfaces stériles du gant stérile."],"role_infirmier":{"avant":"Vérifier indication réelle des gants stériles et préparer un environnement adapté.","pendant":"Maintenir la distinction entre surfaces stériles et non stériles.","apres":"Si contamination, retirer et recommencer avec une nouvelle paire; procéder au soin sans toucher de zone non stérile."},"surveillance_complications":["Rupture du gant ou contamination pendant l'enfilage.","Dermatite ou allergie au matériau."],"tracabilite":"Pas de traçabilité spécifique de l'enfilage; tracer le soin réalisé et tout incident pertinent.","erreurs_a_eviter":["Toucher l'extérieur du premier gant avec la main nue.","Laisser les gants toucher l'emballage externe ou la tenue.","Considérer les gants comme substitut à l'hygiène des mains."],"qcm":[{"question":"Quelle partie du premier gant peut être touchée par la main nue?","options":["La face interne du revers","Toute la face externe"],"reponse":"La face interne du revers","explication":"La technique ouverte protège la surface externe stérile."}],"references":[{"organisme":"Open RN","titre":"Aseptic Technique","url":"https://www.ncbi.nlm.nih.gov/books/NBK596735/"}],"limites":"Suivre la technique enseignée dans l'établissement; certains soins privilégient la technique aseptique sans contact plutôt que le port de gants stériles."}];
+const SI_CAT_STYLE = { "Soins infirmiers fondamentaux": ["#10b981", "#84cc16"], "Surveillance clinique": ["#6366f1", "#8b5cf6"], "Administration des médicaments": ["#f59e0b", "#f97316"], "Soins techniques": ["#0ea5e9", "#14b8a6"], "Soins de confort": ["#ec4899", "#f43f5e"] };
+const SI_ICON = { "SI-001": "hand", "SI-002": "user", "SI-003": "heart", "SI-004": "gauge", "SI-005": "wind", "SI-006": "sun", "SI-007": "pulse", "SI-008": "drop", "SI-009": "syringe", "SI-010": "syringe", "SI-011": "syringe", "SI-012": "bandage", "SI-013": "pulse", "SI-014": "bed", "SI-015": "hand" };
+const SI_STYLE = {};
 
-];
+// Questions : le QCM d'origine + des questions tirées du contenu même de la fiche (erreur à éviter, 1re étape, étape suivante)
+function siQuiz(f) {
+  const out = [], pick = (a, n) => shuffle(a).slice(0, n), st = f.steps;
+  (f.qcm || []).forEach(x => { const o = x.options.slice(), a = o.indexOf(x.reponse); if (a >= 0) out.push({ q: x.question, o, a, e: x.explication }); });
+  if (f.erreurs.length && st.length >= 3) {
+    const err = pick(f.erreurs, 1)[0], o = shuffle([err, ...pick(st, 3)]);
+    out.push({ q: "Laquelle de ces propositions est une erreur à éviter lors de cette technique ?", o, a: o.indexOf(err), e: "« " + err + " » fait partie des erreurs à éviter. Les autres propositions sont des étapes correctes de la fiche." });
+  }
+  if (st.length >= 5) {
+    const o = shuffle([st[0], ...pick(st.slice(1), 3)]);
+    out.push({ q: "Quelle est la première étape du déroulement de cette technique ?", o, a: o.indexOf(st[0]), e: "La fiche commence par : « " + st[0] + " »." });
+    const i = 1 + Math.floor(Math.random() * (st.length - 2)), others = st.filter((_, k) => k !== i && k !== i + 1);
+    if (others.length >= 3) {
+      const o2 = shuffle([st[i + 1], ...pick(others, 3)]);
+      out.push({ q: "Après « " + st[i] + " », quelle est l'étape suivante ?", o: o2, a: o2.indexOf(st[i + 1]), e: "Dans la fiche, l'étape qui suit est : « " + st[i + 1] + " »." });
+    }
+  }
+  return out;
+}
+
+function siBuild(r) {
+  const li = a => ul(a.map(esc)), ro = r.role_infirmier || {};
+  const f = {
+    id: r.id, short: r.id, title: r.titre, cat: r.categorie, niveauLabel: r.niveau, niveau: r.niveau === "Fondamental" ? 1 : 2,
+    publics: r.public_cible || [], objectif: r.objectif_general, resume: r.definition, indications: r.indications, precautions: r.contre_indications_precautions,
+    materiel: r.materiel, prep: r.preparation, steps: r.deroulement, role: ro, surv: r.surveillance_complications, trac: r.tracabilite,
+    erreurs: r.erreurs_a_eviter, qcm: r.qcm, refs: r.references || [], limites: r.limites
+  };
+  f.keywords = [r.titre, r.categorie, r.niveau, ...f.publics, r.objectif_general].join(" ");
+  f.roleHtml = `<div class="sf-role"><div class="sf-role-c"><h4>Avant</h4><p>${esc(ro.avant || "")}</p></div><div class="sf-role-c p"><h4>Pendant</h4><p>${esc(ro.pendant || "")}</p></div><div class="sf-role-c a"><h4>Après</h4><p>${esc(ro.apres || "")}</p></div></div>`;
+  f.sections = [
+    { t: "Indications", html: li(f.indications) }, { t: "Précautions et contre-indications", html: li(f.precautions) },
+    { t: "Matériel", html: li(f.materiel) }, { t: "Préparation", html: li(f.prep) }, { t: "Déroulement pas à pas", html: ol(f.steps.map(esc)) },
+    { t: "Rôle infirmier", html: f.roleHtml }, { t: "Surveillance et complications", html: li(f.surv) },
+    { t: "Traçabilité", html: para(esc(f.trac)) }, { t: "Erreurs à éviter", html: li(f.erreurs) }
+  ];
+  const words = f.sections.map(s => s.html.replace(/<[^>]+>/g, " ")).join(" ").split(/\s+/).length;
+  f.duree = Math.max(3, Math.round(words / 170)) + " min";
+  f.gen = () => siQuiz(f);
+  f.quiz = f.gen();
+  const c = SI_CAT_STYLE[f.cat] || ["#14b8a6", "#0ea5e9"];
+  SI_STYLE[f.id] = [SI_ICON[f.id] || "file", c[0], c[1]];
+  return f;
+}
+const FICHES = SI_RAW.map(siBuild);
+const SI_ALL = { id: "SI-ALL", short: "GÉNÉRAL", title: "Test général", quiz: [], gen: () => shuffle(FICHES.flatMap(f => f.gen())).slice(0, 20) };
 
 // ---------- Recherche ----------
 function searchFiches(q) {
@@ -6226,7 +5576,7 @@ function shuffle(a) {
 }
 
 // ---------- Pages ----------
-const LEVELS = { 1: "Niveau 1 · Techniques simples", 2: "Niveau 2 · Techniques intermédiaires", 3: "Niveau 3 · Techniques avancées" };
+const LEVELS = { 1: "Fondamental", 2: "Fondamental supervisé", 3: "Avancé" };
 const ORDERED = [1, 2, 3].flatMap(n => FICHES.filter(f => f.niveau === n));
 let stageCtx = null;
 
@@ -7554,71 +6904,115 @@ function renderMedicaments(medId = null, brandIdx = null) {
   window.scrollTo(0, 0);
 }
 
-const FICHE_STYLE = {
-  id: ["syringe", "#14b8a6", "#0ea5e9"], sc: ["syringe", "#7c5cff", "#a78bfa"], im: ["syringe", "#f59e0b", "#f97316"], iv: ["syringe", "#ff7a59", "#ff4d6d"],
-  lit: ["bed", "#0ea5e9", "#6366f1"], gants: ["hand", "#10b981", "#84cc16"], pansement: ["bandage", "#ec4899", "#f97316"],
-  ecg: ["pulse", "#ef4444", "#ec4899"], glyc: ["drop", "#06b6d4", "#14b8a6"], pouls: ["heart", "#f43f5e", "#fb7185"],
-  ta: ["gauge", "#6366f1", "#8b5cf6"], dilu: ["flask", "#0d9488", "#22d3ee"]
-};
+const FICHE_STYLE = SI_STYLE;
+let siFilter = { q: "", cat: "", niv: "", pub: "" };
+const SI_NOTE = "Fiches pédagogiques : elles ne constituent pas un protocole officiel marocain. Les gestes invasifs s'apprennent sous supervision, et les valeurs-seuils ou prescriptions dépendent du patient et du protocole du service.";
+
 function renderStages(ficheId = null) {
   const inner = document.getElementById("innerPage");
   const fiche = ficheId ? FICHES.find(f => f.id === ficheId) : null;
   const footer = `<div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>`;
+  if (fiche) siPage(inner, fiche, footer); else siList(inner, footer);
+}
 
-  if (!fiche) {
-    inner.innerHTML = `
-      <div class="page-heading">
-        <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
-        <h1>Stages</h1>
-        <p>Fiches techniques des soins, de la plus simple à la plus complexe.</p>
-      </div>
-      ${note(esc(DISCLAIMER))}
-      ${[1, 2, 3].map(n => {
-        const items = FICHES.filter(f => f.niveau === n);
-        if (!items.length) return "";
-        return `<h3 class="res-head lv${n}"><span class="lv-dot"></span>${LEVELS[n]}</h3><div class="fgrid">${items.map(f => {
-          const b = getBest(f.id), st = FICHE_STYLE[f.id] || ["file", "#14b8a6", "#0ea5e9"];
-          return `<button class="fcard" type="button" data-fi="${f.id}" style="--g1:${st[1]};--g2:${st[2]}">
-            <span class="fc-ico">${ico(st[0])}<em class="fc-tag">${esc(f.short)}</em></span>
-            <span class="fc-body">
-              <span class="fc-title">${esc(f.title)}</span>
-              <span class="fc-meta"><span class="fc-chip">${ico("clock")}${esc(f.duree)}</span><span class="fc-chip">${ico("check")}${f.quiz.length} questions</span></span>
-              <span class="fc-score${b !== null ? " has" : ""}">${b !== null ? `<span class="fc-bar"><i style="width:${b}%"></i></span><b>${b}%</b>` : "<small>Pas encore testé</small>"}</span>
-            </span>
-            <span class="fc-go">↗</span></button>`;
-        }).join("")}</div>`;
-      }).join("")}
-      <p class="search-hint">D'autres fiches seront ajoutées prochainement.</p>
-      ${footer}`;
-    addBackButton(inner);
-    inner.querySelectorAll("[data-fi]").forEach(b => b.addEventListener("click", () => renderStages(b.dataset.fi)));
-    window.scrollTo(0, 0);
-    return;
-  }
-
-  const best = getBest(fiche.id);
+function siList(inner, footer) {
+  const done = FICHES.map(f => getBest(f.id)).filter(v => v !== null), avg = done.length ? Math.round(done.reduce((x, y) => x + y, 0) / done.length) : null;
+  const cats = [...new Set(FICHES.map(f => f.cat))], pubs = [...new Set(FICHES.flatMap(f => f.publics))], nivs = [...new Set(FICHES.map(f => f.niveauLabel))];
+  const opts = (arr, all, cur) => `<option value="">${all}</option>` + arr.map(x => `<option value="${esc(x)}"${x === cur ? " selected" : ""}>${esc(x)}</option>`).join("");
+  const gb = getBest("SI-ALL");
   inner.innerHTML = `
     <div class="page-heading">
-      <div class="eyebrow">STAGES › FICHE TECHNIQUE</div>
-      <h1>${esc(fiche.title)}</h1>
-      <p>${esc(fiche.resume)}</p>
+      <div class="eyebrow">ESPACE PÉDAGOGIQUE</div>
+      <h1>Stages · Fiches techniques</h1>
+      <p>${FICHES.length} fiches de soins : indications, matériel, déroulement pas à pas, erreurs à éviter, puis un test avec correction.</p>
+    </div>
+    ${note(esc(DISCLAIMER) + "<br>" + esc(SI_NOTE))}
+    <div class="sf-sum">
+      <div class="sf-sum-t"><strong>${done.length} / ${FICHES.length} fiches testées${avg !== null ? " · moyenne " + avg + " %" : ""}</strong><span>${gb !== null ? "Test général : meilleur score " + gb + " %" : "Mélangez toutes les fiches dans un seul test de 20 questions."}</span></div>
+      <button class="primary-btn" type="button" id="sfAll">Test général</button>
+    </div>
+    <div class="sf-filters">
+      <input type="search" id="sfQ" placeholder="Rechercher une fiche…" value="${esc(siFilter.q)}" autocomplete="off">
+      <select id="sfCat" aria-label="Catégorie">${opts(cats, "Toutes les catégories", siFilter.cat)}</select>
+      <select id="sfNiv" aria-label="Niveau">${opts(nivs, "Tous les niveaux", siFilter.niv)}</select>
+      <select id="sfPub" aria-label="Public cible">${opts(pubs, "Tous les publics", siFilter.pub)}</select>
+    </div>
+    <div class="sf-count" id="sfCount"></div>
+    <div id="sfGrid"></div>
+    ${footer}`;
+  const grid = inner.querySelector("#sfGrid"), cnt = inner.querySelector("#sfCount");
+  const card = f => {
+    const b = getBest(f.id), st = FICHE_STYLE[f.id] || ["file", "#14b8a6", "#0ea5e9"];
+    return `<button class="fcard" type="button" data-fi="${f.id}" style="--g1:${st[1]};--g2:${st[2]}">
+      <span class="fc-ico">${ico(st[0])}<em class="fc-tag">${esc(f.id.replace("SI-", ""))}</em></span>
+      <span class="fc-body"><span class="fc-title">${esc(f.title)}</span>
+        <span class="fc-meta"><span class="fc-chip">${esc(f.niveauLabel)}</span><span class="fc-chip">${ico("check")}${f.quiz.length} questions</span></span>
+        <span class="fc-score${b !== null ? " has" : ""}">${b !== null ? `<span class="fc-bar"><i style="width:${b}%"></i></span><b>${b}%</b>` : "<small>Pas encore testé</small>"}</span></span>
+      <span class="fc-go">↗</span></button>`;
+  };
+  const draw = () => {
+    const nq = norm(siFilter.q);
+    const items = FICHES.filter(f => (!nq || norm(f.title + " " + f.keywords).includes(nq)) && (!siFilter.cat || f.cat === siFilter.cat) && (!siFilter.niv || f.niveauLabel === siFilter.niv) && (!siFilter.pub || f.publics.includes(siFilter.pub)));
+    cnt.textContent = items.length + " fiche" + (items.length > 1 ? "s" : "") + " sur " + FICHES.length;
+    grid.innerHTML = items.length ? cats.map(c => { const it = items.filter(f => f.cat === c); return it.length ? `<h3 class="res-head"><span class="lv-dot"></span>${esc(c)} <small>(${it.length})</small></h3><div class="fgrid">${it.map(card).join("")}</div>` : ""; }).join("") : `<p class="search-hint">Aucune fiche ne correspond à ces filtres.</p>`;
+    grid.querySelectorAll("[data-fi]").forEach(b => b.addEventListener("click", () => renderStages(b.dataset.fi)));
+  };
+  inner.querySelector("#sfQ").addEventListener("input", e => { siFilter.q = e.target.value; draw(); });
+  [["sfCat", "cat"], ["sfNiv", "niv"], ["sfPub", "pub"]].forEach(([id, k]) => inner.querySelector("#" + id).addEventListener("change", e => { siFilter[k] = e.target.value; draw(); }));
+  inner.querySelector("#sfAll").addEventListener("click", () => startQuiz(SI_ALL));
+  draw();
+  addBackButton(inner);
+  window.scrollTo(0, 0);
+}
+
+function siPage(inner, f, footer) {
+  const best = getBest(f.id), n = f.steps.length, sec = (t, html, open) => `<details class="help-item"${open ? " open" : ""}><summary>${esc(t)}</summary><div class="help-body">${html}</div></details>`;
+  const chk = (arr, attr) => arr.map(x => `<label class="sf-chk"><input type="checkbox" ${attr}><span>${esc(x)}</span></label>`).join("");
+  const stepsHtml = `<div class="sf-prog"><div class="sf-prog-bar"><i id="sfBar"></i></div><span id="sfProgT">0 / ${n} étapes revues</span><button type="button" class="cm-link" id="sfReset">Réinitialiser</button></div>
+    <ol class="sf-steps">${f.steps.map((x, i) => `<li><label class="sf-chk"><input type="checkbox" data-st><span class="sf-n">${i + 1}</span><span>${esc(x)}</span></label></li>`).join("")}</ol>`;
+  const refs = f.refs.length ? f.refs.map(r => `<a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener noreferrer">${esc(r.titre)}<small>${esc(r.organisme)}</small></a>`).join("") : "<p>Aucune référence indiquée.</p>";
+  const testBtn = `<button class="primary-btn" type="button" data-quiz="1">Passer le test · ${f.quiz.length} questions</button>`;
+  inner.innerHTML = `
+    <div class="page-heading">
+      <div class="eyebrow">STAGES › FICHE TECHNIQUE · ${esc(f.id)}</div>
+      <h1>${esc(f.title)}</h1>
+      <p>${esc(f.resume)}</p>
     </div>
     <div class="fiche-meta">
-      <span class="badge">Niveau ${fiche.niveau}</span>
-      <span class="badge gray">${esc(fiche.duree)} de lecture</span>
-      <span class="badge gray">Test : ${fiche.quiz.length} questions</span>
+      <span class="badge">${esc(f.cat)}</span><span class="badge gray">${esc(f.niveauLabel)}</span><span class="badge gray">${esc(f.duree)} de lecture</span>
       ${best !== null ? `<span class="badge">Meilleur score : ${best}%</span>` : ""}
     </div>
+    <div class="sf-obj"><div><strong>Objectif</strong>${esc(f.objectif)}</div></div>
+    <p class="sf-pub">Public : ${esc(f.publics.join(" · "))}</p>
     ${note(esc(DISCLAIMER))}
-    <button class="primary-btn" type="button" data-quiz="1">Passer le test</button>
-    ${fiche.sections.map((s, i) => `<details class="help-item"${i === 0 ? " open" : ""}><summary>${esc(s.t)}</summary><div class="help-body">${s.html}</div></details>`).join("")}
-    <button class="primary-btn" type="button" data-quiz="1">Passer le test</button>
-    <section id="ficheComments" class="cm" data-f="${esc(fiche.id)}"></section>
+    ${testBtn}
+    ${sec("Indications", ul(f.indications.map(esc)), true)}
+    ${sec("Précautions et contre-indications", `<div class="warn">${ul(f.precautions.map(esc))}</div>`)}
+    ${sec("Matériel à préparer", chk(f.materiel, "data-mat") + `<p class="sf-hint">Cochez au fur et à mesure pour vérifier votre plateau.</p>`)}
+    ${sec("Préparation", ul(f.prep.map(esc)))}
+    ${sec("Déroulement pas à pas", stepsHtml, true)}
+    ${sec("Rôle infirmier : avant, pendant, après", f.roleHtml)}
+    ${sec("Surveillance et complications", ul(f.surv.map(esc)))}
+    ${sec("Traçabilité", para(esc(f.trac)))}
+    ${sec("Erreurs à éviter", f.erreurs.map(x => `<div class="sf-err">${esc(x)}</div>`).join(""))}
+    ${sec("Références", `<div class="sf-ref">${refs}</div>`)}
+    <div class="warn"><strong>Limites de cette fiche.</strong> ${esc(f.limites)}</div>
+    ${testBtn}
+    <section id="ficheComments" class="cm" data-f="${esc(f.id)}"></section>
     ${footer}`;
   addBackButton(inner, "Retour aux fiches", () => renderStages());
-  inner.querySelectorAll("[data-quiz]").forEach(b => b.addEventListener("click", () => startQuiz(fiche)));
+  inner.querySelectorAll("[data-quiz]").forEach(b => b.addEventListener("click", () => startQuiz(f)));
+  const boxes = [...inner.querySelectorAll("[data-st]")], bar = inner.querySelector("#sfBar"), txt = inner.querySelector("#sfProgT");
+  const upd = () => {
+    const k = boxes.filter(b => b.checked).length;
+    bar.style.width = Math.round(k / n * 100) + "%";
+    txt.textContent = k + " / " + n + " étapes revues";
+    if (k === n) showToast("Toutes les étapes sont revues. Passez au test !");
+  };
+  boxes.forEach(b => b.addEventListener("change", upd));
+  inner.querySelector("#sfReset").addEventListener("click", () => { boxes.forEach(b => { b.checked = false; }); upd(); });
   window.scrollTo(0, 0);
-  loadComments(fiche.id);
+  loadComments(f.id);
 }
 
 // ===== COMMENTAIRES SOUS LES FICHES (réponses + réactions) =====
@@ -7736,7 +7130,7 @@ async function loadComments(ficheId) {
 }
 
 function startQuiz(fiche) {
-  const qs = shuffle(fiche.quiz).map(q => {
+  const qs = shuffle(fiche.gen ? fiche.gen() : fiche.quiz).map(q => {
     const order = shuffle(q.o.map((_, i) => i));
     return { q: q.q, e: q.e, opts: order.map(i => q.o[i]), correct: order.indexOf(q.a) };
   });
@@ -7757,16 +7151,19 @@ function renderQuestion() {
     <div class="quiz-progress"><span style="width:${Math.round(idx / qs.length * 100)}%"></span></div>
     <h2 class="quiz-q">${esc(q.q)}</h2>
     <div>${q.opts.map((o, i) => `<button class="opt" type="button" data-o="${i}">${esc(o)}</button>`).join("")}</div>
+    <div id="qExp" class="q-exp" role="status"></div>
     <button class="primary-btn" type="button" id="nextQ" disabled>${idx === qs.length - 1 ? "Terminer" : "Suivant"}</button>
     ${idx > 0 ? `<button class="ghost-btn" type="button" id="prevQ">← Question précédente</button>` : ""}`;
-  addBackButton(inner, "Quitter le test", () => renderStages(fiche.id));
-  const next = inner.querySelector("#nextQ");
-  const opts = inner.querySelectorAll("[data-o]");
-  const paint = () => {
-    opts.forEach(b => b.classList.toggle("sel", +b.dataset.o === sel));
-    next.disabled = sel === null;
+  addBackButton(inner, "Quitter le test", () => renderStages(fiche.quiz.length ? fiche.id : null));
+  const next = inner.querySelector("#nextQ"), opts = inner.querySelectorAll("[data-o]"), exp = inner.querySelector("#qExp");
+  const reveal = () => {
+    opts.forEach(b => { const i = +b.dataset.o; b.disabled = true; b.classList.remove("sel"); b.classList.toggle("right", i === q.correct); b.classList.toggle("wrong", i === sel && i !== q.correct); });
+    const ok = sel === q.correct;
+    exp.className = "q-exp " + (ok ? "ok" : "bad");
+    exp.innerHTML = `<strong>${ok ? "Bonne réponse" : "Réponse incorrecte"}</strong>${esc(q.e || "")}`;
+    next.disabled = false;
   };
-  opts.forEach(b => b.addEventListener("click", () => { sel = +b.dataset.o; paint(); }));
+  opts.forEach(b => b.addEventListener("click", () => { if (sel !== null) return; sel = +b.dataset.o; stageCtx.answers[idx] = sel; reveal(); }));
   next.addEventListener("click", () => {
     stageCtx.answers[idx] = sel;
     if (idx < qs.length - 1) { stageCtx.idx++; renderQuestion(); } else { renderResult(); }
@@ -7777,7 +7174,7 @@ function renderQuestion() {
     stageCtx.idx--;
     renderQuestion();
   });
-  paint();
+  if (sel !== null) reveal();
   window.scrollTo(0, 0);
 }
 
@@ -7817,10 +7214,10 @@ function renderResult() {
         </div>`).join("")
       : `${note("Aucune erreur. Bravo !")}`}
     <button class="primary-btn" type="button" id="retry">Refaire le test</button>
-    <button class="ghost-btn" type="button" id="toFiche">Retour à la fiche</button>`;
-  addBackButton(inner, "Retour à la fiche", () => renderStages(fiche.id));
+    <button class="ghost-btn" type="button" id="toFiche">${fiche.id === "SI-ALL" ? "Retour aux fiches" : "Retour à la fiche"}</button>`;
+  addBackButton(inner, fiche.id === "SI-ALL" ? "Retour aux fiches" : "Retour à la fiche", () => renderStages(fiche.id === "SI-ALL" ? null : fiche.id));
   inner.querySelector("#retry").addEventListener("click", () => startQuiz(fiche));
-  inner.querySelector("#toFiche").addEventListener("click", () => renderStages(fiche.id));
+  inner.querySelector("#toFiche").addEventListener("click", () => renderStages(fiche.id === "SI-ALL" ? null : fiche.id));
   window.scrollTo(0, 0);
 }
 // ===== STAGES : FIN =====
@@ -8679,9 +8076,9 @@ const PANS_TEXT = {
     verdict: p => p >= 90 ? "Mzyan bzzaf. Ghadi ndirou pansement 7a9i9i m3ak." : p >= 70 ? "Wakha, walakin khasek tkoun adwa f l'asepsie. 3awed 9ra la fiche." : p >= 50 ? "Ma kafich. Kant'dir l'infection l l jerha. 3awed 9ra w 3awed." : "Khatir 3la l mrid. N3awdou men lwl."
   }
 };
-const SIM_GANTS = { mode: "gants", key: "sim_gants", title: "Enfilage des gants stériles", fiche: "gants", steps: SIM_STEPS, memo: SIM_MEMO, text: null,
+const SIM_GANTS = { mode: "gants", key: "sim_gants", title: "Enfilage des gants stériles", fiche: "SI-015", steps: SIM_STEPS, memo: SIM_MEMO, text: null,
   situation: "Mise en situation : un patient doit avoir un sondage vésical. Votre encadrant vous observe." };
-const SIM_PANS = { mode: "pans", key: "sim_pans", title: "Pansement stérile", fiche: "pansement", steps: PANS_STEPS, memo: PANS_MEMO, text: PANS_TEXT,
+const SIM_PANS = { mode: "pans", key: "sim_pans", title: "Pansement stérile", fiche: "SI-012", steps: PANS_STEPS, memo: PANS_MEMO, text: PANS_TEXT,
   situation: "Mise en situation : un patient a une plaie au bras à panser. Votre encadrant vous observe." };
 // ===== SIMULATIONS : ECG et INJECTION INTRAMUSCULAIRE =====
 const mkStep = (id, name, cam, act, hint, say, ok, good, w1, w2) => ({ id, name, cam, act, hint, say, ok,
@@ -8757,7 +8154,7 @@ const IM_STEPS = [
     "Le soin est terminé. Que fais-tu ?", "Collecteur, mains propres, soin tracé.",
     "Seringue et aiguille dans le collecteur, gants retirés, hygiène des mains, traçabilité du soin", ["L'aiguille dans le sac poubelle normal", "Les objets piquants vont dans le collecteur OPCT, jamais au sac normal.", true], ["Je pose la seringue sur le chariot et je la jetterai plus tard", "Une aiguille laissée en vrac expose à une piqûre accidentelle.", true])
 ];
-const SIM_ECG = { key: "sim_ecg", mode: "ecg", restartId: "membres", title: "Électrocardiogramme (ECG)", fiche: "ecg", steps: ECG_STEPS, memo: ECG_STEPS.map(s => s.hint),
+const SIM_ECG = { key: "sim_ecg", mode: "ecg", restartId: "membres", title: "Électrocardiogramme (ECG)", fiche: "SI-013", steps: ECG_STEPS, memo: ECG_STEPS.map(s => s.hint),
   situation: "Mise en situation : M. Idrissi a des douleurs thoraciques. Réalisez un ECG 12 dérivations. Votre encadrant vous observe.",
   text: { fr: { intro: "Bonjour. M. Idrissi se plaint de douleurs dans la poitrine. Tu réalises un ECG 12 dérivations et je te regarde faire. Montre-moi que tu sais.",
       contam: "L'ECG est inexploitable : on reprend à la pose des électrodes.",
@@ -8765,7 +8162,7 @@ const SIM_ECG = { key: "sim_ecg", mode: "ecg", restartId: "membres", title: "Él
     dj: { intro: "Salam. Had l mrid 3ndou wja3 f sder. Khassek tdir ECG b 12 dérivations, w ana ghadi nchoufek. Werrini bli kat3ref.",
       contam: "L'ECG ma b9ach s7i7. N3awdou men 7ett dyal les électrodes.",
       verdict: verd("Mzyan bzzaf. Ghadi ndirou ECG 7a9i9i m3ak.", "Wakha, walakin khasek tkoun adwa f blasset les électrodes.", "Ma kafich. Tracé dyalek ghadi ykoun ghalet. 3awed 9ra la fiche.", "Khatir 3la l mrid. ECG ghalet i9der ymchi f nefs dyal infarctus. N3awdou.") } } };
-const SIM_IM = { key: "sim_im", mode: "im", restartId: "prepa", title: "Injection intramusculaire", fiche: "im", steps: IM_STEPS, memo: IM_STEPS.map(s => s.hint),
+const SIM_IM = { key: "sim_im", mode: "im", restartId: "prepa", title: "Injection intramusculaire", fiche: "SI-011", steps: IM_STEPS, memo: IM_STEPS.map(s => s.hint),
   situation: "Mise en situation : un patient doit recevoir une injection intramusculaire dans le deltoïde. Votre encadrant vous observe.",
   text: { fr: { intro: "Bonjour. M. Idrissi doit avoir une injection intramusculaire. Tu prépares et tu injectes, je te regarde faire. Montre-moi que tu sais.",
       contam: "Faute grave : on reprend à la préparation avec un nouveau matériel.",
