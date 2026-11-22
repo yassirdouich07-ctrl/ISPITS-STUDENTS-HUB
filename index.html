@@ -1681,6 +1681,27 @@ body{background:radial-gradient(800px 480px at 95% -8%,#14b8a62b,transparent 60%
 .q-exp.bad{background:#fdeceb;color:#b3392f}
 .q-exp strong{display:block;margin-bottom:2px}
 .opt:disabled{cursor:default;color:inherit}
+
+/* ===== FICHE EN MODE DOCUMENT (lecture continue) ===== */
+.sd-doc{max-width:860px;background:#fff;border:1px solid var(--border);border-radius:18px;padding:26px 30px 14px;box-shadow:0 8px 24px #0b1f3a0a}
+.sd-obj{padding:14px 16px;border-left:4px solid var(--teal);background:var(--teal-soft);border-radius:0 12px 12px 0;color:#0e5a55;font-size:14.5px;line-height:1.65}
+.sd-obj strong{display:block;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:2px}
+.sd-pub{font-size:12px;color:var(--muted);margin:10px 0 0}
+.sd-sec{margin-top:24px;padding-top:22px;border-top:1px solid #eef2f6}
+.sd-sec h2{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-family:'Outfit',sans-serif;font-size:17px;color:var(--navy)}
+.sd-num{flex:none;width:26px;height:26px;border-radius:8px;background:var(--teal);color:#fff;font-size:13px;display:grid;place-items:center}
+.sd-ul{margin:0;padding-left:20px;font-size:14.5px;line-height:1.75}
+.sd-ul li{margin-bottom:5px}
+.sd-doc .warn,.sd-doc .note{margin:16px 0 10px}
+.sd-steps{counter-reset:s;list-style:none;margin:0;padding:0}
+.sd-steps li{counter-increment:s;position:relative;padding:0 0 16px 46px;font-size:14.5px;line-height:1.7}
+.sd-steps li:before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:var(--teal-soft);color:var(--teal);font-weight:800;font-size:13px;display:grid;place-items:center}
+.sd-steps li:not(:last-child):after{content:"";position:absolute;left:14px;top:36px;bottom:4px;width:2px;background:#e3edf0}
+.sd-end{max-width:860px;margin:22px 0 8px;padding:24px 22px;border-radius:18px;text-align:center;background:linear-gradient(135deg,#0b1f3a,#0f3a52);color:#fff}
+.sd-end h3{margin:0 0 6px;font-family:'Outfit',sans-serif;font-size:18px}
+.sd-end p{margin:0 0 14px;font-size:14px;opacity:.85}
+.sd-end .primary-btn{width:auto;display:inline-block;margin:0;padding:12px 28px}
+@media(max-width:640px){.sd-doc{padding:18px 16px 8px}}
 </style>
 </head>
 
@@ -6966,12 +6987,10 @@ function siList(inner, footer) {
 }
 
 function siPage(inner, f, footer) {
-  const best = getBest(f.id), n = f.steps.length, sec = (t, html, open) => `<details class="help-item"${open ? " open" : ""}><summary>${esc(t)}</summary><div class="help-body">${html}</div></details>`;
-  const chk = (arr, attr) => arr.map(x => `<label class="sf-chk"><input type="checkbox" ${attr}><span>${esc(x)}</span></label>`).join("");
-  const stepsHtml = `<div class="sf-prog"><div class="sf-prog-bar"><i id="sfBar"></i></div><span id="sfProgT">0 / ${n} étapes revues</span><button type="button" class="cm-link" id="sfReset">Réinitialiser</button></div>
-    <ol class="sf-steps">${f.steps.map((x, i) => `<li><label class="sf-chk"><input type="checkbox" data-st><span class="sf-n">${i + 1}</span><span>${esc(x)}</span></label></li>`).join("")}</ol>`;
+  const best = getBest(f.id), list = a => `<ul class="sd-ul">${a.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
+  let k = 0;
+  const sec = (t, html) => `<section class="sd-sec"><h2><span class="sd-num">${++k}</span>${esc(t)}</h2>${html}</section>`;
   const refs = f.refs.length ? f.refs.map(r => `<a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener noreferrer">${esc(r.titre)}<small>${esc(r.organisme)}</small></a>`).join("") : "<p>Aucune référence indiquée.</p>";
-  const testBtn = `<button class="primary-btn" type="button" data-quiz="1">Passer le test · ${f.quiz.length} questions</button>`;
   inner.innerHTML = `
     <div class="page-heading">
       <div class="eyebrow">STAGES › FICHE TECHNIQUE · ${esc(f.id)}</div>
@@ -6982,35 +7001,31 @@ function siPage(inner, f, footer) {
       <span class="badge">${esc(f.cat)}</span><span class="badge gray">${esc(f.niveauLabel)}</span><span class="badge gray">${esc(f.duree)} de lecture</span>
       ${best !== null ? `<span class="badge">Meilleur score : ${best}%</span>` : ""}
     </div>
-    <div class="sf-obj"><div><strong>Objectif</strong>${esc(f.objectif)}</div></div>
-    <p class="sf-pub">Public : ${esc(f.publics.join(" · "))}</p>
-    ${note(esc(DISCLAIMER))}
-    ${testBtn}
-    ${sec("Indications", ul(f.indications.map(esc)), true)}
-    ${sec("Précautions et contre-indications", `<div class="warn">${ul(f.precautions.map(esc))}</div>`)}
-    ${sec("Matériel à préparer", chk(f.materiel, "data-mat") + `<p class="sf-hint">Cochez au fur et à mesure pour vérifier votre plateau.</p>`)}
-    ${sec("Préparation", ul(f.prep.map(esc)))}
-    ${sec("Déroulement pas à pas", stepsHtml, true)}
-    ${sec("Rôle infirmier : avant, pendant, après", f.roleHtml)}
-    ${sec("Surveillance et complications", ul(f.surv.map(esc)))}
-    ${sec("Traçabilité", para(esc(f.trac)))}
-    ${sec("Erreurs à éviter", f.erreurs.map(x => `<div class="sf-err">${esc(x)}</div>`).join(""))}
-    ${sec("Références", `<div class="sf-ref">${refs}</div>`)}
-    <div class="warn"><strong>Limites de cette fiche.</strong> ${esc(f.limites)}</div>
-    ${testBtn}
+    <article class="sd-doc">
+      <div class="sd-obj"><strong>Objectif</strong>${esc(f.objectif)}</div>
+      <p class="sd-pub">Public : ${esc(f.publics.join(" · "))}</p>
+      ${sec("Indications", list(f.indications))}
+      ${sec("Précautions et contre-indications", `<div class="warn">${list(f.precautions)}</div>`)}
+      ${sec("Matériel", list(f.materiel))}
+      ${sec("Préparation", list(f.prep))}
+      ${sec("Déroulement pas à pas", `<ol class="sd-steps">${f.steps.map(x => `<li>${esc(x)}</li>`).join("")}</ol>`)}
+      ${sec("Rôle infirmier : avant, pendant, après", f.roleHtml)}
+      ${sec("Surveillance et complications", list(f.surv))}
+      ${sec("Traçabilité", para(esc(f.trac)))}
+      ${sec("Erreurs à éviter", f.erreurs.map(x => `<div class="sf-err">${esc(x)}</div>`).join(""))}
+      ${sec("Références", `<div class="sf-ref">${refs}</div>`)}
+      <div class="warn"><strong>Limites de cette fiche.</strong> ${esc(f.limites)}</div>
+      ${note(esc(DISCLAIMER))}
+    </article>
+    <div class="sd-end">
+      <h3>Vous avez terminé la lecture ?</h3>
+      <p>Testez vos connaissances : ${f.quiz.length} questions avec correction immédiate.</p>
+      <button class="primary-btn" type="button" data-quiz="1">Passer le test</button>
+    </div>
     <section id="ficheComments" class="cm" data-f="${esc(f.id)}"></section>
     ${footer}`;
   addBackButton(inner, "Retour aux fiches", () => renderStages());
   inner.querySelectorAll("[data-quiz]").forEach(b => b.addEventListener("click", () => startQuiz(f)));
-  const boxes = [...inner.querySelectorAll("[data-st]")], bar = inner.querySelector("#sfBar"), txt = inner.querySelector("#sfProgT");
-  const upd = () => {
-    const k = boxes.filter(b => b.checked).length;
-    bar.style.width = Math.round(k / n * 100) + "%";
-    txt.textContent = k + " / " + n + " étapes revues";
-    if (k === n) showToast("Toutes les étapes sont revues. Passez au test !");
-  };
-  boxes.forEach(b => b.addEventListener("change", upd));
-  inner.querySelector("#sfReset").addEventListener("click", () => { boxes.forEach(b => { b.checked = false; }); upd(); });
   window.scrollTo(0, 0);
   loadComments(f.id);
 }
