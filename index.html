@@ -4381,6 +4381,30 @@ const SHARED_S1 = [
 // Pour ajouter un semestre : CURRICULUM.IP.S2 = [ { name: "..." }, ... ]
 const CURRICULUM = {};
 ["IP", "ISM", "ISFSC", "INP", "IAR"].forEach(f => { CURRICULUM[f] = { S1: SHARED_S1 }; });
+// Infirmier polyvalent (IP) : semestres 2 à 5. Les noms doivent rester identiques aux dossiers de Supabase Storage (voir docSlug).
+CURRICULUM.IP.S2 = [{ name: "Épidémiologie et statistique" }, { name: "Nutrition et régime" }, { name: "Pensée infirmière et planification des soins" }, { name: "Pharmacologie" }, { name: "SIB2" }, { name: "Système national de santé" }];
+CURRICULUM.IP.S3 = [{ name: "Pathologie chirurgicale" }, { name: "Pathologie médicale" }, { name: "PAS1" }, { name: "PAS2" }, { name: "Soins infirmiers en médecine" }, { name: "Soins infirmiers en chirurgie" }];
+CURRICULUM.IP.S4 = [{ name: "Pathologie spécialisée" }, { name: "Pathologie pédiatrique" }, { name: "Réanimation et soins d'urgences" }, { name: "Soins infirmiers spécialisés" }];
+CURRICULUM.IP.S5 = [{ name: "Méthodologie de recherche" }, { name: "Statistique" }];
+
+// Documents déposés dans Supabase Storage : bucket « cours » (et « resumes »), dossier  S1/IP/<module>[/<sous-module>]/fichier.pdf
+// Le nom du dossier = nom du module sans accents, en minuscules, avec des tirets (ex. « Réanimation et soins d'urgences » → reanimation-et-soins-d-urgences).
+const docSlug = s => String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+const DOC_BUCKET = { cours: "cours", resume: "resumes" };
+const docTitle = n => { const t = n.replace(/\.pdf$/i, "").replace(/[-_]+/g, " ").trim(); return t.charAt(0).toUpperCase() + t.slice(1); };
+async function storageDocs(type, f, sem, m, sub) {
+  const bucket = DOC_BUCKET[type];
+  if (!bucket) return [];
+  const path = [sem, f, docSlug(m), sub ? docSlug(sub) : ""].filter(Boolean).join("/");
+  try {
+    const { data, error } = await db.storage.from(bucket).list(path, { limit: 200, sortBy: { column: "name", order: "asc" } });
+    if (error || !data) return [];
+    return data.filter(x => x.id && /\.pdf$/i.test(x.name)).map(x => ({
+      type, f: [f], s: sem, m, sub: sub || "", t: docTitle(x.name),
+      url: db.storage.from(bucket).getPublicUrl(path + "/" + x.name).data.publicUrl
+    }));
+  } catch (e) { return []; }
+}
 
 // Documents (cours et résumés). Exemple d'une ligne à ajouter :
 // { type: "cours", f: ["IP","ISM","ISFSC","INP","IAR"], s: "S1", m: "Anatomie et physiologie", sub: "", t: "Titre du cours", url: "https://..." },
@@ -5094,6 +5118,8 @@ function renderBrowser(section, filiere = null, semestre = null, module = null, 
       : ["Retour aux modules", () => renderBrowser(section, filiere, semestre)];
   }
 
+  const viewKey = [section, filiere, semestre, module, sub].join("|");
+  const leaf = !!(filiere && semestre && module && !(hasSubs && !sub));
   inner.innerHTML = `
     <div class="page-heading">
       <div class="eyebrow">${esc(eyebrow)}</div>
@@ -5101,7 +5127,7 @@ function renderBrowser(section, filiere = null, semestre = null, module = null, 
       <p>${esc(subtitle)}</p>
     </div>
     ${searchable ? `<div class="search-box"><span class="s-ico"><svg class="ico"><use href="#i-search"/></svg></span><input id="browseSearch" type="search" placeholder="Rechercher un module ou un ${TYPE === "cours" ? "cours" : "résumé"}..." autocomplete="off"></div><div id="searchResults" class="hidden"></div>` : ""}
-    <div id="browseBody">${body}</div>
+    <div id="browseBody" data-k="${esc(viewKey)}">${body}</div>
     <div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>
   `;
   addBackButton(inner, back[0], back[1]);
@@ -5129,6 +5155,13 @@ function renderBrowser(section, filiere = null, semestre = null, module = null, 
     });
   }
   window.scrollTo(0, 0);
+  if (leaf) storageDocs(TYPE, filiere, semestre, module, sub).then(dyn => {
+    const el = document.getElementById("browseBody");
+    if (!dyn.length || !el || el.dataset.k !== viewKey) return;
+    const fixed = RESOURCES.filter(d => d.type === TYPE && d.f.includes(filiere) && d.s === semestre && d.m === module && (d.sub || "") === (sub || ""));
+    const urls = new Set(fixed.map(d => d.url));
+    el.innerHTML = docsHTML([...fixed, ...dyn.filter(d => !urls.has(d.url))], false);
+  });
 }
 
 // =====================================
