@@ -1770,6 +1770,126 @@ body{overflow-x:hidden}
   #homePage .td-card{padding:12px 14px}
   #homePage .td-go{display:none}
 }
+
+/* ===== COMMUNAUTÉ (réseau social) ===== */
+.sc-cover{position:relative;overflow:hidden;border-radius:20px;padding:26px 22px 22px;margin:0 0 12px;color:#fff;background:linear-gradient(135deg,hsl(var(--h) 60% 32%),hsl(calc(var(--h) + 40) 65% 45%));box-shadow:0 14px 30px #0b1f3a24}
+.sc-cover:after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:#ffffff1c}
+.sc-cover small{font-size:10.5px;font-weight:800;letter-spacing:1.5px;opacity:.85}
+.sc-cover h2{margin:4px 0 6px;font-family:'Outfit',sans-serif;font-size:24px;line-height:1.2}
+.sc-cover span{font-size:13px;opacity:.9}
+.sc-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.sc-tab{border:1px solid #dbe3ea;background:#fff;color:var(--navy);border-radius:999px;padding:9px 16px;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;max-width:100%}
+.sc-tab.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.sc-select,.sc-input{width:100%;height:44px;border:1px solid #dbe3ea;border-radius:12px;padding:0 12px;background:#fff;font:inherit;font-size:16px;color:var(--navy);margin:0 0 12px;box-sizing:border-box}
+.sc-compose{background:#fff;border:1px solid var(--border);border-radius:18px;padding:12px;margin:0 0 12px;box-shadow:var(--shadow)}
+.sc-prompt{display:flex;align-items:center;gap:12px;width:100%;border:0;background:#f2f6f9;border-radius:999px;padding:8px 16px 8px 8px;font:inherit;font-size:15px;color:var(--muted);text-align:left;cursor:pointer}
+.sc-prompt span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sc-quick{display:flex;gap:8px;overflow-x:auto;margin-top:10px;padding-bottom:2px;scrollbar-width:none}
+.sc-quick::-webkit-scrollbar{display:none}
+.sc-quick button{flex:none;border:0;background:#f2f6f9;border-radius:999px;padding:8px 14px;font:inherit;font-size:13px;font-weight:700;color:var(--navy);cursor:pointer}
+.sc-av{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px;letter-spacing:.5px}
+.sc-filters{margin:0 0 12px}
+.sc-filters input{width:100%;height:44px;border:1px solid #dbe3ea;border-radius:12px;padding:0 14px;background:#fff;font:inherit;font-size:16px;margin:0 0 10px;box-sizing:border-box;outline:none}
+.sc-filters input:focus{border-color:var(--teal)}
+.sc-chips{display:flex;gap:8px;flex-wrap:wrap}
+.sc-chip{border:1px solid #dbe3ea;background:#fff;border-radius:999px;padding:7px 14px;font:inherit;font-size:13px;font-weight:700;color:var(--navy);cursor:pointer}
+.sc-chip.on{background:var(--teal-soft);border-color:var(--teal);color:var(--teal)}
+.sc-post{background:#fff;border:1px solid var(--border);border-radius:18px;padding:14px 14px 8px;margin:0 0 12px;box-shadow:var(--shadow);animation:fadeUp .35s ease both}
+.sc-post.pin{border-color:#bfe3df;background:linear-gradient(180deg,#f6fcfb,#fff 90px)}
+.sc-ph{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.sc-pn{flex:1;min-width:0}
+.sc-pn strong{display:block;font-size:14.5px;color:var(--navy)}
+.sc-pn small{display:block;font-size:12px;color:var(--muted);line-height:1.5}
+.sc-adm{margin-left:6px;font-size:10px;font-weight:800;padding:2px 7px;border-radius:8px;background:var(--teal-soft);color:var(--teal);vertical-align:middle}
+.sc-kind{font-weight:700;color:var(--teal)}
+.sc-kind.k-question{color:#d97706}.sc-kind.k-annale{color:#7c3aed}.sc-kind.k-resume{color:#2563eb}.sc-kind.k-astuce{color:#16a34a}
+.sc-mwrap{position:relative;flex:none}
+.sc-dots{border:0;background:none;font-size:22px;line-height:1;color:var(--muted);padding:2px 8px;border-radius:8px;cursor:pointer}
+.sc-dots:hover{background:#f2f6f9}
+.sc-menu{position:absolute;right:0;top:100%;z-index:5;min-width:170px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 30px #0b1f3a24;padding:6px}
+.sc-menu button{display:block;width:100%;text-align:left;border:0;background:none;padding:10px 12px;border-radius:8px;font:inherit;font-size:14px;font-weight:600;color:var(--navy);cursor:pointer}
+.sc-menu button:hover{background:#f2f6f9}
+.sc-menu .red,.sc-cm .red{color:#b42318}
+.sc-pt{margin:0 0 6px;font-family:'Outfit',sans-serif;font-size:17px;color:var(--navy)}
+.sc-pb{margin:0 0 8px;font-size:15px;line-height:1.65;color:var(--text);word-break:break-word}
+.sc-pb a,.sc-bub a{color:var(--teal);font-weight:600}
+.sc-pb.clamp{display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
+.sc-exp,.sc-seecom{border:0;background:none;color:var(--teal);font:inherit;font-size:13px;font-weight:700;padding:2px 0 8px;cursor:pointer}
+.sc-shared{border:1px solid var(--border);border-radius:14px;padding:12px;margin:4px 0 10px;background:#f9fbfc}
+.sc-sh-h{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.sc-sh-h .sc-av{width:32px;height:32px;font-size:12px}
+.sc-sh-h strong{display:block;font-size:13.5px}
+.sc-sh-h small,.sc-sh-f{font-size:11.5px;color:var(--muted)}
+.sc-shared h4{margin:0 0 4px;font-size:14.5px}
+.sc-shared p{margin:0;font-size:14px;line-height:1.6;word-break:break-word}
+.sc-imgs{display:grid;gap:3px;margin:4px 0 10px;border-radius:14px;overflow:hidden}
+.sc-imgs button{position:relative;border:0;padding:0;background:#e8eef2;cursor:zoom-in;overflow:hidden}
+.sc-imgs img{display:block;width:100%;height:100%;object-fit:cover}
+.sc-imgs.n1{grid-template-columns:1fr}.sc-imgs.n1 button{max-height:460px}
+.sc-imgs.n2{grid-template-columns:1fr 1fr;aspect-ratio:2/1}
+.sc-imgs.n3{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;aspect-ratio:1/1}.sc-imgs.n3 button:first-child{grid-row:1/3}
+.sc-imgs.n4{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;aspect-ratio:1/1}
+.sc-more-i{position:absolute;inset:0;display:grid;place-items:center;background:#0b1f3a99;color:#fff;font-size:26px;font-weight:800}
+.sc-file{display:flex;align-items:center;gap:10px;padding:11px 14px;margin:4px 0 10px;border:1px solid var(--border);border-radius:12px;background:#f9fbfc;color:var(--navy);font-weight:700;font-size:14px;text-decoration:none}
+.sc-file span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sc-stats{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:6px 2px;font-size:13px;color:var(--muted);min-height:30px}
+.sc-stats button{border:0;background:none;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:0}
+.sc-stats button:hover{text-decoration:underline}
+.sc-bar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;border-top:1px solid #eef2f6;padding:4px 0}
+.sc-act{border:0;background:none;border-radius:10px;padding:10px 6px;font:inherit;font-size:14px;font-weight:700;color:#5b6b7c;cursor:pointer;width:100%;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+.sc-act:hover{background:#f2f6f9}
+.sc-act.on{color:var(--teal)}
+.sc-reactwrap{position:relative}
+.sc-picker{display:none;position:absolute;left:0;bottom:calc(100% + 4px);z-index:6;gap:2px;background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 8px;box-shadow:0 12px 30px #0b1f3a30}
+.sc-reactwrap.open .sc-picker{display:flex;animation:diPop .18s ease both}
+.sc-picker button{border:0;background:none;font-size:28px;line-height:1;padding:4px 6px;cursor:pointer;border-radius:50%;transition:transform .15s}
+.sc-picker button:hover,.sc-picker button:active{transform:scale(1.35) translateY(-4px)}
+.sc-cms{padding:8px 0 6px;border-top:1px solid #eef2f6}
+.sc-c{display:flex;gap:8px;margin:0 0 10px}
+.sc-c.rep{margin-left:44px}
+.sc-c .sc-av{width:32px;height:32px;font-size:12px}
+.sc-cb{min-width:0;flex:1}
+.sc-bub{position:relative;display:inline-block;max-width:100%;background:#f0f4f7;border-radius:16px;padding:8px 12px}
+.sc-bub strong{display:block;font-size:13px;color:var(--navy)}
+.sc-bub span{font-size:14px;line-height:1.55;word-break:break-word}
+.sc-clk{position:absolute;right:-6px;bottom:-9px;font-style:normal;font-size:11px;background:#fff;border:1px solid var(--border);border-radius:999px;padding:1px 6px;box-shadow:0 2px 6px #0b1f3a14}
+.sc-cm{display:flex;gap:12px;align-items:center;margin:4px 0 0 8px;font-size:12px;color:var(--muted)}
+.sc-cm button{border:0;background:none;padding:2px 0;font:inherit;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer}
+.sc-cm button.on{color:var(--teal)}
+.sc-cform{display:flex;gap:8px;align-items:center;margin:6px 0 4px}
+.sc-cform input{flex:1;min-width:0;height:40px;border:1px solid #dbe3ea;border-radius:999px;padding:0 14px;font:inherit;font-size:16px;background:#f7fafb;outline:none}
+.sc-cform input:focus{border-color:var(--teal);background:#fff}
+.sc-cform button{flex:none;width:40px;height:40px;border:0;border-radius:50%;background:var(--teal);color:#fff;font-size:15px;cursor:pointer}
+.sc-empty{text-align:center;padding:34px 16px;background:#fff;border:1px dashed #cfdbe3;border-radius:18px;color:var(--muted)}
+.sc-empty span{font-size:34px}
+.sc-empty strong{display:block;margin:6px 0 2px;color:var(--navy)}
+.sc-moreb{display:block;margin:6px auto 14px}
+.sc-skel{height:130px;border-radius:18px;margin:0 0 12px;background:linear-gradient(90deg,#eef2f6,#f7fafb,#eef2f6);background-size:200% 100%;animation:scSk 1.2s linear infinite}
+@keyframes scSk{to{background-position:-200% 0}}
+.sc-sheet{padding:16px 16px 22px}
+.sc-mh{display:flex;align-items:center;justify-content:space-between;margin:0 0 12px}
+.sc-mh h3{margin:0;font-family:'Outfit',sans-serif;font-size:18px}
+.sc-x{border:0;background:#f2f6f9;width:34px;height:34px;border-radius:50%;font-size:15px;cursor:pointer}
+.sc-who{display:flex;align-items:center;gap:10px;margin:0 0 10px}
+.sc-who strong{display:block;font-size:14.5px}
+.sc-who small{font-size:12px;color:var(--muted)}
+.sc-ta{width:100%;border:1px solid #dbe3ea;border-radius:12px;padding:12px;font:inherit;font-size:16px;margin:0 0 10px;box-sizing:border-box}
+.sc-lab{display:block;font-size:12px;font-weight:700;color:var(--muted);margin:0 0 4px}
+.sc-attach{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 10px}
+.sc-attach small{font-size:11.5px;color:var(--muted)}
+.sc-attach .tt-chip{padding:7px 14px;font-size:13px}
+.sc-prev{display:flex;gap:8px;flex-wrap:wrap}
+.sc-pv{position:relative;width:78px;height:78px;border-radius:12px;overflow:hidden;background:#eef2f6;display:grid;place-items:center;font-size:11px;padding:4px;box-sizing:border-box;text-align:center;margin-bottom:8px}
+.sc-pv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sc-pv button{position:absolute;top:3px;right:3px;width:22px;height:22px;border:0;border-radius:50%;background:#0b1f3acc;color:#fff;font-size:11px;cursor:pointer;z-index:1}
+.sc-ext{display:block;margin:10px auto 0}
+.sc-lb{position:fixed;inset:0;z-index:120;background:#050d18f2;display:grid;place-items:center}
+.sc-lb img{max-width:100vw;max-height:86vh;object-fit:contain}
+.sc-lb small{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#fff;opacity:.8}
+.sc-lbx,.sc-lbn{position:absolute;border:0;background:#ffffff1f;color:#fff;border-radius:50%;width:44px;height:44px;font-size:22px;cursor:pointer}
+.sc-lbx{top:14px;right:14px}.sc-lbn{top:50%;transform:translateY(-50%)}.sc-lbn.prev{left:10px}.sc-lbn.next{right:10px}
+@media(min-width:900px){.sc-compose,.sc-post,.sc-cover,.sc-filters,.sc-tabs,#scMore,.sc-skel,.sc-empty{max-width:720px}}
+@media (prefers-reduced-motion:reduce){.sc-post,.sc-skel,.sc-reactwrap.open .sc-picker{animation:none}}
 </style>
 </head>
 
@@ -1982,7 +2102,7 @@ body{overflow-x:hidden}
       <button class="nav-item" data-page="Règlement intérieur" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-file"/></svg></span>Règlement intérieur</button>
       <button class="nav-item" data-page="Atlas anatomie" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-layers"/></svg></span>Atlas anatomie</button>
       <button class="nav-item" data-page="E-learning" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-spark"/></svg></span>E-learning</button>
-      <button class="nav-item" data-page="Espace de partage" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-user"/></svg></span>Espace de partage</button>
+      <button class="nav-item" data-page="Espace de partage" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-user"/></svg></span>Communauté</button>
       <button class="nav-item" data-page="Dictionnaire médical" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-book"/></svg></span>Dictionnaire médical</button>
       <button class="nav-item" data-page="Terminologie médicale" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-cap"/></svg></span>Terminologie médicale</button>
       <button class="nav-item" data-page="Flashcards" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-layers"/></svg></span>Flashcards</button>
@@ -2111,8 +2231,8 @@ body{overflow-x:hidden}
 
 <button class="module-card" data-open="Espace de partage" type="button">
               <div class="module-icon"><svg class="ico"><use href="#i-user"/></svg></div>
-              <h3>Espace de partage</h3>
-              <p>Partagez résumés, annales et astuces dans le groupe de votre option.</p>
+              <h3>Communauté</h3>
+              <p>Publiez, posez vos questions et partagez avec les étudiants de votre option.</p>
               <span class="module-arrow">↗</span>
             </button>
 <button class="module-card" data-open="Flashcards" type="button">
@@ -4850,136 +4970,355 @@ function elLearn(box) {
 }
 
 // =====================================
-// ESPACE DE PARTAGE : groupes par option, ressources, commentaires
+// COMMUNAUTÉ : réseau social des étudiants (publications, réactions, commentaires, partage)
+// Chaque étudiant accède à la communauté « Général » et à celle de son option (choix définitif, vérifié par le serveur).
+// L'administrateur accède à toutes les communautés.
 // =====================================
 const SH_GROUPS = [["general", "Général · toutes les options"], ["ip", "Infirmier polyvalent"], ["ism", "Infirmier en santé mentale"], ["iar", "Infirmier en anesthésie réanimation"], ["isu", "Infirmier en soins d'urgence et soins intensifs"], ["sf", "Sage-femme"], ["lab", "Laboratoire"], ["se", "Santé et environnement"], ["rad", "Radiologie"], ["diet", "Diététique / Nutrition"], ["pharm", "Préparateur en pharmacie"], ["mb", "Maintenance biomédicale"], ["stat", "Statistiques sanitaires"], ["orp", "Orthoprothésie"], ["kine", "Kinésithérapie / Physiothérapie"], ["orth", "Orthophonie"], ["orto", "Orthoptie"], ["psy", "Psychomotricité"], ["as", "Assistant social"]];
-const SH_KINDS = { resume: "Résumé", annale: "Annale", astuce: "Astuce", question: "Question" };
-async function renderPartage() {
-  const inner = mxPage("Espace de partage", "Partagez résumés, annales et astuces avec les étudiants de votre option.", `<div id="shBody"><p class="search-hint">Chargement…</p></div>`);
-  const body = inner.querySelector("#shBody"), me = currentUser && currentUser.id;
-  if (!me) { body.innerHTML = `<p class="search-hint">Connectez-vous pour accéder à l'espace de partage.</p>`; return; }
-  let mine = [], admins = new Set(), cur = null, kind = "all", q = "", posts = [], likes = [], coms = [];
-  const openCom = new Set();
-  const fail = e => { console.error("Partage :", e); body.innerHTML = `<div class="mx-card"><h3>Espace de partage non activé</h3><p class="search-hint">L'administrateur doit exécuter le fichier partage.sql dans Supabase.</p></div>`; };
-  const gname = id => (SH_GROUPS.find(g => g[0] === id) || [0, id])[1];
-  const when = d => new Date(d).toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
-  const join = async id => { const r = await db.from("share_members").insert({ group_id: id }); if (r.error && r.error.code !== "23505") throw r.error; if (!mine.includes(id)) mine.push(id); };
+const SH_KINDS = { discussion: "Discussion", question: "Question", resume: "Résumé", annale: "Annale", astuce: "Astuce" };
+const SH_REACT = [["like", "👍", "J'aime"], ["love", "❤️", "J'adore"], ["haha", "😂", "Haha"], ["wow", "😮", "Wow"], ["sad", "😢", "Triste"]];
+const shReact = t => SH_REACT.find(r => r[0] === t) || SH_REACT[0];
+const shInit = n => String(n || "?").trim().split(/\s+/).slice(0, 2).map(w => w[0]).join("").toUpperCase() || "?";
+const shHue = s => { let h = 0; for (const c of String(s)) h = (h * 31 + c.charCodeAt(0)) % 360; return h; };
+const shAv = n => `<span class="sc-av" style="background:hsl(${shHue(n)} 55% 42%)">${esc(shInit(n))}</span>`;
+const shLinkify = t => esc(t).replace(/(https?:\/\/[^\s<]+)/g, u => `<a href="${u}" target="_blank" rel="noopener noreferrer">${u}</a>`).replace(/\n/g, "<br>");
+function shAgo(d) {
+  const m = Math.max(0, Math.round((Date.now() - new Date(d)) / 60000));
+  if (m < 1) return "à l'instant";
+  if (m < 60) return m + " min";
+  const h = Math.round(m / 60);
+  if (h < 24) return h + " h";
+  const j = Math.round(h / 24);
+  return j < 7 ? j + " j" : new Date(d).toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
+}
+async function shShrink(f) {   // réduit les grandes photos avant l'envoi (5 Mo maximum par fichier)
+  if (!/^image\/(jpeg|png|webp)$/.test(f.type) || f.size < 700 * 1024) return f;
+  try {
+    const bm = await createImageBitmap(f), k = Math.min(1, 1600 / Math.max(bm.width, bm.height));
+    const c = document.createElement("canvas"); c.width = Math.round(bm.width * k); c.height = Math.round(bm.height * k);
+    c.getContext("2d").drawImage(bm, 0, 0, c.width, c.height);
+    const blob = await new Promise(r => c.toBlob(r, "image/jpeg", 0.82));
+    return blob && blob.size < f.size ? new File([blob], f.name.replace(/\.\w+$/, "") + ".jpg", { type: "image/jpeg" }) : f;
+  } catch (e) { return f; }
+}
 
-  const pick = () => {
-    body.innerHTML = `<div class="mx-card"><h3>Choisissez votre groupe</h3><p class="search-hint">Rejoignez le groupe de votre option pour partager avec les autres étudiants. Vous pouvez rejoindre plusieurs groupes.</p>
-      <div class="list">${SH_GROUPS.map(([id, n]) => `<button type="button" class="list-row" data-g="${id}"><span class="list-main"><span class="list-title">${esc(n)}</span><span class="list-sub">${mine.includes(id) ? "Vous êtes membre" : "Toucher pour rejoindre"}</span></span><span class="list-arrow">›</span></button>`).join("")}</div></div>`;
+async function renderPartage() {
+  const inner = mxPage("Communauté", "Le réseau des étudiants de votre option : publications, questions, résumés, réactions et partage.", `<div id="scRoot"><p class="search-hint">Chargement…</p></div>`);
+  const root = inner.querySelector("#scRoot"), me = currentUser && currentUser.id;
+  if (!me) { root.innerHTML = `<p class="search-hint">Connectez-vous pour accéder à la communauté.</p>`; return; }
+  const meta = currentUser.user_metadata || {}, meName = meta.full_name || meta.username || "Étudiant";
+  const S = { admin: false, adm: new Set(), groups: [], access: [], cur: null, kind: "all", q: "", pinned: [], posts: [], more: false, react: {}, coms: {}, clikes: {}, shares: {}, urls: {}, openCom: new Set(), replyTo: null, stats: null, busy: false };
+  const PAGE = 12;
+  const gname = id => ((S.groups.find(g => g.id === id) || {}).name) || (SH_GROUPS.find(g => g[0] === id) || [0, id])[1];
+  const fail = e => {
+    console.error("Communauté :", e);
+    root.innerHTML = `<div class="mx-card"><h3>Communauté indisponible</h3><p class="search-hint">Impossible de charger la communauté pour le moment. Vérifiez votre connexion puis réessayez.</p><button class="tt-chip" type="button" id="scRetry">Réessayer</button></div>`;
+    const b = root.querySelector("#scRetry"); if (b) b.onclick = () => renderPartage();
   };
-  const room = async () => {
-    lsSet("ish_share_cur", cur);
-    body.innerHTML = `<p class="search-hint">Chargement…</p>`;
+  const findPost = id => S.pinned.concat(S.posts).find(p => p.id === id);
+  const isAdm = id => S.adm.has(id) ? `<span class="sc-adm">Admin</span>` : "";
+
+  // ---------- Choix de l'option (une seule fois) ----------
+  const chooseOption = () => {
+    root.innerHTML = `<div class="mx-card"><h3>Choisissez votre option</h3><p class="search-hint">Vous rejoindrez la communauté de votre option et la communauté générale. Ce choix est définitif : seul un administrateur pourra le modifier.</p>
+      <div class="list">${SH_GROUPS.filter(g => g[0] !== "general").map(([id, n]) => `<button type="button" class="list-row" data-opt="${id}"><span class="list-main"><span class="list-title">${esc(n)}</span></span></button>`).join("")}</div></div>`;
+    root.querySelectorAll("[data-opt]").forEach(b => b.addEventListener("click", async () => {
+      const id = b.dataset.opt;
+      if (!confirm("Confirmer « " + gname(id) + " » ? Ce choix est définitif.")) return;
+      const r = await db.rpc("share_choose_option", { opt: id });
+      if (r.error) { alert("Impossible d'enregistrer l'option."); return; }
+      renderPartage();
+    }));
+  };
+
+  // ---------- Données ----------
+  const enrich = async ps => {
+    const ids = ps.map(p => p.id); if (!ids.length) return;
+    const [rc, cm, sh] = await Promise.all([
+      db.from("share_reactions").select("post_id,user_id,type").in("post_id", ids),
+      db.from("share_comments").select("id,post_id,parent_id,user_id,author_name,body,created_at").in("post_id", ids).order("created_at"),
+      db.from("share_posts").select("shared_from").in("shared_from", ids)
+    ]);
+    if (rc.error) throw rc.error; if (cm.error) throw cm.error;
+    ids.forEach(id => { S.react[id] = []; S.coms[id] = []; S.shares[id] = 0; });
+    (rc.data || []).forEach(r => S.react[r.post_id].push(r));
+    (cm.data || []).forEach(c => S.coms[c.post_id].push(c));
+    (sh.data || []).forEach(r => { S.shares[r.shared_from] = (S.shares[r.shared_from] || 0) + 1; });
+    const cids = (cm.data || []).map(c => c.id);
+    if (cids.length) { const cl = await db.from("share_comment_likes").select("comment_id,user_id").in("comment_id", cids); (cl.data || []).forEach(l => { (S.clikes[l.comment_id] = S.clikes[l.comment_id] || []).push(l.user_id); }); }
+    const paths = ps.flatMap(p => (p.attachments || []).map(a => a.p)).filter(x => x && !S.urls[x]);
+    if (paths.length) { const su = await db.storage.from("share-files").createSignedUrls(paths, 3600); (su.data || []).forEach(u => { if (u.signedUrl) S.urls[u.path] = u.signedUrl; }); }
+  };
+  const query = () => {
+    let q = db.from("share_posts").select("*").eq("group_id", S.cur);
+    if (S.kind !== "all") q = q.eq("kind", S.kind);
+    const t = S.q.replace(/[,()%*\\]/g, " ").trim();
+    if (t) q = q.or(`body.ilike.%${t}%,module.ilike.%${t}%,author_name.ilike.%${t}%`);
+    return q;
+  };
+  const stats = async () => {
+    const r = await db.rpc("share_group_stats", { g: S.cur });
+    if (r.data) { S.stats = r.data; const el = root.querySelector("#scStats"); if (el) el.textContent = r.data.members + " membre" + (r.data.members > 1 ? "s" : "") + " · " + r.data.posts + " publication" + (r.data.posts > 1 ? "s" : ""); }
+  };
+  const load = async reset => {
+    if (S.busy) return; S.busy = true;
     try {
-      let r = await db.from("share_posts").select("*").eq("group_id", cur).order("created_at", { ascending: false }).limit(80);
-      if (r.error) throw r.error; posts = r.data || []; likes = []; coms = [];
-      const ids = posts.map(p => p.id);
-      if (ids.length) {
-        r = await db.from("share_likes").select("post_id,user_id").in("post_id", ids); if (r.error) throw r.error; likes = r.data || [];
-        r = await db.from("share_comments").select("id,post_id,user_id,author_name,body,created_at").in("post_id", ids).order("created_at"); if (r.error) throw r.error; coms = r.data || [];
+      if (reset) {
+        S.posts = []; S.pinned = [];
+        const p = await query().eq("pinned", true).order("created_at", { ascending: false }).limit(5);
+        if (p.error) throw p.error; S.pinned = p.data || [];
       }
-    } catch (e) { return fail(e); }
-    body.innerHTML = `<div class="tt-chips"><button type="button" class="tt-chip" data-act="groups">Tous les groupes</button>${mine.map(g => `<button type="button" class="tt-chip${g === cur ? " on" : ""}" data-sg="${g}">${esc(gname(g))}</button>`).join("")}</div>
-      <div class="kp-bar"><button type="button" class="kp-take" data-act="new">Partager avec « ${esc(gname(cur))} »…</button></div>
-      <input id="shQ" class="rg-search" type="search" placeholder="Rechercher dans ce groupe…" value="${esc(q)}" autocomplete="off">
-      <div class="tt-chips">${[["all", "Tout"], ...Object.entries(SH_KINDS)].map(([k, l]) => `<button type="button" class="tt-chip${kind === k ? " on" : ""}" data-k="${k}">${esc(l)}</button>`).join("")}</div><div id="shList"></div>`;
-    list();
+      const r = await query().eq("pinned", false).order("created_at", { ascending: false }).range(S.posts.length, S.posts.length + PAGE - 1);
+      if (r.error) throw r.error;
+      const rows = r.data || []; S.more = rows.length === PAGE;
+      S.posts = S.posts.concat(rows);
+      await enrich((reset ? S.pinned : []).concat(rows));
+    } catch (e) { S.busy = false; return fail(e); }
+    S.busy = false; draw();
   };
-  const post = p => {
-    const lk = likes.filter(l => l.post_id === p.id), liked = lk.some(l => l.user_id === me), cm = coms.filter(c => c.post_id === p.id), mod = admins.has(me);
-    return `<div class="mx-card sh-post" data-p="${esc(p.id)}">
-      <div class="mx-term-top"><span class="at-tag" style="background:#159c94">${esc(SH_KINDS[p.kind] || "Post")}</span><small>${esc(p.author_name || "Étudiant")}${admins.has(p.user_id) ? " · Admin" : ""} · ${esc(when(p.created_at))}</small></div>
-      <h3>${esc(p.title)}</h3>${p.module ? `<p class="search-hint">${esc(p.module)}</p>` : ""}${p.body ? `<p class="cm-body">${esc(p.body)}</p>` : ""}
-      ${p.file_path ? `<button type="button" class="tt-chip" data-f="${esc(p.file_path)}">📎 ${esc(p.file_name || "Fichier")}</button>` : ""}
-      <div class="sh-actions"><button type="button" class="cm-react${liked ? " on" : ""}" data-a="like">👍 Utile${lk.length ? " " + lk.length : ""}</button><button type="button" class="cm-react" data-a="com">💬 ${cm.length}</button><button type="button" class="cm-link" data-a="rep">Signaler</button>${p.user_id === me || mod ? `<button type="button" class="cm-del" data-a="del">Supprimer</button>` : ""}</div>
-      <div class="sh-com${openCom.has(p.id) ? "" : " hidden"}">${cm.map(c => `<div class="cm-item"><div class="cm-head"><span><strong>${esc(c.author_name || "Étudiant")}</strong> · ${esc(when(c.created_at))}</span>${c.user_id === me || mod ? `<button type="button" class="cm-del" data-cd="${esc(c.id)}">Supprimer</button>` : ""}</div><p class="cm-body">${esc(c.body)}</p></div>`).join("")}
-        <div class="mx-row"><input type="text" maxlength="500" placeholder="Écrire un commentaire…"><button type="button" class="tt-chip" data-a="send">Envoyer</button></div></div></div>`;
+
+  // ---------- Affichage ----------
+  const attHTML = p => {
+    const at = p.attachments || [], imgs = at.filter(a => /^image\//.test(a.t) && S.urls[a.p]), pdfs = at.filter(a => !/^image\//.test(a.t));
+    return (imgs.length ? `<div class="sc-imgs n${Math.min(imgs.length, 4)}">${imgs.slice(0, 4).map((a, i) => `<button type="button" data-img="${i}"><img src="${esc(S.urls[a.p])}" alt="" loading="lazy">${i === 3 && imgs.length > 4 ? `<span class="sc-more-i">+${imgs.length - 4}</span>` : ""}</button>`).join("")}</div>` : "")
+      + pdfs.map(a => S.urls[a.p] ? `<a class="sc-file" href="${esc(S.urls[a.p])}" target="_blank" rel="noopener noreferrer">📄 <span>${esc(a.n || "Document PDF")}</span></a>` : "").join("");
   };
-  const list = () => {
-    const box = body.querySelector("#shList"); if (!box) return;
-    const words = norm(q).split(" ").filter(Boolean);
-    const rows = posts.filter(p => (kind === "all" || p.kind === kind) && words.every(w => norm(p.title + " " + p.body + " " + p.module + " " + p.author_name).includes(w)));
-    box.innerHTML = rows.length ? rows.map(post).join("") : `<div class="search-hint">Rien ici pour l'instant. Soyez le premier à partager.</div>`;
+  const comHTML = (c, rep) => {
+    const lk = S.clikes[c.id] || [], liked = lk.includes(me);
+    return `<div class="sc-c${rep ? " rep" : ""}" data-c="${esc(c.id)}">${shAv(c.author_name)}<div class="sc-cb"><div class="sc-bub"><strong>${esc(c.author_name || "Étudiant")}${isAdm(c.user_id)}</strong><span>${shLinkify(c.body)}</span>${lk.length ? `<em class="sc-clk">👍 ${lk.length}</em>` : ""}</div>
+      <div class="sc-cm"><button type="button" data-a="clike" class="${liked ? "on" : ""}">J'aime</button><button type="button" data-a="reply">Répondre</button><small>${esc(shAgo(c.created_at))}</small>${c.user_id === me || S.admin ? `<button type="button" data-a="cdel" class="red">Supprimer</button>` : ""}</div>
+      ${S.replyTo === c.id ? `<form class="sc-cform rep" data-parent="${esc(c.id)}"><input type="text" maxlength="1000" placeholder="Répondre à ${esc((c.author_name || "").split(" ")[0])}…" autocomplete="off"><button type="submit" aria-label="Envoyer">➤</button></form>` : ""}</div></div>`;
   };
-  // --- Publication ---
-  const compose = () => {
+  const postHTML = p => {
+    const rs = S.react[p.id] || [], cs = S.coms[p.id] || [], mine = rs.find(r => r.user_id === me), by = {};
+    rs.forEach(r => { by[r.type] = (by[r.type] || 0) + 1; });
+    const top = Object.entries(by).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([t]) => shReact(t)[1]).join("");
+    const open = S.openCom.has(p.id), mr = mine && shReact(mine.type), nSh = S.shares[p.id] || 0, own = p.user_id === me;
+    const tops = cs.filter(c => !c.parent_id), reps = c => cs.filter(x => x.parent_id === c.id);
+    const long = (p.body || "").length > 420;
+    const sh = p.shared ? `<div class="sc-shared"><div class="sc-sh-h">${shAv(p.shared.author)}<div><strong>${esc(p.shared.author || "Étudiant")}</strong><small>${esc(shAgo(p.shared.at))} · ${esc(p.shared.group || "")}</small></div></div>${p.shared.title ? `<h4>${esc(p.shared.title)}</h4>` : ""}${p.shared.body ? `<p>${shLinkify(p.shared.body)}</p>` : ""}${p.shared.files ? `<small class="sc-sh-f">📎 ${p.shared.files} pièce(s) jointe(s) dans la publication d'origine</small>` : ""}</div>` : "";
+    return `<article class="sc-post${p.pinned ? " pin" : ""}" data-p="${esc(p.id)}">
+      <header class="sc-ph">${shAv(p.author_name)}<div class="sc-pn"><strong>${esc(p.author_name || "Étudiant")}${isAdm(p.user_id)}</strong><small>${esc(shAgo(p.created_at))}${p.kind !== "discussion" ? ` · <span class="sc-kind k-${p.kind}">${esc(SH_KINDS[p.kind] || "")}</span>` : ""}${p.module ? " · " + esc(p.module) : ""}${p.pinned ? " · 📌 Épinglée" : ""}</small></div>
+        <div class="sc-mwrap"><button type="button" class="sc-dots" data-a="menu" aria-label="Plus d'options">⋯</button><div class="sc-menu hidden">
+          ${S.admin ? `<button type="button" data-m="pin">${p.pinned ? "Désépingler" : "Épingler en haut"}</button>` : ""}<button type="button" data-m="copy">Copier le texte</button>${!own ? `<button type="button" data-m="report">Signaler</button>` : ""}${own || S.admin ? `<button type="button" data-m="del" class="red">Supprimer</button>` : ""}</div></div></header>
+      ${p.title ? `<h3 class="sc-pt">${esc(p.title)}</h3>` : ""}${p.body ? `<p class="sc-pb${long ? " clamp" : ""}">${shLinkify(p.body)}</p>${long ? `<button type="button" class="sc-exp" data-a="expand">Voir plus</button>` : ""}` : ""}
+      ${sh}${attHTML(p)}
+      <div class="sc-stats"><span class="sc-rc">${top}${rs.length ? " " + rs.length : ""}</span><span class="sc-sl"><button type="button" data-a="com">${cs.length} commentaire${cs.length > 1 ? "s" : ""}</button>${nSh ? ` · ${nSh} partage${nSh > 1 ? "s" : ""}` : ""}</span></div>
+      <div class="sc-bar"><div class="sc-reactwrap"><button type="button" class="sc-act${mine ? " on" : ""}" data-a="react">${mr ? mr[1] + " " + esc(mr[2]) : "👍 J'aime"}</button><div class="sc-picker">${SH_REACT.map(r => `<button type="button" data-r="${r[0]}" title="${esc(r[2])}">${r[1]}</button>`).join("")}</div></div>
+        <button type="button" class="sc-act" data-a="com">💬 Commenter</button><button type="button" class="sc-act" data-a="share">↪ Partager</button></div>
+      ${open ? `<div class="sc-cms">${tops.map(c => comHTML(c) + reps(c).map(r => comHTML(r, true)).join("")).join("")}<form class="sc-cform" data-parent=""><input type="text" maxlength="1000" placeholder="Écrire un commentaire…" autocomplete="off"><button type="submit" aria-label="Envoyer">➤</button></form></div>`
+        : cs.length ? `<button type="button" class="sc-seecom" data-a="com">Voir les ${cs.length} commentaire${cs.length > 1 ? "s" : ""}</button>` : ""}
+    </article>`;
+  };
+  const redraw = id => {
+    const p = findPost(id), el = root.querySelector(`.sc-post[data-p="${CSS.escape(id)}"]`);
+    if (p && el) el.outerHTML = postHTML(p); else draw();
+  };
+  const draw = () => {
+    const feed = root.querySelector("#scFeed"), more = root.querySelector("#scMore"); if (!feed) return;
+    const all = S.pinned.concat(S.posts);
+    feed.innerHTML = all.length ? all.map(postHTML).join("") : `<div class="sc-empty"><span>💬</span><strong>Rien ici pour l'instant</strong><p>Soyez le premier à publier dans cette communauté.</p></div>`;
+    more.innerHTML = S.more ? `<button type="button" class="tt-chip sc-moreb" data-a="more">Voir plus de publications</button>` : "";
+  };
+  const shell = () => {
+    const sw = S.admin
+      ? `<select id="scG" class="sc-select" aria-label="Communauté">${S.groups.map(g => `<option value="${esc(g.id)}"${g.id === S.cur ? " selected" : ""}>${esc(g.name)}</option>`).join("")}</select>`
+      : `<div class="sc-tabs">${S.access.map(id => `<button type="button" class="sc-tab${id === S.cur ? " on" : ""}" data-g="${esc(id)}">${id === "general" ? "🌍 Général" : "🎓 " + esc(gname(id))}</button>`).join("")}</div>`;
+    root.innerHTML = `<div class="sc-cover" style="--h:${shHue(S.cur)}"><small>COMMUNAUTÉ</small><h2>${esc(gname(S.cur))}</h2><span id="scStats"></span></div>
+      ${sw}
+      <div class="sc-compose"><button type="button" class="sc-prompt" data-a="new">${shAv(meName)}<span>Quoi de neuf, ${esc(String(meName).split(" ")[0])} ?</span></button>
+        <div class="sc-quick"><button type="button" data-a="new" data-k="question">❓ Question</button><button type="button" data-a="new" data-k="resume">📄 Résumé</button><button type="button" data-a="new" data-k="annale">🎓 Annale</button><button type="button" data-a="new" data-k="astuce">💡 Astuce</button></div></div>
+      <div class="sc-filters"><input id="scQ" type="search" placeholder="Rechercher dans la communauté…" value="${esc(S.q)}" autocomplete="off"><div class="sc-chips">${[["all", "Tout"], ...Object.entries(SH_KINDS)].map(([k, l]) => `<button type="button" class="sc-chip${S.kind === k ? " on" : ""}" data-kind="${k}">${esc(l)}</button>`).join("")}</div></div>
+      <div id="scFeed"><div class="sc-skel"></div><div class="sc-skel"></div></div><div id="scMore"></div>`;
+    if (S.stats) stats();
+  };
+  const openGroup = () => { lsSet("ish_share_cur", S.cur); S.kind = "all"; S.q = ""; S.stats = null; S.openCom.clear(); shell(); stats(); load(true); };
+
+  // ---------- Fenêtres : publier, partager, visionneuse ----------
+  const sheet = html => {
     const ov = document.createElement("div"); ov.className = "kp-modal"; document.body.appendChild(ov);
-    ov.innerHTML = `<div class="kp-sheet" style="background:#fff"><h3>Partager avec « ${esc(gname(cur))} »</h3>
-      <div class="mx-row"><label>Type<select id="shK">${Object.entries(SH_KINDS).map(([k, l]) => `<option value="${k}">${l}</option>`).join("")}</select></label><label>Module (facultatif)<input id="shM" type="text" maxlength="120" placeholder="Ex : Anatomie S1"></label></div>
-      <input id="shT" class="kp-title" type="text" maxlength="200" placeholder="Titre">
-      <textarea id="shB" class="kp-body" rows="5" maxlength="5000" placeholder="Description, conseil ou question…"></textarea>
-      <div class="mx-block">Fichier (PDF ou image, 5 Mo maximum)</div><input id="shF" type="file" accept=".pdf,image/png,image/jpeg,image/webp">
-      <div class="mx-warn red"><strong>Avant de publier</strong><ul><li>Partagez vos propres résumés ou des documents que vous avez le droit de partager (pas de livres ni de cours protégés).</li><li>Aucun nom, photo ni information d'un patient. <em>Mamnou3 patient.</em></li></ul></div>
-      <label class="kp-chk"><input type="checkbox" id="shOk"> Je confirme respecter ces règles.</label>
-      <p class="cm-err" id="shErr"></p><div class="kp-actions"><button type="button" class="primary-btn" id="shGo">Publier</button><button type="button" class="tt-chip" id="shNo">Annuler</button></div></div>`;
-    const v = id => ov.querySelector("#" + id), err = m => { v("shErr").textContent = m; };
-    v("shNo").addEventListener("click", () => ov.remove());
+    ov.innerHTML = `<div class="kp-sheet sc-sheet" style="background:#fff">${html}</div>`;
     ov.addEventListener("click", e => { if (e.target === ov) ov.remove(); });
-    v("shGo").addEventListener("click", async () => {
-      const t = v("shT").value.trim(), b = v("shB").value.trim(), f = v("shF").files && v("shF").files[0];
-      if (!t) return err("Ajoutez un titre.");
-      if (!b && !f) return err("Ajoutez une description ou un fichier.");
-      if (!v("shOk").checked) return err("Confirmez le respect des règles.");
-      if (f && f.size > 5 * 1024 * 1024) return err("Fichier trop lourd (5 Mo maximum).");
-      v("shGo").disabled = true; err(""); let path = null;
+    return ov;
+  };
+  const compose = pre => {
+    const ov = sheet(`<div class="sc-mh"><h3>Créer une publication</h3><button type="button" class="sc-x" id="cpX" aria-label="Fermer">✕</button></div>
+      <div class="sc-who">${shAv(meName)}<div><strong>${esc(meName)}</strong><small>Publié dans « ${esc(gname(S.cur))} »</small></div></div>
+      <textarea id="cpB" class="kp-body sc-ta" rows="5" maxlength="5000" placeholder="Quoi de neuf ? Posez une question, partagez un résumé ou une astuce…"></textarea>
+      <div class="sc-chips" id="cpK">${Object.entries(SH_KINDS).map(([k, l]) => `<button type="button" class="sc-chip${k === (pre || "discussion") ? " on" : ""}" data-kk="${k}">${esc(l)}</button>`).join("")}</div>
+      <input id="cpM" class="sc-input" type="text" maxlength="120" placeholder="Module (facultatif), ex : Anatomie S1">
+      <div id="cpPrev" class="sc-prev"></div>
+      <div class="sc-attach"><label class="tt-chip">📷 Photos<input id="cpI" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple hidden></label><label class="tt-chip">📄 PDF<input id="cpP" type="file" accept="application/pdf" hidden></label><small>5 Mo maximum par fichier</small></div>
+      <div class="mx-warn red"><strong>Avant de publier</strong><ul><li>Partagez vos propres résumés ou des documents que vous avez le droit de partager (pas de livres ni de cours protégés).</li><li>Aucun nom, photo ni information d'un patient. <em>Mamnou3 patient.</em></li><li>Respect et bienveillance envers tous les étudiants.</li></ul></div>
+      <label class="kp-chk"><input type="checkbox" id="cpOk"> Je confirme respecter ces règles.</label>
+      <p class="cm-err" id="cpErr"></p><button type="button" class="primary-btn" id="cpGo">Publier</button>`);
+    const v = id => ov.querySelector("#" + id), err = m => { v("cpErr").textContent = m; };
+    let kind = pre || "discussion", files = [];
+    const prev = () => { v("cpPrev").innerHTML = files.map((f, i) => `<div class="sc-pv">${/^image\//.test(f.type) ? `<img src="${esc(URL.createObjectURL(f))}" alt="">` : `<span>📄 ${esc(f.name)}</span>`}<button type="button" data-rm="${i}" aria-label="Retirer">✕</button></div>`).join(""); };
+    v("cpX").onclick = () => ov.remove();
+    v("cpK").addEventListener("click", e => { const b = e.target.closest("[data-kk]"); if (!b) return; kind = b.dataset.kk; ov.querySelectorAll("[data-kk]").forEach(x => x.classList.toggle("on", x === b)); });
+    v("cpPrev").addEventListener("click", e => { const b = e.target.closest("[data-rm]"); if (!b) return; files.splice(+b.dataset.rm, 1); prev(); });
+    v("cpI").addEventListener("change", e => { files = files.filter(f => !/^image\//.test(f.type)).concat([...e.target.files].slice(0, 4)); e.target.value = ""; prev(); });
+    v("cpP").addEventListener("change", e => { const f = e.target.files[0]; files = files.filter(x => /^image\//.test(x.type)); if (f) files.push(f); e.target.value = ""; prev(); });
+    v("cpGo").addEventListener("click", async () => {
+      const body = v("cpB").value.trim(); err("");
+      if (!body && !files.length) return err("Écrivez quelque chose ou ajoutez un fichier.");
+      if (!v("cpOk").checked) return err("Confirmez le respect des règles.");
+      v("cpGo").disabled = true; v("cpGo").textContent = "Publication…";
+      const up = [];
       try {
-        if (f) { path = `${cur}/${me}/${Date.now()}-${f.name.replace(/[^\w.\-]+/g, "_").slice(-60)}`; const up = await db.storage.from("share-files").upload(path, f, { contentType: f.type }); if (up.error) throw up.error; }
-        const r = await db.from("share_posts").insert({ group_id: cur, kind: v("shK").value, title: t, module: v("shM").value.trim(), body: b, file_path: path, file_name: f ? f.name : null }).select("*").single();
-        if (r.error) { if (path) db.storage.from("share-files").remove([path]); throw r.error; }
-        posts.unshift(r.data); ov.remove(); list();
-      } catch (e) { console.error("Partage :", e); err("Impossible de publier : " + (e.message || "erreur")); v("shGo").disabled = false; }
+        const atts = [];
+        for (let i = 0; i < files.length; i++) {
+          const f = await shShrink(files[i]);
+          if (f.size > 5 * 1024 * 1024) throw new Error("« " + files[i].name + " » dépasse 5 Mo.");
+          const path = `${S.cur}/${me}/${Date.now()}-${i}-${f.name.replace(/[^\w.\-]+/g, "_").slice(-60)}`;
+          const r = await db.storage.from("share-files").upload(path, f, { contentType: f.type });
+          if (r.error) throw r.error; up.push(path); atts.push({ p: path, n: files[i].name, t: f.type, s: f.size });
+        }
+        const r = await db.from("share_posts").insert({ group_id: S.cur, kind, title: "", module: v("cpM").value.trim(), body, attachments: atts }).select("*").single();
+        if (r.error) throw r.error;
+        ov.remove();
+        if (S.kind === "all" || S.kind === kind) { S.posts.unshift(r.data); await enrich([r.data]); draw(); }
+        stats(); showToast("Publication ajoutée.");
+      } catch (e) {
+        console.error("Communauté :", e);
+        if (up.length) db.storage.from("share-files").remove(up);
+        err("Impossible de publier : " + (e.message || "erreur")); v("cpGo").disabled = false; v("cpGo").textContent = "Publier";
+      }
+    });
+    setTimeout(() => v("cpB").focus(), 50);
+  };
+  const shareDialog = p => {
+    const targets = S.admin ? S.groups.map(g => g.id) : S.access;
+    const ov = sheet(`<div class="sc-mh"><h3>Partager la publication</h3><button type="button" class="sc-x" id="shX" aria-label="Fermer">✕</button></div>
+      <div class="sc-shared"><div class="sc-sh-h">${shAv(p.author_name)}<div><strong>${esc(p.author_name || "Étudiant")}</strong><small>${esc(shAgo(p.created_at))}</small></div></div><p>${esc((p.body || p.title || "").slice(0, 160))}${(p.body || "").length > 160 ? "…" : ""}</p></div>
+      <label class="sc-lab">Partager dans<select id="shT" class="sc-input">${targets.map(id => `<option value="${esc(id)}"${id === S.cur ? " selected" : ""}>${esc(gname(id))}</option>`).join("")}</select></label>
+      <textarea id="shN" class="kp-body sc-ta" rows="3" maxlength="2000" placeholder="Ajouter un commentaire (facultatif)…"></textarea>
+      <p class="cm-err" id="shErr"></p><button type="button" class="primary-btn" id="shGo">Partager maintenant</button>
+      ${navigator.share ? `<button type="button" class="tt-chip sc-ext" id="shExt">Envoyer hors de la plateforme…</button>` : ""}`);
+    const v = id => ov.querySelector("#" + id);
+    v("shX").onclick = () => ov.remove();
+    const ext = v("shExt"); if (ext) ext.onclick = () => { navigator.share({ title: "ISPITS Students Hub", text: (p.body || p.title || "").slice(0, 300), url: location.href.split("#")[0] }).catch(() => {}); };
+    v("shGo").addEventListener("click", async () => {
+      v("shGo").disabled = true;
+      const target = v("shT").value, r = await db.rpc("share_repost", { src: p.id, target, note: v("shN").value.trim() });
+      if (r.error) { v("shErr").textContent = "Impossible de partager."; v("shGo").disabled = false; return; }
+      ov.remove(); const origin = r.data.shared_from || p.id; S.shares[origin] = (S.shares[origin] || 0) + 1;
+      if (target === S.cur) { S.posts.unshift(r.data); await enrich([r.data]); draw(); } else redraw(p.id);
+      stats(); showToast("Publication partagée dans « " + gname(target) + " ».");
     });
   };
-  // --- Clics (délégation) ---
-  body.addEventListener("click", async e => {
-    const g = e.target.closest("[data-g]"); if (g) { try { await join(g.dataset.g); } catch (x) { return fail(x); } cur = g.dataset.g; return room(); }
-    const sg = e.target.closest("[data-sg]"); if (sg) { cur = sg.dataset.sg; return room(); }
-    const k = e.target.closest("[data-k]"); if (k) { kind = k.dataset.k; body.querySelectorAll("[data-k]").forEach(b => b.classList.toggle("on", b.dataset.k === kind)); return list(); }
-    const ac = e.target.closest("[data-act]"); if (ac) { if (ac.dataset.act === "groups") pick(); else if (ac.dataset.act === "new") compose(); return; }
-    const card = e.target.closest(".sh-post"); if (!card) return;
-    const pid = card.dataset.p, p = posts.find(x => x.id === pid); if (!p) return;
-    const f = e.target.closest("[data-f]");
-    if (f) { const r = await db.storage.from("share-files").createSignedUrl(f.dataset.f, 600); if (r.data && r.data.signedUrl) window.open(r.data.signedUrl, "_blank"); else alert("Fichier indisponible."); return; }
-    const cd = e.target.closest("[data-cd]");
-    if (cd) { if (!confirm("Supprimer ce commentaire ?")) return; const r = await db.from("share_comments").delete().eq("id", cd.dataset.cd); if (!r.error) { coms = coms.filter(c => c.id !== cd.dataset.cd); list(); } return; }
-    const a = e.target.closest("[data-a]"); if (!a) return;
-    const act = a.dataset.a;
-    if (act === "com") { if (openCom.has(pid)) openCom.delete(pid); else openCom.add(pid); list(); }
-    else if (act === "like") {
-      const liked = likes.some(l => l.post_id === pid && l.user_id === me);
-      const r = liked ? await db.from("share_likes").delete().eq("post_id", pid).eq("user_id", me) : await db.from("share_likes").insert({ post_id: pid });
-      if (r.error) return;
-      likes = liked ? likes.filter(l => !(l.post_id === pid && l.user_id === me)) : likes.concat([{ post_id: pid, user_id: me }]); list();
-    } else if (act === "send") {
-      const inp = card.querySelector(".sh-com input"), txt = inp ? inp.value.trim() : ""; if (!txt) return;
-      const r = await db.from("share_comments").insert({ post_id: pid, body: txt }).select("id,post_id,user_id,author_name,body,created_at").single();
-      if (r.error) return alert("Impossible d'envoyer le commentaire."); coms.push(r.data); openCom.add(pid); list();
-    } else if (act === "rep") {
+  const lightbox = (p, i) => {
+    const imgs = (p.attachments || []).filter(a => /^image\//.test(a.t) && S.urls[a.p]); if (!imgs.length) return;
+    const ov = document.createElement("div"); ov.className = "sc-lb"; document.body.appendChild(ov);
+    const show = () => { ov.innerHTML = `<button type="button" class="sc-lbx" aria-label="Fermer">✕</button>${imgs.length > 1 ? `<button type="button" class="sc-lbn prev" aria-label="Précédente">‹</button><button type="button" class="sc-lbn next" aria-label="Suivante">›</button>` : ""}<img src="${esc(S.urls[imgs[i].p])}" alt=""><small>${i + 1} / ${imgs.length}</small>`; };
+    show();
+    ov.addEventListener("click", e => {
+      if (e.target.closest(".prev")) { i = (i + imgs.length - 1) % imgs.length; show(); }
+      else if (e.target.closest(".next")) { i = (i + 1) % imgs.length; show(); }
+      else if (!e.target.closest("img")) ov.remove();
+    });
+  };
+
+  // ---------- Actions ----------
+  const setReaction = async (p, type) => {
+    const list = S.react[p.id] || (S.react[p.id] = []), cur = list.find(r => r.user_id === me); let r;
+    if (cur && cur.type === type) { r = await db.from("share_reactions").delete().eq("post_id", p.id).eq("user_id", me); if (!r.error) S.react[p.id] = list.filter(x => x !== cur); }
+    else if (cur) { r = await db.from("share_reactions").update({ type }).eq("post_id", p.id).eq("user_id", me); if (!r.error) cur.type = type; }
+    else { r = await db.from("share_reactions").insert({ post_id: p.id, type }); if (!r.error) list.push({ post_id: p.id, user_id: me, type }); }
+    if (r.error) { showToast("Action impossible."); return; }
+    redraw(p.id);
+  };
+  const postMenu = async (p, m) => {
+    if (m === "copy") { try { await navigator.clipboard.writeText((p.title ? p.title + "\n" : "") + (p.body || "")); showToast("Texte copié."); } catch (e) { showToast("Copie impossible."); } }
+    else if (m === "report") {
       if (!confirm("Signaler cette publication aux administrateurs ?")) return;
-      const r = await db.from("share_reports").insert({ post_id: pid }); alert(r.error && r.error.code === "23505" ? "Vous l'avez déjà signalée." : r.error ? "Impossible de signaler pour le moment." : "Merci, la publication a été signalée.");
-    } else if (act === "del") {
+      const r = await db.from("share_reports").insert({ post_id: p.id });
+      showToast(r.error && r.error.code === "23505" ? "Vous l'avez déjà signalée." : r.error ? "Signalement impossible." : "Merci, la publication a été signalée.");
+    } else if (m === "pin") {
+      const r = await db.from("share_posts").update({ pinned: !p.pinned }).eq("id", p.id);
+      if (r.error) return showToast("Action impossible."); load(true);
+    } else if (m === "del") {
       if (!confirm("Supprimer cette publication ?")) return;
-      const r = await db.from("share_posts").delete().eq("id", pid); if (r.error) return alert("Suppression impossible.");
-      if (p.file_path) db.storage.from("share-files").remove([p.file_path]);
-      posts = posts.filter(x => x.id !== pid); list();
+      const r = await db.from("share_posts").delete().eq("id", p.id);
+      if (r.error) return showToast("Suppression impossible.");
+      const paths = (p.attachments || []).map(a => a.p); if (paths.length) db.storage.from("share-files").remove(paths);
+      S.posts = S.posts.filter(x => x.id !== p.id); S.pinned = S.pinned.filter(x => x.id !== p.id); draw(); stats();
+    }
+  };
+  const addComment = async (p, text, parent) => {
+    const r = await db.from("share_comments").insert({ post_id: p.id, body: text, parent_id: parent || null }).select("id,post_id,parent_id,user_id,author_name,body,created_at").single();
+    if (r.error) return showToast("Impossible d'envoyer le commentaire.");
+    (S.coms[p.id] = S.coms[p.id] || []).push(r.data); S.openCom.add(p.id); S.replyTo = null; redraw(p.id);
+  };
+
+  // ---------- Événements ----------
+  let lp = null;
+  root.addEventListener("pointerdown", e => { const b = e.target.closest('[data-a="react"]'); if (b) lp = setTimeout(() => { lp = "done"; b.closest(".sc-reactwrap").classList.add("open"); }, 450); });
+  ["pointerup", "pointerleave", "pointercancel"].forEach(ev => root.addEventListener(ev, () => { if (lp && lp !== "done") { clearTimeout(lp); lp = null; } }));
+  root.addEventListener("contextmenu", e => { if (e.target.closest('[data-a="react"]')) e.preventDefault(); });
+  root.addEventListener("mouseover", e => { if (!(window.matchMedia && matchMedia("(hover:hover)").matches)) return; const w = e.target.closest(".sc-reactwrap"); if (w) { clearTimeout(w._t); w._t = setTimeout(() => w.classList.add("open"), 400); } });
+  root.addEventListener("mouseout", e => { const w = e.target.closest(".sc-reactwrap"); if (w && !w.contains(e.relatedTarget)) { clearTimeout(w._t); w._t = setTimeout(() => w.classList.remove("open"), 250); } });
+  root.addEventListener("click", async e => {
+    const t = e.target;
+    if (!t.closest(".sc-mwrap")) root.querySelectorAll(".sc-menu:not(.hidden)").forEach(m => m.classList.add("hidden"));
+    if (!t.closest(".sc-reactwrap")) root.querySelectorAll(".sc-reactwrap.open").forEach(w => w.classList.remove("open"));
+    const g = t.closest("[data-g]"); if (g) { S.cur = g.dataset.g; return openGroup(); }
+    const kd = t.closest("[data-kind]"); if (kd) { S.kind = kd.dataset.kind; root.querySelectorAll("[data-kind]").forEach(b => b.classList.toggle("on", b === kd)); return load(true); }
+    const rr = t.closest("[data-r]"); const card = t.closest(".sc-post"), p = card && findPost(card.dataset.p);
+    if (rr && p) { rr.closest(".sc-reactwrap").classList.remove("open"); return setReaction(p, rr.dataset.r); }
+    const mi = t.closest("[data-m]"); if (mi && p) { mi.closest(".sc-menu").classList.add("hidden"); return postMenu(p, mi.dataset.m); }
+    const im = t.closest("[data-img]"); if (im && p) return lightbox(p, +im.dataset.img);
+    const a = t.closest("[data-a]"); if (!a) return;
+    const act = a.dataset.a;
+    if (act === "new") return compose(a.dataset.k);
+    if (act === "more") { a.disabled = true; return load(false); }
+    if (!p) return;
+    if (act === "react") { if (lp === "done") { lp = null; return; } const mine = (S.react[p.id] || []).find(r => r.user_id === me); return setReaction(p, mine ? mine.type : "like"); }
+    if (act === "menu") { const m = a.parentElement.querySelector(".sc-menu"), was = m.classList.contains("hidden"); root.querySelectorAll(".sc-menu").forEach(x => x.classList.add("hidden")); if (was) m.classList.remove("hidden"); return; }
+    if (act === "com") { if (S.openCom.has(p.id) && t.closest(".sc-bar")) S.openCom.delete(p.id); else S.openCom.add(p.id); redraw(p.id); const inp = root.querySelector(`.sc-post[data-p="${CSS.escape(p.id)}"] .sc-cform:not(.rep) input`); if (inp && S.openCom.has(p.id) && t.closest(".sc-bar")) inp.focus(); return; }
+    if (act === "share") return shareDialog(p);
+    if (act === "expand") { const pb = card.querySelector(".sc-pb"); pb.classList.toggle("clamp"); a.textContent = pb.classList.contains("clamp") ? "Voir plus" : "Voir moins"; return; }
+    const cEl = t.closest("[data-c]"), cid = cEl && cEl.dataset.c;
+    if (act === "reply" && cid) { S.replyTo = S.replyTo === cid ? null : cid; redraw(p.id); const inp = root.querySelector(`[data-c="${CSS.escape(cid)}"] .sc-cform input`); if (inp) inp.focus(); return; }
+    if (act === "clike" && cid) {
+      const lk = S.clikes[cid] || (S.clikes[cid] = []), liked = lk.includes(me);
+      const r = liked ? await db.from("share_comment_likes").delete().eq("comment_id", cid).eq("user_id", me) : await db.from("share_comment_likes").insert({ comment_id: cid });
+      if (r.error) return; S.clikes[cid] = liked ? lk.filter(x => x !== me) : lk.concat([me]); return redraw(p.id);
+    }
+    if (act === "cdel" && cid) {
+      if (!confirm("Supprimer ce commentaire ?")) return;
+      const r = await db.from("share_comments").delete().eq("id", cid); if (r.error) return showToast("Suppression impossible.");
+      S.coms[p.id] = (S.coms[p.id] || []).filter(c => c.id !== cid && c.parent_id !== cid); redraw(p.id);
     }
   });
-  body.addEventListener("input", e => { if (e.target && e.target.id === "shQ") { q = e.target.value; list(); } });
-  // --- Démarrage ---
+  root.addEventListener("submit", e => {
+    const f = e.target.closest(".sc-cform"); if (!f) return; e.preventDefault();
+    const card = f.closest(".sc-post"), p = card && findPost(card.dataset.p), inp = f.querySelector("input"), txt = inp.value.trim();
+    if (p && txt) { inp.value = ""; addComment(p, txt, f.dataset.parent || null); }
+  });
+  let qt = null;
+  root.addEventListener("input", e => { if (e.target && e.target.id === "scQ") { clearTimeout(qt); qt = setTimeout(() => { S.q = e.target.value; load(true); }, 350); } });
+  root.addEventListener("change", e => { if (e.target && e.target.id === "scG") { S.cur = e.target.value; openGroup(); } });
+
+  // ---------- Démarrage ----------
   try {
-    const m = await db.from("share_members").select("group_id"); if (m.error) throw m.error; mine = (m.data || []).map(r => r.group_id);
-    if (!mine.includes("general")) await join("general");
-    const ad = await db.from("admins").select("user_id"); if (!ad.error) admins = new Set((ad.data || []).map(r => r.user_id));
+    S.admin = await annCheckAdmin();
+    const [g, m, ad] = await Promise.all([db.from("share_groups").select("id,name,sort").order("sort"), db.from("share_members").select("group_id").eq("user_id", me), db.from("admins").select("user_id")]);
+    if (g.error) throw g.error; if (m.error) throw m.error;
+    S.groups = g.data || []; S.adm = new Set((ad.data || []).map(r => r.user_id));
+    const mine = (m.data || []).map(r => r.group_id), opt = mine.find(x => x !== "general");
+    if (!S.admin && !opt) return chooseOption();
+    if (!S.admin && !mine.includes("general")) await db.rpc("share_choose_option", { opt });
+    S.access = S.admin ? S.groups.map(x => x.id) : [opt, "general"];
+    const last = lsGet("ish_share_cur", null);
+    S.cur = S.access.includes(last) ? last : (opt || "general");
   } catch (e) { return fail(e); }
-  const last = lsGet("ish_share_cur", null);
-  cur = mine.includes(last) ? last : mine.find(g => g !== "general") || null;
-  if (cur) room(); else pick();
+  openGroup();
 }
 NEW_PAGES["Espace de partage"] = renderPartage;
-moduleDescriptions["Espace de partage"] = "Partagez résumés, annales et astuces dans le groupe de votre option, avec les autres étudiants.";
-SITE_PAGES.push({ name: "Espace de partage", words: "partage partager groupe option resume annales astuces fichiers pdf etudiants communaute entraide" });
+moduleDescriptions["Espace de partage"] = "La communauté des étudiants : publiez, posez vos questions, partagez résumés et annales dans le groupe de votre option ou dans le groupe général.";
+SITE_PAGES.push({ name: "Espace de partage", words: "communaute partage partager groupe option reseau social facebook publication post commentaire reaction resume annales astuces question entraide etudiants" });
 
 NEW_PAGES["E-learning"] = renderElearning;
 moduleDescriptions["E-learning"] = "Apprends pas à pas, comme sur Duolingo : leçons courtes, exercices, tests, XP, série quotidienne, badges et classement.";
@@ -9260,10 +9599,11 @@ const needsOnboarding = u => !!u && (u.user_metadata?.must_change_password === t
 function forcePwdChange() {
   modalOverlay.dataset.force = "1";
   const form = openForm("Bienvenue sur ISPITS Students Hub",
-    "Première connexion : choisissez votre mot de passe et votre semestre. Le téléphone et le nom d'utilisateur sont facultatifs.", [
+    "Première connexion : choisissez votre mot de passe, votre semestre et votre option. Le téléphone et le nom d'utilisateur sont facultatifs.", [
     { label: "Nouveau mot de passe *", name: "nw", type: "password", attrs: 'required minlength="6" autocomplete="new-password"' },
     { label: "Confirmer le mot de passe *", name: "cf", type: "password", attrs: 'required minlength="6" autocomplete="new-password"' },
     { label: "Semestre *", name: "semestre", type: "select", options: ["", "S1", "S2", "S3", "S4", "S5", "S6"] },
+    { label: "Option *", name: "option", type: "select", options: ["", ...SH_GROUPS.filter(g => g[0] !== "general").map(g => g[1])] },
     { label: "Numéro de téléphone (facultatif)", name: "phone", type: "tel", attrs: 'placeholder="06 00 00 00 00" autocomplete="tel"' },
     { label: "Nom d'utilisateur (facultatif)", name: "username", type: "text", attrs: 'placeholder="ex : yassir_07" maxlength="20" autocomplete="username"' }
   ], "Enregistrer et continuer", async v => {
@@ -9271,9 +9611,13 @@ function forcePwdChange() {
     if (v.nw.length < 6) throw new Error("Le mot de passe doit contenir au moins 6 caractères.");
     if (v.nw !== v.cf) throw new Error("Les mots de passe ne correspondent pas.");
     if (!v.semestre) throw new Error("Veuillez choisir votre semestre.");
+    const optG = SH_GROUPS.find(g => g[0] !== "general" && g[1] === v.option);
+    if (!optG) throw new Error("Veuillez choisir votre option.");
     if (username && !/^[A-Za-z0-9_.]{3,20}$/.test(username)) throw new Error("Nom d'utilisateur : 3 à 20 caractères (lettres, chiffres, _ et .).");
     if (phone && !/^\+?[0-9\s().-]{8,18}$/.test(phone)) throw new Error("Numéro de téléphone invalide.");
-    const meta = { must_change_password: false, onboarded: true, semestre: v.semestre };
+    const rp = await db.rpc("share_choose_option", { opt: optG[0] });   // l'option est enregistrée côté serveur (définitive)
+    if (rp.error) throw new Error("Impossible d'enregistrer votre option. Réessayez.");
+    const meta = { must_change_password: false, onboarded: true, semestre: v.semestre, option: optG[0] };
     if (phone) meta.phone = phone;
     if (username) meta.username = username;
     const { data, error } = await db.auth.updateUser({ password: v.nw, data: meta });
@@ -9289,6 +9633,7 @@ function forcePwdChange() {
     setTimeout(dailyInfo, 1500);
   });
   if (form && form.semestre) form.semestre.required = true;
+  if (form && form.option) form.option.required = true;
 }
 
 
