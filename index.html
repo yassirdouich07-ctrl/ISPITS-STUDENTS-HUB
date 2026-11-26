@@ -1787,6 +1787,9 @@ body{overflow-x:hidden}
 .sc-quick{display:flex;gap:8px;overflow-x:auto;margin-top:10px;padding-bottom:2px;scrollbar-width:none}
 .sc-quick::-webkit-scrollbar{display:none}
 .sc-quick button{flex:none;border:0;background:#f2f6f9;border-radius:999px;padding:8px 14px;font:inherit;font-size:13px;font-weight:700;color:var(--navy);cursor:pointer}
+.sc-av.ish{background:#fff;border:1px solid var(--border);overflow:hidden;padding:0}
+.sc-av.ish svg{width:100%;height:100%;display:block}
+.sc-adm.off{background:#e0edff;color:#1d4ed8}
 .sc-av{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px;letter-spacing:.5px}
 .sc-filters{margin:0 0 12px}
 .sc-filters input{width:100%;height:44px;border:1px solid #dbe3ea;border-radius:12px;padding:0 14px;background:#fff;font:inherit;font-size:16px;margin:0 0 10px;box-sizing:border-box;outline:none}
@@ -4980,7 +4983,9 @@ const SH_REACT = [["like", "👍", "J'aime"], ["love", "❤️", "J'adore"], ["h
 const shReact = t => SH_REACT.find(r => r[0] === t) || SH_REACT[0];
 const shInit = n => String(n || "?").trim().split(/\s+/).slice(0, 2).map(w => w[0]).join("").toUpperCase() || "?";
 const shHue = s => { let h = 0; for (const c of String(s)) h = (h * 31 + c.charCodeAt(0)) % 360; return h; };
-const shAv = n => `<span class="sc-av" style="background:hsl(${shHue(n)} 55% 42%)">${esc(shInit(n))}</span>`;
+const shAv = n => n === "ISH"   // compte officiel : le logo de la plateforme tient lieu de photo de profil
+  ? `<span class="sc-av ish" title="ISH · compte officiel"><svg class="logo-symbol" aria-hidden="true"><use href="#hub-logo"></use></svg></span>`
+  : `<span class="sc-av" style="background:hsl(${shHue(n)} 55% 42%)">${esc(shInit(n))}</span>`;
 const shLinkify = t => esc(t).replace(/(https?:\/\/[^\s<]+)/g, u => `<a href="${u}" target="_blank" rel="noopener noreferrer">${u}</a>`).replace(/\n/g, "<br>");
 function shAgo(d) {
   const m = Math.max(0, Math.round((Date.now() - new Date(d)) / 60000));
@@ -5016,7 +5021,7 @@ async function renderPartage() {
     const b = root.querySelector("#scRetry"); if (b) b.onclick = () => renderPartage();
   };
   const findPost = id => S.pinned.concat(S.posts).find(p => p.id === id);
-  const isAdm = id => S.adm.has(id) ? `<span class="sc-adm">Admin</span>` : "";
+  const isAdm = (id, n) => S.adm.has(id) ? (n === "ISH" ? `<span class="sc-adm off">Officiel ✓</span>` : `<span class="sc-adm">Admin</span>`) : "";
 
   // ---------- Choix de l'option (une seule fois) ----------
   const chooseOption = () => {
@@ -5085,7 +5090,7 @@ async function renderPartage() {
   };
   const comHTML = (c, rep) => {
     const lk = S.clikes[c.id] || [], liked = lk.includes(me);
-    return `<div class="sc-c${rep ? " rep" : ""}" data-c="${esc(c.id)}">${shAv(c.author_name)}<div class="sc-cb"><div class="sc-bub"><strong>${esc(c.author_name || "Étudiant")}${isAdm(c.user_id)}</strong><span>${shLinkify(c.body)}</span>${lk.length ? `<em class="sc-clk">👍 ${lk.length}</em>` : ""}</div>
+    return `<div class="sc-c${rep ? " rep" : ""}" data-c="${esc(c.id)}">${shAv(c.author_name)}<div class="sc-cb"><div class="sc-bub"><strong>${esc(c.author_name || "Étudiant")}${isAdm(c.user_id, c.author_name)}</strong><span>${shLinkify(c.body)}</span>${lk.length ? `<em class="sc-clk">👍 ${lk.length}</em>` : ""}</div>
       <div class="sc-cm"><button type="button" data-a="clike" class="${liked ? "on" : ""}">J'aime</button><button type="button" data-a="reply">Répondre</button><small>${esc(shAgo(c.created_at))}</small>${c.user_id === me || S.admin ? `<button type="button" data-a="cdel" class="red">Supprimer</button>` : ""}</div>
       ${S.replyTo === c.id ? `<form class="sc-cform rep" data-parent="${esc(c.id)}"><input type="text" maxlength="1000" placeholder="Répondre à ${esc((c.author_name || "").split(" ")[0])}…" autocomplete="off"><button type="submit" aria-label="Envoyer">➤</button></form>` : ""}</div></div>`;
   };
@@ -5098,7 +5103,7 @@ async function renderPartage() {
     const long = (p.body || "").length > 420;
     const sh = p.shared ? `<div class="sc-shared"><div class="sc-sh-h">${shAv(p.shared.author)}<div><strong>${esc(p.shared.author || "Étudiant")}</strong><small>${esc(shAgo(p.shared.at))} · ${esc(p.shared.group || "")}</small></div></div>${p.shared.title ? `<h4>${esc(p.shared.title)}</h4>` : ""}${p.shared.body ? `<p>${shLinkify(p.shared.body)}</p>` : ""}${p.shared.files ? `<small class="sc-sh-f">📎 ${p.shared.files} pièce(s) jointe(s) dans la publication d'origine</small>` : ""}</div>` : "";
     return `<article class="sc-post${p.pinned ? " pin" : ""}" data-p="${esc(p.id)}">
-      <header class="sc-ph">${shAv(p.author_name)}<div class="sc-pn"><strong>${esc(p.author_name || "Étudiant")}${isAdm(p.user_id)}</strong><small>${esc(shAgo(p.created_at))}${p.kind !== "discussion" ? ` · <span class="sc-kind k-${p.kind}">${esc(SH_KINDS[p.kind] || "")}</span>` : ""}${p.module ? " · " + esc(p.module) : ""}${p.pinned ? " · 📌 Épinglée" : ""}</small></div>
+      <header class="sc-ph">${shAv(p.author_name)}<div class="sc-pn"><strong>${esc(p.author_name || "Étudiant")}${isAdm(p.user_id, p.author_name)}</strong><small>${esc(shAgo(p.created_at))}${p.kind !== "discussion" ? ` · <span class="sc-kind k-${p.kind}">${esc(SH_KINDS[p.kind] || "")}</span>` : ""}${p.module ? " · " + esc(p.module) : ""}${p.pinned ? " · 📌 Épinglée" : ""}</small></div>
         <div class="sc-mwrap"><button type="button" class="sc-dots" data-a="menu" aria-label="Plus d'options">⋯</button><div class="sc-menu hidden">
           ${S.admin ? `<button type="button" data-m="pin">${p.pinned ? "Désépingler" : "Épingler en haut"}</button>` : ""}<button type="button" data-m="copy">Copier le texte</button>${!own ? `<button type="button" data-m="report">Signaler</button>` : ""}${own || S.admin ? `<button type="button" data-m="del" class="red">Supprimer</button>` : ""}</div></div></header>
       ${p.title ? `<h3 class="sc-pt">${esc(p.title)}</h3>` : ""}${p.body ? `<p class="sc-pb${long ? " clamp" : ""}">${shLinkify(p.body)}</p>${long ? `<button type="button" class="sc-exp" data-a="expand">Voir plus</button>` : ""}` : ""}
