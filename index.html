@@ -2573,6 +2573,43 @@ loginTab.addEventListener("click", () => setMode("login"));
 signupTab.addEventListener("click", () => setMode("signup"));
 
 // =====================================
+// RESTAURATION DE LA DERNIÈRE RUBRIQUE APRÈS ACTUALISATION
+// =====================================
+const routeKey = user => "ish_current_route_" + (user?.id || "anon");
+const ROUTE_TTL_MS = 2 * 60 * 60 * 1000; // conserver la position pendant 2 heures
+function saveCurrentRoute(page, arg = null, browser = null) {
+  if (!currentUser) return;
+  try {
+    localStorage.setItem(routeKey(currentUser), JSON.stringify({
+      page, arg: histArg(arg), browser,
+      savedAt: Date.now(), expiresAt: Date.now() + ROUTE_TTL_MS
+    }));
+  } catch (e) { /* stockage indisponible : ignoré */ }
+}
+function saveBrowserRoute(section, filiere = null, semestre = null, module = null, sub = null) {
+  if (!currentUser) return;
+  saveCurrentRoute(section, null, { section, filiere, semestre, module, sub });
+}
+function restoreCurrentRoute(user) {
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem(routeKey(user)) || "null"); } catch (e) { /* ignoré */ }
+  const page = saved?.page;
+  const valid = saved && Number(saved.expiresAt) > Date.now();
+  if (valid && typeof page === "string" && page && page !== "Accueil" && !rubBlocked(page)) {
+    openPage(page, saved.arg == null ? undefined : saved.arg);
+    const b = saved.browser;
+    if ((page === "Cours" || page === "Résumés") && b && b.section === page) {
+      renderBrowser(page, b.filiere || null, b.semestre || null, b.module || null, b.sub || null);
+    }
+    // إعادة تثبيت الموضع الأصلي بعد فتح الصفحة
+    try { localStorage.setItem(routeKey(user), JSON.stringify(saved)); } catch (e) {}
+  } else {
+    try { localStorage.removeItem(routeKey(user)); } catch (e) {}
+    showHome();
+  }
+}
+
+// =====================================
 // SHOW / HIDE DASHBOARD
 // =====================================
 function showDashboard(user) {
@@ -2599,7 +2636,7 @@ function showDashboard(user) {
       weekday:"long", day:"numeric", month:"long", year:"numeric"
     }).format(new Date());
 
-  showHome();
+  restoreCurrentRoute(user);
   refreshAnnBadge();
   csPull();
   rubInit();
@@ -2776,6 +2813,7 @@ const moduleIcons = {
 };
 
 function showHome() {
+  saveCurrentRoute("Accueil");
   histPush("Accueil");
   stopSim();
   document.getElementById("homePage").classList.remove("hidden");
@@ -2794,6 +2832,7 @@ function setActiveNav(pageName) {
 
 function openPage(pageName, arg) {
   if (rubBlocked(pageName)) { showToast("Cette rubrique est temporairement indisponible."); pageName = "Accueil"; }
+  saveCurrentRoute(pageName, arg);
   pgEnter();
   histPush(pageName, arg);
   try { noteLastPage(pageName); } catch (e) { /* ignoré */ }
@@ -5898,6 +5937,7 @@ async function openDocAdminModal(section, filiere, semestre, module, sub, viewKe
 }
 
 function renderBrowser(section, filiere = null, semestre = null, module = null, sub = null) {
+  saveBrowserRoute(section, filiere, semestre, module, sub);
   const inner = document.getElementById("innerPage");
   const SEC = section.toUpperCase(), sec = section.toLowerCase();
   const TYPE = section === "Cours" ? "cours" : "resume";
