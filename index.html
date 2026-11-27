@@ -1988,6 +1988,24 @@ body{overflow-x:hidden}
 .sc-fb.on{background:#fff;color:var(--teal)}
 @media(max-width:640px){.sc-stat b{font-size:18px}.topbar-right{gap:8px}}
 @media (prefers-reduced-motion:reduce){.bell-btn.ring .ico{animation:none}}
+
+/* ===== ADMIN : GESTION DES COURS ET RÉSUMÉS ===== */
+.doc-admin-bar{display:none;margin:0 0 14px;padding:13px 15px;border:1px solid #bfe8e2;border-radius:13px;background:#f0fbf9;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.doc-admin-bar.visible{display:flex}
+.doc-admin-copy strong{display:block;color:var(--navy);font-size:13px}
+.doc-admin-copy small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.doc-admin-btn{border:0;border-radius:10px;background:var(--teal-dark);color:#fff;padding:10px 14px;font-size:12px;font-weight:800}
+.doc-admin-btn:hover{filter:brightness(.95)}
+.doc-admin-list{display:flex;flex-direction:column;gap:9px;margin:12px 0 18px}
+.doc-admin-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 12px;border:1px solid var(--border);border-radius:10px;background:#fbfcfd}
+.doc-admin-item span{min-width:0;overflow-wrap:anywhere;font-size:12px;color:var(--navy);font-weight:700}
+.doc-admin-delete{flex:none;border:1px solid #f0cccc;background:#fff5f5;color:#b42318;border-radius:8px;padding:7px 10px;font-size:11px;font-weight:800}
+.doc-admin-upload{padding:14px;border:1px dashed #b8d9d5;border-radius:12px;background:#f8fcfb;margin-top:14px}
+.doc-admin-upload input{display:block;width:100%;margin:10px 0;font-size:13px}
+.doc-admin-help{font-size:11px;line-height:1.7;color:var(--muted);margin:6px 0}
+.doc-admin-status{font-size:12px;line-height:1.6;margin:10px 0 0;min-height:1.4em}
+.doc-admin-status.error{color:#b42318}.doc-admin-status.success{color:#18734d}
+
 </style>
 </head>
 
@@ -5635,6 +5653,147 @@ function bindModuleResults(container, list, getSection) {
   }));
 }
 
+
+// =====================================
+// ADMIN : GESTION DES DOCUMENTS (COURS / RÉSUMÉS)
+// Les droits sont vérifiés côté Supabase via la table « admins ».
+// Les règles Storage doivent également autoriser upload/delete uniquement aux admins.
+// =====================================
+function docStoragePath(filiere, semestre, module, sub) {
+  return [semestre, filiere, docSlug(module), sub ? docSlug(sub) : ""].filter(Boolean).join("/");
+}
+function docSafeFileName(name) {
+  const base = String(name || "").replace(/\.pdf$/i, "");
+  const slug = docSlug(base) || "document";
+  return slug + ".pdf";
+}
+async function docAdminToolbar(section, filiere, semestre, module, sub, viewKey) {
+  const bar = document.getElementById("docAdminBar");
+  if (!bar || !currentUser || !filiere || !semestre || !module) return;
+  try {
+    if (!(await annCheckAdmin())) return;
+    const live = document.getElementById("docAdminBar");
+    const body = document.getElementById("browseBody");
+    if (!live || !body || body.dataset.k !== viewKey) return;
+    live.innerHTML = `<div class="doc-admin-copy"><strong>Gestion des ${section === "Cours" ? "cours" : "résumés"}</strong><small>Zone réservée à l'administrateur · ${esc(filiere)} · ${esc(semestre)}</small></div>
+      <button class="doc-admin-btn" type="button" id="docAdminOpen">＋ Gérer les documents</button>`;
+    live.classList.add("visible");
+    document.getElementById("docAdminOpen").addEventListener("click", () =>
+      openDocAdminModal(section, filiere, semestre, module, sub, viewKey));
+  } catch (e) {
+    console.error("Accès gestion des documents :", e);
+  }
+}
+async function openDocAdminModal(section, filiere, semestre, module, sub, viewKey) {
+  if (!(await annCheckAdmin())) {
+    showToast("Accès réservé à l'administrateur.");
+    return;
+  }
+  const type = section === "Cours" ? "cours" : "resume";
+  const bucket = DOC_BUCKET[type];
+  const folder = docStoragePath(filiere, semestre, module, sub);
+  const title = sub || module;
+  const loadFiles = async () => {
+    const { data, error } = await db.storage.from(bucket).list(folder, {
+      limit: 200, sortBy: { column: "name", order: "asc" }
+    });
+    if (error) throw error;
+    return (data || []).filter(x => x.id && /\.pdf$/i.test(x.name));
+  };
+  const paint = async () => {
+    const listEl = document.getElementById("docAdminFiles");
+    if (!listEl) return;
+    listEl.innerHTML = `<p class="doc-admin-help">Chargement des documents…</p>`;
+    try {
+      const files = await loadFiles();
+      if (!document.getElementById("docAdminFiles")) return;
+      listEl.innerHTML = files.length ? files.map(f => `
+        <div class="doc-admin-item">
+          <span>${esc(docTitle(f.name))}</span>
+          <button type="button" class="doc-admin-delete" data-doc-delete="${esc(f.name)}">Supprimer</button>
+        </div>`).join("") : `<p class="doc-admin-help">Aucun document PDF dans ce module pour le moment.</p>`;
+    } catch (e) {
+      console.error("Liste des documents :", e);
+      listEl.innerHTML = `<p class="doc-admin-status error">Impossible de lire le dossier. Vérifiez les permissions du bucket « ${esc(bucket)} ».</p>`;
+    }
+  };
+
+  modalBody.innerHTML = `<h3>Gérer les ${section === "Cours" ? "cours" : "résumés"}</h3>
+    <p class="modal-sub">${esc(filiere)} · ${esc(semestre)} · ${esc(title)}${sub ? " · " + esc(module) : ""}</p>
+    <div><strong style="font-size:12px;color:var(--navy)">Documents déjà disponibles</strong></div>
+    <div id="docAdminFiles" class="doc-admin-list"></div>
+    <div class="doc-admin-upload">
+      <strong style="font-size:12px;color:var(--navy)">Ajouter des documents PDF</strong>
+      <p class="doc-admin-help">Vous pouvez sélectionner plusieurs fichiers. Ils seront enregistrés directement dans le dossier de ce module et apparaîtront automatiquement chez les étudiants.</p>
+      <input id="docAdminInput" type="file" accept="application/pdf,.pdf" multiple>
+      <button id="docAdminUpload" class="submit-btn" type="button">Téléverser les fichiers</button>
+      <p id="docAdminStatus" class="doc-admin-status" role="status"></p>
+    </div>`;
+  modalOverlay.classList.remove("hidden");
+  await paint();
+
+  const status = (message, kind = "") => {
+    const el = document.getElementById("docAdminStatus");
+    if (!el) return;
+    el.textContent = message;
+    el.className = "doc-admin-status" + (kind ? " " + kind : "");
+  };
+
+  modalBody.onclick = async e => {
+    const del = e.target.closest("[data-doc-delete]");
+    if (!del || !modalBody.contains(del)) return;
+    const name = del.dataset.docDelete;
+    if (!confirm(`Supprimer définitivement « ${docTitle(name)} » ?`)) return;
+    del.disabled = true;
+    const { error } = await db.storage.from(bucket).remove([folder + "/" + name]);
+    if (error) {
+      console.error("Suppression du document :", error);
+      del.disabled = false;
+      status("Suppression impossible. Vérifiez les permissions Storage (DELETE) du bucket.", "error");
+      return;
+    }
+    status("Document supprimé.", "success");
+    await paint();
+    const body = document.getElementById("browseBody");
+    if (body && body.dataset.k === viewKey) renderBrowser(section, filiere, semestre, module, sub);
+  };
+
+  const uploadBtn = document.getElementById("docAdminUpload");
+  uploadBtn.addEventListener("click", async () => {
+    const input = document.getElementById("docAdminInput");
+    const files = [...(input?.files || [])];
+    if (!files.length) return status("Choisissez au moins un fichier PDF.", "error");
+    if (files.some(f => !/\.pdf$/i.test(f.name) || (f.type && f.type !== "application/pdf"))) {
+      return status("Seuls les fichiers PDF sont acceptés.", "error");
+    }
+    uploadBtn.disabled = true;
+    input.disabled = true;
+    let ok = 0, failed = [];
+    for (const file of files) {
+      const safeName = docSafeFileName(file.name);
+      const { error } = await db.storage.from(bucket).upload(folder + "/" + safeName, file, {
+        contentType: "application/pdf",
+        upsert: false
+      });
+      if (error) {
+        console.error("Téléversement :", file.name, error);
+        failed.push(file.name + (error.message ? " (" + error.message + ")" : ""));
+      } else ok++;
+    }
+    uploadBtn.disabled = false;
+    input.disabled = false;
+    if (failed.length) {
+      status(`${ok} fichier(s) ajouté(s). Échec pour : ${failed.join(" ; ")}. Un nom déjà utilisé peut aussi provoquer un échec.`, ok ? "success" : "error");
+    } else {
+      status(`${ok} fichier(s) ajouté(s) avec succès.`, "success");
+      input.value = "";
+    }
+    await paint();
+    const body = document.getElementById("browseBody");
+    if (body && body.dataset.k === viewKey) renderBrowser(section, filiere, semestre, module, sub);
+  });
+}
+
 function renderBrowser(section, filiere = null, semestre = null, module = null, sub = null) {
   const inner = document.getElementById("innerPage");
   const SEC = section.toUpperCase(), sec = section.toLowerCase();
@@ -5705,6 +5864,7 @@ function renderBrowser(section, filiere = null, semestre = null, module = null, 
       <p>${esc(subtitle)}</p>
     </div>
     ${searchable ? `<div class="search-box"><span class="s-ico"><svg class="ico"><use href="#i-search"/></svg></span><input id="browseSearch" type="search" placeholder="Rechercher un module ou un ${TYPE === "cours" ? "cours" : "résumé"}..." autocomplete="off"></div><div id="searchResults" class="hidden"></div>` : ""}
+    <div id="docAdminBar" class="doc-admin-bar" aria-live="polite"></div>
     <div id="browseBody" data-k="${esc(viewKey)}">${body}</div>
     <div class="bottom-footer">ISPITS STUDENTS HUB · Plateforme pédagogique indépendante · 2026</div>
   `;
@@ -5714,6 +5874,8 @@ function renderBrowser(section, filiere = null, semestre = null, module = null, 
   inner.querySelectorAll("[data-sem]").forEach(b => b.addEventListener("click", () => renderBrowser(section, filiere, b.dataset.sem)));
   inner.querySelectorAll("[data-mod]").forEach(b => b.addEventListener("click", () => renderBrowser(section, filiere, semestre, mods[+b.dataset.mod].name)));
   inner.querySelectorAll("[data-sub]").forEach(b => b.addEventListener("click", () => renderBrowser(section, filiere, semestre, module, modObj.subs[+b.dataset.sub])));
+
+  if (leaf) docAdminToolbar(section, filiere, semestre, module, sub, viewKey);
 
   const input = inner.querySelector("#browseSearch");
   if (input) {
