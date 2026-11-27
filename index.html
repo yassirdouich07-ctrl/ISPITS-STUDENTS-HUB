@@ -1994,6 +1994,7 @@ body{overflow-x:hidden}
 .doc-admin-bar.visible{display:flex}
 .doc-admin-copy strong{display:block;color:var(--navy);font-size:13px}
 .doc-admin-copy small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.doc-download-row{display:flex;align-items:center;gap:12px}.doc-row-actions{display:flex;align-items:center;gap:12px;flex-shrink:0}.doc-download-link{font-size:11px;font-weight:800;color:var(--teal-dark);white-space:nowrap;text-decoration:none}.doc-download-link:hover{text-decoration:underline}
 .doc-admin-btn{border:0;border-radius:10px;background:var(--teal-dark);color:#fff;padding:10px 14px;font-size:12px;font-weight:800}
 .doc-admin-btn:hover{filter:brightness(.95)}
 .doc-admin-list{display:flex;flex-direction:column;gap:9px;margin:12px 0 18px}
@@ -4297,19 +4298,31 @@ function examCard(e) {
   return `<div class="mx-card ex-card"><div class="ex-head"><span class="cx-ico ex-ico">${ico("check")}</span><div><h3>${esc(e.title)}</h3><p>${esc(e.module || "") } · ${esc(e.semestre)} · ${esc(e.filiere)}</p></div></div>
     <div class="ex-chips"><span>${esc(duration)}</span><span>Note / ${esc(String(e.total_points || 20))}</span>${qCount ? `<span>${qCount} questions</span>` : ""}${e.academic_year ? `<span>${esc(e.academic_year)}</span>` : ""}</div>
     ${Array.isArray(e.sections) && e.sections.length ? `<div class="ex-parts">${e.sections.map((p,i)=>`<div><b>${i+1}</b><span>${esc(p.title || p.name || "Partie")}</span><em>${esc(String(p.points || ""))} pts</em></div>`).join("")}</div>` : ""}
-    <div class="ex-timer">${qCount ? `${qCount} questions interactives` : "Sujet d'examen"}</div>
-    <div class="ex-actions">${subject ? `<a class="primary-btn ex-btn" href="${esc(safeUrl(subject))}" target="_blank" rel="noopener noreferrer">Ouvrir le sujet (PDF)</a>` : ""}
+    <div class="ex-timer" ${subject ? `data-dyn-timer="${e.id}"` : ""}>${qCount ? `${qCount} questions interactives` : "Sujet d'examen · Chronomètre : ${esc(duration)}"}</div>
+    <div class="ex-actions">${subject ? `<a class="primary-btn ex-btn" href="${esc(safeUrl(subject))}" target="_blank" rel="noopener noreferrer">Ouvrir le sujet (PDF)</a><a class="ghost-btn ex-btn" href="${esc(docDownloadUrl(subject, e.title + "-sujet.pdf"))}" target="_blank" rel="noopener noreferrer">↓ Télécharger le sujet</a><button type="button" class="ghost-btn ex-btn" data-exam-chrono="${e.id}">Démarrer le chrono</button>` : ""}
     ${qCount ? `<button type="button" class="primary-btn ex-btn" data-exam-start="${e.id}">Démarrer le QCM</button>` : ""}
-    ${correction ? `<a class="ghost-btn ex-btn ex-corr" href="${esc(safeUrl(correction))}" target="_blank" rel="noopener noreferrer">Voir le corrigé (PDF)</a>` : ""}</div></div>`;
+    ${correction ? `<a class="ghost-btn ex-btn ex-corr" href="${esc(safeUrl(correction))}" target="_blank" rel="noopener noreferrer">Voir le corrigé (PDF)</a><a class="ghost-btn ex-btn" href="${esc(docDownloadUrl(correction, e.title + "-corrige.pdf"))}" target="_blank" rel="noopener noreferrer">↓ Télécharger le corrigé</a>` : ""}</div></div>`;
 }
 function examStartQuiz(exam) {
   const qs = exam.exam_questions || [];
   if (!qs.length) return showToast("Ce QCM ne contient pas encore de questions.");
-  let index = 0, answers = {}, submitted = false;
+  let index = 0, answers = {}, submitted = false, finished = false;
+  const deadline = Date.now() + Math.max(1, Number(exam.duration_minutes || 120)) * 60000;
+  let quizTimer = null;
+  const clockText = () => { const left = Math.max(0, Math.ceil((deadline-Date.now())/1000)); return `${String(Math.floor(left/3600)).padStart(2,"0")}:${String(Math.floor(left%3600/60)).padStart(2,"0")}:${String(left%60).padStart(2,"0")}`; };
+  const showQuizResult = () => {
+    if (finished) return;
+    finished = true; clearInterval(quizTimer);
+    const score=qs.reduce((sum,item)=>{const opts=item.options||[];return sum+(answers[item.id]===opts.findIndex(o=>o.correct)?Number(item.points||1):0);},0);
+    const max=qs.reduce((sum,item)=>sum+Number(item.points||1),0);
+    modalBody.innerHTML=`<div class="exam-result"><div class="exam-result-icon">✓</div><h3>Résultat du QCM</h3><strong>${score.toFixed(2)} / ${max.toFixed(2)}</strong><p>${Math.round(score/max*100)} % de bonnes réponses</p><p class="search-hint">${Date.now()>=deadline ? "Temps écoulé." : "Évaluation terminée."}</p><button class="primary-btn" id="examReview" type="button">Revoir les réponses</button></div>`;
+    modalBody.querySelector("#examReview").addEventListener("click",()=>{clearInterval(quizTimer);index=0;submitted=true;finished=false;paint();});
+  };
   const paint = () => {
+    if (finished) return;
     const q = qs[index];
     const opts = Array.isArray(q.options) ? q.options : [];
-    modalBody.innerHTML = `<div class="exam-quiz-head"><small>${esc(exam.semestre)} · ${esc(exam.filiere)} · Question ${index+1}/${qs.length}</small><h3>${esc(exam.title)}</h3><div class="exam-progress"><i style="width:${(index+1)/qs.length*100}%"></i></div></div>
+    modalBody.innerHTML = `<div class="exam-quiz-head"><small>${esc(exam.semestre)} · ${esc(exam.filiere)} · Question ${index+1}/${qs.length}</small><h3>${esc(exam.title)}</h3><div class="ex-timer on" id="examQuizClock">Temps restant : ${clockText()}</div><div class="exam-progress"><i style="width:${(index+1)/qs.length*100}%"></i></div></div>
       <div class="exam-question"><div class="exam-q-title">${esc(q.question_text)}</div><div class="exam-options">${opts.map((o,i)=>`<label class="exam-option"><input type="radio" name="examAnswer" value="${i}" ${answers[q.id]===i?"checked":""} ${submitted?"disabled":""}><span>${esc(o.text || "")}</span></label>`).join("")}</div>
       ${submitted ? `<div class="exam-feedback">${answers[q.id] === opts.findIndex(o=>o.correct) ? "Bonne réponse ✓" : "Réponse incorrecte"}<p>${esc(q.explanation || "")}</p></div>` : ""}</div>
       <div class="exam-quiz-actions">${index>0?`<button class="ghost-btn" id="examPrev" type="button">Précédent</button>`:""}${!submitted?`<button class="primary-btn" id="examNext" type="button">${index===qs.length-1?"Terminer":"Suivant"}</button>`:`<button class="primary-btn" id="examNext" type="button">${index===qs.length-1?"Voir le résultat":"Continuer"}</button>`}</div>`;
@@ -4317,19 +4330,20 @@ function examStartQuiz(exam) {
     modalBody.querySelectorAll("input[name=examAnswer]").forEach(inp=>inp.addEventListener("change",()=>{answers[q.id]=Number(inp.value);}));
     modalBody.querySelector("#examPrev")?.addEventListener("click",()=>{index--;paint();});
     modalBody.querySelector("#examNext")?.addEventListener("click",()=>{
+      if(Date.now()>=deadline) return showQuizResult();
       if(!submitted && answers[q.id]===undefined) return showToast("Choisissez une réponse avant de continuer.");
       if(!submitted && index===qs.length-1){submitted=true;paint();return;}
-      if(submitted && index===qs.length-1){
-        const score=qs.reduce((s,item)=>{const opts=item.options||[];return s+(answers[item.id]===opts.findIndex(o=>o.correct)?Number(item.points||1):0);},0);
-        const max=qs.reduce((s,item)=>s+Number(item.points||1),0);
-        modalBody.innerHTML=`<div class="exam-result"><div class="exam-result-icon">✓</div><h3>Résultat du QCM</h3><strong>${score.toFixed(2)} / ${max.toFixed(2)}</strong><p>${Math.round(score/max*100)} % de bonnes réponses</p><button class="primary-btn" id="examReview" type="button">Revoir les réponses</button></div>`;
-        modalBody.querySelector("#examReview").addEventListener("click",()=>{index=0;submitted=true;paint();});
-        return;
-      }
+      if(submitted && index===qs.length-1){ showQuizResult(); return; }
       index++;paint();
     });
   };
   paint();
+  quizTimer = setInterval(() => {
+    if (finished || !modalOverlay || modalOverlay.classList.contains("hidden")) { clearInterval(quizTimer); return; }
+    const clock = modalBody.querySelector("#examQuizClock");
+    if (clock) clock.textContent = Date.now() >= deadline ? "Temps écoulé" : "Temps restant : " + clockText();
+    if (Date.now() >= deadline) showQuizResult();
+  }, 1000);
 }
 async function examOpenAdmin() {
   if (!(await annCheckAdmin())) return showToast("Accès réservé à l'administrateur.");
@@ -4399,6 +4413,7 @@ function renderExamens() {
   const sems = [...new Set(exams.map(e => e.s))].sort(), fils = [...new Set(exams.flatMap(e => e.f))];
   let sem = "", fil = "";
   const tKey = "ish_exam_timer_" + mxUid();
+  const dynTimerKey = "ish_exam_dynamic_timer_" + mxUid();
   const inner = mxPage("Examens & QCM", "Examens blancs par filière et semestre : ouvrez le sujet, chronométrez-vous, puis comparez avec le corrigé.", `
     <div class="exam-admin-top" id="examAdminTop"></div><div class="tt-chips" id="exSem"></div><div class="tt-chips" id="exFil"></div><div id="exList"></div>
     <div class="mx-card"><h3 class="tm-h">Évaluations interactives</h3><p class="search-hint">QCM créés par l'administration et disponibles directement sur la plateforme.</p><div id="exDynamicList"><p class="search-hint">Chargement…</p></div></div>
@@ -4406,12 +4421,18 @@ function renderExamens() {
   const list = inner.querySelector("#exList");
   const fmt = ms => { const s = Math.max(0, Math.ceil(ms / 1000)), h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60); return `${h}:${String(m).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`; };
   const chips = (id, label, vals, cur, set) => { const el=inner.querySelector(id); if(vals.length<2){el.classList.add("hidden");return;} el.innerHTML=[["",label],...vals.map(v=>[v,v])].map(([v,t])=>`<button type="button" class="tt-chip${v===cur?" on":""}" data-v="${esc(v)}">${esc(t)}</button>`).join("");el.querySelectorAll("[data-v]").forEach(b=>b.addEventListener("click",()=>{set(b.dataset.v);draw();}));};
-  const card=(e,i)=>{const st=lsGet(tKey,null),on=st&&st.id===e.url;return `<div class="mx-card ex-card"><div class="ex-head"><span class="cx-ico ex-ico">${ico("check")}</span><div><h3>${esc(e.t)}</h3><p>${esc(e.m)} · ${esc(e.s)} · ${esc(e.f.join(", "))}</p></div></div><div class="ex-chips"><span>${esc(e.dur||"2 h")}</span><span>Note / 20</span>${e.pages?`<span>${e.pages} pages</span>`:""}${e.annee?`<span>${esc(e.annee)}</span>`:""}</div>${e.parts?`<div class="ex-parts">${e.parts.map(p=>`<div><b>${esc(p[0])}</b><span>${esc(p[1])}</span><em>${p[2]} pts</em></div>`).join("")}</div>`:""}<div class="ex-timer${on?" on":""}" data-t="${esc(e.url)}">${on?"":"Chronomètre : "+esc(e.dur||"2 h")}</div><div class="ex-actions"><a class="primary-btn ex-btn" href="${esc(safeUrl(e.url))}" target="_blank" rel="noopener noreferrer">Ouvrir le sujet (PDF)</a><button type="button" class="ghost-btn" data-chrono="${i}">${on?"Arrêter le chrono":"Démarrer le chrono"}</button></div>${e.corrige?`<a class="ghost-btn ex-btn ex-corr" href="${esc(safeUrl(e.corrige))}" target="_blank" rel="noopener noreferrer">Voir le corrigé (PDF)</a>`:`<p class="ex-soon">Le corrigé sera bientôt disponible.</p>`}</div>`;};
+  const card=(e,i)=>{const st=lsGet(tKey,null),on=st&&st.id===e.url;return `<div class="mx-card ex-card"><div class="ex-head"><span class="cx-ico ex-ico">${ico("check")}</span><div><h3>${esc(e.t)}</h3><p>${esc(e.m)} · ${esc(e.s)} · ${esc(e.f.join(", "))}</p></div></div><div class="ex-chips"><span>${esc(e.dur||"2 h")}</span><span>Note / 20</span>${e.pages?`<span>${e.pages} pages</span>`:""}${e.annee?`<span>${esc(e.annee)}</span>`:""}</div>${e.parts?`<div class="ex-parts">${e.parts.map(p=>`<div><b>${esc(p[0])}</b><span>${esc(p[1])}</span><em>${p[2]} pts</em></div>`).join("")}</div>`:""}<div class="ex-timer${on?" on":""}" data-t="${esc(e.url)}">${on?"":"Chronomètre : "+esc(e.dur||"2 h")}</div><div class="ex-actions"><a class="primary-btn ex-btn" href="${esc(safeUrl(e.url))}" target="_blank" rel="noopener noreferrer">Ouvrir le sujet (PDF)</a><a class="ghost-btn ex-btn" href="${esc(docDownloadUrl(e.url, e.t + "-sujet.pdf"))}" target="_blank" rel="noopener noreferrer">↓ Télécharger le sujet</a><button type="button" class="ghost-btn" data-chrono="${i}">${on?"Arrêter le chrono":"Démarrer le chrono"}</button></div>${e.corrige?`<a class="ghost-btn ex-btn ex-corr" href="${esc(safeUrl(e.corrige))}" target="_blank" rel="noopener noreferrer">Voir le corrigé (PDF)</a><a class="ghost-btn ex-btn" href="${esc(docDownloadUrl(e.corrige, e.t + "-corrige.pdf"))}" target="_blank" rel="noopener noreferrer">↓ Télécharger le corrigé</a>`:`<p class="ex-soon">Le corrigé sera bientôt disponible.</p>`}</div>`;};
   const tick=()=>{const st=lsGet(tKey,null);list.querySelectorAll(".ex-timer").forEach(t=>{if(!st||st.id!==t.dataset.t)return;const left=st.end-Date.now();t.classList.add("on");t.textContent=left>0?"Temps restant : "+fmt(left):"Temps écoulé : rendez votre copie !";if(left<=0&&!st.done){st.done=true;lsSet(tKey,st);showToast("Temps écoulé !");}});};
+  const dynTick=()=>{const states=lsGet(dynTimerKey,{});inner.querySelectorAll("[data-dyn-timer]").forEach(el=>{const st=states[el.dataset.dynTimer];if(!st)return;const left=st.end-Date.now();el.classList.add("on");el.textContent=left>0?"Temps restant : "+fmt(left):"Temps écoulé : rendez votre copie !";if(left<=0&&!st.done){st.done=true;states[el.dataset.dynTimer]=st;lsSet(dynTimerKey,states);showToast("Temps écoulé !");}});};
   const draw=()=>{chips("#exSem","Tous les semestres",sems,sem,v=>sem=v);chips("#exFil","Toutes les filières",fils,fil,v=>fil=v);const shown=exams.filter(e=>(!sem||e.s===sem)&&(!fil||e.f.includes(fil)));list.innerHTML=shown.length?shown.map(e=>card(e,exams.indexOf(e))).join(""):`<p class="search-hint">Aucun examen pour cette sélection.</p>`;list.querySelectorAll("[data-chrono]").forEach(b=>b.addEventListener("click",()=>{const e=exams[+b.dataset.chrono],st=lsGet(tKey,null);if(st&&st.id===e.url)lsSet(tKey,null);else{lsSet(tKey,{id:e.url,end:Date.now()+(e.durMin||120)*60000});window.open(safeUrl(e.url),"_blank","noopener");}draw();}));tick();};
-  const timer=setInterval(()=>{if(!document.body.contains(list)){clearInterval(timer);return;}tick();},1000);
+  const timer=setInterval(()=>{if(!document.body.contains(list)){clearInterval(timer);return;}tick();dynTick();},1000);
   annCheckAdmin().then(isAdmin=>{if(isAdmin){const top=inner.querySelector("#examAdminTop");if(top){top.innerHTML=`<button type="button" class="doc-admin-btn" id="examAdminOpen">＋ Gérer les examens & QCM</button>`;top.querySelector("button").addEventListener("click",examOpenAdmin);}}});
-  inner.querySelector("#exDynamicList").addEventListener("click",e=>{const b=e.target.closest("[data-exam-start]");if(b){const exam=examDynamicCache.find(x=>x.id===b.dataset.examStart);if(exam)examStartQuiz(exam);}});
+  inner.querySelector("#exDynamicList").addEventListener("click",e=>{
+    const qb=e.target.closest("[data-exam-start]");
+    if(qb){const exam=examDynamicCache.find(x=>x.id===qb.dataset.examStart);if(exam)examStartQuiz(exam);return;}
+    const cb=e.target.closest("[data-exam-chrono]");
+    if(cb){const exam=examDynamicCache.find(x=>x.id===cb.dataset.examChrono);if(!exam)return;const states=lsGet(dynTimerKey,{});if(states[exam.id])delete states[exam.id];else states[exam.id]={end:Date.now()+Math.max(1,Number(exam.duration_minutes||120))*60000,done:false};lsSet(dynTimerKey,states);if(exam.subject_path)window.open(safeUrl(examPublicFile(exam.subject_path)),"_blank","noopener");dynTick();}
+  });
   draw();
   examRefreshList();
 }
@@ -5704,13 +5725,20 @@ function resultsHTML(list) {
     </div>`).join("")}</div>`;
 }
 
+function docDownloadUrl(url, filename) {
+  const base = safeUrl(url);
+  if (base === "#") return "#";
+  return base + (base.includes("?") ? "&" : "?") + "download=" + encodeURIComponent(filename || "document.pdf");
+}
 function docRow(d, full) {
   const info = full
     ? `${TYPE_LABEL[d.type] || ""} · ${d.f.join(", ")} · ${d.s} · ${d.m}${d.sub ? " › " + d.sub : ""}`
     : (TYPE_LABEL[d.type] || "");
-  return `<a class="list-row" href="${esc(safeUrl(d.url))}" target="_blank" rel="noopener noreferrer">
+  const url = safeUrl(d.url), dl = docDownloadUrl(d.url, (d.t || "document") + ".pdf");
+  return `<div class="list-row doc-download-row">
     <span class="list-main"><span class="list-title">${esc(d.t)}</span><span class="list-sub">${esc(info)}</span></span>
-    <span class="list-arrow">↗</span></a>`;
+    <span class="doc-row-actions"><a class="list-arrow" href="${esc(url)}" target="_blank" rel="noopener noreferrer" aria-label="Ouvrir le document">↗</a><a class="doc-download-link" href="${esc(dl)}" target="_blank" rel="noopener noreferrer" aria-label="Télécharger le document">↓ Télécharger</a></span>
+  </div>`;
 }
 const docsHTML = (docs, full = true) => `<div class="list">${docs.map(d => docRow(d, full)).join("")}</div>`;
 
