@@ -1891,8 +1891,77 @@ body{overflow-x:hidden}
 .sc-lb small{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#fff;opacity:.8}
 .sc-lbx,.sc-lbn{position:absolute;border:0;background:#ffffff1f;color:#fff;border-radius:50%;width:44px;height:44px;font-size:22px;cursor:pointer}
 .sc-lbx{top:14px;right:14px}.sc-lbn{top:50%;transform:translateY(-50%)}.sc-lbn.prev{left:10px}.sc-lbn.next{right:10px}
-@media(min-width:900px){.sc-compose,.sc-post,.sc-cover,.sc-filters,.sc-tabs,#scMore,.sc-skel,.sc-empty{max-width:720px}}
 @media (prefers-reduced-motion:reduce){.sc-post,.sc-skel,.sc-reactwrap.open .sc-picker{animation:none}}
+
+/* ===== COMMUNAUTÉ : ordinateur (2 colonnes), profils, administration ===== */
+.sc-au{border:0;background:none;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;text-align:left;-webkit-tap-highlight-color:transparent}
+.sc-au.nm{font-weight:800;color:inherit}
+.sc-au.nm:hover{text-decoration:underline}
+.sc-cover{padding-right:150px}
+.sc-cover-act{position:absolute;right:16px;top:16px;z-index:1;display:flex;flex-direction:column;gap:8px;align-items:stretch}
+.sc-cover-act button{border:0;background:#ffffff26;color:#fff;border-radius:999px;padding:8px 14px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;backdrop-filter:blur(4px);white-space:nowrap}
+.sc-cover-act button:hover{background:#ffffff3d}
+.sc-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;align-items:start}
+.sc-side{display:none}
+.sc-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
+.sc-card h4{margin:0 0 8px;font-family:'Outfit',sans-serif;font-size:15px;color:var(--navy)}
+.sc-card p{margin:0 0 10px;font-size:13.5px;line-height:1.6;color:var(--muted)}
+.sc-kv{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--navy)}
+.sc-me{display:flex;align-items:center;gap:12px;width:100%;border:0;background:#f6fafb;border-radius:14px;padding:10px;cursor:pointer;text-align:left;font:inherit}
+.sc-me strong{display:block;font-size:14px;color:var(--navy)}
+.sc-me small{display:block;font-size:12px;color:var(--muted)}
+.sc-mini{display:flex;justify-content:space-between;gap:8px;margin-top:10px;font-size:12px;color:var(--muted)}
+.sc-mini b{display:block;font-size:16px;color:var(--navy)}
+.sc-ovl{display:grid;gap:2px;margin:0 0 10px;max-height:300px;overflow:auto}
+.sc-ovl button{display:flex;justify-content:space-between;gap:8px;border:0;background:none;padding:8px 10px;border-radius:10px;font:inherit;font-size:13px;color:var(--navy);cursor:pointer;text-align:left}
+.sc-ovl button:hover{background:#f2f6f9}
+.sc-ovl button.on{background:var(--teal-soft);color:var(--teal);font-weight:700}
+.sc-ovl button.warnb{color:#b45309}
+.sc-ovl b{flex:none}
+.sc-rules{margin:0;padding-left:18px;font-size:13px;line-height:1.8;color:var(--muted)}
+.sc-back{margin:0 0 12px}
+.sc-prof{background:#fff;border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin:0 0 14px}
+.sc-prof-cover{height:110px;background:linear-gradient(135deg,hsl(var(--h) 60% 32%),hsl(calc(var(--h) + 45) 65% 48%))}
+.sc-prof-body{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;padding:0 20px 14px;margin-top:-40px}
+.sc-prof-av{flex:none;border-radius:50%;border:4px solid #fff;background:#fff;line-height:0}
+.sc-prof-av .sc-av{width:88px;height:88px;font-size:30px}
+.sc-prof-id{flex:1;min-width:200px;padding-bottom:4px}
+.sc-prof-id h2{margin:0;font-family:'Outfit',sans-serif;font-size:22px;color:var(--navy);line-height:1.25}
+.sc-prof-id small{color:var(--muted)}
+.sc-prof-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.sc-prof-chips span{background:var(--teal-soft);color:var(--teal);border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:700}
+.sc-prof-act .primary-btn{width:auto;margin:0;padding:11px 24px}
+.primary-btn.ghost{background:#eef3f6;color:var(--navy);box-shadow:none}
+.sc-prof-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #eef2f6}
+.sc-prof-stats div{padding:14px 6px;text-align:center;border-right:1px solid #eef2f6}
+.sc-prof-stats div:last-child{border-right:0}
+.sc-prof-stats b{display:block;font-family:'Outfit',sans-serif;font-size:22px;color:var(--navy)}
+.sc-prof-stats span{font-size:12px;color:var(--muted)}
+.sc-sec{margin:6px 2px 10px;font-family:'Outfit',sans-serif;font-size:17px;color:var(--navy)}
+.sc-sheet.wide{max-width:640px}
+.sc-count{margin:0 0 6px;font-size:12px;color:var(--muted)}
+.sc-mbl{max-height:52vh;overflow:auto}
+.sc-mrow{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid #eef2f6}
+.sc-mrow:first-of-type{border-top:0}
+.sc-mi{flex:1;min-width:0}
+.sc-mi small{display:block;font-size:11.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sc-rm{flex:none;border:1px solid #f1c4bf;background:#fff5f4;color:#b42318;border-radius:999px;padding:6px 12px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}
+@media(max-width:640px){.sc-cover{padding-right:22px}.sc-cover-act{position:static;flex-direction:row;margin-top:12px}.sc-prof-stats b{font-size:18px}.sc-prof-body{padding:0 14px 12px}.sc-prof-act{width:100%}.sc-prof-act .primary-btn{width:100%}}
+@media(min-width:1000px){
+  .sc-grid{grid-template-columns:minmax(0,1fr) 330px;gap:24px}
+  .sc-side{display:grid;gap:14px;position:sticky;top:84px;align-content:start;max-height:calc(100vh - 100px);overflow:auto;scrollbar-width:thin}
+  .sc-cover{padding:34px 30px 28px;border-radius:24px}
+  .sc-cover h2{font-size:30px}
+  .sc-post{padding:18px 20px 10px;border-radius:20px}
+  .sc-post .sc-av{width:46px;height:46px;font-size:15px}
+  .sc-pb{font-size:16px;line-height:1.7}
+  .sc-pn strong{font-size:15.5px}
+  .sc-act{font-size:14.5px;padding:11px 6px}
+  .sc-compose{padding:14px 16px}
+  .sc-prompt{font-size:16px;padding:10px 20px 10px 10px}
+  .sc-imgs.n1 button{max-height:560px}
+}
+@media(min-width:1000px){.sc-prof-av .sc-av{width:104px;height:104px;font-size:36px}.sc-prof-cover{height:150px}.sc-prof-id h2{font-size:26px}}
 </style>
 </head>
 
@@ -5012,7 +5081,7 @@ async function renderPartage() {
   const root = inner.querySelector("#scRoot"), me = currentUser && currentUser.id;
   if (!me) { root.innerHTML = `<p class="search-hint">Connectez-vous pour accéder à la communauté.</p>`; return; }
   const meta = currentUser.user_metadata || {}, meName = meta.full_name || meta.username || "Étudiant";
-  const S = { admin: false, adm: new Set(), groups: [], access: [], cur: null, kind: "all", q: "", pinned: [], posts: [], more: false, react: {}, coms: {}, clikes: {}, shares: {}, urls: {}, openCom: new Set(), replyTo: null, stats: null, busy: false };
+  const S = { admin: false, adm: new Set(), groups: [], access: [], cur: null, view: "feed", prof: null, following: new Set(), me: null, ov: {}, kind: "all", q: "", pinned: [], posts: [], more: false, react: {}, coms: {}, clikes: {}, shares: {}, urls: {}, openCom: new Set(), replyTo: null, stats: null, busy: false };
   const PAGE = 12;
   const gname = id => ((S.groups.find(g => g.id === id) || {}).name) || (SH_GROUPS.find(g => g[0] === id) || [0, id])[1];
   const fail = e => {
@@ -5021,7 +5090,8 @@ async function renderPartage() {
     const b = root.querySelector("#scRetry"); if (b) b.onclick = () => renderPartage();
   };
   const findPost = id => S.pinned.concat(S.posts).find(p => p.id === id);
-  const isAdm = (id, n) => S.adm.has(id) ? (n === "ISH" ? `<span class="sc-adm off">Officiel ✓</span>` : `<span class="sc-adm">Admin</span>`) : "";
+  const isAdm = (id, n) => n === "ISH" ? `<span class="sc-adm off">Officiel ✓</span>` : (S.adm.has(id) ? `<span class="sc-adm">Admin</span>` : "");
+  const who = (id, n, cls) => `<button type="button" class="sc-au${cls ? " " + cls : ""}" data-u="${esc(id)}">${cls === "nm" ? esc(n || "Étudiant") : shAv(n)}</button>`;
 
   // ---------- Choix de l'option (une seule fois) ----------
   const chooseOption = () => {
@@ -5055,25 +5125,31 @@ async function renderPartage() {
     if (paths.length) { const su = await db.storage.from("share-files").createSignedUrls(paths, 3600); (su.data || []).forEach(u => { if (u.signedUrl) S.urls[u.path] = u.signedUrl; }); }
   };
   const query = () => {
-    let q = db.from("share_posts").select("*").eq("group_id", S.cur);
-    if (S.kind !== "all") q = q.eq("kind", S.kind);
+    let q = db.from("share_posts").select("*");
+    if (S.view === "profile") return q.eq("user_id", S.prof.id);
+    q = q.eq("group_id", S.cur);
+    if (S.kind === "follow") q = q.in("user_id", S.following.size ? [...S.following] : ["00000000-0000-0000-0000-000000000000"]);
+    else if (S.kind !== "all") q = q.eq("kind", S.kind);
     const t = S.q.replace(/[,()%*\\]/g, " ").trim();
     if (t) q = q.or(`body.ilike.%${t}%,module.ilike.%${t}%,author_name.ilike.%${t}%`);
     return q;
   };
   const stats = async () => {
     const r = await db.rpc("share_group_stats", { g: S.cur });
-    if (r.data) { S.stats = r.data; const el = root.querySelector("#scStats"); if (el) el.textContent = r.data.members + " membre" + (r.data.members > 1 ? "s" : "") + " · " + r.data.posts + " publication" + (r.data.posts > 1 ? "s" : ""); }
+    if (r.data) { S.stats = r.data; refreshSide(); const el = root.querySelector("#scStats"); if (el) el.textContent = r.data.members + " membre" + (r.data.members > 1 ? "s" : "") + " · " + r.data.posts + " publication" + (r.data.posts > 1 ? "s" : ""); }
   };
   const load = async reset => {
     if (S.busy) return; S.busy = true;
     try {
       if (reset) {
         S.posts = []; S.pinned = [];
-        const p = await query().eq("pinned", true).order("created_at", { ascending: false }).limit(5);
-        if (p.error) throw p.error; S.pinned = p.data || [];
+        if (S.view === "feed") {
+          const p = await query().eq("pinned", true).order("created_at", { ascending: false }).limit(5);
+          if (p.error) throw p.error; S.pinned = p.data || [];
+        }
       }
-      const r = await query().eq("pinned", false).order("created_at", { ascending: false }).range(S.posts.length, S.posts.length + PAGE - 1);
+      let rq = query(); if (S.view === "feed") rq = rq.eq("pinned", false);
+      const r = await rq.order("created_at", { ascending: false }).range(S.posts.length, S.posts.length + PAGE - 1);
       if (r.error) throw r.error;
       const rows = r.data || []; S.more = rows.length === PAGE;
       S.posts = S.posts.concat(rows);
@@ -5090,7 +5166,7 @@ async function renderPartage() {
   };
   const comHTML = (c, rep) => {
     const lk = S.clikes[c.id] || [], liked = lk.includes(me);
-    return `<div class="sc-c${rep ? " rep" : ""}" data-c="${esc(c.id)}">${shAv(c.author_name)}<div class="sc-cb"><div class="sc-bub"><strong>${esc(c.author_name || "Étudiant")}${isAdm(c.user_id, c.author_name)}</strong><span>${shLinkify(c.body)}</span>${lk.length ? `<em class="sc-clk">👍 ${lk.length}</em>` : ""}</div>
+    return `<div class="sc-c${rep ? " rep" : ""}" data-c="${esc(c.id)}">${who(c.user_id, c.author_name)}<div class="sc-cb"><div class="sc-bub"><strong>${who(c.user_id, c.author_name, "nm")}${isAdm(c.user_id, c.author_name)}</strong><span>${shLinkify(c.body)}</span>${lk.length ? `<em class="sc-clk">👍 ${lk.length}</em>` : ""}</div>
       <div class="sc-cm"><button type="button" data-a="clike" class="${liked ? "on" : ""}">J'aime</button><button type="button" data-a="reply">Répondre</button><small>${esc(shAgo(c.created_at))}</small>${c.user_id === me || S.admin ? `<button type="button" data-a="cdel" class="red">Supprimer</button>` : ""}</div>
       ${S.replyTo === c.id ? `<form class="sc-cform rep" data-parent="${esc(c.id)}"><input type="text" maxlength="1000" placeholder="Répondre à ${esc((c.author_name || "").split(" ")[0])}…" autocomplete="off"><button type="submit" aria-label="Envoyer">➤</button></form>` : ""}</div></div>`;
   };
@@ -5103,7 +5179,7 @@ async function renderPartage() {
     const long = (p.body || "").length > 420;
     const sh = p.shared ? `<div class="sc-shared"><div class="sc-sh-h">${shAv(p.shared.author)}<div><strong>${esc(p.shared.author || "Étudiant")}</strong><small>${esc(shAgo(p.shared.at))} · ${esc(p.shared.group || "")}</small></div></div>${p.shared.title ? `<h4>${esc(p.shared.title)}</h4>` : ""}${p.shared.body ? `<p>${shLinkify(p.shared.body)}</p>` : ""}${p.shared.files ? `<small class="sc-sh-f">📎 ${p.shared.files} pièce(s) jointe(s) dans la publication d'origine</small>` : ""}</div>` : "";
     return `<article class="sc-post${p.pinned ? " pin" : ""}" data-p="${esc(p.id)}">
-      <header class="sc-ph">${shAv(p.author_name)}<div class="sc-pn"><strong>${esc(p.author_name || "Étudiant")}${isAdm(p.user_id, p.author_name)}</strong><small>${esc(shAgo(p.created_at))}${p.kind !== "discussion" ? ` · <span class="sc-kind k-${p.kind}">${esc(SH_KINDS[p.kind] || "")}</span>` : ""}${p.module ? " · " + esc(p.module) : ""}${p.pinned ? " · 📌 Épinglée" : ""}</small></div>
+      <header class="sc-ph">${who(p.user_id, p.author_name)}<div class="sc-pn"><strong>${who(p.user_id, p.author_name, "nm")}${isAdm(p.user_id, p.author_name)}</strong><small>${esc(shAgo(p.created_at))}${S.view === "profile" ? " · " + esc(gname(p.group_id)) : ""}${p.kind !== "discussion" ? ` · <span class="sc-kind k-${p.kind}">${esc(SH_KINDS[p.kind] || "")}</span>` : ""}${p.module ? " · " + esc(p.module) : ""}${p.pinned ? " · 📌 Épinglée" : ""}</small></div>
         <div class="sc-mwrap"><button type="button" class="sc-dots" data-a="menu" aria-label="Plus d'options">⋯</button><div class="sc-menu hidden">
           ${S.admin ? `<button type="button" data-m="pin">${p.pinned ? "Désépingler" : "Épingler en haut"}</button>` : ""}<button type="button" data-m="copy">Copier le texte</button>${!own ? `<button type="button" data-m="report">Signaler</button>` : ""}${own || S.admin ? `<button type="button" data-m="del" class="red">Supprimer</button>` : ""}</div></div></header>
       ${p.title ? `<h3 class="sc-pt">${esc(p.title)}</h3>` : ""}${p.body ? `<p class="sc-pb${long ? " clamp" : ""}">${shLinkify(p.body)}</p>${long ? `<button type="button" class="sc-exp" data-a="expand">Voir plus</button>` : ""}` : ""}
@@ -5122,22 +5198,104 @@ async function renderPartage() {
   const draw = () => {
     const feed = root.querySelector("#scFeed"), more = root.querySelector("#scMore"); if (!feed) return;
     const all = S.pinned.concat(S.posts);
-    feed.innerHTML = all.length ? all.map(postHTML).join("") : `<div class="sc-empty"><span>💬</span><strong>Rien ici pour l'instant</strong><p>Soyez le premier à publier dans cette communauté.</p></div>`;
+    feed.innerHTML = all.length ? all.map(postHTML).join("") : (S.view === "profile" ? `<div class="sc-empty"><span>📝</span><strong>Aucune publication visible</strong><p>Cet étudiant n'a rien publié dans vos communautés.</p></div>` : (S.kind === "follow" ? `<div class="sc-empty"><span>👥</span><strong>${S.following.size ? "Rien de nouveau" : "Vous ne suivez encore personne"}</strong><p>${S.following.size ? "Les personnes que vous suivez n'ont rien publié ici." : "Ouvrez le profil d'un étudiant (clic sur son nom) puis appuyez sur « Suivre »."}</p></div>` : `<div class="sc-empty"><span>💬</span><strong>Rien ici pour l'instant</strong><p>Soyez le premier à publier dans cette communauté.</p></div>`));
     more.innerHTML = S.more ? `<button type="button" class="tt-chip sc-moreb" data-a="more">Voir plus de publications</button>` : "";
   };
+  const groupLabel = g => g.name + (S.admin && S.ov[g.id] ? " · " + S.ov[g.id].members + " étudiant" + (S.ov[g.id].members > 1 ? "s" : "") : "");
+  const sideHTML = () => {
+    const st = S.stats, me = S.me || {}, about = S.cur === "general" ? "Espace commun à toutes les options : règlement intérieur, déontologie, conseils et entraide entre étudiants." : "Communauté réservée aux étudiants de l'option « " + gname(S.cur) + " ». Posez vos questions, partagez vos résumés et entraidez-vous.";
+    return `<div class="sc-card"><h4>À propos</h4><p>${esc(about)}</p>${st ? `<div class="sc-kv"><span>👥 <b>${st.members}</b> étudiant${st.members > 1 ? "s" : ""}</span><span>📝 <b>${st.posts}</b> publication${st.posts > 1 ? "s" : ""}</span></div>` : ""}</div>
+      <div class="sc-card"><h4>Mon profil</h4><button type="button" class="sc-me" data-a="me">${shAv(meName)}<span><strong>${esc(meName)}</strong><small>${esc([me.option_name, me.semestre].filter(Boolean).join(" · ") || "Voir mon profil")}</small></span></button>
+        <div class="sc-mini"><span><b>${me.posts || 0}</b> publications</span><span><b>${me.followers || 0}</b> abonnés</span><span><b>${me.likes || 0}</b> J'aime</span></div></div>
+      ${S.admin ? `<div class="sc-card"><h4>👥 Membres par communauté</h4><div class="sc-ovl">${S.groups.map(g => `<button type="button" data-g="${esc(g.id)}" class="${g.id === S.cur ? "on" : ""}"><span>${esc(g.name)}</span><b>${S.ov[g.id] ? S.ov[g.id].members : 0}</b></button>`).join("")}${S.ov.__none__ ? `<button type="button" data-a="members" data-g0="__none__" class="warnb"><span>Sans option</span><b>${S.ov.__none__.members}</b></button>` : ""}</div><button type="button" class="tt-chip" data-a="members">Voir la liste des membres</button></div>` : ""}
+      <div class="sc-card"><h4>Règles</h4><ul class="sc-rules"><li>Respect et bienveillance</li><li>Aucune information ni photo de patient</li><li>Seulement des documents que vous avez le droit de partager</li><li>Signalez ce qui est inapproprié</li></ul></div>`;
+  };
+  const coverBtns = () => `<div class="sc-cover-act"><button type="button" data-a="me">👤 Mon profil</button>${S.admin ? `<button type="button" data-a="members">👥 Membres</button>` : ""}</div>`;
   const shell = () => {
+    S.view = "feed"; S.prof = null;
     const sw = S.admin
-      ? `<select id="scG" class="sc-select" aria-label="Communauté">${S.groups.map(g => `<option value="${esc(g.id)}"${g.id === S.cur ? " selected" : ""}>${esc(g.name)}</option>`).join("")}</select>`
+      ? `<select id="scG" class="sc-select" aria-label="Communauté">${S.groups.map(g => `<option value="${esc(g.id)}"${g.id === S.cur ? " selected" : ""}>${esc(groupLabel(g))}</option>`).join("")}</select>`
       : `<div class="sc-tabs">${S.access.map(id => `<button type="button" class="sc-tab${id === S.cur ? " on" : ""}" data-g="${esc(id)}">${id === "general" ? "🌍 Général" : "🎓 " + esc(gname(id))}</button>`).join("")}</div>`;
-    root.innerHTML = `<div class="sc-cover" style="--h:${shHue(S.cur)}"><small>COMMUNAUTÉ</small><h2>${esc(gname(S.cur))}</h2><span id="scStats"></span></div>
-      ${sw}
-      <div class="sc-compose"><button type="button" class="sc-prompt" data-a="new">${shAv(meName)}<span>Quoi de neuf, ${esc(String(meName).split(" ")[0])} ?</span></button>
-        <div class="sc-quick"><button type="button" data-a="new" data-k="question">❓ Question</button><button type="button" data-a="new" data-k="resume">📄 Résumé</button><button type="button" data-a="new" data-k="annale">🎓 Annale</button><button type="button" data-a="new" data-k="astuce">💡 Astuce</button></div></div>
-      <div class="sc-filters"><input id="scQ" type="search" placeholder="Rechercher dans la communauté…" value="${esc(S.q)}" autocomplete="off"><div class="sc-chips">${[["all", "Tout"], ...Object.entries(SH_KINDS)].map(([k, l]) => `<button type="button" class="sc-chip${S.kind === k ? " on" : ""}" data-kind="${k}">${esc(l)}</button>`).join("")}</div></div>
-      <div id="scFeed"><div class="sc-skel"></div><div class="sc-skel"></div></div><div id="scMore"></div>`;
+    root.innerHTML = `<div class="sc-cover" style="--h:${shHue(S.cur)}"><small>COMMUNAUTÉ</small><h2>${esc(gname(S.cur))}</h2><span id="scStats"></span>${coverBtns()}</div>
+      <div class="sc-grid"><div class="sc-main">
+        ${sw}
+        <div class="sc-compose"><button type="button" class="sc-prompt" data-a="new">${shAv(meName)}<span>Quoi de neuf, ${esc(String(meName).split(" ")[0])} ?</span></button>
+          <div class="sc-quick"><button type="button" data-a="new" data-k="question">❓ Question</button><button type="button" data-a="new" data-k="resume">📄 Résumé</button><button type="button" data-a="new" data-k="annale">🎓 Annale</button><button type="button" data-a="new" data-k="astuce">💡 Astuce</button></div></div>
+        <div class="sc-filters"><input id="scQ" type="search" placeholder="Rechercher dans la communauté…" value="${esc(S.q)}" autocomplete="off"><div class="sc-chips">${[["all", "Tout"], ["follow", "👥 Abonnements"], ...Object.entries(SH_KINDS)].map(([k, l]) => `<button type="button" class="sc-chip${S.kind === k ? " on" : ""}" data-kind="${k}">${esc(l)}</button>`).join("")}</div></div>
+        <div id="scFeed"><div class="sc-skel"></div><div class="sc-skel"></div></div><div id="scMore"></div>
+      </div><aside class="sc-side" id="scSide">${sideHTML()}</aside></div>`;
     if (S.stats) stats();
   };
+  const refreshSide = () => { const el = root.querySelector("#scSide"); if (el && S.view === "feed") el.innerHTML = sideHTML(); };
   const openGroup = () => { lsSet("ish_share_cur", S.cur); S.kind = "all"; S.q = ""; S.stats = null; S.openCom.clear(); shell(); stats(); load(true); };
+
+  // ---------- Profil d'un étudiant ----------
+  const fmtJoined = d => d ? new Date(d).toLocaleDateString("fr-FR", { month: "long", year: "numeric" }) : "";
+  const profileHTML = d => {
+    const self = d.id === me, badge = d.official ? `<span class="sc-adm off">Officiel ✓</span>` : (d.admin ? `<span class="sc-adm">Admin</span>` : "");
+    const chips = [d.option_name ? "🎓 " + d.option_name : "", d.semestre ? "Semestre " + d.semestre : "", d.filiere ? d.filiere : "", d.joined ? "Membre depuis " + fmtJoined(d.joined) : ""].filter(Boolean);
+    return `<button type="button" class="tt-chip sc-back" data-a="back">← Retour à la communauté</button>
+      <div class="sc-prof"><div class="sc-prof-cover" style="--h:${shHue(d.name)}"></div>
+        <div class="sc-prof-body"><div class="sc-prof-av">${shAv(d.name)}</div>
+          <div class="sc-prof-id"><h2>${esc(d.name)} ${badge}</h2>${d.username ? `<small>@${esc(d.username)}</small>` : ""}
+            <div class="sc-prof-chips">${chips.map(c => `<span>${esc(c)}</span>`).join("")}</div></div>
+          <div class="sc-prof-act">${self ? `<button type="button" class="primary-btn" data-a="editme">Modifier mon profil</button>` : `<button type="button" class="primary-btn${d.is_following ? " ghost" : ""}" data-a="follow">${d.is_following ? "✓ Abonné" : "+ Suivre"}</button>`}</div></div>
+        <div class="sc-prof-stats"><div><b>${d.posts}</b><span>Publications</span></div><div><b>${d.likes}</b><span>J'aime reçus</span></div><div><b id="scFol">${d.followers}</b><span>Abonnés</span></div><div><b>${d.following}</b><span>Abonnements</span></div></div></div>
+      <h3 class="sc-sec">Publications</h3><div id="scFeed"><div class="sc-skel"></div></div><div id="scMore"></div>`;
+  };
+  const openProfile = async uid => {
+    const r = await db.rpc("share_profile", { uid });
+    if (r.error || !r.data) { showToast("Profil indisponible."); return; }
+    S.view = "profile"; S.prof = r.data; S.openCom.clear();
+    root.innerHTML = profileHTML(r.data); window.scrollTo(0, 0);
+    load(true);
+  };
+  const toggleFollow = async () => {
+    const d = S.prof; if (!d) return;
+    const r = d.is_following ? await db.from("share_follows").delete().eq("follower_id", me).eq("followee_id", d.id) : await db.from("share_follows").insert({ followee_id: d.id });
+    if (r.error) return showToast("Action impossible.");
+    d.is_following = !d.is_following; d.followers += d.is_following ? 1 : -1;
+    if (d.is_following) S.following.add(d.id); else S.following.delete(d.id);
+    const b = root.querySelector('[data-a="follow"]'), n = root.querySelector("#scFol");
+    if (b) { b.textContent = d.is_following ? "✓ Abonné" : "+ Suivre"; b.classList.toggle("ghost", d.is_following); }
+    if (n) n.textContent = d.followers;
+  };
+  const leaveProfile = () => { S.view = "feed"; openGroup(); };
+
+  // ---------- Administrateur : membres d'une communauté ----------
+  const membersDialog = async g0 => {
+    let cur = g0 || S.cur, list = [];
+    const ov = sheet(`<div class="sc-mh"><h3>Membres des communautés</h3><button type="button" class="sc-x" id="mbX" aria-label="Fermer">✕</button></div>
+      <select id="mbG" class="sc-input">${S.groups.map(g => `<option value="${esc(g.id)}">${esc(groupLabel(g))}</option>`).join("")}<option value="__none__">Sans option (n'ont pas encore choisi)${S.ov.__none__ ? " · " + S.ov.__none__.members : ""}</option></select>
+      <input id="mbQ" class="sc-input" type="search" placeholder="Rechercher un étudiant…">
+      <div id="mbL" class="sc-mbl"><p class="search-hint">Chargement…</p></div>`);
+    ov.querySelector(".sc-sheet").classList.add("wide");
+    const v = id => ov.querySelector("#" + id);
+    v("mbG").value = cur; v("mbX").onclick = () => ov.remove();
+    const draw = () => {
+      const t = norm(v("mbQ").value), rows = list.filter(m => !t || norm(m.full_name + " " + (m.email || "")).includes(t));
+      v("mbL").innerHTML = (rows.length ? `<p class="sc-count">${rows.length} ${rows.length > 1 ? "personnes" : "personne"}</p>` + rows.map(m => `<div class="sc-mrow"><button type="button" class="sc-au" data-u="${esc(m.user_id)}">${shAv(m.full_name)}</button>
+        <div class="sc-mi"><button type="button" class="sc-au nm" data-u="${esc(m.user_id)}">${esc(m.full_name)}</button>${m.is_admin ? ` <span class="sc-adm">Admin</span>` : ""}<small>${esc(m.email || "")}${m.semestre ? " · " + esc(m.semestre) : ""}${m.joined_at ? " · " + esc(new Date(m.joined_at).toLocaleDateString("fr-FR")) : ""}</small></div>
+        ${cur !== "general" && cur !== "__none__" && !m.is_admin ? `<button type="button" class="sc-rm" data-rm="${esc(m.user_id)}">Retirer</button>` : ""}</div>`).join("") : `<p class="search-hint">Personne ici.</p>`);
+    };
+    const fetchList = async () => { v("mbL").innerHTML = `<p class="search-hint">Chargement…</p>`; const r = await db.rpc("share_admin_members", { g: cur }); list = r.data || []; if (r.error) v("mbL").innerHTML = `<p class="search-hint">Liste indisponible.</p>`; else draw(); };
+    v("mbG").addEventListener("change", e => { cur = e.target.value; fetchList(); });
+    v("mbQ").addEventListener("input", draw);
+    ov.addEventListener("click", async e => {
+      const u = e.target.closest("[data-u]"); if (u) { ov.remove(); return openProfile(u.dataset.u); }
+      const rm = e.target.closest("[data-rm]"); if (!rm) return;
+      if (!confirm("Retirer cet étudiant de cette communauté ? Il devra choisir à nouveau son option à sa prochaine visite.")) return;
+      const r = await db.from("share_members").delete().eq("group_id", cur).eq("user_id", rm.dataset.rm);
+      if (r.error) return showToast("Action impossible.");
+      showToast("Étudiant retiré."); loadOverview(); fetchList();
+    });
+    fetchList();
+  };
+  const loadOverview = async () => {
+    if (!S.admin) return;
+    const r = await db.rpc("share_admin_overview"); if (r.error) return;
+    S.ov = {}; (r.data || []).forEach(x => { S.ov[x.group_id] = { members: Number(x.members), posts: Number(x.posts) }; }); refreshSide();
+  };
 
   // ---------- Fenêtres : publier, partager, visionneuse ----------
   const sheet = html => {
@@ -5268,8 +5426,9 @@ async function renderPartage() {
     const t = e.target;
     if (!t.closest(".sc-mwrap")) root.querySelectorAll(".sc-menu:not(.hidden)").forEach(m => m.classList.add("hidden"));
     if (!t.closest(".sc-reactwrap")) root.querySelectorAll(".sc-reactwrap.open").forEach(w => w.classList.remove("open"));
+    const au = t.closest("[data-u]"); if (au) return openProfile(au.dataset.u);
     const g = t.closest("[data-g]"); if (g) { S.cur = g.dataset.g; return openGroup(); }
-    const kd = t.closest("[data-kind]"); if (kd) { S.kind = kd.dataset.kind; root.querySelectorAll("[data-kind]").forEach(b => b.classList.toggle("on", b === kd)); return load(true); }
+    const kd = t.closest("[data-kind]"); if (kd && S.view === "feed") { S.kind = kd.dataset.kind; root.querySelectorAll("[data-kind]").forEach(b => b.classList.toggle("on", b === kd)); return load(true); }
     const rr = t.closest("[data-r]"); const card = t.closest(".sc-post"), p = card && findPost(card.dataset.p);
     if (rr && p) { rr.closest(".sc-reactwrap").classList.remove("open"); return setReaction(p, rr.dataset.r); }
     const mi = t.closest("[data-m]"); if (mi && p) { mi.closest(".sc-menu").classList.add("hidden"); return postMenu(p, mi.dataset.m); }
@@ -5277,6 +5436,11 @@ async function renderPartage() {
     const a = t.closest("[data-a]"); if (!a) return;
     const act = a.dataset.a;
     if (act === "new") return compose(a.dataset.k);
+    if (act === "me") return openProfile(me);
+    if (act === "members") return membersDialog(a.dataset.g0);
+    if (act === "back") return leaveProfile();
+    if (act === "follow") return toggleFollow();
+    if (act === "editme") { if (typeof openProfileModal === "function") openProfileModal(); return; }
     if (act === "more") { a.disabled = true; return load(false); }
     if (!p) return;
     if (act === "react") { if (lp === "done") { lp = null; return; } const mine = (S.react[p.id] || []).find(r => r.user_id === me); return setReaction(p, mine ? mine.type : "like"); }
@@ -5316,9 +5480,12 @@ async function renderPartage() {
     if (!S.admin && !opt) return chooseOption();
     if (!S.admin && !mine.includes("general")) await db.rpc("share_choose_option", { opt });
     S.access = S.admin ? S.groups.map(x => x.id) : [opt, "general"];
+    const [fo, pr] = await Promise.all([db.from("share_follows").select("followee_id").eq("follower_id", me), db.rpc("share_profile", { uid: me })]);
+    S.following = new Set((fo.data || []).map(r => r.followee_id)); S.me = pr.data || null;
     const last = lsGet("ish_share_cur", null);
     S.cur = S.access.includes(last) ? last : (opt || "general");
   } catch (e) { return fail(e); }
+  if (S.admin) await loadOverview();   // effectifs par communauté (menu et colonne latérale)
   openGroup();
 }
 NEW_PAGES["Espace de partage"] = renderPartage;
