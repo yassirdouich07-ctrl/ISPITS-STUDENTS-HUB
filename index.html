@@ -1962,6 +1962,32 @@ body{overflow-x:hidden}
   .sc-imgs.n1 button{max-height:560px}
 }
 @media(min-width:1000px){.sc-prof-av .sc-av{width:104px;height:104px;font-size:36px}.sc-prof-cover{height:150px}.sc-prof-id h2{font-size:26px}}
+
+/* ===== NOTIFICATIONS & LISTES D'ABONNÉS ===== */
+.topbar-right{display:flex;align-items:center;gap:10px;flex:none}
+.bell-btn{position:relative;flex:none;width:44px;height:44px;border-radius:14px;border:1px solid var(--border);background:#fff;display:grid;place-items:center;cursor:pointer;color:var(--navy);-webkit-tap-highlight-color:transparent}
+.bell-btn:hover{background:#f6fafb}
+.bell-btn .ico{width:20px;height:20px}
+.bell-dot{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:#ef4444;color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;border:2px solid #fff;box-sizing:border-box;line-height:1}
+.bell-btn.ring .ico{animation:bellRing .9s ease}
+@keyframes bellRing{0%,100%{transform:rotate(0)}15%{transform:rotate(16deg)}30%{transform:rotate(-14deg)}45%{transform:rotate(10deg)}60%{transform:rotate(-8deg)}75%{transform:rotate(4deg)}}
+.nt-row{display:flex;gap:12px;align-items:flex-start;width:100%;border:0;background:none;text-align:left;padding:12px 10px;border-radius:12px;font:inherit;cursor:pointer;border-top:1px solid #eef2f6}
+.nt-row:first-child{border-top:0}
+.nt-row:hover{background:#f6fafb}
+.nt-row.new{background:#eef8f7}
+.nt-row .sc-av{flex:none}
+.nt-t{min-width:0;font-size:14px;line-height:1.5;color:var(--navy)}
+.nt-t em{display:block;font-style:normal;font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nt-t small{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+.sc-stat{border:0;background:none;font:inherit;padding:14px 6px;text-align:center;border-right:1px solid #eef2f6;cursor:pointer}
+.sc-stat:last-child{border-right:0}
+.sc-stat:hover{background:#f6fafb}
+.sc-stat b{display:block;font-family:'Outfit',sans-serif;font-size:22px;color:var(--navy)}
+.sc-stat span{font-size:12px;color:var(--muted)}
+.sc-fb{flex:none;border:1px solid var(--teal);background:var(--teal);color:#fff;border-radius:999px;padding:7px 14px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer}
+.sc-fb.on{background:#fff;color:var(--teal)}
+@media(max-width:640px){.sc-stat b{font-size:18px}.topbar-right{gap:8px}}
+@media (prefers-reduced-motion:reduce){.bell-btn.ring .ico{animation:none}}
 </style>
 </head>
 
@@ -2135,6 +2161,8 @@ body{overflow-x:hidden}
       </div>
     </div>
 
+    <div class="topbar-right">
+    <button class="bell-btn" id="bellBtn" type="button" aria-label="Notifications"><svg class="ico"><use href="#i-bell"/></svg><span class="bell-dot hidden" id="bellDot"></span></button>
     <div class="profile-wrap" id="profileWrap">
       <button class="profile-btn" id="profileBtn" type="button" aria-haspopup="true" aria-expanded="false">
         <div class="avatar" id="userAvatar">E</div>
@@ -2156,6 +2184,7 @@ body{overflow-x:hidden}
         <div class="pm-sep"></div>
         <button class="pm-item danger" id="logoutBtn" type="button"><svg class="ico"><use href="#i-logout"/></svg>Déconnexion</button>
       </div>
+    </div>
     </div>
   </header>
 
@@ -2554,6 +2583,7 @@ function showDashboard(user) {
   rubInit();
   try { if (needsOnboarding(user)) forcePwdChange(); } catch (e) { console.error("Première connexion :", e); }
   setTimeout(dailyInfo, 1400);
+  ntInit();
 }
 
 // Salutation adaptée à l'heure : Bonjour (jour) / Bonsoir (soir), avec parfois Salam ou Ahlan
@@ -2575,6 +2605,7 @@ function setStats() {
 }
 
 function showAuth() {
+  ntStop();
   stopSim();
   aiMessages = [];
   closeProfileMenu();
@@ -5240,7 +5271,7 @@ async function renderPartage() {
           <div class="sc-prof-id"><h2>${esc(d.name)} ${badge}</h2>${d.username ? `<small>@${esc(d.username)}</small>` : ""}
             <div class="sc-prof-chips">${chips.map(c => `<span>${esc(c)}</span>`).join("")}</div></div>
           <div class="sc-prof-act">${self ? `<button type="button" class="primary-btn" data-a="editme">Modifier mon profil</button>` : `<button type="button" class="primary-btn${d.is_following ? " ghost" : ""}" data-a="follow">${d.is_following ? "✓ Abonné" : "+ Suivre"}</button>`}</div></div>
-        <div class="sc-prof-stats"><div><b>${d.posts}</b><span>Publications</span></div><div><b>${d.likes}</b><span>J'aime reçus</span></div><div><b id="scFol">${d.followers}</b><span>Abonnés</span></div><div><b>${d.following}</b><span>Abonnements</span></div></div></div>
+        <div class="sc-prof-stats"><div><b>${d.posts}</b><span>Publications</span></div><div><b>${d.likes}</b><span>J'aime reçus</span></div><button type="button" class="sc-stat" data-a="flist" data-k="followers"><b id="scFol">${d.followers}</b><span>Abonnés</span></button><button type="button" class="sc-stat" data-a="flist" data-k="following"><b>${d.following}</b><span>Abonnements</span></button></div></div>
       <h3 class="sc-sec">Publications</h3><div id="scFeed"><div class="sc-skel"></div></div><div id="scMore"></div>`;
   };
   const openProfile = async uid => {
@@ -5260,7 +5291,40 @@ async function renderPartage() {
     if (b) { b.textContent = d.is_following ? "✓ Abonné" : "+ Suivre"; b.classList.toggle("ghost", d.is_following); }
     if (n) n.textContent = d.followers;
   };
-  const leaveProfile = () => { S.view = "feed"; openGroup(); };
+  const leaveProfile = () => { S.view = "feed"; S.openCom.clear(); openGroup(); };
+
+  // Publication ouverte depuis une notification (commentaires dépliés)
+  const openPost = async (id, group) => {
+    const r = await db.from("share_posts").select("*").eq("id", id).single();
+    if (r.error || !r.data) { showToast("Cette publication n'est plus disponible."); return; }
+    S.view = "post"; S.prof = null; S.pinned = []; S.posts = [r.data]; S.more = false; S.openCom = new Set([id]);
+    if (S.access.includes(r.data.group_id)) S.cur = r.data.group_id;
+    root.innerHTML = `<button type="button" class="tt-chip sc-back" data-a="back">← Retour à la communauté</button><div id="scFeed"></div><div id="scMore"></div>`;
+    try { await enrich([r.data]); } catch (e) { return fail(e); }
+    draw(); window.scrollTo(0, 0);
+  };
+
+  // Abonnés / abonnements d'un étudiant
+  const followDialog = async (uid, kind) => {
+    const ov = sheet(`<div class="sc-mh"><h3>${kind === "followers" ? "Abonnés" : "Abonnements"}</h3><button type="button" class="sc-x" id="flX" aria-label="Fermer">✕</button></div><div id="flL" class="sc-mbl"><p class="search-hint">Chargement…</p></div>`);
+    ov.querySelector(".sc-sheet").classList.add("wide");
+    const v = id => ov.querySelector("#" + id); v("flX").onclick = () => ov.remove();
+    const r = await db.rpc("share_follow_list", { uid, kind });
+    const rows = r.data || [];
+    const row = m => `<div class="sc-mrow"><button type="button" class="sc-au" data-u="${esc(m.user_id)}">${shAv(m.name)}</button><div class="sc-mi"><button type="button" class="sc-au nm" data-u="${esc(m.user_id)}">${esc(m.name)}</button>${m.official ? ` <span class="sc-adm off">Officiel ✓</span>` : (m.is_admin ? ` <span class="sc-adm">Admin</span>` : "")}<small>${esc([m.option_name, m.semestre].filter(Boolean).join(" · ") || "Étudiant")}</small></div>
+      ${m.user_id !== me ? `<button type="button" class="sc-fb${m.is_following ? " on" : ""}" data-f="${esc(m.user_id)}">${m.is_following ? "✓ Abonné" : "+ Suivre"}</button>` : ""}</div>`;
+    v("flL").innerHTML = r.error ? `<p class="search-hint">Liste indisponible.</p>` : (rows.length ? `<p class="sc-count">${rows.length} ${rows.length > 1 ? "personnes" : "personne"}</p>` + rows.map(row).join("") : `<p class="search-hint">${kind === "followers" ? "Personne ne suit encore ce compte." : "Ce compte ne suit encore personne."}</p>`);
+    ov.addEventListener("click", async e => {
+      const u = e.target.closest("[data-u]"); if (u) { ov.remove(); return openProfile(u.dataset.u); }
+      const f = e.target.closest("[data-f]"); if (!f) return;
+      const id = f.dataset.f, on = f.classList.contains("on");
+      const q = on ? await db.from("share_follows").delete().eq("follower_id", me).eq("followee_id", id) : await db.from("share_follows").insert({ followee_id: id });
+      if (q.error) return showToast("Action impossible.");
+      f.classList.toggle("on", !on); f.textContent = on ? "+ Suivre" : "✓ Abonné";
+      if (on) S.following.delete(id); else S.following.add(id);
+      if (S.prof && S.prof.id === id) { S.prof.is_following = !on; S.prof.followers += on ? -1 : 1; }
+    });
+  };
 
   // ---------- Administrateur : membres d'une communauté ----------
   const membersDialog = async g0 => {
@@ -5440,6 +5504,7 @@ async function renderPartage() {
     if (act === "members") return membersDialog(a.dataset.g0);
     if (act === "back") return leaveProfile();
     if (act === "follow") return toggleFollow();
+    if (act === "flist" && S.prof) return followDialog(S.prof.id, a.dataset.k);
     if (act === "editme") { if (typeof openProfileModal === "function") openProfileModal(); return; }
     if (act === "more") { a.disabled = true; return load(false); }
     if (!p) return;
@@ -5487,6 +5552,8 @@ async function renderPartage() {
   } catch (e) { return fail(e); }
   if (S.admin) await loadOverview();   // effectifs par communauté (menu et colonne latérale)
   openGroup();
+  const go = window.SC_GO; window.SC_GO = null;   // venue d'une notification
+  if (go && go.type === "profile") openProfile(go.id); else if (go && go.type === "post") openPost(go.id, go.group);
 }
 NEW_PAGES["Espace de partage"] = renderPartage;
 moduleDescriptions["Espace de partage"] = "La communauté des étudiants : publiez, posez vos questions, partagez résumés et annales dans le groupe de votre option ou dans le groupe général.";
@@ -10041,6 +10108,63 @@ function dailyInfo() {
   } catch (e) { console.error("Info du jour :", e); }
 }
 document.getElementById("tdInfo").addEventListener("click", () => openDaily(dailyIndex()));
+
+
+// =====================================
+// NOTIFICATIONS : nouvel abonné, réaction, commentaire, réponse, partage (en direct, avec cloche dans la barre du haut)
+// =====================================
+const NT = { uid: null, ch: null, n: 0, timer: null };
+function ntText(x) {
+  const e = { like: "👍", love: "❤️", haha: "😂", wow: "😮", sad: "😢" }[x.detail] || "";
+  return ({ follow: "a commencé à vous suivre", reaction: "a réagi " + e + " à votre publication", comment: "a commenté votre publication", reply: "a répondu à votre commentaire", share: "a partagé votre publication" })[x.type] || "a interagi avec vous";
+}
+function ntBadge(n) {
+  NT.n = Math.max(0, n);
+  const d = document.getElementById("bellDot"); if (!d) return;
+  d.textContent = NT.n > 9 ? "9+" : String(NT.n); d.classList.toggle("hidden", !(NT.n > 0));
+}
+async function ntCount() {
+  if (!currentUser) return;
+  try { const r = await db.from("share_notifications").select("id", { count: "exact", head: true }).eq("read", false); if (!r.error) ntBadge(r.count || 0); } catch (e) { /* ignoré */ }
+}
+function ntIncoming(x) {   // notification reçue en direct
+  ntBadge(NT.n + 1);
+  const b = document.getElementById("bellBtn"); if (b) { b.classList.remove("ring"); void b.offsetWidth; b.classList.add("ring"); }
+  showToast((x.actor_name || "Quelqu'un") + " " + ntText(x));
+}
+function ntInit() {
+  if (!currentUser || NT.uid === currentUser.id) return;
+  ntStop(); NT.uid = currentUser.id; ntCount();
+  try {
+    NT.ch = db.channel("share-notif-" + NT.uid).on("postgres_changes", { event: "INSERT", schema: "public", table: "share_notifications", filter: "user_id=eq." + NT.uid }, p => ntIncoming(p.new)).subscribe();
+  } catch (e) { console.error("Notifications en direct :", e); }
+  NT.timer = setInterval(() => { if (document.visibilityState === "visible") ntCount(); }, 60000);   // filet de sécurité si le direct est coupé
+}
+function ntStop() {
+  if (NT.ch) { try { db.removeChannel(NT.ch); } catch (e) { /* ignoré */ } }
+  clearInterval(NT.timer); NT.uid = null; NT.ch = null; NT.timer = null; ntBadge(0);
+}
+async function openNotifs() {
+  if (!currentUser) return;
+  const ov = document.createElement("div"); ov.className = "kp-modal"; document.body.appendChild(ov);
+  ov.innerHTML = `<div class="kp-sheet sc-sheet wide" style="background:#fff"><div class="sc-mh"><h3>Notifications</h3><button type="button" class="sc-x" id="ntX" aria-label="Fermer">✕</button></div><div id="ntL" class="sc-mbl"><p class="search-hint">Chargement…</p></div></div>`;
+  ov.addEventListener("click", e => { if (e.target === ov) ov.remove(); });
+  ov.querySelector("#ntX").onclick = () => ov.remove();
+  const r = await db.from("share_notifications").select("*").order("created_at", { ascending: false }).limit(40);
+  const L = ov.querySelector("#ntL"), rows = r.data || [];
+  if (r.error) { L.innerHTML = `<p class="search-hint">Notifications indisponibles.</p>`; return; }
+  L.innerHTML = rows.length ? rows.map(n => `<button type="button" class="nt-row${n.read ? "" : " new"}" data-n="${esc(n.id)}">${shAv(n.actor_name)}<span class="nt-t"><b>${esc(n.actor_name || "Quelqu'un")}</b> ${esc(ntText(n))}${n.type === "comment" || n.type === "reply" ? `<em>« ${esc(n.detail)} »</em>` : (n.snippet ? `<em>${esc(n.snippet)}</em>` : "")}<small>${esc(shAgo(n.created_at))}</small></span></button>`).join("") : `<div class="sc-empty"><span>🔔</span><strong>Aucune notification</strong><p>Vous serez prévenu quand quelqu'un vous suit, réagit ou commente.</p></div>`;
+  L.addEventListener("click", e => {
+    const b = e.target.closest("[data-n]"); if (!b) return;
+    const n = rows.find(x => x.id === b.dataset.n); if (!n) return;
+    ov.remove();
+    window.SC_GO = n.type === "follow" ? { type: "profile", id: n.actor_id } : { type: "post", id: n.post_id, group: n.group_id };
+    openPage("Espace de partage");
+  });
+  const unread = rows.filter(n => !n.read).map(n => n.id);
+  if (unread.length) { await db.from("share_notifications").update({ read: true }).in("id", unread); ntBadge(0); }
+}
+document.getElementById("bellBtn").addEventListener("click", openNotifs);
 
 // =====================================
 // INITIAL AUTH STATE
