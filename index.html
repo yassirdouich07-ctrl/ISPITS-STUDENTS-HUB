@@ -4734,13 +4734,6 @@ async function storageDocs(type, f, sem, m, sub) {
 // type : "cours" ou "resume" | f : filières | s : semestre | m : nom EXACT du module
 // sub : nom EXACT du sous-module ("" s'il n'y en a pas) | t : titre | url : lien du document
 const RESOURCES = [
-  // Examens blancs (type "examen"). corrige : lien du corrigé (vide = "bientôt disponible"). durMin : durée du chrono en minutes.
-  { type: "examen", f: ["IP"], s: "S3", m: "Programmes de santé", sub: "", t: "Examen blanc · Programmes de santé (SMI, PLMD, PLMC, IRA)", url: "https://xpfwezcpvoenthcnrkod.supabase.co/storage/v1/object/public/examens/S3/IP/programmes-de-sante-examen-blanc.pdf", corrige: "", dur: "2 h", durMin: 120, pages: 14, annee: "2026/2027",
-    parts: [["I", "10 QCM", 5], ["II", "6 questions de cours et de raisonnement", 5], ["III", "2 cas cliniques", 7], ["IV", "3 questions de synthèse et d'application", 3]] },
-  { type: "examen", f: ["IP"], s: "S3", m: "Programmes de santé et SMI", sub: "", t: "Examen blanc · Programmes de santé et SMI", url: "https://xpfwezcpvoenthcnrkod.supabase.co/storage/v1/object/public/examens/S3/IP/programmes-de-sante-smi-examen-blanc.pdf", corrige: "", dur: "2 h", durMin: 120, pages: 15, annee: "2026/2027",
-    parts: [["I", "10 QCM", 5], ["II", "6 questions de cours et de raisonnement", 5], ["III", "2 cas cliniques", 7], ["IV", "2 questions de synthèse et d'application", 3]] },
-  { type: "examen", f: ["IP"], s: "S3", m: "Programme de lutte contre les IRA", sub: "", t: "Examen blanc · Programme de lutte contre les IRA", url: "https://xpfwezcpvoenthcnrkod.supabase.co/storage/v1/object/public/examens/S3/IP/ira-examen-blanc.pdf", corrige: "", dur: "2 h", durMin: 120, pages: 13, annee: "2026/2027",
-    parts: [["I", "10 QCM", 5], ["II", "6 questions de cours et de raisonnement", 5], ["III", "2 cas cliniques", 7], ["IV", "2 questions de synthèse et d'application", 3]] },
   { type: "cours", f: ["IP"], s: "S1", m: "SIB1", sub: "", t: "Cours des constantes", url: "cours/S1/IP/SIB1/cours-des-constantes.pdf" },
   { type: "cours", f: ["IP"], s: "S1", m: "SIB1", sub: "", t: "Cours SIB1", url: "cours/S1/IP/SIB1/sib1-cours.pdf" },
 ];
