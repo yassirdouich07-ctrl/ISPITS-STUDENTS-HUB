@@ -2153,6 +2153,13 @@ body{overflow-x:hidden}
   .sc-prof-stats span{font-size:10px!important}
   .sc-prof-stats b{font-size:18px!important}
 }
+
+/* ===== AI STUDY LAB V1 — isolated styles ===== */
+.sl-nav-tag{margin-left:auto;font-size:9px;font-weight:900;letter-spacing:.5px;color:#0d887f;background:#e2f7f4;border-radius:20px;padding:3px 6px}
+.sl-wrap{display:grid;gap:18px}.sl-hero{background:linear-gradient(125deg,#102b46,#174b63 65%,#159c94);color:#fff;border-radius:20px;padding:24px;display:flex;align-items:center;justify-content:space-between;gap:18px;overflow:hidden}.sl-hero h1{font:800 clamp(24px,4vw,34px) Outfit,sans-serif;margin:4px 0 7px}.sl-hero p{margin:0;color:#e2f2f3;max-width:650px;line-height:1.6}.sl-eyebrow{font-size:10px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;opacity:.8}.sl-hero-icon{width:76px;height:76px;flex:none;border-radius:22px;background:#ffffff20;display:grid;place-items:center;font-size:36px}.sl-panel{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:0 8px 25px rgba(16,43,70,.035)}.sl-panel h2,.sl-panel h3{font-family:Outfit,sans-serif;color:var(--navy);margin:0 0 7px}.sl-muted{color:var(--muted);font-size:13px;line-height:1.6}.sl-upload{border:1.5px dashed #9bcfc8;background:#f7fcfb;border-radius:14px;padding:22px;text-align:center}.sl-upload input{max-width:100%;margin:12px auto;display:block}.sl-btn{border:0;border-radius:10px;background:var(--teal-dark);color:#fff;font-weight:800;padding:11px 16px;cursor:pointer}.sl-btn:disabled{opacity:.55;cursor:wait}.sl-btn.alt{background:#edf7f6;color:#137e78}.sl-btn.danger{background:#fff1f1;color:#b42318}.sl-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.sl-tool{border:1px solid var(--border);border-radius:14px;background:#fff;padding:15px;text-align:left;cursor:pointer;min-height:118px;transition:.18s}.sl-tool:hover,.sl-tool.active{border-color:#53b9ae;background:#f2fbf9;transform:translateY(-1px)}.sl-tool .ico2{font-size:24px;display:block;margin-bottom:10px}.sl-tool strong{display:block;color:var(--navy);font-size:14px}.sl-tool small{display:block;color:var(--muted);font-size:11px;line-height:1.4;margin-top:4px}.sl-docs{display:grid;gap:8px}.sl-doc{display:flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:12px;padding:11px 12px}.sl-doc.active{border-color:#36a99f;background:#f2fbf9}.sl-doc-main{min-width:0;flex:1;cursor:pointer}.sl-doc-main strong{display:block;overflow-wrap:anywhere;color:var(--navy);font-size:13px}.sl-doc-main small{color:var(--muted);font-size:11px}.sl-empty{padding:24px;text-align:center;color:var(--muted);background:#f8fafc;border-radius:12px}.sl-work{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.85fr);gap:14px}.sl-output{white-space:normal;line-height:1.7;color:#34485a;font-size:14px}.sl-output h3{margin:18px 0 8px}.sl-output h4{margin:12px 0 5px;color:var(--navy)}.sl-output li{margin:5px 0}.sl-output p{margin:7px 0}.sl-q{padding:13px;border:1px solid var(--border);border-radius:12px;margin:10px 0}.sl-q label{display:flex;gap:8px;padding:7px 2px;cursor:pointer}.sl-correct{color:#16804b;font-weight:800}.sl-wrong{color:#b42318;font-weight:800}.sl-chat{display:flex;flex-direction:column;gap:10px;max-height:460px;overflow:auto;padding:8px}.sl-chat-msg{max-width:92%;padding:11px 13px;border-radius:13px;background:#f0f4f7;white-space:pre-wrap;line-height:1.55;font-size:13px}.sl-chat-msg.user{align-self:flex-end;background:#e5f6f3}.sl-chat-form{display:flex;gap:8px;margin-top:10px}.sl-chat-form input{min-width:0;flex:1;border:1px solid var(--border);border-radius:10px;padding:12px}.sl-status{font-size:12px;color:var(--teal-dark);font-weight:700;min-height:18px}.sl-flip{width:100%;min-height:120px;border:1px solid #cce5e1;background:#f6fbfa;border-radius:14px;padding:18px;text-align:center;color:var(--navy);font-weight:700}.sl-tree{display:grid;gap:10px}.sl-branch{padding:12px;border-left:3px solid var(--teal);background:#f7fafb;border-radius:8px}.sl-actions{display:flex;gap:8px;flex-wrap:wrap}.sl-badge{display:inline-flex;padding:4px 8px;border-radius:20px;background:#eaf7f5;color:#147d76;font-size:10px;font-weight:800}.sl-note{border-left:3px solid #e5a23a;background:#fff9ed;padding:10px 12px;border-radius:8px;color:#77551b;font-size:12px;line-height:1.55}
+@media(max-width:850px){.sl-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sl-work{grid-template-columns:1fr}.sl-hero{padding:19px}.sl-hero-icon{width:58px;height:58px;font-size:27px}}
+@media(max-width:480px){.sl-grid{grid-template-columns:1fr 1fr;gap:8px}.sl-tool{padding:12px;min-height:108px}.sl-panel{padding:14px}.sl-hero-icon{display:none}.sl-chat-form{flex-direction:column}}
+
 </style>
 
 </head>
@@ -2379,6 +2386,7 @@ body{overflow-x:hidden}
       <button class="nav-item" data-page="Cas cliniques" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-hospital"/></svg></span>Cas cliniques</button>
       <button class="nav-item" data-page="TP Simulation" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-syringe"/></svg></span>TP Simulation</button>
       <button class="nav-item" data-page="Examens & QCM" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-check"/></svg></span>Examens & QCM</button>
+      <button class="nav-item" data-page="AI Study Lab" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-spark"/></svg></span>AI Study Lab <span class="sl-nav-tag">NEW</span></button>
       <button class="nav-item" data-page="Assistant IA" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-spark"/></svg></span>Assistant IA</button>
       <button class="nav-item" data-page="Assistance" type="button"><span class="nav-icon"><svg class="ico"><use href="#i-help"/></svg></span>Assistance</button>
 
@@ -2632,6 +2640,7 @@ body{overflow-x:hidden}
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>window.supabase||document.write('<script src="https://unpkg.com/@supabase/supabase-js@2"><\/script>')</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
 if (!window.supabase) {
   document.getElementById("authView").insertAdjacentHTML("afterbegin",'<div class="message show error" style="position:fixed;top:12px;left:12px;right:12px;z-index:99">Connexion impossible. Vérifiez votre réseau puis rechargez la page.</div>');
@@ -2997,6 +3006,12 @@ function openPage(pageName, arg) {
 
   if (pageName === "Assistant IA") {
     renderAssistant();
+    addBackButton(inner);
+    return;
+  }
+
+  if (pageName === "AI Study Lab") {
+    renderStudyLab();
     addBackButton(inner);
     return;
   }
@@ -10842,6 +10857,178 @@ document.querySelectorAll(".stat-card[data-open]").forEach(c => c.addEventListen
     if (mq.addEventListener) mq.addEventListener("change", set);
   }
 } catch (err) { console.error(err); } })();
+
+// =====================================
+// AI STUDY LAB V1 — isolated student workspace
+// =====================================
+const SL_BUCKET = "study-lab-documents";
+const SL_MAX_FILE = 15 * 1024 * 1024;
+let slDocuments = [];
+let slSelected = null;
+let slOutput = null;
+let slChat = [];
+let slBusy = false;
+let slFlashIndex = 0;
+let slFlashRevealed = false;
+const slEsc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const slKinds = [
+  {id:"summary",icon:"📝",title:"Résumé",desc:"Synthèse complète, structurée et bilingue"},
+  {id:"quiz",icon:"☑️",title:"QCM interactifs",desc:"Questions, correction et explications"},
+  {id:"flashcards",icon:"🗂️",title:"Flashcards",desc:"Mémorisation active et répétition"},
+  {id:"mindmap",icon:"🧠",title:"Cartes mentales",desc:"Organiser les notions et leurs liens"},
+  {id:"clinical_case",icon:"🩺",title:"Cas cliniques",desc:"Situations pédagogiques appliquées"},
+  {id:"chat",icon:"💬",title:"Chat avec mon cours",desc:"Poser des questions sur le PDF choisi"}
+];
+function slSetStatus(message, isError=false) {
+  const el=document.getElementById("slStatus");
+  if(el){el.textContent=message||"";el.style.color=isError?"#b42318":"var(--teal-dark)";}
+}
+function slCurrentText(){return slSelected?.extracted_text||"";}
+function slFormatDate(value){try{return new Date(value).toLocaleDateString("fr-FR",{day:"2-digit",month:"short",year:"numeric"});}catch(_){return "";}}
+function renderStudyLab(){
+  const inner=document.getElementById("innerPage");
+  inner.innerHTML=`<div class="sl-wrap">
+    <section class="sl-hero"><div><div class="sl-eyebrow">Votre atelier personnel de révision</div><h1>AI Study Lab</h1><p>Importez votre cours PDF et transformez-le en résumé complet, QCM, flashcards, cartes mentales et cas cliniques. Posez aussi vos questions directement au document.</p></div><div class="sl-hero-icon">✦</div></section>
+    <section class="sl-panel"><h2>Importer un cours</h2><p class="sl-muted">PDF uniquement · Jusqu'à 15 MB · Vos fichiers restent privés dans votre espace personnel.</p><div class="sl-upload"><div style="font-size:30px">📄</div><strong>Choisissez votre document PDF</strong><input id="slFile" type="file" accept="application/pdf,.pdf"><div><button class="sl-btn" id="slUploadBtn" type="button">Importer et analyser le cours</button></div><div id="slStatus" class="sl-status" style="margin-top:10px" aria-live="polite"></div></div></section>
+    <section class="sl-panel"><div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap"><div><h2>Mes documents</h2><p class="sl-muted">Seul votre compte peut consulter ces fichiers.</p></div><span class="sl-badge" id="slDocCount">0 document</span></div><div id="slDocs" class="sl-docs"><div class="sl-empty">Chargement de vos documents…</div></div></section>
+    <section class="sl-panel"><h2>Mes outils d'apprentissage</h2><p class="sl-muted" id="slSelectedLabel">Sélectionnez d'abord un cours pour activer les outils.</p><div class="sl-grid" id="slTools">${slKinds.map(k=>`<button class="sl-tool" data-sl-kind="${k.id}" type="button"><span class="ico2">${k.icon}</span><strong>${k.title}</strong><small>${k.desc}</small></button>`).join("")}</div></section>
+    <section class="sl-work"><div class="sl-panel"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><div><h2 id="slOutputTitle">Votre espace de travail</h2><p class="sl-muted" id="slOutputSub">Les contenus générés apparaîtront ici.</p></div><button class="sl-btn alt" id="slRefreshOutputs" type="button">Historique</button></div><div id="slOutput" class="sl-output"><div class="sl-empty">Choisissez un document puis l'un des six outils.</div></div></div>
+    <div class="sl-panel"><h2>Chat avec mon cours</h2><p class="sl-muted">Les réponses s'appuient sur le document sélectionné. Si une information n'est pas dans le cours, l'assistant le précisera.</p><div id="slChat" class="sl-chat"><div class="sl-empty">Sélectionnez un cours pour commencer la discussion.</div></div><form id="slChatForm" class="sl-chat-form"><input id="slChatInput" type="text" maxlength="2000" placeholder="Posez une question sur votre cours…" autocomplete="off"><button class="sl-btn" type="submit">Envoyer</button></form></div></section>
+    <div class="sl-note">Important : les contenus générés sont des supports pédagogiques. Vérifiez les notions médicales avec votre cours, les protocoles en vigueur et vos enseignants. L'IA peut commettre des erreurs.</div>
+  </div>`;
+  inner.querySelector("#slUploadBtn").addEventListener("click",slUploadDocument);
+  inner.querySelector("#slDocs").addEventListener("click",e=>{const pick=e.target.closest("[data-sl-select]");const del=e.target.closest("[data-sl-delete]");if(pick)slSelectDocument(pick.dataset.slSelect);if(del){e.stopPropagation();slDeleteDocument(del.dataset.slDelete);}});
+  inner.querySelector("#slTools").addEventListener("click",e=>{const b=e.target.closest("[data-sl-kind]");if(b)slGenerate(b.dataset.slKind);});
+  inner.querySelector("#slRefreshOutputs").addEventListener("click",slLoadOutputs);
+  inner.querySelector("#slChatForm").addEventListener("submit",slSendChat);
+  inner.querySelector("#slOutput").addEventListener("click",slOutputAction);
+  slLoadDocuments();
+}
+async function slLoadDocuments(){
+  const box=document.getElementById("slDocs");if(!box||!currentUser)return;
+  const {data,error}=await db.from("study_lab_documents").select("id,title,original_name,page_count,status,created_at,extracted_text").order("created_at",{ascending:false});
+  if(error){box.innerHTML=`<div class="sl-empty">Impossible de charger vos documents : ${slEsc(error.message)}</div>`;return;}
+  slDocuments=data||[];
+  const count=document.getElementById("slDocCount");if(count)count.textContent=slDocuments.length+ (slDocuments.length>1?" documents":" document");
+  if(!slDocuments.length){box.innerHTML='<div class="sl-empty">Aucun cours importé pour le moment.</div>';return;}
+  box.innerHTML=slDocuments.map(d=>`<div class="sl-doc ${slSelected?.id===d.id?"active":""}"><div style="font-size:23px">📕</div><div class="sl-doc-main" data-sl-select="${d.id}"><strong>${slEsc(d.title)}</strong><small>${slEsc(d.original_name)} · ${d.page_count} page(s) · ${slFormatDate(d.created_at)}</small></div><span class="sl-badge">${d.status==="ready"?"Prêt":"À vérifier"}</span><button class="sl-btn danger" data-sl-delete="${d.id}" type="button" style="padding:7px 9px;font-size:11px">Supprimer</button></div>`).join("");
+  if(slSelected){slSelected=slDocuments.find(d=>d.id===slSelected.id)||null;}
+  if(!slSelected&&slDocuments.length)slSelected=slDocuments[0];
+  if(slSelected)slSelectDocument(slSelected.id,false);
+}
+async function slSelectDocument(id, reload=true){
+  const d=slDocuments.find(x=>x.id===id);if(!d)return;slSelected=d;slOutput=null;slChat=[];
+  const label=document.getElementById("slSelectedLabel");if(label)label.textContent="Cours sélectionné : "+d.title;
+  document.querySelectorAll(".sl-tool").forEach(b=>{b.disabled=d.status!=="ready";b.title=d.status!=="ready"?"Document non prêt":"";});
+  document.querySelectorAll(".sl-doc").forEach(el=>el.classList.toggle("active",el.querySelector(`[data-sl-select="${id}"]`)!==null));
+  const out=document.getElementById("slOutput");if(out)out.innerHTML='<div class="sl-empty">Sélectionnez un outil pour générer du contenu à partir de ce cours.</div>';
+  if(reload)await slLoadOutputs();
+  await slLoadChat();
+}
+async function slExtractPdf(file){
+  if(!window.pdfjsLib)throw new Error("Le lecteur PDF n'a pas pu se charger. Actualisez la page puis réessayez.");
+  pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  const buffer=await file.arrayBuffer();const pdf=await pdfjsLib.getDocument({data:buffer}).promise;
+  if(pdf.numPages>250)throw new Error("Ce document dépasse la limite de 250 pages pour l'analyse V1.");
+  let pages=[];
+  for(let n=1;n<=pdf.numPages;n++){
+    const page=await pdf.getPage(n);const content=await page.getTextContent();
+    const text=content.items.map(x=>x.str||"").join(" ").replace(/\s+/g," ").trim();
+    pages.push(`[PAGE ${n}]\n${text}`);
+  }
+  const extracted=pages.join("\n\n").trim();
+  if(extracted.length<80)throw new Error("Le PDF ne contient pas de texte exploitable. Les PDF scannés (images) ne sont pas encore pris en charge dans cette version.");
+  if(extracted.length>450000)throw new Error("Le texte extrait est trop volumineux pour la V1 (maximum 450 000 caractères). Essayez un PDF plus court.");
+  return {text:extracted,pages:pdf.numPages};
+}
+async function slUploadDocument(){
+  const input=document.getElementById("slFile"),btn=document.getElementById("slUploadBtn");const file=input?.files?.[0];
+  if(!file){slSetStatus("Choisissez d'abord un fichier PDF.",true);return;}
+  if(file.type!=="application/pdf"&&!file.name.toLowerCase().endsWith(".pdf")){slSetStatus("Seuls les fichiers PDF sont acceptés.",true);return;}
+  if(file.size>SL_MAX_FILE){slSetStatus("Le fichier dépasse 15 MB.",true);return;}
+  if(!currentUser){slSetStatus("Votre session a expiré. Reconnectez-vous.",true);return;}
+  btn.disabled=true;btn.textContent="Analyse du PDF…";slSetStatus("Extraction du texte et des pages en cours…");
+  let storagePath=null;
+  try{
+    const parsed=await slExtractPdf(file);const id=crypto.randomUUID();
+    storagePath=`${currentUser.id}/${id}/${file.name.replace(/[^\p{L}\p{N}._ -]/gu,"_")}`;
+    slSetStatus("Enregistrement sécurisé du document…");
+    const {error:upErr}=await db.storage.from(SL_BUCKET).upload(storagePath,file,{contentType:"application/pdf",upsert:false,cacheControl:"3600"});
+    if(upErr)throw upErr;
+    const title=file.name.replace(/\.pdf$/i,"").slice(0,180);
+    const {data,error}=await db.from("study_lab_documents").insert({id,user_id:currentUser.id,title,original_name:file.name,storage_path:storagePath,extracted_text:parsed.text,page_count:parsed.pages,status:"ready"}).select("id,title,original_name,page_count,status,created_at,extracted_text").single();
+    if(error){await db.storage.from(SL_BUCKET).remove([storagePath]);throw error;}
+    slSelected=data;input.value="";slSetStatus("Document importé et analysé avec succès.");await slLoadDocuments();
+  }catch(err){console.error("AI Study Lab upload:",err);slSetStatus(err.message||"Une erreur est survenue pendant l'import.",true);}
+  finally{btn.disabled=false;btn.textContent="Importer et analyser le cours";}
+}
+async function slDeleteDocument(id){
+  const d=slDocuments.find(x=>x.id===id);if(!d)return;
+  if(!confirm(`Supprimer « ${d.title} » et tous les contenus générés associés ?`))return;
+  const {error:rmErr}=await db.storage.from(SL_BUCKET).remove([d.storage_path]);
+  if(rmErr){slSetStatus("Impossible de supprimer le fichier : "+rmErr.message,true);return;}
+  const {error}=await db.from("study_lab_documents").delete().eq("id",id);
+  if(error){slSetStatus("Le fichier a été supprimé du stockage, mais la fiche n'a pas pu être supprimée : "+error.message,true);return;}
+  if(slSelected?.id===id)slSelected=null;slOutput=null;await slLoadDocuments();
+}
+function slPrompt(kind,doc){
+  const source=doc.extracted_text.slice(0,28000);
+  const base=`Tu es un enseignant universitaire en sciences infirmières pour des étudiants ISPITS au Maroc. Utilise exclusivement le cours fourni pour les faits attribués au document. Réponds en français avec des explications en arabe (arabe standard simple, Darija seulement si utile). N'invente aucune information ni référence de page. Si le document ne permet pas de répondre, indique-le. Signale clairement les informations absentes ou ambiguës. Document: ${doc.title}. Texte extrait avec repères de pages:\n${source}`;
+  const specs={
+    summary:`Produis un résumé COMPLET, détaillé et structuré sans omettre les notions importantes. Conserve l'organisation du cours. Inclure objectifs, définitions, explications par partie, tableaux comparatifs en objets simples, points à retenir et glossaire FR/AR. Retourne uniquement un JSON valide: {"title":"...","introduction":"...","sections":[{"heading":"...","content":"...","page":"..."}],"key_points":["..."],"glossary":[{"term":"...","meaning":"...","arabic":"..."}],"limitations":"..."}.`,
+    quiz:`Crée 12 QCM fondés sur le cours, niveaux mélangés. Une seule bonne réponse par question. Retourne uniquement JSON: {"title":"...","questions":[{"question":"...","options":["A...","B...","C...","D..."],"answer_index":0,"explanation":"...","page":"..."}]}.`,
+    flashcards:`Crée 20 flashcards de révision actives. Retourne uniquement JSON: {"title":"...","cards":[{"front":"...","back":"...","page":"..."}]}.`,
+    mindmap:`Organise les idées du cours en carte mentale hiérarchique. Retourne uniquement JSON: {"title":"...","central":"...","branches":[{"title":"...","children":["..."],"page":"..."}]}.`,
+    clinical_case:`Crée 2 cas cliniques pédagogiques qui restent strictement dans les limites du cours fourni. Ne formule pas de prescription réelle. Retourne uniquement JSON: {"title":"...","cases":[{"scenario":"...","questions":[{"question":"...","expected_answer":"...","explanation":"...","page":"..."}],"learning_points":["..."]}]}.`
+  };
+  return base+"\n\nTâche: "+specs[kind];
+}
+function slParseJson(raw){let t=String(raw||"").trim().replace(/^```(?:json)?\s*/i,"").replace(/\s*```$/i,"");const a=t.indexOf("{"),b=t.lastIndexOf("}");if(a>=0&&b>a)t=t.slice(a,b+1);return JSON.parse(t);}
+async function slGenerate(kind){
+  if(!slSelected){slSetStatus("Sélectionnez d'abord un cours.",true);return;}
+  if(kind==="chat"){document.getElementById("slChatInput")?.focus();return;}
+  if(slBusy)return;slBusy=true;const title=slKinds.find(x=>x.id===kind)?.title||kind;const out=document.getElementById("slOutput");
+  document.getElementById("slOutputTitle").textContent=title;document.getElementById("slOutputSub").textContent="Génération à partir de : "+slSelected.title;
+  out.innerHTML='<div class="sl-empty">Génération en cours… Merci de patienter.</div>';
+  document.querySelectorAll(".sl-tool").forEach(b=>b.disabled=true);
+  try{
+    const {data,error}=await db.functions.invoke("chat",{body:{messages:[{role:"user",content:slPrompt(kind,slSelected)}]}});
+    if(error)throw error;if(data?.error)throw new Error(data.error);
+    const content=slParseJson(data.reply||"");
+    const {data:saved,error:saveErr}=await db.from("study_lab_outputs").insert({document_id:slSelected.id,user_id:currentUser.id,kind,title:content.title||title,content}).select("id,kind,title,content,created_at").single();
+    if(saveErr)throw saveErr;slOutput=saved;slRenderOutput(saved);
+  }catch(err){console.error("Study Lab generation:",err);out.innerHTML=`<div class="sl-empty">La génération n'a pas abouti : ${slEsc(err.message||"Erreur inconnue")}<br><br>Réessayez avec un document plus court.</div>`;}
+  finally{slBusy=false;document.querySelectorAll(".sl-tool").forEach(b=>b.disabled=!slSelected);}
+}
+async function slLoadOutputs(){if(!slSelected)return;const out=document.getElementById("slOutput");if(!out)return;const {data,error}=await db.from("study_lab_outputs").select("id,kind,title,content,created_at").eq("document_id",slSelected.id).order("created_at",{ascending:false}).limit(30);if(error){out.textContent="Impossible de charger l'historique.";return;}if(!data?.length){out.innerHTML='<div class="sl-empty">Aucun contenu généré pour ce cours.</div>';return;}out.innerHTML=`<h3>Historique des générations</h3>`+data.map(x=>`<button class="sl-tool" data-sl-history="${x.id}" type="button" style="width:100%;min-height:0;margin:5px 0"><strong>${slEsc(x.title)}</strong><small>${slEsc(x.kind)} · ${slFormatDate(x.created_at)}</small></button>`).join("");out.querySelectorAll("[data-sl-history]").forEach(b=>b.addEventListener("click",()=>{const item=data.find(x=>x.id===b.dataset.slHistory);if(item){slOutput=item;slRenderOutput(item);}}));}
+function slRenderOutput(item){
+  const box=document.getElementById("slOutput");if(!box)return;const c=item.content||{};let html=`<div class="sl-actions"><span class="sl-badge">${slEsc(item.kind)}</span><button class="sl-btn alt" id="slBackHistory" type="button">Historique</button></div><h3>${slEsc(c.title||item.title)}</h3>`;
+  if(item.kind==="summary"){
+    if(c.introduction)html+=`<p>${slEsc(c.introduction)}</p>`;
+    (c.sections||[]).forEach(x=>html+=`<h4>${slEsc(x.heading)}</h4><p>${slEsc(x.content)}</p>${x.page?`<small class="sl-muted">Source : ${slEsc(x.page)}</small>`:""}`);
+    if(c.key_points?.length)html+='<h4>Points essentiels</h4><ul>'+c.key_points.map(x=>`<li>${slEsc(x)}</li>`).join("")+'</ul>';
+    if(c.glossary?.length)html+='<h4>Glossaire FR / AR</h4>'+c.glossary.map(x=>`<p><b>${slEsc(x.term)}</b> — ${slEsc(x.meaning)} <span dir="rtl">${slEsc(x.arabic)}</span></p>`).join("");
+  }else if(item.kind==="quiz"){
+    (c.questions||[]).forEach((q,i)=>html+=`<div class="sl-q" data-sl-q="${i}"><b>${i+1}. ${slEsc(q.question)}</b>${(q.options||[]).map((o,j)=>`<label><input type="radio" name="slq${i}" value="${j}"> ${slEsc(o)}</label>`).join("")}<div class="sl-q-feedback" style="font-size:12px;margin-top:6px"></div><input type="hidden" class="sl-q-answer" value="${Number(q.answer_index)}"><input type="hidden" class="sl-q-explain" value="${slEsc(q.explanation||"")}"></div>`);
+    html+='<button class="sl-btn" id="slCheckQuiz" type="button">Corriger mes réponses</button>';
+  }else if(item.kind==="flashcards"){
+    const cards=c.cards||[];const card=cards[slFlashIndex%Math.max(1,cards.length)];html+=card?`<div class="sl-flash-count">Carte ${slFlashIndex+1} / ${cards.length}</div><button class="sl-flip" id="slFlipCard" type="button">${slFlashRevealed?slEsc(card.back):slEsc(card.front)}<small style="display:block;margin-top:15px;color:var(--muted)">${slFlashRevealed?"Réponse":"Appuyez pour afficher la réponse"}</small></button><div class="sl-actions" style="margin-top:10px"><button class="sl-btn alt" id="slPrevCard" type="button">Précédente</button><button class="sl-btn" id="slNextCard" type="button">Suivante</button></div>`:'<p>Aucune carte générée.</p>';
+  }else if(item.kind==="mindmap"){
+    html+=`<div class="sl-branch"><b>${slEsc(c.central||c.title)}</b></div><div class="sl-tree">${(c.branches||[]).map(b=>`<div class="sl-branch"><b>${slEsc(b.title)}</b><ul>${(b.children||[]).map(x=>`<li>${slEsc(x)}</li>`).join("")}</ul>${b.page?`<small>${slEsc(b.page)}</small>`:""}</div>`).join("")}</div>`;
+  }else if(item.kind==="clinical_case"){
+    (c.cases||[]).forEach((x,i)=>{html+=`<h4>Cas ${i+1}</h4><p>${slEsc(x.scenario)}</p>`+(x.questions||[]).map(q=>`<div class="sl-q"><b>${slEsc(q.question)}</b><details style="margin-top:8px"><summary>Voir la correction</summary><p>${slEsc(q.expected_answer)}</p><p>${slEsc(q.explanation)}</p></details></div>`).join("")+(x.learning_points||[]).map(p=>`<p>• ${slEsc(p)}</p>`).join("");});
+  }
+  if(c.limitations)html+=`<div class="sl-note">Limites du document : ${slEsc(c.limitations)}</div>`;
+  box.innerHTML=html;box.querySelector("#slBackHistory")?.addEventListener("click",slLoadOutputs);
+}
+function slOutputAction(e){const b=e.target.closest("button");if(!b)return;if(b.id==="slCheckQuiz"){
+  let score=0,total=0;document.querySelectorAll(".sl-q").forEach(q=>{total++;const ans=Number(q.querySelector(".sl-q-answer").value),picked=q.querySelector("input[type=radio]:checked"),fb=q.querySelector(".sl-q-feedback");const ok=picked&&Number(picked.value)===ans;if(ok)score++;fb.innerHTML=`<span class="${ok?"sl-correct":"sl-wrong"}">${ok?"Bonne réponse":"Réponse incorrecte"}</span><br>${slEsc(q.querySelector(".sl-q-explain").value)}`;});b.textContent=`Résultat : ${score} / ${total}`;
+  }else if(b.id==="slFlipCard"){slFlashRevealed=!slFlashRevealed;slRenderOutput(slOutput);}else if(b.id==="slNextCard"){slFlashIndex++;slFlashRevealed=false;slRenderOutput(slOutput);}else if(b.id==="slPrevCard"){slFlashIndex=Math.max(0,slFlashIndex-1);slFlashRevealed=false;slRenderOutput(slOutput);}}
+async function slLoadChat(){const box=document.getElementById("slChat");if(!box||!slSelected)return;const {data,error}=await db.from("study_lab_chat_messages").select("role,content,created_at").eq("document_id",slSelected.id).order("created_at",{ascending:true}).limit(80);if(error){box.innerHTML='<div class="sl-empty">Impossible de charger la conversation.</div>';return;}slChat=data||[];slRenderChat();}
+function slRenderChat(){const box=document.getElementById("slChat");if(!box)return;if(!slChat.length){box.innerHTML='<div class="sl-empty">Bonjour ! Posez-moi une question sur le cours sélectionné.</div>';return;}box.innerHTML=slChat.map(m=>`<div class="sl-chat-msg ${m.role}">${slEsc(m.content)}</div>`).join("");box.scrollTop=box.scrollHeight;}
+async function slSendChat(e){e.preventDefault();const input=document.getElementById("slChatInput"),text=input.value.trim();if(!text||!slSelected||slBusy)return;input.value="";slBusy=true;const {error:saveUserErr}=await db.from("study_lab_chat_messages").insert({document_id:slSelected.id,user_id:currentUser.id,role:"user",content:text});if(saveUserErr){slSetStatus(saveUserErr.message,true);slBusy=false;return;}slChat.push({role:"user",content:text});slRenderChat();const placeholder={role:"assistant",content:"Réflexion en cours…"};slChat.push(placeholder);slRenderChat();
+  try{const history=slChat.slice(0,-1).slice(-12).map(m=>({role:m.role,content:m.content}));const context=slSelected.extracted_text.slice(0,22000);const prompt=`Tu es un tuteur ISPITS. Réponds en français et explique en arabe quand cela aide. Réponds d'abord à partir du cours ci-dessous, cite les numéros de page seulement s'ils sont visibles dans le texte. Ne fabrique pas de faits. Si le cours ne contient pas la réponse, dis-le explicitement.\nCOURS: ${slSelected.title}\n${context}\n\nQuestion de l'étudiant: ${text}`;const {data,error}=await db.functions.invoke("chat",{body:{messages:[...history,{role:"user",content:prompt}]}});if(error)throw error;if(data?.error)throw new Error(data.error);const answer=data.reply||"Je n'ai pas pu formuler de réponse.";placeholder.content=answer;await db.from("study_lab_chat_messages").insert({document_id:slSelected.id,user_id:currentUser.id,role:"assistant",content:answer.slice(0,12000)});
+  }catch(err){placeholder.content="Erreur : "+(err.message||"réessayez dans un instant.");}finally{slBusy=false;slRenderChat();}}
 
 initializeApp();
 </script>
