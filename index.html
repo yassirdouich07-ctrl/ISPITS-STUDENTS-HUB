@@ -11003,7 +11003,7 @@ async function slParseOrRepair(raw,kind,docTitle){
   catch(firstError){
     console.warn("Study Lab: JSON invalide, tentative de réparation automatique.",firstError);
     const repairPrompt=`Tu es un réparateur de JSON. Le texte ci-dessous est une réponse générée pour l'outil ${kind} du cours « ${docTitle} ». Corrige UNIQUEMENT la syntaxe JSON : guillemets, virgules, crochets, accolades et caractères de nouvelle ligne dans les chaînes. Ne résume pas, ne supprime pas de cartes/questions et ne change pas le sens. Retourne un seul objet JSON valide, sans Markdown, sans commentaire et sans texte avant ou après. Si une chaîne contient des guillemets, échappe-les. Texte à réparer :\n${String(raw||"").slice(0,30000)}`;
-    const {data,error}=await db.functions.invoke("chat",{body:{messages:[{role:"user",content:repairPrompt}]}});
+    const {data,error}=await db.functions.invoke("study-lab",{body:{prompt:repairPrompt}});
     if(error)throw error;
     if(data?.error)throw new Error(data.error);
     try{return slValidateGenerated(kind,slParseJson(data.reply||""));}
@@ -11018,7 +11018,7 @@ async function slGenerate(kind){
   out.innerHTML='<div class="sl-empty">Génération en cours… Merci de patienter.</div>';
   document.querySelectorAll(".sl-tool").forEach(b=>b.disabled=true);
   try{
-    const {data,error}=await db.functions.invoke("chat",{body:{messages:[{role:"user",content:slPrompt(kind,slSelected)}]}});
+    const {data,error}=await db.functions.invoke("study-lab",{body:{prompt:slPrompt(kind,slSelected)}});
     if(error)throw error;if(data?.error)throw new Error(data.error);
     const content=await slParseOrRepair(data.reply||"",kind,slSelected.title);
     const {data:saved,error:saveErr}=await db.from("study_lab_outputs").insert({document_id:slSelected.id,user_id:currentUser.id,kind,title:content.title||title,content}).select("id,kind,title,content,created_at").single();
