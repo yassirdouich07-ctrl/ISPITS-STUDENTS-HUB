@@ -10983,7 +10983,33 @@ function slPrompt(kind,doc){
   };
   return base+"\n\nTâche: "+specs[kind];
 }
-function slParseJson(raw){let t=String(raw||"").trim().replace(/^```(?:json)?\s*/i,"").replace(/\s*```$/i,"");const a=t.indexOf("{"),b=t.lastIndexOf("}");if(a>=0&&b>a)t=t.slice(a,b+1);return JSON.parse(t);}
+function slParseJson(raw){
+  let t=String(raw||"").trim().replace(/^```(?:json)?\s*/i,"").replace(/\s*```$/i,"");
+  const a=t.indexOf("{"),b=t.lastIndexOf("}");
+  if(a>=0&&b>a)t=t.slice(a,b+1);
+  return JSON.parse(t);
+}
+function slValidateGenerated(kind,value){
+  if(!value||typeof value!=="object"||Array.isArray(value))throw new Error("Le format reçu n'est pas un objet JSON.");
+  const arrays={summary:"sections",quiz:"questions",flashcards:"cards",mindmap:"branches",clinical_case:"cases"};
+  const key=arrays[kind];
+  if(key&&(!Array.isArray(value[key])||value[key].length===0))throw new Error("Le contenu généré ne contient pas la liste attendue : "+key+".");
+  if(kind==="flashcards"&&value.cards.some(c=>!c||typeof c.front!=="string"||typeof c.back!=="string"))throw new Error("Certaines flashcards ne contiennent pas leur question et leur réponse.");
+  if(kind==="quiz"&&value.questions.some(q=>!q||!Array.isArray(q.options)||q.options.length<2||!Number.isInteger(Number(q.answer_index))))throw new Error("Une question QCM est incomplète.");
+  return value;
+}
+async function slParseOrRepair(raw,kind,docTitle){
+  try{return slValidateGenerated(kind,slParseJson(raw));}
+  catch(firstError){
+    console.warn("Study Lab: JSON invalide, tentative de réparation automatique.",firstError);
+    const repairPrompt=`Tu es un réparateur de JSON. Le texte ci-dessous est une réponse générée pour l'outil ${kind} du cours « ${docTitle} ». Corrige UNIQUEMENT la syntaxe JSON : guillemets, virgules, crochets, accolades et caractères de nouvelle ligne dans les chaînes. Ne résume pas, ne supprime pas de cartes/questions et ne change pas le sens. Retourne un seul objet JSON valide, sans Markdown, sans commentaire et sans texte avant ou après. Si une chaîne contient des guillemets, échappe-les. Texte à réparer :\n${String(raw||"").slice(0,30000)}`;
+    const {data,error}=await db.functions.invoke("chat",{body:{messages:[{role:"user",content:repairPrompt}]}});
+    if(error)throw error;
+    if(data?.error)throw new Error(data.error);
+    try{return slValidateGenerated(kind,slParseJson(data.reply||""));}
+    catch(secondError){throw new Error("La réponse de l'IA كانت غير صالحة حتى بعد محاولة إصلاحها. عاود المحاولة؛ الدرس الأصلي باقي محفوظ. ("+secondError.message+")");}
+  }
+}
 async function slGenerate(kind){
   if(!slSelected){slSetStatus("Sélectionnez d'abord un cours.",true);return;}
   if(kind==="chat"){document.getElementById("slChatInput")?.focus();return;}
@@ -10994,10 +11020,10 @@ async function slGenerate(kind){
   try{
     const {data,error}=await db.functions.invoke("chat",{body:{messages:[{role:"user",content:slPrompt(kind,slSelected)}]}});
     if(error)throw error;if(data?.error)throw new Error(data.error);
-    const content=slParseJson(data.reply||"");
+    const content=await slParseOrRepair(data.reply||"",kind,slSelected.title);
     const {data:saved,error:saveErr}=await db.from("study_lab_outputs").insert({document_id:slSelected.id,user_id:currentUser.id,kind,title:content.title||title,content}).select("id,kind,title,content,created_at").single();
     if(saveErr)throw saveErr;slOutput=saved;slRenderOutput(saved);
-  }catch(err){console.error("Study Lab generation:",err);out.innerHTML=`<div class="sl-empty">La génération n'a pas abouti : ${slEsc(err.message||"Erreur inconnue")}<br><br>Réessayez avec un document plus court.</div>`;}
+  }catch(err){console.error("Study Lab generation:",err);out.innerHTML=`<div class="sl-empty">La génération n'a pas abouti : ${slEsc(err.message||"Erreur inconnue")}<br><br>Votre document reste enregistré. Vous pouvez relancer la génération sans le téléverser de nouveau.</div>`;}
   finally{slBusy=false;document.querySelectorAll(".sl-tool").forEach(b=>b.disabled=!slSelected);}
 }
 async function slLoadOutputs(){if(!slSelected)return;const out=document.getElementById("slOutput");if(!out)return;const {data,error}=await db.from("study_lab_outputs").select("id,kind,title,content,created_at").eq("document_id",slSelected.id).order("created_at",{ascending:false}).limit(30);if(error){out.textContent="Impossible de charger l'historique.";return;}if(!data?.length){out.innerHTML='<div class="sl-empty">Aucun contenu généré pour ce cours.</div>';return;}out.innerHTML=`<h3>Historique des générations</h3>`+data.map(x=>`<button class="sl-tool" data-sl-history="${x.id}" type="button" style="width:100%;min-height:0;margin:5px 0"><strong>${slEsc(x.title)}</strong><small>${slEsc(x.kind)} · ${slFormatDate(x.created_at)}</small></button>`).join("");out.querySelectorAll("[data-sl-history]").forEach(b=>b.addEventListener("click",()=>{const item=data.find(x=>x.id===b.dataset.slHistory);if(item){slOutput=item;slRenderOutput(item);}}));}
